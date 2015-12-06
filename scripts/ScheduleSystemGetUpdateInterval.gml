@@ -1,0 +1,3 @@
+/// ScheduleSystemGetUpdateInterval()
+
+return SharedScheduler().updateInterval;

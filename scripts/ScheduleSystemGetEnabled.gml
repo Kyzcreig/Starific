@@ -1,0 +1,3 @@
+/// ScheduleSystemGetEnabled()
+
+return SharedScheduler().isEnabled;

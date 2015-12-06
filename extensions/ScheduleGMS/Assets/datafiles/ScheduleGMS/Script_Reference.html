@@ -1,0 +1,2322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 4.3.0.4 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2014-12-13T22:58:55.217000000"/>
+	<style type="text/css">
+		@page { margin-left: 2cm; margin-right: 2cm; margin-top: 0.24cm; margin-bottom: 0.21cm }
+		p { margin-bottom: 0.1cm; direction: ltr; color: #000000; widows: 0; orphans: 0 }
+		p.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-CA }
+		p.cjk { font-family: "Arial"; font-size: 12pt; so-language: zh-CN }
+		p.ctl { font-family: "Mangal"; font-size: 12pt; so-language: hi-IN }
+		td p { margin-bottom: 0cm; direction: ltr; color: #000000; widows: 0; orphans: 0 }
+		td p.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-CA }
+		td p.cjk { font-family: "Arial"; font-size: 12pt; so-language: zh-CN }
+		td p.ctl { font-family: "Mangal"; font-size: 12pt; so-language: hi-IN }
+		pre { color: #000000 }
+		pre.cjk { font-family: "NSimSun", monospace }
+		a:link { text-decoration: none }
+		a.western:link { so-language: en-US; font-weight: bold }
+		a.cjk:link { so-language: en-US }
+		a.ctl:link { so-language: en-US }
+		a:visited { color: #0000ff }
+	</style>
+</head>
+<body lang="en-CA" text="#000000" vlink="#0000ff" dir="ltr" style="background: transparent">
+<p class="western" align="left" style="margin-bottom: 0cm"><font color="#0084d1"><font size="5" style="font-size: 18pt"><span style="background: transparent">Schedule</span></font></font><font color="#c5000b"><font size="5" style="font-size: 18pt">GMS</font></font>
+<font size="5" style="font-size: 18pt">(v1.0.</font><font size="5" style="font-size: 18pt">3</font><font size="5" style="font-size: 18pt">)</font></p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<table width="911" cellpadding="0" cellspacing="0" bgcolor="#e6e6ff">
+	<col width="305">
+	<col width="298">
+	<col width="307">
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleScript">ScheduleScript</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleAlarm"><b>ScheduleAlarm</b></a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleTimeLine"><b>ScheduleTimeLine</b></a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleEvent">ScheduleEvent</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleEventObject">ScheduleEventObject</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleEventUser">ScheduleEventUser</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSound">ScheduleSound</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSoundOn">ScheduleSoundOn</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSoundAt">ScheduleSoundAt</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#SchedulePath"><b>SchedulePath</b></a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleNull">ScheduleNull</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleExists">ScheduleExists</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleIsPlaying">ScheduleIsPlaying</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleIsPaused">ScheduleIsPaused</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleCancel">ScheduleCancel</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#SchedulePause">SchedulePause</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleResume">ScheduleResume</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleFinish">ScheduleFinish</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#Schedule____All">Schedule____All</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#Schedule____Group">Schedule____Group</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#Schedule____Target">Schedule____Target</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetTarget">ScheduleGetTarget</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetDelta">ScheduleGetDelta</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetTime">ScheduleGetTime</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetGroup">ScheduleGetGroup</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetTimeScale">ScheduleGetTimeScale</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetDuration">ScheduleGetDuration</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetRepeat">ScheduleGetRepeat</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetForceCounter">ScheduleGetForceCounter</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleGetMute">ScheduleGetMute</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTarget">ScheduleSetTarget</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetDelta">ScheduleSetDelta</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTime">ScheduleSetTime</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetGroup">ScheduleSetGroup</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTimeScale">ScheduleSetTimeScale</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetDuration">ScheduleSetDuration</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetRepeat">ScheduleSetRepeat</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetForceCounter">ScheduleSetForceCounter</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetMute">ScheduleSetMute</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTimeScaleAll">ScheduleSetTimeScaleAll</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTimeScaleGroup">ScheduleSetTimeScaleGroup</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSetTimeScaleTarget">ScheduleSetTimeScaleTarget</a></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleDefaultGetTimeScale">ScheduleDefaultGetTimeScale</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleDefaultSetTimeScale">ScheduleDefaultSetTimeScale</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#SharedSchedulerActivate">SharedSchedulerActivate</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#SharedSchedulerDestroy">SharedSchedulerDestroy</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemGetEnabled">ScheduleSystemGetEnabled</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemSetEnabled">ScheduleSystemSetEnabled</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemGetTimeScale">ScheduleSystemGetTimeScale</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemSetTimeScale">ScheduleSystemSetTimeScale</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemGetUpdateInterval">ScheduleSystemGetUpdateInterval</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemSetUpdateInterval">ScheduleSystemSetUpdateInterval</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemClearRoom">ScheduleSystemClearRoom</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemClearAllRooms">ScheduleSystemClearAllRooms</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="305" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemSetMinDeltaFPS">ScheduleSystemSetMinDeltaFPS</a></p>
+		</td>
+		<td width="298" style="border: none; padding: 0cm">
+			<p class="western"><a class="western" href="#ScheduleSystemCount">ScheduleSystemCount</a></p>
+		</td>
+		<td width="307" style="border: none; padding: 0cm">
+			<p class="western"><br/>
+
+			</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleScript"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleScript</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a script to be called after a set duration of time in
+seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleScript(target,delta,dur,script,agr0,arg1,...)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			script is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">script</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">script resource id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">arg0...</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">optional arguments to pass to script (max: 12)</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleScript(id, true, 10, ShowMessage, &ldquo;Hello!&rdquo;);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleAlarm"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleAlarm</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Overrides the built-in timer system and calls the indicated alarm
+event after a set duration of time in seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleAlarm(target,delta,dur,alarm)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			script is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">alarm</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">alarm index</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleAlarm(id, true, 10, 0);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleEvent"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleEvent</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a target's event to be called after a set duration of time
+in seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleEvent(target,delta,dur,type,numb)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">type</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">type of event to call (e.g. ev_mouse)</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">numb</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">event number to call (e.g. ev_left_release)</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleEvent(id, false, 30, ev_mouse, ev_left_release);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleEventObject"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleEventObject</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a target to call an event, defined by the designated
+object, to be called after a set duration of time in seconds(delta)
+or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleEventObject(target,delta,dur,obj,type,numb)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">obj</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">object index to call event from</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">type</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">type of event to call (e.g. ev_mouse)</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">numb</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">event number to call (e.g. ev_left_release)</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleEventObject(obj_Player, false, 30, obj_Baddie, ev_mouse, ev_left_release);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleEventUser"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleEventUser</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a defined user event to be called after a set duration of
+time in seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleEventUser(target,delta,dur,num)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">numb</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">user defined event to call after set time</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleEventUser(id, false, 30, 1);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSound"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSound</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a sound to be played after a set duration of time in
+seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSound(target,delta,dur,sound,priority,loops)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">sound</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">sound resource id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">priority</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">priority of sound playback</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">loops</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">whether or not to repeat audio playback</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleSound(id, false, 30, snd_GunShot, 0, false);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSoundOn"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSoundOn</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a sound to be played on the indicated emitter after a set
+duration of time in seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSoundOn(target,delta,dur,emitterid,sound,loops,priority)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">emitterid</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">user defined event to call after set time</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">sound</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">sound resource id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">loops</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">whether or not audio playback should repeat</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">priority</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">priority of audio playback</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleSoundOn(id, false, 30, emitter1, snd_Punch, false, 0);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSoundAt"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSoundAt</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a sound to played at an indicated position after a set
+duration of time in seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSoundAt(target,delta,dur,sound,x,y,z,falloff_rest_dist,falloff_max_dist,falloff_factor,loops,priority)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			event is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">sound</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">sound resource id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">x</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">x position</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">y</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">y position</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">z</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">z position</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">falloff_rest_dist</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western" style="widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">the
+			falloff reference relative to the listener</font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">falloff_max_dist</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western" style="widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">the
+			maximum falloff distance relative to the listener</font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">falloff_factor</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western" style="widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">the
+			falloff factor (default 1)</font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">loops</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">whether or not audio playback should repeat</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">priority</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">priority of audio playback</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleSoundAt(id, true, 3.75, sndSonar, x-100, y+25, 0, 100, 300, 1, true, 0);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="SchedulePath"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">SchedulePath</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a path to be started after a set duration of time in
+seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>SchedulePath(target,delta,dur,path,speed,endaction,absolute)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">selects between seconds(delta) and STEP timing</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">amount of time, in seconds or steps, before
+			script is called</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">path</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">path resource id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">speed</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">speed to follow path in pixels per STEP</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">endaction</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">path endaction constant (see <b>path_start</b>
+			in GM documentation for details)</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">absolute</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western" style="widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">follow
+			absolute path or relative path</font></font></p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = SchedulePath(id, true, 5.0, pathStar, 1.0, 0, false);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleTimeLine"></a><a name="SchedulePath1"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleTimeLine</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Schedules a time line to be started after a set duration of time in
+seconds(delta) or steps</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleTimeLine(target,delta,dur,timeline,loop,speed,position)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">target</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">instance id</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">delta</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">selects
+			between seconds(delta) and STEP timing</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">dur</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">amount of
+			time, in seconds or steps, before script is called</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">timeline</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">time line
+			resource id</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">loop</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">whether or
+			not time line should loop back to start when finished</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">speed</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western"><font face="Times New Roman, serif">the speed
+			to play the time line</font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western"><font face="Times New Roman, serif">position</font></p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western" style="widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">position
+			to start time line at</font></font></p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleTimeLine(id, true, 2.5, tl_Cutscene1, false, 1, 0);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleNull"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleNull</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns a null schedule handle which can be safely called to prevent
+runtime errors</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleNull()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">null
+schedule</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">// Create null schedule handle
+schedule = TweenNull();
+// Error won't occur
+TweenCancel(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleExists"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleExists</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Checks to see if the indicated schedule is valid</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleExists(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">bool</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">if (ScheduleExists(schedule)) 
+{
+    ScheduleCancel(schedule);   
+}</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleIsPlaying"></a><a name="ScheduleExists1"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleIsPlaying</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Checks to see if the indicated schedule is currently playing</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleIsPlaying(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">bool</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">if (ScheduleIsPlaying(schedule))
+{
+    SchedulePause(schedule);
+}</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleIsPaused"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleIsPaused</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Checks to see if the indicated schedule is currently paused</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleIsPaused(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">bool</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">if (ScheduleIsPaused(schedule))
+{
+    ScheduleResume(schedule);
+}</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleCancel"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleCancel</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Cancels the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleCancel(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleScript(id, true, 1, ShowMessage, &ldquo;Hi&rdquo;);
+ScheduleCancel(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="SchedulePause"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">SchedulePause</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Pauses the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>SchedulePause(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleScript(id, true, 1, ShowMessage, &ldquo;Hi&rdquo;);
+SchedulePause(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleResume"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleResume</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Resumes the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleResume(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = ScheduleScript(id, true, 1, ShowMessage, &ldquo;Hi&rdquo;);
+SchedulePause(schedule);
+ScheduleResume(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleFinish"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleFinish</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Immediately finishes the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleFinish(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">// Schedule showing of message
+schedule = ScheduleScript(id, true, 1, ShowMessage, &ldquo;Hi&rdquo;);
+// Have message show right away
+ScheduleFinish(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="Schedule____All"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">Schedule____All</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Affects all active schedules in the current room</p>
+<p class="western" style="margin-bottom: 0cm"><b>Schedule____All(deactivated)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">deactivated</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">affect schedules belonging to deactivated
+			targets?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<pre class="western">Example:
+SchedulePauseAll(); // Pause all active schedules in room
+ScheduleResumeAll(); // Resume all paused schedules in room</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="Schedule____Group"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">Schedule____Group</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Affects all active schedules assigned to indicated group</p>
+<p class="western" style="margin-bottom: 0cm"><b>Schedule____Group(group,deactivated)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">group</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule group</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">deactivated</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">affect schedules belonging to deactivated
+			targets?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">SchedulePauseGroup(1); // Pause all active schedules assigned to group
+ScheduleResumeAll(1); // Resume all paused schedules assigned to group</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="Schedule____Target"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">Schedule____Target</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Affects all active schedules assigned to indicated target instance</p>
+<p class="western" style="margin-bottom: 0cm"><b>Schedule____Target(target)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">SchedulePauseTarget(npc1) // Pause all active schedules assigned to target instance
+ScheduleResumeTarget(npc1) // Resume all paused schedules assigned to target instance</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetTarget"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetTarget</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the target instance associated with the schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetTarget(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">instance</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">instance = ScheduleGetTarget(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetDelta"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetDelta</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns whether or not the schedule uses delta/seconds or
+frames/steps timing</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetDelta(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">bool</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">uses_seconds = ScheduleGetDelta(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetTime"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetTime</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns a schedules remaining time</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetTime(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">time_remaining = ScheduleGetTime(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetGroup"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetGroup</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the group the schedule is associated with</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetGroup(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">group = ScheduleGetGroup(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the time scale of the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetTimeScale(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">timer_scale = ScheduleGetTimeScale(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetDuration"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetDuration</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the full duration of the schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetDuration(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">duration = ScheduleGetDuration(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetRepeat"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetRepeat</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the remaining number of times the schedule is set to repeat</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetRepeat(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">repeat_count = ScheduleGetRepeat(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetForceCounter"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetForceCounter</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns whether or not the counter is forced to run even if target
+instance is deactivated</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetForceCounter(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">counter_forced = ScheduleGetForceCounter(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleGetMute"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleGetMute</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns whether or not a schedule's callback is muted and not be
+executed</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleGetMute(schedule)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">callback_muted = ScheduleGetMute(schedule);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleDefaultGetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleDefaultGetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the default time scale assigned to newly created schedules</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleDefaultGetTimeScale()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">def_scale = ScheduleDefaultGetTimeScale();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTarget"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTarget</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Assigns a new target instance to associate with the indicated
+schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTarget(schedule,target)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTarget(schedule, other);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetDelta"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetDelta</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Toggles indicated schedule to use delta/seconds or steps/frames
+timing</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetDelta(schedule,delta)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">delta</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">use seconds?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetDelta(schedule, false); // Set schedule to use STEP timing</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTime"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTime</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Updates schedule's remaining time to the indicated value</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTime(schedule,time)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">time</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">time in seconds(delta) or steps</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTime(schedule, 2.0); // Set schedule to 2 seconds</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetGroup"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetGroup</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Assigns a schedule to the indicated group</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetGroup(schedule,group)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">group</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">schedule group</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetGroup(schedule, 2);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetDuration"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetDuration</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the full duration of a schedule &ndash; useful for updating
+repeated schedule duration (does not effect current time value)</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetDuration(schedule,dur)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">dur</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">schedule duration</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = Schedule(id, true, 5, ShowMessage, &ldquo;Such a hoser, eh?&rdquo;);
+ScheduleSetRepeat(schedule, 10); // repeat 10 times
+ScheduleSetDuration(schedule, 2); // change schedule duration</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetRepeat"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetRepeat</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the number of the times the schedule is to repeat &ndash;
+Setting count to '-1' will have the schedule repeat forever</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetRepeat(schedule,count)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">count</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">number of times to repeat schedule</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = Schedule(id, true, 5, ShowMessage, &ldquo;Hockey is great, eh?&rdquo;);
+ScheduleSetRepeat(schedule, 2); // Repeat scheduled message 2 times 
+ScheduleSetRepeat(schedule, -1) // I changed my mind. Let's repeat it forever!</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetForceCounter"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetForceCounter</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Used to force schedule timer to count down even when target instance
+is deactivated</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+! Be aware that callbacks WILL NOT execute for deactivated target
+instances !</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetForceCounter(schedule,force)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">force</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">force counter to continue if target
+			deactivated?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">schedule = Schedule(id, true, 5, ShowMessage, &ldquo;Bam!&rdquo;);
+ScheduleSetForceCounter(schedule, true); // counter will continue if instance deactivated
+instance_deactivate_object(id);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetMute"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetMute</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Toggles whether or not a schedule's callback should be suppressed and
+not executed</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetMute(schedule,mute)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">mute</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">suppress schedules callback?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetMute(schedule, true); // Script or event will not be executed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Changes the time scale for the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTimeScale(schedule,scale)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">schedule</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule handle</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTimeScale(schedule, 0.5); // Schedule will run at half speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTimeScaleAll"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTimeScaleAll</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Changes the time scale for the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTimeScaleAll(scale,deactivated)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">deactivated</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">affect schedules belonging to deactived
+			targets?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTimeScaleAll(0.5, true); // Set all schedules, including deactivated, to run at half speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTimeScaleGroup"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTimeScaleGroup</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Changes the time scale for the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTimeScaleGroup(group,scale,deactivated)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">group</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">schedule group</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">deactivated</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">affect schedules belonging to deactived
+			targets?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTimeScaleGroup(1, 2, false); // Set schedules belonging to group, except deactivated, to run at double speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSetTimeScaleTarget"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTimeScaleTarget</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Changes the time scale for the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTimeScaleTarget(target,scale)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTimeScaleTarget(id, 0.5); // Target schedules will run at half speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleDefaultSetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleDefaultSetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the default time scale assigned to newly created schedules</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleDefaultSetTimeScale(scale)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleDefaultSetTimeScale(0.5); // Have new schedules run at half speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none">
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSetTimeTarget</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Changes the time scale for the indicated schedule</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSetTimeScale(target,scale)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">target</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">instance id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSetTimeScale(schedule, 0.5); // Schedule will run at half speed</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="SharedSchedulerActivate"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">SharedSchedulerActivate</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Activates the shared scheduler &ndash; use in case of scheduler
+instance being deactivated</p>
+<p class="western" style="margin-bottom: 0cm"><b>SharedSchedulerActivate()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">instance_deactivate_all(true);
+SharedSchedulerActivate();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="SharedSchedulerDestroy"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">SharedSchedulerDestroy</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Destroys the shared scheduler instance, effectively destroying the
+scheduling system</p>
+<p class="western" style="margin-bottom: 0cm"><b>SharedSchedulerDestroy()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">SharedSchedulerDestroy();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemGetEnabled"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemGetEnabled</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns whether or not the scheduling system is active</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemGetEnabled()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">bool</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">isActive = ScheduleSystemGetEnabled();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemGetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemGetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the global time scale of the scheduling system</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemGetTimeScale()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">system_time_scale = ScheduleSystemGetTimeScale);</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemGetUpdateInterval"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemGetUpdateInterval</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the update interval of the scheduling system</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemGetUpdateInterval()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">interval = ScheduleSystemGetUpdateInterval();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemSetEnabled"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemSetEnabled</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Toggles the active state of the scheduling system</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemSetEnabled(enabled)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">enabled</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">system is active?</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemSetEnabled(false) // Disable scheduling system</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemSetTimeScale"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemSetTimeScale</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the global time scale of the scheduling system &ndash; Effects
+all schedules (default: 1.0)</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemSetTimeScale(scale)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">scale</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">time scale</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemSetTimeScale(2.0); // Double speed of all schedules</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemSetUpdateInterval"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemSetUpdateInterval</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the update interval of the scheduling system (default: 1)</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemSetUpdateInterval(interval)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">interval</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">number of steps before each system update</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemSetUpdateInterval(2); // Update system every 2 steps (runs at half speed)</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemSetMinDeltaFPS"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemSetMinDeltaFPS</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Sets the minimum frame rate before delta time schedules start to lag
+behind STEP game logic (default: 10)</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemSetMinDeltaFPS(fps)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">fps</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">minimum target frame rate</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemSetMinDeltaFPS(5); // Delta schedules will lag behind if fps drops below 5</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemClearRoom"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemClearRoom</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Clears schedules belonging to instances within an inactive persistent
+room</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemClearRoom(room)</b></p>
+<table width="907" cellpadding="4" cellspacing="0">
+	<col width="293">
+	<col width="596">
+	<tr valign="top">
+		<td width="293" bgcolor="#83caff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+			<p class="western">room</p>
+		</td>
+		<td width="596" bgcolor="#cccccc" style="border: 1px solid #000000; padding: 0.1cm">
+			<p class="western">persistent room id</p>
+		</td>
+	</tr>
+</table>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemClearRoom(rm_PauseMenu) // Destroy schedules belonging to PAUSE menu room</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemClearAllRooms"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemClearAllRooms</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Clears schedules belonging to instances within all inactive
+persistent rooms</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemClearAllRooms()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">na</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">ScheduleSystemClearAllRoom() // Destroy schedules in all inactive persistent rooms</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm; background: transparent; text-decoration: none"><a name="ScheduleSystemCount"></a><a name="ScheduleSystemClearAllRooms1"></a>
+<font color="#ff3366"><font size="4" style="font-size: 14pt"><b><span style="background: transparent">ScheduleSystemCount</span></b></font></font></p>
+<p class="western" style="margin-bottom: 0cm; background: transparent">
+Returns the current number of schedules in the system</p>
+<p class="western" style="margin-bottom: 0cm"><b>ScheduleSystemCount()</b></p>
+<p class="western" style="margin-bottom: 0cm"><b>Returns: </b><span style="font-weight: normal">real</span></p>
+<p class="western" style="margin-bottom: 0cm"><b>Example:</b></p>
+<pre class="western">numSchedules = ScheduleSystemCount();</pre><p class="western" style="margin-bottom: 0cm">
+<br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+<p class="western" style="margin-bottom: 0cm"><br/>
+
+</p>
+</body>
+</html>

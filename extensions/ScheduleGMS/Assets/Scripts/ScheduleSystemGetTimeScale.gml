@@ -1,0 +1,3 @@
+/// ScheduleSystemGetTimeScale()
+
+return SharedScheduler().timeScale;
