@@ -32,8 +32,9 @@ case 2:
     var prize_tuple;
     // If Not, Only Draw from Features
     if prizesRemaining {
-        prize_tuple = scr_prize_select_unlock_range("0,1,2,4", true);
-        //prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true); 
+        //prize_tuple = scr_prize_select_unlock_range("0,1,2,4", true); 
+            //NB: We can remove the themes when we add perks.
+        prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true); 
             //EVALUATE ME: It seems people don't like that this gives themes, oh well
             // We can add the perks here to fill it out I think. 
     }

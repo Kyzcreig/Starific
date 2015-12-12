@@ -92,7 +92,7 @@ ini_open("scores.ini")
 ini_close();
 
 //If first game, show tutorial
-if playCount &lt;= 0 or true{ //FIX ME
+if playCount &lt;= 0 { 
     help_selected[0] = 0;
     event_user(0); //start tutorial
     

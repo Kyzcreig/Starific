@@ -1038,6 +1038,12 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
            // Get End Clear Value
            moves_board_end = instance_number(obj_reflector_parent);
            
+           /*
+           if moves_board_end &gt; moves_board_start {
+            show_message("BUGG MOVES COUNT");
+                /// NB: This can happen if you add objects to the board.
+           }*/
+           
         }
         //If Time mode add pentalty
         if MODE == MODES.TIME and time_left &gt; 0{//if false won't fire
@@ -2518,7 +2524,7 @@ if !GAMEOVER {
                                mode_bar_y, COLORS[0], COLORS[0], COLORS[0], COLORS[0],0)*/
         var prog_bar = max(0,min(1,(time_left)/(time_max)));
         var fill_barscale = out_barscale * prog_bar
-        draw_sprite_ext(spr_bar_in,0,mode_bar_x - halfbarwidth,mode_bar_y,fill_barscale, 1,0,COLORS[0],1);
+        draw_sprite_ext(spr_bar_in,0,mode_bar_x - halfbarwidth,mode_bar_y,fill_barscale, 1,0,mode_bar_color,1);
         
         
         //DRAW TIME REMAINING TEXT ABOVE BAR

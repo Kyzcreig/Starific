@@ -66,7 +66,7 @@ if game_filming{
     }
 }
 //DEBUGGING
-if 1 { //debugging
+if false { //debugging
     if (os_type == os_windows) and 
        (os_browser == browser_not_a_browser) { 
         touchPad = 2;//0;

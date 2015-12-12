@@ -41,7 +41,7 @@
             <kind>1</kind>
             <string>///Init
 
-title_txt = "prizes"//"prize wheel";
+title_txt = "spin"//"prizes"//"prize wheel";
 rect_h = round(.60 * GAME_H);
 showBackButton = true;
 

@@ -22,6 +22,12 @@ and abs(mouse_y - mixers_y[mixPos[0]]) > 60 and instance_exists(argument0) and a
             }
         }
         
+        //Set Starting Moves Reflector Count
+        with (obj_control_game){
+            moves_board_start = instance_number(obj_reflector_parent);
+        }
+        
+        
         // Set Move to Active State
         scr_move_set_active();
   

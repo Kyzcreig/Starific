@@ -68,7 +68,7 @@ else if os_type == os_android{
     SHARE_SCREEN_GAMEOVER = 1;
     //NB :Maybe the condition for which type of share screen could be if it's 60fps or not and mobile
 }
-else if TOUCH_ENABLED {
+else {//if TOUCH_ENABLED {
     SHARE_SCREEN_GAMEOVER = 0;
 }
 // For Debugging (override)
@@ -78,5 +78,5 @@ else if TOUCH_ENABLED {
 SHARE_ALWAYS_OVERRIDE = 0;
 
 // For Debugging (override)
-//SHARE_ALWAYS_OVERRIDE = 1  0 //1
+//SHARE_ALWAYS_OVERRIDE = 0 //1
     //NB: Causes share button to always show up, not just on a good game

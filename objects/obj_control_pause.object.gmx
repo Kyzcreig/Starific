@@ -234,7 +234,12 @@ GAME_PAUSE = false;
 
 //Reactivate objects
 if ds_exists(deactivated_object_list, ds_type_list){
-    instance_activate_list(deactivated_object_list)
+    if !returnMenu {
+        instance_activate_list(deactivated_object_list);
+    } else {
+        // Forget objects we no longer need
+        ds_list_destroy(deactivated_object_list);
+    }
 }
 
 draw_enable_drawevent(1);

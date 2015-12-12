@@ -1,9 +1,9 @@
-///DestroyReflector(target,disable death events)
+///DestroyReflector(id,toggleMA)
 //TOGGLE DEATH EVENT
-var __retoggleturn = argument1;
-var tmpMA = MOVE_ACTIVE;
+var tmp = MOVE_ACTIVE;
+var toggleMA = argument1;
 
-if __retoggleturn and MOVE_ACTIVE {
+if toggleMA and MOVE_ACTIVE {
    MOVE_ACTIVE = false;
 }
 
@@ -17,6 +17,6 @@ with(argument0) {
 }
 */
 
-if __retoggleturn{
-   MOVE_ACTIVE = tmpMA
+if toggleMA{
+   MOVE_ACTIVE = tmp
 }
