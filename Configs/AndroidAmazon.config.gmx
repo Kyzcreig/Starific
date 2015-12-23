@@ -321,7 +321,7 @@ document.getElementsByTagName('body')[0].style.overflow="hidden";</option_html5_
     <option_ios_orient_landscape_right>0</option_ios_orient_landscape_right>
     <option_ios_orient_portrait>-1</option_ios_orient_portrait>
     <option_ios_orient_portrait_upside_down>0</option_ios_orient_portrait_upside_down>
-    <option_ios_provisioning>Starific Explicit Development - com.alexgierczyk.starific</option_ios_provisioning>
+    <option_ios_provisioning>Starific Deluxe Development - com.alexgierczyk.starificdeluxe</option_ios_provisioning>
     <option_ios_push_enable>0</option_ios_push_enable>
     <option_ios_scale>0</option_ios_scale>
     <option_ios_set_device_id>47a6e4b23e1fde6f1e1377574cb1b8fe93e875e0</option_ios_set_device_id>

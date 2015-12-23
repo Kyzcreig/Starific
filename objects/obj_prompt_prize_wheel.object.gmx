@@ -222,7 +222,7 @@ draw_text_ext_transformed_colour(spinCount_x, spinCount_y, spinCount_text,
     
 // Draw Cash
 draw_set_halign(fa_right);
-cashCount_text = "$"+string(starCashDisplay);
+cashCount_text = CASH_STR+string(starCashDisplay);
 cashCount_text_h = string_height(cashCount_text);
 cashCount_x = GAME_MID_X + line_w + prompt_jiggle[1,1];
 cashCount_y = line_y + cashCount_text_h + prompt_jiggle[1,2];
@@ -369,7 +369,7 @@ spinButton_scale,spinButton_scale,0,COLORS[0],1)
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_font(fnt_menu_buttons);
-spinButton_text = "$"+string(PRIZE_WHEEL_COST);
+spinButton_text = CASH_STR+string(PRIZE_WHEEL_COST);
 spinButton_text_y_adj = string_height("S") * .15;
 draw_text_ext_transformed_colour(spinButton_x, spinButton_y - spinButton_text_y_adj , 
 spinButton_text, -1,-1,spinButton_scale,spinButton_scale,0,COLORS[6],COLORS[6],COLORS[6],COLORS[6],1)

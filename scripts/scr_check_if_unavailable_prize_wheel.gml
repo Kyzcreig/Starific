@@ -17,7 +17,7 @@ if STAR_CASH < PRIZE_WHEEL_COST {
 var prizeTextIndex = scr_go_is_dialogue(3); 
 if prizeTextIndex != -1{
     var prizeTextData = go_dialogue_txt[| prizeTextIndex];
-    prizeTextData[@ 0] =  "$"+string(min(STAR_CASH,PRIZE_WHEEL_COST))+"/"+string(PRIZE_WHEEL_COST) 
+    prizeTextData[@ 0] =  CASH_STR+string(min(STAR_CASH,PRIZE_WHEEL_COST))+"/"+string(PRIZE_WHEEL_COST) 
                             + " to go for prize" 
     // If complete, strike it through;
     if STAR_CASH >= PRIZE_WHEEL_COST {

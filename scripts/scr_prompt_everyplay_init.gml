@@ -24,7 +24,7 @@ ep_recording = everyplay_is_recording();//
 // Get Share Reward
 ep_share_reward = enable_share_reward;
 if ep_share_reward {
-    ep_share_txt = "share#+$";
+    ep_share_txt = "share#+"+CASH_STR;
 } else {
     ep_share_txt = "share";
 } 
@@ -193,7 +193,7 @@ var data = argument0;
 var rewardValue = argument1;
 
 // Change Share Text to indicate Earnings
-data[@ 1] = "earned#+$"+string(rewardValue);
+data[@ 1] = "earned#+"+CASH_STR+string(rewardValue);
 
 
 // Create Cash Prompt
@@ -203,7 +203,7 @@ scr_prompt_cash_create(rewardValue);
 
 // Mark Parent Button as Rewarded/Shared
 if is_array(parent_button_data) {
-    // Change Text to Plain - no +$$$
+    // Change Text to Plain - no +CASH_STR
     parent_button_data[@ 1] = scr_button_everyplay_set_text(false);
     // Toggle Reward Flag
     parent_button_data[@ 7] = false;
@@ -289,7 +289,7 @@ everyplay_stop_recording();
 
 var subtext = "video"//"everyplay"; //ep //replay //record
 if argument0  {
-    subtext += "#+$";
+    subtext += "#+"+CASH_STR;
 }
 
 return subtext;

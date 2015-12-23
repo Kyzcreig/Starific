@@ -101,7 +101,7 @@ while ( rewardVal > 0 ) {
     var confettiData = confettiQuantum[wResult[w]];
     
         
-    confettiBombData[0, confettiBombCount] = "+$"+string(confettiData[0]); //text
+    confettiBombData[0, confettiBombCount] = "+"+CASH_STR+string(confettiData[0]); //text
     confettiBombData[1, confettiBombCount] = confettiData[1] //size
     confettiBombData[2, confettiBombCount] = confettiData[0] //value
     rewardVal -= confettiData[0];
@@ -121,7 +121,7 @@ if promptID == noone {
     prizeData[0] = s_v_cash_circle_x2//sprite
     prizeData[1] = 0; //3//color
     prizeData[2] = "earned!" //top message
-    prizeData[3] = "+$"+string(0) //prize description
+    prizeData[3] = "+"+CASH_STR+string(0) //prize description
     prizeData[4] = 0; //prize noise type
     prizeData[5] = 1;  //prize type
     prizeData[6] = argument[0];  //prize value
@@ -205,7 +205,7 @@ return rewardValue;
 var rewardValue = argument0;
 
 prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,0,
-                "earned!", "+$"+string(0), 1, 1, rewardValue, 0, "");
+                "earned!", "+"+CASH_STR+string(0), 1, 1, rewardValue, 0, "");
 // Spawn Prize Prompt and Pass Prize Data
 scr_prompt_prize_spawn(prizeData);
 
@@ -216,7 +216,7 @@ scr_prompt_prize_spawn(prizeData);
 var promptID = argument0;
 with(promptID) {
     prizeData[@ 7] += argument1;
-    prizeData[@ 3] = "+$"+string(prizeData[7]) //prize description
+    prizeData[@ 3] = "+"+CASH_STR+string(prizeData[7]) //prize description
     
     //Maybe even ease it up? inside the step code, only for cash prizes.
     //we'd ease it up, using ceil or whatever.  or just 1 at a time like the score_display
@@ -235,7 +235,7 @@ rewardValue = scr_reward_set(argument1, true);
 scr_check_if_available_prize_wheel();
 
 //Update Button State/Text
-scr_button_helper_update(buttonID, -1, "earned#+$"+string(rewardValue))
+scr_button_helper_update(buttonID, -1, "earned#+"+CASH_STR+string(rewardValue))
 ;
 /*
 // Remove Button from List [disabled]
@@ -256,6 +256,6 @@ var buttonIndex = scr_go_is_button(buttonID);
 var buttonData = go_sp_buttons[| buttonIndex]; 
 //If New Text
 if argument_count > 2 {
-    buttonData[@ 1] = argument[2]; //"earned#+$"+string(rewardValue); 
+    buttonData[@ 1] = argument[2]; //"earned#+"+CASH_STR+string(rewardValue); 
 }
 buttonData[@ 3] = buttonState; ///comment out for unlimited rewards 

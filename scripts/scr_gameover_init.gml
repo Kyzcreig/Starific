@@ -187,10 +187,11 @@ playHighScoreSound = playHighScoreSound and data[4];
 
 // Cash
 var data = go_display_score[++i];
-data[@ 1] = "$"+string(STAR_CASH - obj_control_game.starCashStart); //earned cash 
-data[@ 3] = "$"+string(STAR_CASH); //total cash
+data[@ 1] = CASH_STR+string(STAR_CASH - obj_control_game.starCashStart); //earned cash 
+data[@ 3] = CASH_STR+string(STAR_CASH); //total cash
 data[@ 4] = (STAR_CASH - obj_control_game.starCashStart) > 100; //rapacity
 playHighScoreSound = playHighScoreSound and data[4];
+
 #define scr_great_game_check
 ///scr_great_game_check()
 

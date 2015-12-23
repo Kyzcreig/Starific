@@ -99,7 +99,7 @@ if playCount &lt;= 0 {
 } 
 if TUTORIAL_ENABLED{
     //Disable Paddle Movement
-    tutorialActive[0] = true;
+    TUTORIAL_STARTED[0] = true;
     PADDLE_MOTION = 0; //may cause issues in 2,3 modes
 }
 
@@ -265,7 +265,7 @@ switch help_selected[0]
          //TUTORIAL_ENABLED = true;
 
          //Set Flag tutorial active, in case not already set
-         tutorialActive[0] = true;
+         TUTORIAL_STARTED[0] = true;
 
          help_selected[0] = noone;
          break;
@@ -289,7 +289,7 @@ switch help_selected[0]
          
          //Disable tutorial on tween complete
          TweenAddCallback(TweenTitle,TWEEN_EV_FINISH,id, EnableTutorial,false);
-         TweenAddCallback(TweenTitle,TWEEN_EV_FINISH,id, array_set_value,tutorialActive,false);
+         TweenAddCallback(TweenTitle,TWEEN_EV_FINISH,id, array_set_value,TUTORIAL_STARTED,false);
          
          
          //Destroy dummy objects

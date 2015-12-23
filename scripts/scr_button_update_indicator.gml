@@ -45,7 +45,7 @@ return (argument0 + 3) * 5;
 #define convert_index_to_rigor
 ///convert_index_to_rigor(index);
 
-return power(2, argument0)//+"00$";
+return power(2, argument0);
 
 #define convert_index_to_mode
 ///convert_index_to_mode(index);

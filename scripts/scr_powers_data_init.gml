@@ -226,11 +226,11 @@ scr_new_deflector(obj_powerup_splitpaddle,2, 3, POWER_splitpaddle, spr_power_spl
 
 //Rounders
     //No Timers
-scr_new_deflector(obj_powerup_cash_1,3, 0, noone, spr_cash_1,"+$1", 1);
-scr_new_deflector(obj_powerup_cash_2,3, 0, noone, spr_cash_2,"+$2", 1);
-scr_new_deflector(obj_powerup_cash_5,3, 0, noone, spr_cash_5,"+$5", 1);
-scr_new_deflector(obj_powerup_cash_10,3, 0, noone, spr_cash_10,"+$10", 1);
-scr_new_deflector(obj_powerup_cash_rng,3, 0, noone, spr_cash_1,"+$1-15", 0);
+scr_new_deflector(obj_powerup_cash_1,3, 0, noone, spr_cash_1,"+"+CASH_STR+"1", 1);
+scr_new_deflector(obj_powerup_cash_2,3, 0, noone, spr_cash_2,"+"+CASH_STR+"2", 1);
+scr_new_deflector(obj_powerup_cash_5,3, 0, noone, spr_cash_5,"+"+CASH_STR+"5", 1);
+scr_new_deflector(obj_powerup_cash_10,3, 0, noone, spr_cash_10,"+"+CASH_STR+"10", 1);
+scr_new_deflector(obj_powerup_cash_rng,3, 0, noone, spr_cash_1,"+"+CASH_STR+"1-15", 0);
 scr_new_deflector(obj_powerup_powersallclear,3, 0, noone, spr_power_clear,"clear#powers", 1);
     //Timers
 scr_new_deflector(obj_powerup_cash_x2,3, 1, POWER_cashx2, spr_cash_x2,"cash#doubler", 1);

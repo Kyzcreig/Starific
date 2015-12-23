@@ -151,8 +151,7 @@ part_type_life(cur_par,room_speed*.5,room_speed*.5);
 
 
 
-///Particles for Special Deflectors
-
+/// Particles for Falling Special Deflectors
 /* NB: We need so many because we need 1 for each possible type and direction.
         Which is 3x8.  Alternatively you could have one for each instance
         But I Think this is cleaner.
@@ -171,13 +170,13 @@ pFallingColor[1] = c_white//COLORS[2] //powerdown
 pFallingColor[2] = c_white//COLORS[3] //neutrals
 
 pFallingScale =  1//1.25 * cellH/sprite_get_width(s_v_deflector_basic)
-    //NB: Scaling must be done at runtime based on grid size, etc.
-
+    //NB: Scaling must be done at runtime based on grid size, etc. 
 for(var i=0;i<3;i++){ //for each sprite
     for(var j=0;j<8;j++){ //for each direction
         cur_par = pFallingParticle[i,j];
         part_type_sprite(cur_par,pFallingSprite[i],0,0,0);
-        part_type_size(cur_par,1,1,-0.02*RMSPD_DELTA,0*RMSPD_DELTA);
+        //part_type_size(cur_par,1,1,-0.02*RMSPD_DELTA,0*RMSPD_DELTA);
+        part_type_size(cur_par,1,1,-0.025*RMSPD_DELTA,0*RMSPD_DELTA); //NB: EVALUATE
         part_type_scale(cur_par,pFallingScale,pFallingScale);
         part_type_color1(cur_par,pFallingColor[i]);
         part_type_alpha2(cur_par,1,0.2);
@@ -187,8 +186,8 @@ for(var i=0;i<3;i++){ //for each sprite
         //part_type_blend(cur_par,0);
         //part_type_orientation(cur_par,image_angle,image_angle,0*RMSPD_DELTA,0*RMSPD_DELTA,0);
         part_type_orientation(cur_par,j*45,j*45,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
-        //part_type_life(p_spr_fall,room_speed*5,room_speed*5);
-        part_type_life(cur_par,room_speed*.4,room_speed*.4);
+        //part_type_life(cur_par,room_speed*.4,room_speed*.4);
+        part_type_life(cur_par,room_speed*.3,room_speed*.3); //NB: EVALUATE
     }
 }
 

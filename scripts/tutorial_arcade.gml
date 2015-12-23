@@ -33,7 +33,7 @@ switch argument0{
         
         
         //Create dummy scene
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_block_dummy);
            
@@ -106,7 +106,7 @@ switch argument0{
         }
         
         //Create hand pointer dummy
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_touch_pointer);
            
@@ -204,7 +204,7 @@ switch argument0{
         
         
         //Create dummy scene
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_turn_dummy);
            
@@ -273,7 +273,7 @@ switch argument0{
         
         
         //Create dummy scene
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_projectile_dummy);
            
@@ -325,7 +325,7 @@ switch argument0{
         
         
         //Create dummy scene
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_bomb_dummy);
            
@@ -439,7 +439,7 @@ switch argument0{
         
         
         //Create dummy scene
-        if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_launch_dummy);
            

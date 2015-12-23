@@ -107,7 +107,9 @@ else  {
 
 }
 
-return minutesUntilNextGift
+//return minutesUntilNextGift
+
+return minutesUntilNextGift*2 //scale up to 4 hours between gifts.
 /*
 minutesUntilNextGift = 360; 
 */

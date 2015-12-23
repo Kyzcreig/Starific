@@ -129,7 +129,7 @@ switch argument0{
                //Set appropriate text after player has used a modifier
                if (!modifiers_mutex) {
                   if bMCount[0] >= 1{
-                      frame_text = "Select additional modifiers or tap next to continue.";
+                      frame_text = "Select additional modifiers or tap anywhere to continue.";
                       /*if !touchPad{
                         frame_text = "Select additional modifiers or select next to continue.";
                       }*/
@@ -162,7 +162,7 @@ switch argument0{
                }
                
                //Create board modifier dummy
-               if tutorialActive[0] and !TutorialEnding
+               if TUTORIAL_STARTED[0] and !TutorialEnding
                {
                
                   if !MOVE_ACTIVE and MixersEase[0] == 0 and !TweenExists(MixersTween){
@@ -255,16 +255,17 @@ switch argument0{
                if !modifiers_mutex and !sMSelected and !MOVE_ACTIVE{
                
                   if dummy_star_exists{//tutorial_dummy.bMCount[0] >= 1{
-                      frame_text = "Tap to hatch star.";
+                      frame_text = "Tap anywhere to launch or tap star egg to re-place.";
                       draw_text_ext_transformed_colour(text_x,text_y,frame_text,-1,text_w,
                       1,1,0,text_color,text_color,text_color,text_color,tutorialTextTween[0]);
                   
                   }
                   else if bMCount[0] >= 1{
                       //frame_text = "Tap next to continue.";
-                      frame_text = "Place another star or tap next to continue.";
+                      frame_text = "Place another star or tap anywhere to continue.";
                       if !touchPad{
-                        frame_text = "Place another star or select next to continue.";
+                        frame_text = "Place another star or tap anywhere to continue.";
+                        //frame_text = "Place another star or select next to continue.";
                   
                       }
                       draw_text_ext_transformed_colour(text_x,text_y,frame_text,-1,text_w,
@@ -291,7 +292,7 @@ switch argument0{
                }
                
                //Create board modifier dummy
-               if tutorialActive[0] and !TutorialEnding{
+               if TUTORIAL_STARTED[0] and !TutorialEnding{
                   
                   
                   if !MOVE_ACTIVE and MixersEase[0] == 0 and !TweenExists(MixersTween){

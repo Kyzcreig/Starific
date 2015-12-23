@@ -352,7 +352,11 @@ guiEaseReverse = EaseInBack;
 scoreTween[0] = 0;
 TweenScore =  TweenFire(id,scoreTween,guiEase,
                     TWEEN_MODE_ONCE,1,0,1, 0,1)
-
+introTextEase[0] = 0;
+introTextTween = noone;
+                    
+                    
+                    
 //CoolDown for BoardPowerups
 globalvar 
 boardWideEffectTimer, 
@@ -793,8 +797,8 @@ near_miss_words[++i] = "gutsy";
             <kind>1</kind>
             <string>///Tutorial and boardinit
 
-globalvar tutorialActive;
-tutorialActive[0] = 0;
+globalvar TUTORIAL_STARTED;
+TUTORIAL_STARTED[0] = 0;
 
 
 //Run board init
@@ -921,7 +925,7 @@ if GAME_ACTIVE{
          if !instance_exists(paddle_id){
             paddle_id = instance_create(0,0,obj_launcher)
             //Tween in Touchpad
-            if !TUTORIAL_ENABLED and !tutorialActive[0]{
+            if !TUTORIAL_ENABLED and !TUTORIAL_STARTED[0]{
                scr_touch_pad_tween_in(); 
                //could also delay this to follow the obj_launcher tween
             }
@@ -929,7 +933,7 @@ if GAME_ACTIVE{
     }
     else{
         with (obj_control_modifiers){
-            if !TUTORIAL_ENABLED and !tutorialActive[0] and !TweenExists(MixersTween){
+            if !TUTORIAL_ENABLED and !TUTORIAL_STARTED[0] and !TweenExists(MixersTween){
                MixersTween = TweenFire(id,MixersEase,EaseLinear,
                                 TWEEN_MODE_ONCE,1,0,1, MixersEase[0],1); //guiEase
             }
@@ -2362,7 +2366,7 @@ if !GAMEOVER {
         // Saved starcash, points based starcash (unused), caught starcash
         var cash_val = STAR_CASH;// 
         //cash_val_from_this_game = starCashEarned + starCashCaught;
-        var cash_str = "$"+string_abbrev_real_mag(cash_val,2,4);
+        var cash_str = CASH_STR+string_abbrev_real_mag(cash_val,2,4);
         var cash_col = COLORS[0]; 
         if cashTimer &gt; 0 {cash_col = COLORS[3]}
         y_adj_score += string_height("H");
@@ -2624,7 +2628,7 @@ if !GAMEOVER {
         
         
         // If TP Not Tweening
-        if !TweenExists(tp_tween) and (!tutorialActive[0] or tp_dummy){
+        if !TweenExists(tp_tween) and (!TUTORIAL_STARTED[0] or tp_dummy){
             //Brighten and Grow on Taps (Tween Bounce)
             if SWIPE_TAP and tp_scale[0] == 1{
                 //Tween up alpha and tp_scale
@@ -2700,6 +2704,103 @@ if !GAMEOVER {
             tp_top_scale,tp_top_scale,0,tp_col,clamp(.45*tp_alpha[0],0,1));
     
         
+    }
+    
+    
+    // Draw Game Intro Sub text/////////////////////
+    if !GAMEOVER and GAME_ACTIVE and scoreTween[0] == 1 {
+        if (!MOVE_ACTIVE and !TUTORIAL_ENABLED) and 
+            introTextEase[0] == 0 and !TweenExists(introTextTween) {
+            // Ease In Intro Text
+            TweenFire(id, introTextEase, EaseLinear, 
+                TWEEN_MODE_ONCE, true, 0, .25, introTextEase[0], 1);
+                
+            // Set Quest Text    
+            if QUEST_DATA[3] &gt; 0 and QUEST_DATA[2] &lt; QUEST_DATA[1] {
+                quest_text_cache = "Quest: " + scr_quest_text(0, scr_quest_progress());
+                //New Quest?
+                if QUEST_DATA[3] == 1 
+                {
+                    quest_text_cache = "New " + quest_text_cache;
+                    // If First Quest and First Display
+                    if QUEST_DATA[4] &lt; 1 and QUEST_DATA[3] == 1
+                    {
+                        //Mention that they can be cancelled
+                        quest_text_cache += "##" + "Quests can be cancelled from the pause menu.";
+                    }
+                }
+            } else {
+                quest_text_cache = "";
+            }
+        }
+        else if (MOVE_ACTIVE or TUTORIAL_STARTED[0]) and 
+            introTextEase[0] &gt; 0 and !TweenExists(introTextTween) {
+            // Ease Out Intro Text
+            TweenFire(id, introTextEase, EaseLinear, 
+                TWEEN_MODE_ONCE, true, 0, .25, introTextEase[0], 0);
+        }
+    }
+    // Draw Intro Text
+    if introTextEase[0] != 0 {
+        //Display tap to begin text
+        draw_set_font(fnt_gui_tutorial);
+        draw_set_valign(fa_middle);
+        draw_set_halign(fa_center);
+        
+        text_y_top = fieldEndY +60;
+        text_y_bottom = GAME_Y+GAME_H -20 ;
+        text_y = (text_y_top + text_y_bottom)/2 +75* (1 -introTextEase[0]);
+        
+        text_x = GAME_X +GAME_W/2;
+        text_w = (GAME_W* 11/32 * 2);
+        
+        text_alpha = clamp(introTextEase[0],0,1); //clamp((1 - lastPlaytime/room_speed),0,1)
+        text_color = COLORS[0];
+        
+        text_display = false;   
+        
+        // Set Starting Dialogue Text for Arcade and Time
+        if MODE != MODES.MOVES and MODE != MODES.SANDBOX{
+            text_text = "Take aim and tap to begin.";
+            text_display = true;
+        }
+        // For Moves and Sandbox it's more complicated
+        else
+        {
+            //Check that no star markers are selected
+            sMSelected = false;
+            with (obj_star_marker){
+                 if selected[0]{
+                    other.sMSelected = true; 
+                    break;
+                 }
+            }
+            
+            // Check that no board modifier is selected
+            if bMSelected[0] == noone and !sMSelected and !ScheduleExists(bMScheduler)
+            and bMtext[array_length_1d(bMtext)-1] &lt;= 0{
+            
+                text_y = (mixers_y[mixPos[0]]+GAME_Y+GAME_H)/2;
+                text_alpha *= clamp(MixersEase[0],0,1);
+                
+                text_text = "Modify the board or place a star and tap to begin.";
+                
+                text_display = true;
+            }
+        }
+        // Display Starting Dialogue Text
+        if text_display {
+            
+            
+            // Append Quest Text
+            if quest_text_cache != "" and MOVE_COUNT &lt;= 1 {
+                text_text = quest_text_cache + "##" + text_text;
+            } 
+            
+            draw_text_ext_transformed_colour(text_x,text_y,text_text,-1,text_w,1,1,0,
+            text_color,text_color,text_color,text_color,text_alpha);
+        
+        }
     }
     
     

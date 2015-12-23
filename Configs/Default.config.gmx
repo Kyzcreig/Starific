@@ -22,7 +22,7 @@
     <option_android_arch_mipsr2sf>false</option_android_arch_mipsr2sf>
     <option_android_arch_x86>True</option_android_arch_x86>
     <option_android_build_tools_version>23.0.1</option_android_build_tools_version>
-    <option_android_build_version>94</option_android_build_version>
+    <option_android_build_version>96</option_android_build_version>
     <option_android_color_depth>0</option_android_color_depth>
     <option_android_compile_sdk_version>23</option_android_compile_sdk_version>
     <option_android_display_name>Starific</option_android_display_name>
@@ -237,7 +237,7 @@
     <option_html5_CreationEventOrder>true</option_html5_CreationEventOrder>
     <option_html5_WebGL>1</option_html5_WebGL>
     <option_html5_advertising_enable>0</option_html5_advertising_enable>
-    <option_html5_advertising_key></option_html5_advertising_key>
+    <option_html5_advertising_key>ca-app-pub-9117517771566987/8403659758|0|ca-app-pub-9117517771566987/9880392953|5|</option_html5_advertising_key>
     <option_html5_advertising_type>Supersonic Ads</option_html5_advertising_type>
     <option_html5_allow_fullscreen>True</option_html5_allow_fullscreen>
     <option_html5_alwaysreload>False</option_html5_alwaysreload>
@@ -560,7 +560,7 @@ document.getElementById('gm4html5_div_id').style.textAlign="center";</option_htm
     <option_winUAP_wide_logo>Configs\Default\WindowsUAP\logos\WideLogo.scale-100.png</option_winUAP_wide_logo>
     <option_windowcolor>clBlack</option_windowcolor>
     <option_windows_alternate_sync_method>False</option_windows_alternate_sync_method>
-    <option_windows_build_version>19</option_windows_build_version>
+    <option_windows_build_version>22</option_windows_build_version>
     <option_windows_company_info></option_windows_company_info>
     <option_windows_copyright_info></option_windows_copyright_info>
     <option_windows_create_textures_on_demand>False</option_windows_create_textures_on_demand>

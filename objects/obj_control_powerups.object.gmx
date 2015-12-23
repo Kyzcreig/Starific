@@ -1392,7 +1392,7 @@ for (var i = ds_list_size(powerTimer) - 1; i &gt;= 0;i--){
        var cash_value = scr_starcash_power_caught(1);
        
        // Confetti Bomb
-       var cash_text = "+$"+string(cash_value);
+       var cash_text = "+"+CASH_STR+string(cash_value);
        //Maybe rng x/y would make more sense on touchpad?
        //var cash_x = mouse_x + RU * irandom_range(-1,1) * 10;
        //var cash_y = mouse_y + RU * irandom_range(-1,1) * 10;

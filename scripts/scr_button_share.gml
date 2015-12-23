@@ -96,7 +96,7 @@ if buttonData[3] == 0 {
     scr_check_if_available_prize_wheel();
     
     // Update Gift Button to indicate used
-    buttonData[@ 1] = "earned#+$"+string(rewardValue); 
+    buttonData[@ 1] = "earned#+"+CASH_STR+string(rewardValue); 
     buttonData[@ 3] = -2; ///comment out for unlimited rewards
     
 }

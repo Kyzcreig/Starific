@@ -30,7 +30,7 @@ switch argument0{
                
                
                //Create dummy scene
-               if !instance_exists(tutorial_dummy) and tutorialActive[0] and !TutorialEnding
+               if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
                {
                   tutorial_dummy = instance_create(padcenterx,padcentery,obj_timer_dummy);
                   

@@ -294,7 +294,7 @@ for(var i = 0; i < n; i++)
     // Draw Cash Reward
     if data[2] > 0 {
         draw_set_font(fnt_gui_counts1);
-        sp_note_text = "+$"//+string(data[2]);
+        sp_note_text = "+"+CASH_STR//+string(data[2]);
         sp_note_size = string_width(sp_note_text)*1.5 //sp_size / 6; // make notificaiton circle 4 smaller
         sp_note_scale = sp_scale_start * sp_note_size / sprite_get_width(spr_button_note_cash); // maybe tweak this size
         sp_note_x = sp_x + sp_width/2 * sp_scale

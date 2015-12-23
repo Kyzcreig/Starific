@@ -39,19 +39,19 @@ switch argument0 {
 
 case 4:
     newButtonData[0] = s_v_facebook; //spr
-    //newButtonData[1] = "earn#+$"; //subtext
-    newButtonData[1] = "share#+$"; //subtext
+    //newButtonData[1] = "earn#+"+CASH_STR; //subtext
+    newButtonData[1] = "share#+"+CASH_STR; //subtext
 break;
 
 case 5:
     newButtonData[0] = s_v_twitter; //spr
-    //newButtonData[1] = "earn#+$"; //subtext
-    newButtonData[1] = "share#+$"; //subtext
+    //newButtonData[1] = "earn#+"+CASH_STR; //subtext
+    newButtonData[1] = "share#+"+CASH_STR; //subtext
 break;
 
 case 6:
     newButtonData[0] = s_v_rate; //spr
-    //newButtonData[1] = "rate#+$$$"; //subtext
+    //newButtonData[1] = "rate#+"+CASH_STR+CASH_STR+CASH_STR; //subtext
         //NB: Rewarding rating is against policy
     newButtonData[1] = "rate"; //subtext
 break;
@@ -68,8 +68,8 @@ break;
 // Mobile Share
 case 8:
     newButtonData[0] = spr_share_send///s_v_share; //spr
-    //newButtonData[1] = "earn#+$"; //subtext
-    newButtonData[1] = "share#+$"; //subtext
+    //newButtonData[1] = "earn#+"+CASH_STR; //subtext
+    newButtonData[1] = "share#+"+CASH_STR; //subtext
 break;
 
 case 9:
@@ -117,13 +117,13 @@ break;
 // Video Reward Button
 case 16:     
     newButtonData[0] = s_v_video //spr
-    newButtonData[1] = "earn#+$$$"; //subtext
+    newButtonData[1] = "earn#+"+CASH_STR+CASH_STR+CASH_STR; //subtext
 break;
 
 // Quest Cancel Button
 case 17:
     newButtonData[0] = s_v_cancel; //spr
-    //newButtonData[1] = "earn#+$"; //subtext
+    //newButtonData[1] = "earn#+"+CASH_STR; //subtext
     newButtonData[1] = "cancel#quest"; //subtext
 break;
 
@@ -139,13 +139,13 @@ break;
 // Interstitial Reward Button
 case 19:     
     newButtonData[0] = s_v_interstitial //spr
-    newButtonData[1] = "earn#+$"; //subtext
+    newButtonData[1] = "earn#+"+CASH_STR; //subtext
 break;
 
 // PLM Promote Reward Button
 case 20:     
     newButtonData[0] = s_v_gift //spr
-    newButtonData[1] = "new#games"//#+$$$"; //subtext
+    newButtonData[1] = "new#games"//#+"+CASH_STR+CASH_STR+CASH_STR; //subtext
 break;
 
 // Everyplay Button
@@ -153,7 +153,7 @@ case 21:
     var share_reward = sh_doShare;//scr_great_game_check();
     var subtext = scr_button_everyplay_set_text(share_reward);
     newButtonData[0] = spr_ep_prompt //spr
-    newButtonData[1] = subtext//#+$$$"; //subtext
+    newButtonData[1] = subtext//#+"+CASH_STR+CASH_STR+CASH_STR; //subtext
     newButtonData[3] = everyplay_is_recording(); //meta functionality 
     newButtonData[7] = share_reward; //extra data (share reward)
 break;

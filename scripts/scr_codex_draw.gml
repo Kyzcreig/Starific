@@ -148,7 +148,7 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
             draw_set_font(fnt_gui_counts3);
             def_txt = def_data[5];
             if def_discovered == 0 {
-                def_txt = scr_cypher_text("abcdefghijklmnopqrstuvwxyz-+$1234567890","?",def_txt);
+                def_txt = scr_cypher_text("abcdefghijklmnopqrstuvwxyz-+$1234567890"+CASH_STR,"?",def_txt);
             } 
             def_txt_scale = ease;
             def_txt_h = string_height(def_txt) * def_txt_scale;

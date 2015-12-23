@@ -181,8 +181,8 @@ COLORS[0], COLORS[0],COLORS[0],COLORS[0],subEase[1]);
 // Draw Paragraph Text
 draw_set_halign(fa_left);
 draw_set_font(fnt_gui_options3); 
-promptText = "Cancel current quest for $25?  A new one will be selected next game.##" +
-             "You have $"+string(STAR_CASH)+"."; 
+promptText = "Cancel current quest for "+CASH_STR+"25?  A new one will be selected next game.##" +
+             "You have "+CASH_STR+string(STAR_CASH)+"."; 
 promptTextX = promptHeaderX+8;
 promptTextW = line_w*1.9;
 promptTextH = string_height_ext(promptText,-1,promptTextW);

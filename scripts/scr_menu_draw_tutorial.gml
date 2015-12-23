@@ -83,7 +83,7 @@ if !TUTORIAL_ENABLED{
                   
                 if text_id == 0{
                     //Set Flag tutorial active
-                    tutorialActive[0] = true;
+                    TUTORIAL_STARTED[0] = true;
                 }
                 
                 ScheduleScript(id,0,.25,scr_delayed_selection,help_selected,text_id)
@@ -110,72 +110,6 @@ if !TUTORIAL_ENABLED{
 
   
     
-    ///////////////Game Intro Sub text////////////////////////////////////////////////////////////
-    
-    //Display tap to begin text
-    draw_set_font(fnt_gui_tutorial);
-    text_x = GAME_X +GAME_W/2;
-    text_y = (obj_control_game.fieldEndY + intro_text_y)/2;
-    text_w = (GAME_W* 11/32 * 2);
-    text_alpha = clamp(helpTween[0],0,1); //clamp((1 - lastPlaytime/room_speed),0,1)
-    text_color = COLORS[0];
-    var showText = false;   
-    
-    // Set Starting Dialogue Text for Arcade and Time
-    if MODE != MODES.MOVES and MODE != MODES.SANDBOX{
-        text_text = "Take aim and tap to begin.";
-        showText = true;
-    }
-    // For Moves and Sandbox it's more complicated
-    else
-    {
-        //Check that no star markers are selected
-        sMSelected = false;
-        with (obj_star_marker){
-             if selected[0]{
-                other.sMSelected = true; 
-                break;
-             }
-        }
-        
-        // Check that no board modifier is selected
-        if bMSelected[0] == noone and !sMSelected and !ScheduleExists(bMScheduler)
-        and bMtext[array_length_1d(bMtext)-1] <= 0{
-        
-            text_y = (mixers_y[mixPos[0]]+GAME_Y+GAME_H)/2;
-            text_alpha *= clamp(MixersEase[0],0,1);
-            
-            text_text = "Modify the board or place a star and tap to begin.";
-            
-            showText = true;
-        }
-    }
-    // Display Starting Dialogue Text
-    if showText {
-        
-        // Show Quest Text if Incomplete Quest    
-        if QUEST_DATA[3] > 0 and QUEST_DATA[2] < QUEST_DATA[1] {
-            var quest_text = "Quest: " + scr_quest_text(0);
-            //New Quest?
-            if QUEST_DATA[3] == 1 
-            {
-                quest_text = "New " + quest_text;
-                // If First Quest and First Display
-                if QUEST_DATA[4] < 1 and QUEST_DATA[3] == 1
-                {
-                    //Mention that they can be cancelled
-                    quest_text += "##" + "Quests can be cancelled from the pause menu.";
-                }
-            }
-            
-            /// Set new start text
-            text_text = quest_text + "##" + text_text;
-        }
-        
-        draw_text_ext_transformed_colour(text_x,text_y,text_text,-1,text_w,1,1,0,
-        text_color,text_color,text_color,text_color,text_alpha);
-    
-    }
 
         
     //TWEEN OUT IF GAME STARTS
@@ -255,8 +189,11 @@ if TUTORIAL_ENABLED{
         tp_on_button[0] = 2
     }
     
-    
-    if skip_hover and help_selected[0] == noone and (!touchPad or mouse_check_button(mb_left)) and (!TweenExists(TweenTitle))// or !TweenIsPlaying
+    // Click Skip Button
+    if skip_hover and 
+       help_selected[0] == noone and 
+       (!touchPad or mouse_check_button(mb_left)) and 
+       (!TweenExists(TweenTitle))// or !TweenIsPlaying
     {
         //Grow and alt color on hover
         text_scalar = 1.2
@@ -278,7 +215,7 @@ if TUTORIAL_ENABLED{
             help_selected[1] = false
             
             //Set Flag tutorial inactive
-            tutorialActive[0] = false;
+            TUTORIAL_STARTED[0] = false;
 
             //click sound
             scr_sound(sd_menu_click,1,false);
@@ -335,16 +272,17 @@ if TUTORIAL_ENABLED{
         isPressed = (!touchPad or mouse_check_button(mb_left));
          
          //Advance Tutorial Detection 
-         if  tutorialActive[0]{ 
+         if  TUTORIAL_STARTED[0]{ 
              //To prevent TP from moving to a button
              if arrowHover{
                  tp_on_button[0] = 2
              }
              //Tap Selection
-             if ( (arrowHover and isPressed) )
+             if ( ( (i == 1 or arrowHover) and isPressed) )
              {
-             
-                 arrowScale *= 1.25; 
+                 if arrowHover {
+                    arrowScale *= 1.25; 
+                 }
                  if mouse_check_button_pressed(mb_left) and tutorialTextTween[0] == 1 //and !TweenExists(TweenTutorialText)
                  {
                       //Frame Press Select
@@ -367,7 +305,7 @@ if TUTORIAL_ENABLED{
     
     
     //Tween for Tutorial Text
-    if tutorialTextTween[0] == 0 and tutorialTitleTween[0] == 1 and tutorialActive[0]
+    if tutorialTextTween[0] == 0 and tutorialTitleTween[0] == 1 and TUTORIAL_STARTED[0]
     and !TweenExists(TweenTutorialText)
     {
        TweenTutorialText = TweenFire(id,tutorialTextTween,EaseLinear,
@@ -387,7 +325,7 @@ if TUTORIAL_ENABLED{
     
            
     //Swipe to go to next or previous frame
-    if (tutorialAdvance != 0 and tutorialAdvance != -2 and !TweenExists(TweenTutorialText) and tutorialActive[0])
+    if (tutorialAdvance != 0 and tutorialAdvance != -2 and !TweenExists(TweenTutorialText) and TUTORIAL_STARTED[0])
     {
        //Swiped Left
        if tutorialAdvance == 1 {
@@ -425,7 +363,7 @@ if TUTORIAL_ENABLED{
                ScheduleScript(id,1, .25,scr_delayed_selection,help_selected,2)
                //Set Flag tutorial inactive
                TutorialEnding = true;
-               //tutorialActive[0] = false;
+               //TUTORIAL_STARTED[0] = false;
                //scr_sound(sd_menu_click,1,false);
             
           }

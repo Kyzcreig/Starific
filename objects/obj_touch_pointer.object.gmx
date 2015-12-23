@@ -237,9 +237,9 @@ sub_txt_h = string_height("S")
 sub_txt_y = sprite_circle_bottom// - sub_txt_h/2//sprite_center_y+frame_text_h;
 if padPercent == 100{
     
-    var sub_text = "Tap next to continue"
+    var sub_text = "Tap anywhere to continue"
     /*if !TouchControls{
-        sub_text = "Select Next to Continue"
+        sub_text = "Select Anywhere to Continue"
     }*/
     draw_text_colour(sprite_center_x,sub_txt_y,sub_text,//centerfieldx, centerfieldy
     text_color,text_color,text_color,text_color,scene_alpha);

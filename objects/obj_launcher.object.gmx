@@ -250,7 +250,7 @@ and MODE != MODES.SANDBOX
     
     
     //Launch Shooter on tap
-    if (SWIPE_TAP and (abs(axx) + abs(ayy))!=0) and !tutorialActive[0]//!TUTORIAL_ENABLED
+    if (SWIPE_TAP and (abs(axx) + abs(ayy))!=0) and !TUTORIAL_STARTED[0]//!TUTORIAL_ENABLED
     and (!touchPad or (touchPad))
     {
         var obj = instance_create(launcherX,launcherY,obj_star)

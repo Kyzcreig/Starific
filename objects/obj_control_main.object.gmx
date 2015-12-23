@@ -108,9 +108,10 @@ else if MUSIC_STATE == 1
        
     }
     // if music loaded
-    else if audio_group_is_loaded(AG_MusicAll) and 
-    //(os_browser != browser_not_a_browser or audio_group_is_loaded(AG_MusicMobile)) and
-    !GAME_PAUSE //don't select new songs during pause
+    else if audio_group_is_loaded(AG_MusicAll) and // Basic Music Loaded
+    (os_browser != browser_not_a_browser or // If HTML
+    audio_group_is_loaded(AG_MusicMobile)) and // Or MobileMusic is Loaded
+    !GAME_PAUSE //And Game isn't Paused
     {
     
         // if no song active or music is scheduled to be stopped
@@ -1207,7 +1208,8 @@ TUTORIAL_ENABLED,
 PADDLE_TEXTURES,
 PRIZE_WHEEL_COST,
 GAME_START,
-RESOURCE_POOLING;
+RESOURCE_POOLING,
+CASH_STR;
 
 
 
@@ -1225,7 +1227,7 @@ MOVE_ACTIVE = false;
 GAME_ACTIVE = false;
 BOARD_INIT_COUNT = 0;
 
-
+CASH_STR = "¢";//"$"
 
 ///Tutorial stuff
 TUTORIAL_ENABLED=false; //this is declared in the file load vars

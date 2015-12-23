@@ -39,7 +39,7 @@ break;
 
 // Prize Progressing
 case 3:
-    newDialogue[0] = "$"+string(STAR_CASH)+"/"+string(PRIZE_WHEEL_COST) 
+    newDialogue[0] = CASH_STR+string(STAR_CASH)+"/"+string(PRIZE_WHEEL_COST) 
                     + " to go for prize" //text
     newDialogue[1] = 0// styling (0=none)
     newDialogue[2] = argument[0]// type id
@@ -58,7 +58,7 @@ break;
 
 // Quest Reward Earned
 case 5:
-    newDialogue[0] = "earned reward +$"+ string(rewardValue)//text
+    newDialogue[0] = "earned reward +"+CASH_STR+ string(rewardValue)//text
     newDialogue[1] = 0// styling (1=strike)
     newDialogue[2] = argument[0]// type id
     newDialogue[3] = 0// subtype

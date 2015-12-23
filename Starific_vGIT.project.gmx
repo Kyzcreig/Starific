@@ -346,7 +346,6 @@
       <sprites name="Misc Symbols">
         <sprite>sprites\spr_symbol_mystery</sprite>
         <sprite>sprites\spr_missing_icon</sprite>
-        <sprite>sprites\spr_symbol_cash</sprite>
         <sprite>sprites\spr_power_locked</sprite>
         <sprite>sprites\s_v_icon_background</sprite>
       </sprites>
@@ -399,7 +398,6 @@
         </sprites>
       </sprites>
       <sprites name="Misc">
-        <sprite>sprites\sOn_Off</sprite>
         <sprite>sprites\sp_button</sprite>
       </sprites>
     </sprites>

@@ -175,7 +175,7 @@ if GAMEOVER
             //If Cash Index
             if go_display_index == array_length_1d(go_display_score)-1{
                 // Set Updated Cash
-                value_text = "$"+string(STAR_CASH);
+                value_text = CASH_STR+string(STAR_CASH);
             }
             sub_text = label_text + string(value_text);
         

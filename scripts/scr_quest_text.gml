@@ -1,10 +1,16 @@
 #define scr_quest_text
-///scr_quest_text(is_brief?)
+///scr_quest_text(use_brief?, adjust_qProg)
+
+var useBrevity = argument[0];
+
 
 var qType = QUEST_DATA[0];
 var qCrit = QUEST_DATA[1];
-var qProg = clamp(QUEST_DATA[2], 0, qCrit); // keep prog val clamped
-var isBrevity = argument0;
+var qProgAdjust = 0;
+if argument_count > 1 {
+    qProgAdjust = argument[1];
+}
+var qProg = clamp(QUEST_DATA[2]+qProgAdjust, 0, qCrit); // keep prog val clamped
 
 
 // Get Quest Type
@@ -13,7 +19,7 @@ switch qType {
       
        //Games played
        case 0:
-            if !isBrevity {
+            if !useBrevity {
                 str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" games!"
             }
             else {
@@ -25,7 +31,7 @@ switch qType {
 
        //Reach Score
        case 1:
-            if !isBrevity {
+            if !useBrevity {
                 str = "Score "+ string_abbrev_real(qProg,0)+"/"
                     +string_abbrev_real(qCrit,0)+" points!"
             }
@@ -38,7 +44,7 @@ switch qType {
        
        //Reach Combo [unused]
        case 2:
-            if !isBrevity {
+            if !useBrevity {
                 str = "Make "+scr_quest_text_format(qType,qProg,qCrit)+" combos!"
             }
             else {
@@ -50,7 +56,7 @@ switch qType {
        
        //Reach level
        case 3:
-            if !isBrevity {
+            if !useBrevity {
             str = "Level up "+scr_quest_text_format(qType,qProg,qCrit)+" times!"
             }
             else {
@@ -60,7 +66,7 @@ switch qType {
 
        //Deflectors Destroyed
        case 4:
-            if !isBrevity {
+            if !useBrevity {
             str = "Destroy "+scr_quest_text_format(qType,qProg,qCrit)+" Deflectors!"
             }
             else {
@@ -70,7 +76,7 @@ switch qType {
 
        //Bombs Destroyed
        case 5:
-            if !isBrevity {
+            if !useBrevity {
             str = "Detonate "+scr_quest_text_format(qType,qProg,qCrit)+" Bombs!"
             }
             else {
@@ -80,7 +86,7 @@ switch qType {
 
        //Triggered Powers
        case 6:
-            if !isBrevity {
+            if !useBrevity {
             str = "Trigger "+scr_quest_text_format(qType,qProg,qCrit)+" Power Projectiles!"
             }
             else {
@@ -91,7 +97,7 @@ switch qType {
 
        //Rebound Stars
        case 7:
-            if !isBrevity {
+            if !useBrevity {
             str = "Rebound "+scr_quest_text_format(qType,qProg,qCrit)+" Stars!"
             }
             else {
@@ -101,7 +107,7 @@ switch qType {
        
        //Unique Stars Seen/Spawned
        case 8:
-            if !isBrevity {
+            if !useBrevity {
             str = "Spawn "+scr_quest_text_format(qType,qProg,qCrit)+" Stars!"
             }
             else {
@@ -111,8 +117,8 @@ switch qType {
 
        //GamesPlayed Arcade [unused]
        case 9:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Arcade games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Arcade Mode games!"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Arcade games"
@@ -121,8 +127,8 @@ switch qType {
             
        //GamesPlayed Moves
        case 10:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Moves games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Moves Mode games!"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Moves games"
@@ -131,8 +137,8 @@ switch qType {
             
        //GamesPlayed Time
        case 11:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Time games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Time Mode games!"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Time games"
@@ -141,8 +147,8 @@ switch qType {
             
        //GamesPlayed Sandbox [unused]
        case 12:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Sandbox games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Sandbox Mode games!"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Sandbox games"
@@ -151,8 +157,8 @@ switch qType {
        
        //GamesPlayed Size 15x15
        case 13:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Small games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Small Grid games! (Select in Options)"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Small games"
@@ -161,8 +167,8 @@ switch qType {
             
        //GamesPlayed Size 20x20
        case 14:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Medium games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Medium Grid games! (Select in Options)"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Medium games"
@@ -172,18 +178,18 @@ switch qType {
             
        //GamesPlayed Size 25x25 [unused] 
        case 15:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Large games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Large Grid games! (Select in Options)"
             }
             else {
-            str = scr_quest_text_format(qType,qProg,qCrit)+" Large games"
+            str = scr_quest_text_format(qType,qProg,qCrit)+" Large size games"
             }
        break;
             
        //GamesPlayed Size 30x30
        case 16:
-            if !isBrevity {
-            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Giant games!"
+            if !useBrevity {
+            str = "Play "+scr_quest_text_format(qType,qProg,qCrit)+" Giant Grid games! (Select in Options)"
             }
             else {
             str = scr_quest_text_format(qType,qProg,qCrit)+" Giant games"
@@ -192,7 +198,7 @@ switch qType {
        
        //Collect Grow Paddles
        case 17:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Bigger Paddles!"
             }
             else {
@@ -201,7 +207,7 @@ switch qType {
        break;
        //Collect Shrink Paddles
        case 18:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Smaller Paddles!"
             }
             else {
@@ -210,7 +216,7 @@ switch qType {
        break;
        //Collect Slower Stars
        case 19:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Slower Stars!"
             }
             else {
@@ -219,7 +225,7 @@ switch qType {
        break;
        //Collect Faster Stars
        case 20:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Faster Stars!"
             }
             else {
@@ -228,7 +234,7 @@ switch qType {
        break;
        //Collect Mirror Paddles
        case 21:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Mirror Paddles!"
             }
             else {
@@ -237,7 +243,7 @@ switch qType {
        break;
        //Collect Big Stars
        case 22:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Super Stars!"
             }
             else {
@@ -246,7 +252,7 @@ switch qType {
        break;
        //Collect Turn Modifiers
        case 23:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Turn Modifiers!"
             }
             else {
@@ -255,7 +261,7 @@ switch qType {
        break;
        //Collect Freeze Paddles
        case 24:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Freeze Paddles!"
             }
             else {
@@ -264,7 +270,7 @@ switch qType {
        break;
        //Collect Split Paddles
        case 25:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Split Paddles!"
             }
             else {
@@ -273,7 +279,7 @@ switch qType {
        break;
        //Collect Slow Paddles
        case 26:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Slow Paddles!"
             }
             else {
@@ -283,7 +289,7 @@ switch qType {
             
        //Collect (Any) Powers
        case 27:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Power Deflectors!"
             }
             else {
@@ -293,7 +299,7 @@ switch qType {
        
        //Collect Board Clears
        case 28:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Board Clears!"
             }
             else {
@@ -303,7 +309,7 @@ switch qType {
        
        //Collect Board Fills
        case 29:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Board Fills!"
             }
             else {
@@ -313,7 +319,7 @@ switch qType {
        
        //Collect Uppers
        case 30:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Uppers!"
             }
             else {
@@ -323,7 +329,7 @@ switch qType {
        
        //Collect Downers
        case 31:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Downers!"
             }
             else {
@@ -333,7 +339,7 @@ switch qType {
        break;
        //Collect Rounders
        case 32:
-            if !isBrevity {
+            if !useBrevity {
             str = "Collect "+scr_quest_text_format(qType,qProg,qCrit)+" Rounders!"
             }
             else {
@@ -343,7 +349,7 @@ switch qType {
        
        //Survive Time
        case 33:
-            if !isBrevity {
+            if !useBrevity {
             str = "Survive for "+scr_quest_text_format(qType,qProg,qCrit)+"!"
             }
             else {

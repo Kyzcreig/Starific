@@ -20,7 +20,7 @@ case 1:
     rewardValue = scr_reward_set(1, false);
     
     prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,3,
-                    "winner!", "+$"+string(0), 1, argument0, rewardValue, 0, "");
+                    "winner!", "+"+CASH_STR+string(0), 1, argument0, rewardValue, 0, "");
 
     
 break;
