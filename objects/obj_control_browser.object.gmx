@@ -55,7 +55,7 @@ var text_x = GAME_X +GAME_W/2;
 var text_y = GAME_Y +GAME_H/2;
 
 
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
 

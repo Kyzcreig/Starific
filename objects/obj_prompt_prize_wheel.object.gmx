@@ -210,7 +210,7 @@ scr_prompt_step_head(spinState[0] == 0);
 // Draw Spin Count
 draw_set_valign(fa_middle);
 draw_set_halign(fa_left);
-draw_set_font(fnt_gui_options8);//fnt_menu_buttons
+draw_set_font(fnt_menu_bn_26_black);//fnt_menu_bn_40_bold
 spinCount_text = "spins: "+string(spinCount);
 spinCount_text_h = string_height(spinCount_text);
 spinCount_x = GAME_MID_X - line_w + prompt_jiggle[0,1];
@@ -368,7 +368,7 @@ spinButton_scale,spinButton_scale,0,COLORS[0],1)
 // Draw Spin Button Price Text
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 spinButton_text = CASH_STR+string(PRIZE_WHEEL_COST);
 spinButton_text_y_adj = string_height("S") * .15;
 draw_text_ext_transformed_colour(spinButton_x, spinButton_y - spinButton_text_y_adj , 

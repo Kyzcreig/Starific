@@ -149,7 +149,7 @@ if scene_alpha &gt; 0{
     draw_set_alpha(scene_alpha)
     
     //DRAW TIME REMAINING TEXT
-    draw_set_font(fnt_gui_timer)
+    draw_set_font(fnt_game_calibri_16_bold)
     draw_set_halign(fa_center) 
     draw_set_valign(fa_middle);
     draw_text_outline_color(tim_x,tim_y-tim_h/2 +1,tim_string,tim_color,tim_color,tim_color,tim_color,scene_alpha,

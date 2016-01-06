@@ -171,7 +171,7 @@ yR[0] = yMR[0] + dsin((rotMR[0]))*(lenR)*image_xscale //+yscaleadjy//right main 
 
 /*
 draw_set_color(c_blue)
-draw_set_font(fnt_small)
+draw_set_font(fnt_menu_bn_12_bold)
 draw_text(padcenterx+30,padcentery,'x,y='+string(x)+','+string(y))
 draw_text(padcenterx+30,padcentery-16,'xL,yL='+string(xL[0])+','+string(yL[0]))
 draw_text(padcenterx+30,padcentery+16,'xR,yR='+string(xR[0])+','+string(yR[0]))
@@ -187,7 +187,7 @@ for (cc=0;cc<ds_list_size(spritestartx);cc++){
     }
     xL[cc+1] = xL[cc] - dcos((rotML[0] -45*(cc+1)))*(lenL)*image_xscale //+yscaleadjx//- dsin((image_angle -45))*4 
     yL[cc+1] = yL[cc] + dsin((rotML[0] -45*(cc+1)))*(lenL)*image_xscale //+yscaleadjy//- dcos((image_angle -45))*4
-    //draw_set_font(fnt_small)
+    //draw_set_font(fnt_menu_bn_12_bold)
     //draw_text(padcenterx-60,padcentery-16*(cc+3),'xL'+string(cc+1)+',yL'+string(cc+1)+'='+string(xL[cc+1])+','+string(yL[cc+1])
     //+', spritestartx['+string(cc)+']='+string(spritestartx[| cc])+', lenL='+string(lenL))
 }

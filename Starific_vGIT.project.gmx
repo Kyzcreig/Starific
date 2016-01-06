@@ -594,7 +594,7 @@
         <script>scripts\scr_leaderboard_post_score.gml</script>
         <scripts name="Pages and Prompts">
           <script>scripts\scr_screenshot.gml</script>
-          <script>scripts\scr_prompt_step_head.gml</script>
+          <script>scripts\scr_prompt_feedback_init.gml</script>
           <script>scripts\scr_draw_settings_arrows.gml</script>
           <script>scripts\scr_prize_type_process.gml</script>
           <script>scripts\scr_settings_page_header.gml</script>
@@ -1009,38 +1009,35 @@
   <fonts name="fonts">
     <fonts name="Baron Neue">
       <fonts name="Main Game">
-        <font>fonts\fnt_field</font>
-        <font>fonts\fnt_powerups</font>
-        <font>fonts\fnt_gui_options1</font>
-        <font>fonts\fnt_gui_options2</font>
-        <font>fonts\fnt_gui_counts1</font>
-        <font>fonts\fnt_gui_counts2</font>
-        <font>fonts\fnt_gui_counts3</font>
-        <font>fonts\fnt_scoreboard</font>
-        <font>fonts\fnt_reward_cash_game</font>
-        <font>fonts\fnt_menu_in_game</font>
+        <font>fonts\fnt_game_bn_30_black</font>
+        <font>fonts\fnt_game_bn_20_black</font>
+        <font>fonts\fnt_game_bn_12_bold</font>
+        <font>fonts\fnt_game_bn_15_black</font>
+        <font>fonts\fnt_game_bn_26_black</font>
+        <font>fonts\fnt_game_bn_60_bold</font>
+        <font>fonts\fnt_game_bn_40_bold</font>
       </fonts>
       <fonts name="Menu">
-        <font>fonts\fnt_menu_buttons</font>
-        <font>fonts\fnt_reward_cash</font>
-        <font>fonts\fnt_gui_options5</font>
-        <font>fonts\fnt_gui_options6</font>
-        <font>fonts\fnt_gui_options7</font>
-        <font>fonts\fnt_gui_options8</font>
-        <font>fonts\fnt_gui_options9</font>
-        <font>fonts\fnt_gui_go_dialogue</font>
-        <font>fonts\fnt_small</font>
+        <font>fonts\fnt_menu_bn_40_bold</font>
+        <font>fonts\fnt_menu_bn_60_bold</font>
+        <font>fonts\fnt_menu_bn_26_italic</font>
+        <font>fonts\fnt_menu_bn_15_italic</font>
+        <font>fonts\fnt_menu_bn_15_black</font>
+        <font>fonts\fnt_menu_bn_26_black</font>
+        <font>fonts\fnt_menu_bn_20_black</font>
+        <font>fonts\fnt_menu_bn_20_italic</font>
+        <font>fonts\fnt_menu_bn_12_bold</font>
       </fonts>
     </fonts>
     <fonts name="Calibri">
-      <font>fonts\fnt_gui_options3</font>
-      <font>fonts\fnt_gui_options4</font>
-      <font>fonts\fnt_gui_timer</font>
-      <font>fonts\fnt_gui_tutorial</font>
+      <font>fonts\fnt_menu_calibri_22_bold</font>
+      <font>fonts\fnt_menu_calibri_24_bold</font>
+      <font>fonts\fnt_game_calibri_25_bold</font>
+      <font>fonts\fnt_game_calibri_16_bold</font>
     </fonts>
     <fonts name="Forced Square">
-      <font>fonts\fnt_menu_title</font>
-      <font>fonts\fnt_menu_title_game</font>
+      <font>fonts\fnt_menu_title_95</font>
+      <font>fonts\fnt_game_title_95</font>
     </fonts>
   </fonts>
   <objects name="objects">
@@ -1198,9 +1195,11 @@
       </objects>
       <objects name="Prompts">
         <object>objects\obj_prompt_parent</object>
-        <object>objects\obj_prompt_feedback</object>
-        <object>objects\obj_prompt_feedback_unlock</object>
+        <object>objects\obj_prompt_feedback_parent</object>
+        <object>objects\obj_prompt_feedback_main</object>
+        <object>objects\obj_prompt_feedback_gameover</object>
         <object>objects\obj_prompt_quest_cancel</object>
+        <object>objects\obj_prompt_rate</object>
         <object>objects\obj_prompt_confirm_exit</object>
         <object>objects\obj_prompt_everyplay</object>
         <object>objects\obj_prompt_share_preview</object>

@@ -41,8 +41,8 @@ subEase[2] = clamp(mainEase[0]-1.0,0,1)
 
 
 title_txt = "placeholder" 
-title_font = fnt_menu_title; 
-counts_font = fnt_menu_buttons;
+title_font = fnt_menu_title_95; 
+counts_font = fnt_menu_bn_40_bold;
 
 selected[0] = noone;
 selected[1] = true;

@@ -146,7 +146,7 @@ if cypher { //data[1] == 0{
     inner_text =  scr_cypher_text("0123456789","?",inner_text);  //we'll see if single ? mark works 
 }
 // Draw Inner Text
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_text_ext_transformed_colour(inner_x, inner_y,

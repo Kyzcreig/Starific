@@ -244,7 +244,7 @@ if true {//TweenExists(mainTween) {// and TweenIsPlaying(mainTween) {
 
 settings_h = 180;// * RU//170;  
 
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 category_h = string_height("S");
 
 arrows_w = string_width("55 x 55") + sprite_get_width(s_v_rightarrow)*2 * 1.25
@@ -268,7 +268,7 @@ menu_data = menu[i];
 // Draw Settings Category
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 category_x = GAME_MID_X - line_w +(600)*(1-subEase[i+2]); 
 category_text = menu_data[0];
 draw_text_ext_transformed_colour(category_x, category_y, 

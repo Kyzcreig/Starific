@@ -517,13 +517,13 @@ draw_circle_colour(x+yscaleadjx,y+yscaleadjy,5,c_red,c_red,false)
             <kind>1</kind>
             <string>///stats (disabled)
 /*
-draw_set_font(fnt_field)
+draw_set_font(fnt_game_bn_20_black)
 draw_text(padcenterx,padcentery-30,'Left Theta='+string(padLTheta));
 draw_text(padcenterx,padcentery,'Right Theta='+string(padRTheta));
 /*
 //var dist = point_distance(x,y,centerfieldx,centerfieldy)
 //draw_text(x+10,y+10,'distance: '+string(dist));
-draw_set_font(fnt_small)
+draw_set_font(fnt_menu_bn_12_bold)
 draw_text(x+10,y+10,'oldtheta: '+string(oldtheta));
 draw_text(x+10,y+26,'newtheta: '+string(newtheta));+
 draw_text(x+10,y+42,'difftheta: '+string(difftheta));

@@ -116,7 +116,7 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
                 
                 // Draw New Text
                 draw_set_halign(fa_center);
-                draw_set_font(fnt_gui_counts3);
+                draw_set_font(fnt_game_bn_15_black);
                 nm_txt = "new!";
                 nm_txt_y = nm_y //- .1 * string_height(nm_txt) * nm_scl;
                 nm_col = COLORS[scr_flashing_color_index(10)];
@@ -145,7 +145,7 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
             
             //Draw Deflector Text
             draw_set_halign(fa_center);
-            draw_set_font(fnt_gui_counts3);
+            draw_set_font(fnt_game_bn_15_black);
             def_txt = def_data[5];
             if def_discovered == 0 {
                 def_txt = scr_cypher_text("abcdefghijklmnopqrstuvwxyz-+$1234567890"+CASH_STR,"?",def_txt);

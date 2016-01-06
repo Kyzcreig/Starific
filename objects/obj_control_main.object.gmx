@@ -170,7 +170,7 @@ if keyboard_check(vk_shift){
         scr_unlocks_set_status_types("0,1,2,3");
     
         // Show Unlock Text
-        txt_font = fnt_menu_buttons;
+        txt_font = fnt_menu_bn_40_bold;
         draw_set_font(txt_font);
         txt_text = "everything unlocked!";   
         txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
@@ -201,7 +201,7 @@ if instance_exists(obj_settings_credits) and
             
                 
             // Show Unlock Text
-            txt_font = fnt_menu_buttons;
+            txt_font = fnt_menu_bn_40_bold;
             draw_set_font(txt_font);
             txt_text = "everything unlocked!";   
             txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
@@ -355,7 +355,7 @@ if keyboard_check(vk_shift) and keyboard_check_pressed(vk_home){
 /*
 if mouse_check_button_pressed(mb_right) {
     scr_popup_text_field_static(mouse_x,mouse_y,string(random(100000)),
-        COLORS[0],fnt_menu_buttons,1,5*room_speed);
+        COLORS[0],fnt_menu_bn_40_bold,1,5*room_speed);
     
     
 }
@@ -831,8 +831,8 @@ if os_browser == browser_not_a_browser {
     GAME_IS_HTML5 = true;
     //sprite_set_cache_size(s_v_star_white, 8)
     // Allow more font cache for these frequently colored fonts
-    font_set_cache_size(fnt_menu_in_game, 8);
-    font_set_cache_size(fnt_menu_buttons, 8);
+    font_set_cache_size(fnt_game_bn_40_bold, 8);
+    font_set_cache_size(fnt_menu_bn_40_bold, 8);
 }
 
 

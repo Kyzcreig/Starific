@@ -327,21 +327,30 @@ with (obj_control_gameover) {
             }
         }
     }
-    // Else If Mobile Version
+    // Mobile Version
     else{
     
-        // Add Rate Button
+        // Schedule Rate Prompt to Appear
         rateNextTime = ini_read_real("misc", "RATE_NEXT_TIME", 0);
-        rateAvailable = date_compare_datetime(rateNextTime, date_current_datetime()) == -1;
+        currentDate = date_current_datetime();
+        rateAvailable = date_compare_datetime(rateNextTime, currentDate) == -1;
         // If rate available, add button and blank dialogue
         if rateAvailable and 
-           gamesPlayedTotal > 10 and 
-           (lastScore == highScore or sh_greatGame and random(1) > .5)  
+           gamesPlayedTotal > 15 and 
+           obj_control_game.newBestFlag[0] == 1 //flag for new best score
+           //(lastScore == highScore and sh_greatGame)/// and random(1) > .5)  
         { 
+            // Flag Rate Prompt to Appear
+            rate_prompt[0] = true;
+            // Add 15min Cooldown on Rate Prompt
+            rateNextTime = date_inc_minute(currentDate,15);
+            ini_write_real("misc", "RATE_NEXT_TIME",rateNextTime);
+            /*
             // Add rate Button to Gameover
             if scr_go_is_button(6)  == -1{ // if button not in list
                 scr_gameover_add_button(  6);
             }
+            */
         }
         
         // PLM Promote for Android Googleplay

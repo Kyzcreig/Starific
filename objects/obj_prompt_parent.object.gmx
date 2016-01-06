@@ -63,7 +63,7 @@ rect_w = GAME_W;
 
 
 // Set Title
-title_font = fnt_menu_title; 
+title_font = fnt_menu_title_95; 
 title_txt = "Not Implemented"
 prompt_button = noone;
 

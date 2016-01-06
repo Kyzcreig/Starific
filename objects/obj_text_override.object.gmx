@@ -45,7 +45,7 @@ alarm[1] = 2;
 
 // Set Text Stuff
 text = ""
-font = fnt_field
+font = fnt_game_bn_20_black
 
 
 // Set Colors

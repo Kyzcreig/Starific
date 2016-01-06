@@ -79,7 +79,7 @@ go_menu[2] = "restart"
 go_menu[3] = "menu"
 
 
-title_font = fnt_menu_title; 
+title_font = fnt_menu_title_95; 
 title_txt = go_menu[0];
 
 
@@ -142,9 +142,10 @@ for (var i = 0; i &lt; 4; i++ ){
 
 unlock_count[0] = 0;
 unlock_sound[0] = 1;
+rate_prompt[0] = 0;
 
 dialogue_max_display = 9//6;
-dialogue_font = fnt_gui_go_dialogue;//fnt_gui_options5;
+dialogue_font = fnt_menu_bn_20_italic;//fnt_menu_bn_26_italic;
 dialogue_count_adj = 0;
 
 interstitals_requested = false;
@@ -248,7 +249,15 @@ TweenAddCallback(go_TweenFade,TWEEN_EV_FINISH,id,TweenPlay,go_TweenSlide2);
 TweenAddCallback(go_TweenSlide2,TWEEN_EV_FINISH,id,TweenPlay,go_TweenSlide3);
 TweenAddCallback(go_TweenSlide3,TWEEN_EV_FINISH,id,TweenPlay,go_TweenSlideText); 
             //NB: go_TweenSlide3 is referenced by show interstitial thing down below
-
+// Schedule Rate Prompt
+if rate_prompt[0] { 
+    TweenAddCallback(go_TweenSlideText,TWEEN_EV_FINISH,id,
+                ScheduleScript,obj_control_main,false,2,
+                    CreateInstance,x,y,obj_prompt_feedback_gameover); 
+    rate_prompt[0] = false;
+}
+            
+            
 TweenDestroyWhenDone(go_TweenFade,true);
 TweenDestroyWhenDone(go_TweenSlide2,true);
 TweenDestroyWhenDone(go_TweenSlide3,true);

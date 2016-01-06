@@ -36,7 +36,7 @@ for ( i = 0; i < array_length_1d(prompt_button); i++ ){
 // Prompt Body
 draw_set_halign(fa_left);
 //draw_set_halign(fa_middle);
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 // Set Header Text
 promptHeader = "exit game"
 promptHeaderX = GAME_MID_X-line_w//GAME_X + 40;
@@ -47,7 +47,7 @@ COLORS[0], COLORS[0],COLORS[0],COLORS[0],subEase[1]);
 
 // Draw Paragraph Text
 draw_set_halign(fa_left);
-draw_set_font(fnt_gui_options3); 
+draw_set_font(fnt_menu_calibri_22_bold); 
 promptText = "Would you like to exit Starific?"; 
 promptTextX = promptHeaderX+8;
 promptTextW = line_w*1.9;
@@ -130,7 +130,7 @@ for(var i = 0; i < n; i++)
     // Draw Button Text
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_font(fnt_gui_options8);
+    draw_set_font(fnt_menu_bn_26_black);
     sp_msg_h_adj = string_height("S") * .15;
     sp_text_col = COLORS[data[4]];
     draw_text_ext_transformed_colour(sp_x, sp_y - sp_msg_h_adj , sp_text, 
@@ -169,7 +169,7 @@ for (var i=0, n=array_height_2d(prompt_jiggle); i < n; i++){
 // Prompt Body
 draw_set_halign(fa_left);
 //draw_set_halign(fa_middle);
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 // Set Header Text
 promptHeader = "quest cancel"
 promptHeaderX = GAME_MID_X-line_w//GAME_X + 40;
@@ -180,7 +180,7 @@ COLORS[0], COLORS[0],COLORS[0],COLORS[0],subEase[1]);
 
 // Draw Paragraph Text
 draw_set_halign(fa_left);
-draw_set_font(fnt_gui_options3); 
+draw_set_font(fnt_menu_calibri_22_bold); 
 promptText = "Cancel current quest for "+CASH_STR+"25?  A new one will be selected next game.##" +
              "You have "+CASH_STR+string(STAR_CASH)+"."; 
 promptTextX = promptHeaderX+8;
@@ -284,7 +284,7 @@ for(var i = 0; i < n; i++)
     // Draw Button Text
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_font(fnt_gui_options8);
+    draw_set_font(fnt_menu_bn_26_black);
     sp_msg_h_adj = string_height("S") * .15;
     sp_text_col = COLORS[data[4]];
     draw_text_ext_transformed_colour(sp_x, sp_y - sp_msg_h_adj , sp_text, 

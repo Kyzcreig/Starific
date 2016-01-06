@@ -158,8 +158,8 @@ for(var i = 0; i < n; i++)
     
     //Draw Button Text
     draw_set_valign(fa_top);
-    //draw_set_font(fnt_gui_options7);
-    draw_set_font(fnt_gui_options9);
+    //draw_set_font(fnt_menu_bn_15_black);
+    draw_set_font(fnt_menu_bn_20_black);
     draw_text_ext_transformed_colour(sp_x, sp_y + sp_size/2 * sp_scale + 12,
                                 sp_text, -1, -1, sp_scale, sp_scale, 0,
                                 sp_col, sp_col, sp_col, sp_col, 1);     

@@ -12,7 +12,7 @@ if !MOVE_ACTIVE and lives>0 {//and os_device{
     draw_sprite_ext(s_v_padcircle,0,x,y,
     2*firepad/sprite_get_width(s_v_padcircle),
     2*firepad/sprite_get_width(s_v_padcircle), 0,COLORS[0],1)
-    draw_set_font(fnt_field)
+    draw_set_font(fnt_game_bn_20_black)
     draw_set_halign(fa_center)
     draw_set_valign(fa_middle)
     /*if os_type == os_ios {draw_text_color(x,y,'fire!',
@@ -27,7 +27,7 @@ else if MOVE_ACTIVE and sBooster != noone{
             draw_sprite_ext(s_v_padcircle,0,x,y,
             2*firepad/sprite_get_width(s_v_padcircle),
             2*firepad/sprite_get_width(s_v_padcircle), 0,COLORS[0],1)
-            draw_set_font(fnt_field)
+            draw_set_font(fnt_game_bn_20_black)
             draw_set_halign(fa_center)
             draw_set_valign(fa_middle)
             draw_text_color(x,y,'grow!',
@@ -38,7 +38,7 @@ else if MOVE_ACTIVE and sBooster != noone{
             draw_sprite_ext(s_v_padcircle,0,x,y,
             2*firepad/sprite_get_width(s_v_padcircle),
             2*firepad/sprite_get_width(s_v_padcircle), 0,COLORS[0],1)
-            draw_set_font(fnt_field)
+            draw_set_font(fnt_game_bn_20_black)
             draw_set_halign(fa_center)
             draw_set_valign(fa_middle)
             draw_text_color(x,y,'sight!',

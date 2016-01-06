@@ -453,7 +453,7 @@ if (MODE == MODES.MOVES or MODE == MODES.SANDBOX) and GAME_ACTIVE{
                 
                 //Draw instructions dialogue
                 if bMtext[i] &gt; 0{
-                    draw_set_font(fnt_gui_tutorial);
+                    draw_set_font(fnt_game_calibri_25_bold);
                     
                     var instruct_x = dialogue_x[mixPos[0]];
                     var instruct_y = dialogue_y[mixPos[0]];
@@ -471,12 +471,12 @@ if (MODE == MODES.MOVES or MODE == MODES.SANDBOX) and GAME_ACTIVE{
             draw_sprite_ext(boardMixers[i,2],0,mixer_x,mixer_y,mixer_scale,mixer_scale,
                 0,mixer_col,mixer_alpha);
             //Draw mixer label
-            draw_set_font(fnt_gui_counts2)
+            draw_set_font(fnt_game_bn_12_bold)
             draw_text_colour(mixer_x,mixer_y+mixer_size/2+15,boardMixers[i,3],
             COLORS[0],COLORS[0],COLORS[0],COLORS[0],mixer_alpha)
                 
             //Draw mixer inventory
-            draw_set_font(fnt_gui_counts3)
+            draw_set_font(fnt_game_bn_15_black)
             draw_sprite_ext(s_v_icon_background,0,mixer_x+mixer_size/2-4,mixer_y-mixer_size/2+4,24/60,24/60,0,
                 COLORS[0],mixer_alpha) //24x24 canvas for these
             draw_text_colour(mixer_x+mixer_size/2-4,mixer_y-mixer_size/2,string(boardMixers[i,0]),
@@ -543,7 +543,7 @@ if (MODE == MODES.MOVES or MODE == MODES.SANDBOX) and GAME_ACTIVE{
         
         //Not enough inventory dialogue
         if bMtext[array_length_1d(bMtext)-1] &gt; 0{
-            draw_set_font(fnt_gui_tutorial);
+            draw_set_font(fnt_game_calibri_25_bold);
             
             var text_x = dialogue_x[mixPos[0]];
             var text_y = dialogue_y[mixPos[0]];
@@ -588,7 +588,7 @@ if (MODE == MODES.MOVES or MODE == MODES.SANDBOX) and GAME_ACTIVE{
     
     // Sandbox End Button
     if MODE == MODES.SANDBOX and !instance_exists(obj_control_tutorial){ // MOVE_COUNT &gt;= 1 {
-        draw_set_font(fnt_scoreboard);
+        draw_set_font(fnt_game_bn_26_black);
         draw_set_valign(fa_middle);
         draw_set_halign(fa_center);
         //Set Button Data

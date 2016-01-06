@@ -72,7 +72,7 @@ for(var i = 0; i < n; i++)
     // Draw Button Text
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_font(fnt_gui_options8); 
+    draw_set_font(fnt_menu_bn_26_black); 
     sp_txt = sp_data[3];
     sp_txt_scale = subEase[2];//
     sp_txt_h_adj = string_height("S") * sp_scale * 1.2 ;
@@ -86,7 +86,7 @@ for(var i = 0; i < n; i++)
     if sp_data[2] > 0 {
         //draw_set_valign(fa_middle);
         //draw_set_halign(fa_center);
-        //draw_set_font(fnt_gui_options8);
+        //draw_set_font(fnt_menu_bn_26_black);
         sp_note_size = 50*RU//sp_size / 3;
         sp_note_scale = .5 * subEase[2]; //we assume we're using 100px sprites
         sp_note_x = sp_x + sp_size/2 * sp_scale

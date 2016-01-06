@@ -65,7 +65,7 @@ menu[2] = 'moves'
 menu[3] = 'time'
 menu[4] = "sandbox"
 
-title_font = fnt_menu_title; 
+title_font = fnt_menu_title_95; 
 title_txt = menu[0]
 
 text_locked = false;
@@ -354,7 +354,7 @@ switch selected[0]
         }
         //Spawn unlock criteria dialogue
         else{
-            txt_font = fnt_gui_options5//fnt_field//fnt_menu_buttons;//fnt_powerups;
+            txt_font = fnt_menu_bn_26_italic//fnt_game_bn_20_black//fnt_menu_bn_40_bold;//fnt_game_bn_30_black;
             ini_open("scores.ini")
                txt_text = scr_unlock_criteria_text(scr_unlock_get_data(1,1)) + ""//" to unlock!";
             ini_close();
@@ -392,7 +392,7 @@ switch selected[0]
          else{
          
          
-            txt_font = fnt_gui_options5//fnt_field//fnt_menu_buttons;//fnt_powerups;
+            txt_font = fnt_menu_bn_26_italic//fnt_game_bn_20_black//fnt_menu_bn_40_bold;//fnt_game_bn_30_black;
             ini_open("scores.ini")
                txt_text = scr_unlock_criteria_text(scr_unlock_get_data(1,2)) + ""//" to unlock!";
             ini_close();
@@ -462,7 +462,7 @@ switch selected[0]
          else{
          
          
-            txt_font = fnt_gui_options5//fnt_field//fnt_menu_buttons;//fnt_powerups;
+            txt_font = fnt_menu_bn_26_italic//fnt_game_bn_20_black//fnt_menu_bn_40_bold;//fnt_game_bn_30_black;
             ini_open("scores.ini")
                txt_text = scr_unlock_criteria_text(scr_unlock_get_data(1,3)) + ""//" to unlock!";
             ini_close();
@@ -517,7 +517,7 @@ switch selected[0]
 
         
     case 7: //Feedback Button
-        instance_create(x,y,obj_prompt_feedback);
+        instance_create(x,y,obj_prompt_feedback_main);
          
         selected[0] = noone;
         break;

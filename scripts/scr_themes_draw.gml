@@ -38,7 +38,7 @@ for (var i = 0; i < UNLOCKS_DATA_SIZES[3]; i++ ){
 
     
     //Draw Name
-    draw_set_font(fnt_gui_options8)
+    draw_set_font(fnt_menu_bn_26_black)
     draw_set_halign(fa_right);
     draw_set_valign(fa_top);
     name_text = data[5];
@@ -65,7 +65,7 @@ for (var i = 0; i < UNLOCKS_DATA_SIZES[3]; i++ ){
     scr_themes_draw_deflectors(def_x,def_y, theme_available, i, def_size, def_gap, def_scale)
     
     //Set Description Stuff
-    draw_set_font(fnt_gui_options7 ) ///try other fonts  fnt_gui_counts1
+    draw_set_font(fnt_menu_bn_15_black ) ///try other fonts  fnt_game_bn_20_black
     draw_set_halign(fa_right);
     
     // If Unlocked

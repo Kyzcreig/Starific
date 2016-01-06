@@ -31,7 +31,7 @@ draw_sprite_part_ext(s_v_icon_background,0,0,0,60,(1-v)*60,xm-30,ym-30,1,1,COLOR
 //draw_set_halign(fa_center)
 //we can make a little rectangle here maybe or scale it down might be ok
 if count > 1{
-    draw_set_font(fnt_gui_counts3)
+    draw_set_font(fnt_game_bn_15_black)
     draw_sprite_ext(s_v_icon_background,0,xm+30-4,y1+4,24/60,24/60,0,
         COLORS[0],1) //24x24 canvas for these
     draw_text_colour(xm+30-4,y1,string(count),

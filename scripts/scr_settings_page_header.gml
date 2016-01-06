@@ -84,7 +84,7 @@ var tex_page = argument5;
 //Draw Left Text
 draw_set_valign(fa_middle);
 draw_set_halign(fa_left);
-draw_set_font(counts_font);//fnt_gui_options8);
+draw_set_font(counts_font);//fnt_menu_bn_26_black);
 count_text = string(prog_count)+"/"+string(total_count);
 if new_count > 0 {
     //count_text += " new "+string(new_count);

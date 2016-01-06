@@ -46,9 +46,9 @@ tex_page = argument[2];
 
 
 if !tex_page {
-    confettiBombFont = fnt_reward_cash//fnt_menu_buttons;
+    confettiBombFont = fnt_menu_bn_60_bold//fnt_menu_bn_40_bold;
 } else {
-    confettiBombFont = fnt_reward_cash_game
+    confettiBombFont = fnt_game_bn_60_bold
 }
 confettiDelayDuration = .2; // default duration
 confettiSoundCountMax = 4 / confettiDelayDuration //4 seconds of pops max

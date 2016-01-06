@@ -149,7 +149,7 @@ if keyboard_check(vk_alt)
             <string>///Draw debug
 
 draw_set_color(COLORS[0])
-draw_set_font(fnt_small)
+draw_set_font(fnt_menu_bn_12_bold)
 draw_set_halign(fa_left)
 draw_set_valign(fa_top)
 //scr_align_text()
@@ -207,7 +207,7 @@ for(i=0; i&lt;ds_list_size(global.empties);i++){
 //draw_text(x,y-32,'emptylaneX '+string(emptylaneX));
 //draw_text(x,y-16,'emptylaneY '+string(emptylaneY));
 draw_set_color(c_black)
-draw_set_font(fnt_field)
+draw_set_font(fnt_game_bn_20_black)
 }
 </string>
           </argument>

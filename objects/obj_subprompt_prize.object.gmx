@@ -170,7 +170,7 @@ if dataLoaded {
     // Draw Winner or Try Again Text
     draw_set_valign(fa_middle)
     draw_set_halign(fa_center)
-    draw_set_font(fnt_reward_cash)
+    draw_set_font(fnt_menu_bn_60_bold)
     top_text = prizeData[2]
     top_text_x = prize_x;
     top_text_y = prize_y - GAME_H * .25;
@@ -183,7 +183,7 @@ if dataLoaded {
     
     // Draw Prize Description
     if string_length(prizeData[3]) &gt; 6 {
-        draw_set_font(fnt_menu_buttons)
+        draw_set_font(fnt_menu_bn_40_bold)
     }
     bottom_text = prizeData[3];
     bottom_text_x = prize_x;
@@ -203,7 +203,7 @@ if dataLoaded {
     {
         
         // Set ShareButton Params
-        draw_set_font(fnt_gui_options8);
+        draw_set_font(fnt_menu_bn_26_black);
         sb_text = "share";
         sb_text_scale = subEase[3];
         sb_text_w = string_width(sb_text)/2 * sb_text_scale;

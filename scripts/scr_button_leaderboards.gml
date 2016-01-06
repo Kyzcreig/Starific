@@ -7,7 +7,7 @@ if achievement_available(){
 }
 //Else error message
 else{
-    txt_font = fnt_gui_options5//fnt_menu_buttons;//fnt_powerups; 
+    txt_font = fnt_menu_bn_26_italic//fnt_menu_bn_40_bold;//fnt_game_bn_30_black; 
     txt_text = "not connected to leaderboards!"; //tap rate to unlock
     draw_set_font(txt_font)
     txt_height = string_height(txt_text)/2;

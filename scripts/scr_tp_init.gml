@@ -203,6 +203,8 @@ TOUCH_LINE_START_ANGLE = 90;
 // Set DC Center
 dynamicCenterX = dCX_start;
 dynamicCenterY = dCY_start;
+DCXdelta = 0;
+DCYdelta = 0;
 
 MAFromMove = 90;
       
@@ -274,12 +276,15 @@ if TOUCH_ENABLED and ((TP_SENSE[1] == 1) or (TP_SENSE[1] == 2)) and
                 
             // Spawn Dialogue Confirmation
             if !GAME_PAUSE {
-                txt_font = fnt_menu_in_game;
+                //txt_font = fnt_game_bn_40_bold;
+                txt_font = fnt_game_bn_26_black;
             } else {
-                txt_font = fnt_menu_buttons;
+                //txt_font = fnt_menu_bn_40_bold;
+                txt_font = fnt_menu_bn_26_black;
             } 
             draw_set_font(txt_font)
-            txt_text = "pad placed!";
+            //txt_text = "pad placed!";
+            txt_text = "recenter control pad by#tapping and holding!";
             if !GAME_PAUSE {
                 txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
                 txt_y = centerfieldy+txt_height;
@@ -287,7 +292,7 @@ if TOUCH_ENABLED and ((TP_SENSE[1] == 1) or (TP_SENSE[1] == 2)) and
                 txt_y = GAME_Y + GAME_H*.75 //string_height("H")*1.6 + string_height(txt_text) / 2;
             } 
             scr_popup_text_field_static(GAME_MID_X,txt_y ,
-            txt_text,COLORS[0],txt_font)
+            txt_text,COLORS[0],txt_font, false, 4*room_speed)
             
             // Play Placement Sound
             scr_sound(sd_tp_place);

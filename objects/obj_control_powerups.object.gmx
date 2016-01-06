@@ -1400,7 +1400,7 @@ for (var i = ds_list_size(powerTimer) - 1; i &gt;= 0;i--){
        var cash_y = centerfieldy + RU * random_range(-1,1) * GAME_W * .35;
             //NB: We rng a bit off the mouse so people see they're getting more than $1
        scr_create_confetti(cash_x, cash_y, 32, 32, 1);
-       scr_popup_text_zoomup(cash_x,cash_y,cash_text,COLORS[3], fnt_reward_cash_game, false, 3*room_speed)
+       scr_popup_text_zoomup(cash_x,cash_y,cash_text,COLORS[3], fnt_game_bn_60_bold, false, 3*room_speed)
        scr_sound(sd_catch_cash, 1, false); //maybe redundant with click sound?
     }
 
@@ -1559,7 +1559,7 @@ if !GAMEOVER {
         _timerval = 0
         ii = 0 //iterator for _timer width
     
-        draw_set_font(fnt_gui_counts3)
+        draw_set_font(fnt_game_bn_15_black)
         draw_set_valign(fa_middle)
         draw_set_halign(fa_center)
     
@@ -1594,7 +1594,7 @@ if !GAMEOVER {
                 CurrentPowerCount,CurrentPowerSprite, icon_col, sym_color)
                 //Draw Description Text
                 if cd_jiggle[z,3] &gt; 0{ // timer var
-                    draw_set_font(fnt_gui_counts2)
+                    draw_set_font(fnt_game_bn_12_bold)
                     draw_text_colour((iconx1+iconx2)/2,icony2+16,CurrentPowerText,
                     COLORS[0],COLORS[0],COLORS[0],COLORS[0],1)
                 }   
@@ -1636,7 +1636,7 @@ if !GAMEOVER {
             touchPadTap = false;
         }
            
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_height = (string_height("H")*.6 + string_height(tap_text) * .5) * touchPadTapEase[0];
         scr_draw_text_tap_dialogue(centerfieldx,centerfieldy+txt_height,

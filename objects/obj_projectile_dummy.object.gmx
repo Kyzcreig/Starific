@@ -398,7 +398,7 @@ if proj_state &gt;= 1{
     if cooldown_text &gt; 0{
         draw_set_valign(fa_middle)
         draw_set_halign(fa_center)
-        draw_set_font(fnt_gui_counts2)
+        draw_set_font(fnt_game_bn_12_bold)
         draw_text_colour(cooldown_x,cd_y2+15,projType[projCur,3],
         COLORS[0],COLORS[0],COLORS[0],COLORS[0],scene_alpha)
         cooldown_text -= 1;

@@ -429,7 +429,7 @@ if (MOVE_ACTIVE){//THIS IS TRUE AS SOON AS A SHOOTER EXISTS
                 //bMjiggle[mType,0] = bMjiggletime*1//.5
                
                 //Dialogue text on increment
-                txt_font = fnt_menu_in_game//fnt_menu_buttons;//; 
+                txt_font = fnt_game_bn_40_bold//fnt_menu_bn_40_bold;//; 
                 draw_set_font(txt_font);
                 txt_text = "+1 "+string_replace(boardMixers[mType,3],"#"," ");
                 txt_height = string_height("H")*.6 + string_height(txt_text) / 2;

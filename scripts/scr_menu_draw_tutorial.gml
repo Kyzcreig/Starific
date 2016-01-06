@@ -139,7 +139,7 @@ if TUTORIAL_ENABLED{
         
     draw_set_valign(fa_middle);
     draw_set_halign(fa_center);
-    draw_set_font(fnt_menu_in_game);
+    draw_set_font(fnt_game_bn_40_bold);
     title_text = "how to play"
     title_w = string_width(title_text);
     title_h = string_height(title_text);
@@ -314,7 +314,7 @@ if TUTORIAL_ENABLED{
     }
     
     //Draw Tutorial Frame Text
-    draw_set_font(fnt_gui_tutorial)
+    draw_set_font(fnt_game_calibri_25_bold)
     text_color = COLORS[0];
     text_start_y = title_y +title_h/8; 
     text_line_gap = 40;

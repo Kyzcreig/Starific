@@ -10,7 +10,7 @@ if selected[0]{
    
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_font(fnt_gui_tutorial);
+    draw_set_font(fnt_game_calibri_25_bold);
     var text_x = Creator_ID.dialogue_x[mixPos[0]];
     var text_y = Creator_ID.dialogue_y[mixPos[0]];
     draw_text_colour(text_x,text_y,"Swipe to select star direction.",

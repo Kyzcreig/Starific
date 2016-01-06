@@ -29,7 +29,7 @@ choices_gap_y = 165 //140
 //Check for Mouse Hover; 
 for(var i = 1; i < array_length_1d(menu);i++)
 {
-    draw_set_font(fnt_menu_buttons);
+    draw_set_font(fnt_menu_bn_40_bold);
     draw_set_halign(fa_center)
     draw_set_valign(fa_middle)
     //Alternate sign/direction of tween
@@ -119,7 +119,7 @@ for(var i = 1; i < array_length_1d(menu);i++)
             
             sub_text_col = COLORS[scr_flashing_color_index(10)];
             //Draw rating text
-            draw_set_font(fnt_gui_options7)
+            draw_set_font(fnt_menu_bn_15_black)
             draw_set_halign(fa_left)
             draw_text_ext_transformed_colour(sub_text_x, sub_text_y, sub_text, 
             -1, -1, text_scale, text_scale, 0, sub_text_col,sub_text_col,sub_text_col,sub_text_col,subEase[1]);
@@ -219,8 +219,8 @@ for(var i = 0; i < n; i++)
         // Draw Circle
         draw_sprite_ext(s_v_solid_circle_60, 0,sp_x,sp_y,sp_resize,sp_resize,0,COLORS[0],subEase[2])  //COLORS[8], 
         // Draw Notifcation Count
-        //draw_set_font(fnt_gui_options9);
-        draw_set_font(fnt_gui_options7);
+        //draw_set_font(fnt_menu_bn_20_black);
+        draw_set_font(fnt_menu_bn_15_black);
         draw_set_valign(fa_middle);
         draw_set_halign(fa_center);
         var note_height_adj = string_height("0") * .15;

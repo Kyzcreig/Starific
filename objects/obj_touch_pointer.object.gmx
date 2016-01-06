@@ -202,15 +202,15 @@ draw_trail_swipe(sprite_x,sprite_y,80,8,sprite_color,s_v_background_solid_3d,tru
 if padPercent != 100 draw_sprite_ext(s_v_pointer_fill,0,sprite_x,sprite_y,1,1,0,COLORS[6],1);//scene_alpha
 
 //Draw % paddle movement
-draw_set_font(fnt_menu_in_game);
+draw_set_font(fnt_game_bn_40_bold);
 /*
 //Draw bigger font for touchpads
 if touchPad{
-    //draw_set_font(fnt_scoreboard); //bigger font maybe
-    draw_set_font(fnt_menu_buttons); //bigger font maybe
+    //draw_set_font(fnt_game_bn_26_black); //bigger font maybe
+    draw_set_font(fnt_menu_bn_40_bold); //bigger font maybe
 }
 else {
-    draw_set_font(fnt_menu_buttons);
+    draw_set_font(fnt_menu_bn_40_bold);
 }*/
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
@@ -231,7 +231,7 @@ if padPercent != 100 draw_sprite_ext(s_v_pointer,0,sprite_x,sprite_y,1,1,0,sprit
 
 
 //Draw "subtext"
-draw_set_font(fnt_gui_tutorial);
+draw_set_font(fnt_game_calibri_25_bold);
 text_color = COLORS[0];
 sub_txt_h = string_height("S")
 sub_txt_y = sprite_circle_bottom// - sub_txt_h/2//sprite_center_y+frame_text_h;

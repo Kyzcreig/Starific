@@ -12,7 +12,7 @@ scr_draw_background_mask(p_FadeTween[0], 0)
 
 // Draw Resume Countdown Timer
 if resumeCD[0] > 0 {
-    draw_set_font(fnt_reward_cash);
+    draw_set_font(fnt_menu_bn_60_bold);
     draw_set_valign(fa_middle);
     draw_set_halign(fa_center);
     draw_text_outline_ext_transformed_color(centerfieldx, centerfieldy, string(resumeCD[0]),-1,-1,
@@ -47,7 +47,7 @@ choices_gap_y = 95;
 for(var i = 0; i < array_length_1d(menu);i++)
 {
     //Alternate sign/direction of tween
-    draw_set_font(fnt_menu_buttons);
+    draw_set_font(fnt_menu_bn_40_bold);
     draw_set_valign(fa_middle);
     draw_set_halign(fa_center);
     var tweenSign = (i mod 2);
@@ -210,7 +210,7 @@ for(var i = 0; i < n;i++)
 
 
 //Draw Difficulty/Skill Text
-draw_set_font(fnt_gui_options9);
+draw_set_font(fnt_menu_bn_20_black);
 draw_set_valign(fa_top);
 draw_set_halign(fa_right);
 info_x = GAME_X + GAME_W - 10;

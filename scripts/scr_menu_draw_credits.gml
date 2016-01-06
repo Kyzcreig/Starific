@@ -21,7 +21,7 @@ scr_settings_page_header(subEase[0], subEase[1]);
 //Draw Game Designed By
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 cat_text = "designed by";
 cat_scale = subEase[2];
 cat_h = string_height(cat_text) * cat_scale;
@@ -31,7 +31,7 @@ draw_text_ext_transformed_colour(cat_x, cat_y, cat_text, -1, -1,
 cat_scale, cat_scale, 0, COLORS[0], COLORS[0],COLORS[0],COLORS[0],1);
 
 // Draw Studio Info 
-draw_set_font(fnt_gui_options3);
+draw_set_font(fnt_menu_calibri_22_bold);
 sub_text = "Beveled Edge Studios#CEO: Alex Gierczyk";
 sub_start_x = cat_x + cat_h * .1;  //adjusted right to be inside of the bigger category text
 sub_x = sub_start_x;
@@ -44,14 +44,14 @@ sub_scale, sub_scale, 0, COLORS[0], COLORS[0],COLORS[0],COLORS[0],1);
 
 
 //Draw Special Thanks
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 cat_text = "special thanks";
 cat_y = sub_y + sub_h + cat_h;
 draw_text_ext_transformed_colour(cat_x, cat_y, cat_text, -1, -1, 
 cat_scale, cat_scale, 0, COLORS[0], COLORS[0],COLORS[0],COLORS[0],1);
 
 // Draw People and Roles
-draw_set_font(fnt_gui_options3); 
+draw_set_font(fnt_menu_calibri_22_bold); 
 //Set People Names
 var i = -1;
 sub_text[++i] = "Spencer McKone"
@@ -140,7 +140,7 @@ sub_y -= sub_h * sub_group_h
 
 
 // Draw Contact
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 draw_set_halign(fa_left); 
 cat_text = "contact us";
 cat_y = sub_y + cat_h;
@@ -149,7 +149,7 @@ cat_scale, cat_scale, 0, COLORS[0], COLORS[0],COLORS[0],COLORS[0],1);
 
 
 // Draw Contact Info
-draw_set_font(fnt_gui_options3);
+draw_set_font(fnt_menu_calibri_22_bold);
 // Set Contact Types
 contactType[0] = "Web: ";
 contactType[1] = "Email: ";

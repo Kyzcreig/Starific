@@ -113,9 +113,9 @@ scr_delayed_selection(selected,2);
 
 
 /// Fonts
-NameFont = fnt_gui_options5 
-DescriptionFont = fnt_gui_options6
-CountsFont = fnt_gui_options8
+NameFont = fnt_menu_bn_26_italic 
+DescriptionFont = fnt_menu_bn_15_italic
+CountsFont = fnt_menu_bn_26_black
 
 
 

@@ -42,7 +42,7 @@ TweenHelp = TweenFire(id,helpTween,guiEase,
 TweenTitle = noone;
 TweenTutorialText = noone;
 
-button_font = fnt_scoreboard;
+button_font = fnt_game_bn_26_black;
 outroTweenHelp = noone;
 
 tutorialTitleTween[0] = 0; 

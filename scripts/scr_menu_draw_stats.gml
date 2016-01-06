@@ -73,7 +73,7 @@ for(i = 1; i < array_length_1d(s_menu);i++)
                        
     
     //Draw Stat Choice Filters Text
-    draw_set_font(fnt_menu_buttons);
+    draw_set_font(fnt_menu_bn_40_bold);
     if i == 1
     {
         draw_text_ext_transformed_colour(choices_x, choices_y, 
@@ -165,7 +165,7 @@ return titleEndY+4*RU
 
 
 //Sets Coords for Text
-draw_set_font(fnt_menu_buttons);
+draw_set_font(fnt_menu_bn_40_bold);
 //s_titles_y  = 50 - string_height("S")/2  //distance from line_y
 row_y = argument0//s_titles_y - ScrollOffset;
 //Draw Stat Group Titles
@@ -195,7 +195,7 @@ for(i = 0; i < array_length_1d(s_group);i++)
     
     draw_set_halign(fa_left);
     draw_set_valign(fa_middle);
-    draw_set_font(fnt_menu_buttons);
+    draw_set_font(fnt_menu_bn_40_bold);
     //Draw Stat Group Headings
     s_titles_txt = s_group[i];
     s_titles_h = string_height("S");
@@ -370,8 +370,8 @@ for(i = 0; i < array_length_1d(s_group);i++)
             label_y = row_y + row_text_y_adj// ;
             value_x = s_scores_x;
             value_y = row_y + row_text_y_adj //;
-            draw_stats_text(label_x,label_y,stat_label[s],fnt_gui_options4, fa_left) //draw label
-            draw_stats_text(value_x,value_y,stat_value[s],fnt_gui_options3, fa_right) //draw value
+            draw_stats_text(label_x,label_y,stat_label[s],fnt_menu_calibri_24_bold, fa_left) //draw label
+            draw_stats_text(value_x,value_y,stat_value[s],fnt_menu_calibri_22_bold, fa_right) //draw value
             
             if s!=k {row_y += row_h}
             

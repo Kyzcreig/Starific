@@ -39,7 +39,7 @@ if GAMEOVER
     for(var i = 1; i < array_length_1d(go_menu);i++)
     {
         //Alternate sign/direction of tween
-        draw_set_font(fnt_menu_buttons);
+        draw_set_font(fnt_menu_bn_40_bold);
         draw_set_valign(fa_middle);
         draw_set_halign(fa_center);
         var tweenSign = (i mod 2);
@@ -184,7 +184,7 @@ if GAMEOVER
             var sub_text_y = choices_y + score_text_h * .65;
             
             //Draw rating text
-            draw_set_font(fnt_gui_options7)
+            draw_set_font(fnt_menu_bn_15_black)
             draw_set_halign(fa_left)
             draw_text_ext_transformed_colour(sub_text_x, sub_text_y, sub_text, 
             -1, -1, text_scale, text_scale, 0, text_color,text_color,text_color,text_color,go_SlideTween3[0]);
@@ -216,7 +216,7 @@ if GAMEOVER
                 rating_y = choices_y - score_text_h *.5;
                 
                 //Draw rating text
-                draw_set_font(fnt_gui_options7)
+                draw_set_font(fnt_menu_bn_15_black)
                 draw_set_halign(fa_left)
                 
                 rating_col = COLORS[scr_flashing_color_index(10)]//COLORS[4]; //
@@ -314,7 +314,7 @@ if GAMEOVER
         
 
     //DRAW SPRITE BUTTON Icons       
-    draw_set_font(fnt_menu_buttons)
+    draw_set_font(fnt_menu_bn_40_bold)
     draw_set_valign(fa_middle)
     draw_set_halign(fa_center)
     //Draw Sprite Buttons 
@@ -402,7 +402,7 @@ if GAMEOVER
         draw_sprite_ext(sp_data[0], 0,sp_x, sp_y,sp_resize*sp_scale,sp_resize*sp_scale,0, COLORS[8], sp_alpha);
         //Draw Button Text
         draw_set_valign(fa_top);
-        draw_set_font(fnt_gui_options7);
+        draw_set_font(fnt_menu_bn_15_black);
         draw_text_ext_colour(sp_x, sp_y + sp_size/2*sp_scale+12,
                              sp_data[1], -1, 90, COLORS[8], COLORS[8], 
                              COLORS[8], COLORS[8], sp_alpha);
@@ -417,7 +417,7 @@ if GAMEOVER
             // Draw Circle
             draw_sprite_ext(s_v_solid_circle_60, 0,sp_x,sp_y,sp_resize,sp_resize,0,COLORS[0],sp_alpha)  //COLORS[8], 
             // Draw Notifcation Count
-            draw_set_font(fnt_gui_options9); 
+            draw_set_font(fnt_menu_bn_20_black); 
             draw_set_valign(fa_middle);
             draw_set_halign(fa_center);
             var note_height_adj = string_height("0") * .15;

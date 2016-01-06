@@ -77,7 +77,7 @@ TweenDestroyWhenDone(p_TweenSlide3,true);
 
 
 /// Set Title
-title_font = fnt_menu_title; 
+title_font = fnt_menu_title_95; 
 title_txt = "pause";
 
 

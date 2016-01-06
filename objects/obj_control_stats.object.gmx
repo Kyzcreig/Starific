@@ -53,7 +53,7 @@ ini_close();
 
 
 
-title_font = fnt_menu_title; 
+title_font = fnt_menu_title_95; 
 title_txt = "stats";
 
 

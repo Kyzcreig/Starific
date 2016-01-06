@@ -1065,7 +1065,7 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
            time_string = string_format(max(0.00,(time_left/time_max)*30),2,2);///time_decrement
            
            //Dialogue text on use
-           txt_font = fnt_menu_in_game;//; 
+           txt_font = fnt_game_bn_40_bold;//; 
            txt_text = "+1 penalty";
            draw_set_font(txt_font)
            txt_height = string_height("H")*.6 + string_height(txt_text)/2;
@@ -1123,7 +1123,7 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
          
         
         // Level Up Text Dialogue
-        txt_font = fnt_menu_in_game;//; 
+        txt_font = fnt_game_bn_40_bold;//; 
         txt_text = "level up x"+string(level);
         //draw_set_font(txt_font)
         //txt_height = string_height(txt_text)*1.1;
@@ -1824,12 +1824,12 @@ if instance_exists(obj_launcher) and !GAME_PAUSE and GAME_ACTIVE
     and padOverheatTextCD[0]{
         padOverheatTextCD[0] = false; //disable additional dialogue text
         padOverheatTextCD[1] = 2 * room_speed //set cooldown timer for dialogue text
-        txt_font = fnt_menu_in_game;
+        txt_font = fnt_game_bn_40_bold;
         txt_text = 'paddle overheat!';
         draw_set_font(txt_font)
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy - txt_height,
-        txt_text,COLORS[10],txt_font)// fnt_menu_buttons 
+        txt_text,COLORS[10],txt_font)// fnt_menu_bn_40_bold 
              
         //maybe a sound would be good for this
     }
@@ -1985,12 +1985,12 @@ if !GAME_PAUSE{
             txt_text = streak_words[txt_tier,txt_num]//+'!'
 
             txt_text+= " x"+string(global.pComboCount);
-            txt_font = fnt_menu_in_game;
+            txt_font = fnt_game_bn_40_bold;
             draw_set_font(txt_font)
             txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
             //scr_popup_text_powers_new3(centerfieldx,centerfieldy, text, COLORS[txt_color],
             scr_popup_text_field_static(centerfieldx,centerfieldy - txt_height, 
-            txt_text, COLORS[txt_color],txt_font, true, 3*room_speed)//fnt_powerups
+            txt_text, COLORS[txt_color],txt_font, true, 3*room_speed)//fnt_game_bn_30_black
             scr_sound(sd_combo, 1, false);
         }
         
@@ -2012,12 +2012,12 @@ if !GAME_PAUSE{
         }
         txt_text += string_format(round((1 - moves_board_end/moves_board_start) * 100),0,0) +"%";// +"!";
 
-        txt_font = fnt_menu_in_game;
+        txt_font = fnt_game_bn_40_bold;
         draw_set_font(txt_font)
         //txt_height = string_height(txt_text) * 1.1
         // Spawn Message in Center Position
         scr_popup_text_field_static(centerfieldx,centerfieldy,// - txt_height, 
-        txt_text, COLORS[0],txt_font, true, 3*room_speed)//fnt_powerups
+        txt_text, COLORS[0],txt_font, true, 3*room_speed)//fnt_game_bn_30_black
 
     }
     
@@ -2030,12 +2030,12 @@ if !GAME_PAUSE{
        txt_color = 0//irandom_range(0,4);
        txt_text = near_miss_words[txt_num]+'!'
        
-       txt_font = fnt_menu_in_game;
+       txt_font = fnt_game_bn_40_bold;
        draw_set_font(txt_font)
        //txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
        //scr_popup_text_powers_new3(centerfieldx,centerfieldy, text, COLORS[txt_color],
        scr_popup_text_field_static(centerfieldx,centerfieldy, 
-       txt_text, COLORS[txt_color],txt_font, true, 3*room_speed)//fnt_powerups
+       txt_text, COLORS[txt_color],txt_font, true, 3*room_speed)//fnt_game_bn_30_black
        
        // Add Screenshake
        scr_shake_add(.5 * room_speed, 4);
@@ -2341,7 +2341,7 @@ if !GAMEOVER {
     pTimer = max(0,global.pComboTimer/global.pComboTimerMax);
     
     //DRAW SCOREBOARD
-    draw_set_font(fnt_scoreboard);
+    draw_set_font(fnt_game_bn_26_black);
     score_col = COLORS[0];
     // Use Power Color During Combo
     if pTimer &gt; .25 {
@@ -2355,7 +2355,7 @@ if !GAMEOVER {
     draw_text_color(x_score, y_adj_score, "score",COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);
     y_adj_score += string_height('S'); //adjust with previous font height
     // DRAW SCORE VALUE
-    draw_set_font(fnt_gui_counts1);
+    draw_set_font(fnt_game_bn_20_black);
     draw_text_colour(x_score+gui_jiggle[0,1], y_adj_score+gui_jiggle[0,2], 
         string(score_display),score_col,score_col,score_col,score_col,1);
         //NB: We could use a thinner x scale iF the string len gets too big.
@@ -2380,7 +2380,7 @@ if !GAMEOVER {
     
     //COMBO TEXT BOTTOM LEFT
     if global.pComboCount &gt; 1{
-        draw_set_font(fnt_gui_counts1);draw_set_valign(fa_bottom);draw_set_halign(fa_left);
+        draw_set_font(fnt_game_bn_20_black);draw_set_valign(fa_bottom);draw_set_halign(fa_left);
         /*
         // Jiggle for Combo Text, deemed unnecessary
         var pJiggler;
@@ -2402,7 +2402,7 @@ if !GAMEOVER {
     
     
     //DRAW PAUSE BUTTON
-    draw_set_halign(fa_right);draw_set_valign(fa_top);draw_set_font(fnt_scoreboard);
+    draw_set_halign(fa_right);draw_set_valign(fa_top);draw_set_font(fnt_game_bn_26_black);
     x_gui_adj1 = 40*.5; //the icons draw centered so we adjust by their size 40 div 2
     //standardized icon sprites to 40x40 pixels
     //draw_circle(x_gui-x_gui_adj1, y_score+22,100,false); 
@@ -2424,7 +2424,7 @@ if !GAMEOVER {
     draw_sprite_ext(spr_bar_out,0,mode_bar_x - halfbarwidth, mode_bar_y, out_barscale,1,0,mode_bar_color,1);
     
     //DRAW BAR SIDE TEXT
-    draw_set_font(fnt_gui_counts1)
+    draw_set_font(fnt_game_bn_20_black)
     draw_set_valign(fa_bottom); 
     var side_text_w_adj = halfbarwidth + string_width("H")*.5; //8
     var slide_text_y = mode_bar_y
@@ -2447,7 +2447,7 @@ if !GAMEOVER {
         var staricon_scale = 40/sprite_get_width(s_v_penalty_white)//.4
         draw_sprite_ext(s_v_star_white,0,x_gui -x_gui_adj1+gui_jiggle[1,1], Lives_icon_y/*y_score+22*/+gui_jiggle[1,2],
         staricon_scale,staricon_scale,0,COLORS[0],1); 
-        draw_set_font(fnt_scoreboard) 
+        draw_set_font(fnt_game_bn_26_black) 
         draw_text_color(Lives__x+gui_jiggle[1,1],Lives__y+gui_jiggle[1,2], 
          string(lives),COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);  
          
@@ -2477,7 +2477,7 @@ if !GAMEOVER {
         var staricon_scale = 40/sprite_get_width(s_v_star_white)//.4
         draw_sprite_ext(s_v_star_white,0,x_gui -x_gui_adj1+gui_jiggle[1,1], Lives_icon_y+gui_jiggle[1,2],
         staricon_scale,staricon_scale,0,COLORS[0],1);  
-        draw_set_font(fnt_scoreboard) 
+        draw_set_font(fnt_game_bn_26_black) 
         draw_text_color(Lives__x+gui_jiggle[1,1],Lives__y+gui_jiggle[1,2], 
          string(MOVES_REMAINING),COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);   
         
@@ -2497,7 +2497,7 @@ if !GAMEOVER {
         
         
         //DRAW TIME REMAINING TEXT ABOVE BAR
-        draw_set_font(fnt_gui_timer)
+        draw_set_font(fnt_game_calibri_16_bold)
         draw_set_halign(fa_center) 
         draw_set_valign(fa_middle);
         //draw_text_outline_color(mode_bar_x,mode_bar_y-26,time_string,c_time,c_time,c_time,c_time,1,
@@ -2513,7 +2513,7 @@ if !GAMEOVER {
         var staricon_scale = 40/sprite_get_width(s_v_penalty_white)//.4
         draw_sprite_ext(s_v_penalty_white,0,x_gui -x_gui_adj1+gui_jiggle[2,1],
         Lives_icon_y+gui_jiggle[2,2],staricon_scale,staricon_scale,0,COLORS[0],1); 
-        draw_set_font(fnt_scoreboard) 
+        draw_set_font(fnt_game_bn_26_black) 
         draw_text_color(Lives__x+gui_jiggle[2,1],Lives__y+gui_jiggle[2,2], //This could have its own jiggle var based on penalty increment.  Simple to add, we can do it when we start fixing timemode
         string(time_penalty),COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);  
         
@@ -2532,7 +2532,7 @@ if !GAMEOVER {
         
         
         //DRAW TIME REMAINING TEXT ABOVE BAR
-        draw_set_font(fnt_gui_timer)
+        draw_set_font(fnt_game_calibri_16_bold)
         draw_set_halign(fa_center) 
         draw_set_valign(fa_middle);
         //draw_text_outline_color(mode_bar_x,mode_bar_y-26,time_string,c_time,c_time,c_time,c_time,1,
@@ -2547,7 +2547,7 @@ if !GAMEOVER {
         var staricon_scale = 40/sprite_get_width(s_v_penalty_white)//.4
         draw_sprite_ext(s_v_penalty_white,0,x_gui -x_gui_adj1+gui_jiggle[2,1],
         Lives_icon_y+gui_jiggle[2,2],staricon_scale,staricon_scale,0,COLORS[0],1);
-        draw_set_font(fnt_scoreboard)  
+        draw_set_font(fnt_game_bn_26_black)  
         draw_text_color(Lives__x+gui_jiggle[2,1],Lives__y+gui_jiggle[2,2], //This could have its own jiggle var based on penalty increment.  Simple to add, we can do it when we start fixing timemode
         string(lastDeaths),COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);  
         
@@ -2743,7 +2743,7 @@ if !GAMEOVER {
     // Draw Intro Text
     if introTextEase[0] != 0 {
         //Display tap to begin text
-        draw_set_font(fnt_gui_tutorial);
+        draw_set_font(fnt_game_calibri_25_bold);
         draw_set_valign(fa_middle);
         draw_set_halign(fa_center);
         
@@ -2901,7 +2901,7 @@ draw_text(padcenterx,padcentery,'avgFPS: '+string(global.fpsavg))
             <string>///Debugger
 
 /*
-draw_set_font(fnt_powerups);
+draw_set_font(fnt_game_bn_30_black);
 draw_text_colour(mouse_x,mouse_y, string(delta_time / delta_time_expected),
 COLORS[0],COLORS[0],COLORS[0],COLORS[0],1);
 

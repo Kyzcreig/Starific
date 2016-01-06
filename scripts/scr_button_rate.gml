@@ -13,8 +13,7 @@ ini_open("scores.ini")
     var rateDelayDays= scr_rate_set_time(RATE_COUNT);
     rateNextTime =  date_inc_day(date_current_datetime(), rateDelayDays);
     // Save Next Rate Date
-    ini_write_real("misc", "RATE_NEXT_TIME", 
-       rateNextTime); 
+    ini_write_real("misc", "RATE_NEXT_TIME", rateNextTime); 
 ini_close();
 
 

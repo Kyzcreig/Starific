@@ -66,7 +66,7 @@ if bMSelected[0] != noone
                 }
       
                 //Dialogue text on use
-                txt_font = fnt_menu_in_game//fnt_menu_buttons;//; 
+                txt_font = fnt_game_bn_40_bold//fnt_menu_bn_40_bold;//; 
                 txt_text = "-1 "+string_replace(boardMixers[mType,3],"#"," ");
                 if mType == bMStarIndex{ txt_text = "Star Placed"}
                 draw_set_font(txt_font)

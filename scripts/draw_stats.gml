@@ -25,10 +25,10 @@ if background{
     
 
 //regular non-caps font
-draw_set_font(fnt_gui_options4);
+draw_set_font(fnt_menu_calibri_24_bold);
 draw_set_halign(fa_left);
 draw_text(x1, y1, text)
 //bold non-caps font
-draw_set_font(fnt_gui_options3);
+draw_set_font(fnt_menu_calibri_22_bold);
 draw_set_halign(fa_right);
 draw_text(x2, y2, string(value))

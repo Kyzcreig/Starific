@@ -4,7 +4,7 @@
 var type = argument0;
 var index = argument1;
 
-explain_font = fnt_gui_options7; //maybe smaller font?
+explain_font = fnt_menu_bn_15_black; //maybe smaller font?
 draw_set_font(explain_font)
 explain_text = scr_button_explain_get_text(type,index) 
 explain_h = string_height("H")*1.2;

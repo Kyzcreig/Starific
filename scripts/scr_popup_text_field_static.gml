@@ -1,5 +1,5 @@
 #define scr_popup_text_field_static
-///scr_popup_text_field_static(x,y,text,color,[font,deleteOverlapping,duration,colIndex])
+///scr_popup_text_field_static(x,y,text,color,[font,deleteOverlapping,duration-steps,colIndex])
 
        
 //LAYERS OF FIELD TEXT DIALOGUES
@@ -12,7 +12,7 @@ Anywhere: Extra balls
 
 
 _delOld=true;
-_font = fnt_field
+_font = fnt_game_bn_20_black
 _dur = 2*room_speed;
 _colIndex = -1;
 var i = 3
@@ -53,7 +53,7 @@ with(obj){
 
 
 _delOld = false;
-_font = fnt_field
+_font = fnt_game_bn_20_black
 _dur = 1.5*room_speed;
 _colIndex = -1;
 _spd = 0;
@@ -93,7 +93,7 @@ with(obj){
 
 
 _delOld=true;
-_font = fnt_field
+_font = fnt_game_bn_20_black
 _dur = 2*room_speed;
 
 var i = 3

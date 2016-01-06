@@ -311,12 +311,12 @@ if caught and GAME_ACTIVE{
    
    
    case obj_powerup_boardclear:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = 'starnova!';
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_menu_in_game
+             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
 
         scr_boardclear(); 
         scr_sound(sd_catch_power_boardclear, 1, false);
@@ -326,12 +326,12 @@ if caught and GAME_ACTIVE{
    
    
    case obj_powerup_boardfill:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = 'super starnova!';
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_menu_in_game
+             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
              
              
              
@@ -447,7 +447,7 @@ if caught and GAME_ACTIVE{
         
    break;
    case obj_powerup_powersallclear:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = "all powers clear!";
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
@@ -457,7 +457,7 @@ if caught and GAME_ACTIVE{
         
    break;
    case obj_powerup_powerupsclear:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = 'powerup clear!';
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
@@ -467,7 +467,7 @@ if caught and GAME_ACTIVE{
         
    break;
    case obj_powerup_powerdownsclear:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = 'powerdown clear!';
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
@@ -477,7 +477,7 @@ if caught and GAME_ACTIVE{
         
    break;
    case obj_powerup_staregg:
-        txt_font = fnt_menu_in_game//fnt_menu_in_game;//; 
+        txt_font = fnt_game_bn_40_bold//fnt_game_bn_40_bold;//; 
         draw_set_font(txt_font)
         txt_text = "+1 "+string_replace(boardMixers[0,3],"#"," ");
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
@@ -525,32 +525,32 @@ if caught and GAME_ACTIVE{
         POWER_cashtap[@ 0] +=1;
    break;
    case obj_powerup_offsetpaddle:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = "paddle offset!";
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_menu_in_game
+             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
              
         POWER_offsetpaddle[@ 0] +=1;
    break;
    case obj_powerup_cash_x2:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = "cash doubler!";
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_menu_in_game
+             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
              
         POWER_cashx2[@ 0] +=1;
    break;
    case obj_powerup_density_doubler:
-        txt_font = fnt_menu_in_game;//fnt_powerups; 
+        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
         draw_set_font(txt_font)
         txt_text = "density doubler!";
         txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
         scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_menu_in_game
+             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
              
         POWER_density_doubler[@ 0] +=1;
    break;
@@ -567,12 +567,12 @@ if caught and GAME_ACTIVE{
    var data = scr_deflector_get_data(objIndex)
    var name = data[5];
 
-    txt_font = fnt_menu_in_game;//fnt_powerups; 
+    txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
     draw_set_font(txt_font)
     txt_text = string_replace(name,"#"," ")+"!";
     txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
     scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-         txt_text,image_blend,txt_font)// fnt_menu_in_game
+         txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
    
    */
    
