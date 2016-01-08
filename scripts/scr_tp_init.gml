@@ -177,7 +177,7 @@ TOUCH_FLUID_Y = dCY_start;//(fieldEndY + GAME_Y + GAME_H -20 )/2 ;
 
 // Fixed/Linear Controls
 // If No Location Set Yet
-if TOUCH_FIXED_X == -1 or TOUCH_FIXED_Y == -1 or true { //FIX ME
+if TOUCH_FIXED_X == -1 or TOUCH_FIXED_Y == -1  {
     // Set Fixed to Default Location
     TOUCH_FIXED_X = dCX_start;
     //TOUCH_FIXED_Y = dCY_start;

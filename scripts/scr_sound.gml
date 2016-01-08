@@ -1,6 +1,7 @@
 ///scr_sound(sound, priority, looping)
 
 
+// Set Parameters
 var sound, priority, loping;
 sound = argument[0]
 if (argument_count > 1){priority = argument[1]}

@@ -3,25 +3,18 @@
 globalvar 
 LEADERBOARDS;
 
-    
-if (os_type == os_ios || os_type == os_android){ 
+// Mobile and HTML   
+if (os_type == os_ios or 
+    os_type == os_android or 
+    os_browser != browser_not_a_browser){ 
     //Log into achievement Service
-    achievement_login();
+    ach_custom_login();
     LEADERBOARDS = 1;
 }
-//HTML
-else if os_browser != browser_not_a_browser{
-    //If browser add gamejolt networking (later add our own networking)
-    instance_create(x,y,obj_gj_networking);
-    LEADERBOARDS = 1;
-
-}
-// Not mobile
+// Desktop 
 else {
     //No External Leaderboard Services 
     LEADERBOARDS = 0;
-
-
 }
 
  
@@ -35,7 +28,8 @@ globalvar
 EVERYPLAY_ENABLED,
 EVERYPLAY_AUTO;
 
-if os_type == os_ios { //or os_type == os_android
+if os_type == os_ios or os_type == os_android
+{
     EVERYPLAY_ENABLED = true;
 } else {
     EVERYPLAY_ENABLED = false;

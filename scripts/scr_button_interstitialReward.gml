@@ -12,4 +12,4 @@ ini_close();
 
 
 // Show Interstitial
-ads_show_interstitial();
+ads_show_interstitial(true);

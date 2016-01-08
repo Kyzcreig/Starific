@@ -33,159 +33,23 @@ flapper_spr = spr_prize_wheel_flapper;  //NB: MUST BE PRECISE COLLISION
 
 //flapper_rot = 0;
 image_angle = 0;
+flapper_image_angle = image_angle;
 prev_image_angle = image_angle;
 prizeWheel = obj_prompt_prize_wheel;//.id;
-flapper_draw = 0;
+//flapper_draw = 0;
 
-alarm[0] = 2;
+//alarm[0] = 2; //TEMP
 is_touching = noone;
-flapper_knob_contact_id = noone;
+//is_stopped = true;
+prev_touching = noone;
+//flapper_knob_contact_id = noone;
 
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Set DRAW_ME
-
-flapper_draw = 1;
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Proccess Flapping (Not Visible so doesn't draw)
-
-// Exit Step if Draw Disabled
-if flapper_draw == 0 {exit;}
-
-
-
-if instance_exists(prizeWheel){
-    flapper_draw = 2; //NB: Flag used to prevent draw event from firing before step event
-    //Set Draw Params
-    flapper_scale = prizeWheel.backWheel_scale;
-    flapper_x = prizeWheel.backWheel_x
-    flapper_y_adj = sprite_get_width(flapper_spr) / 4 * flapper_scale;
-    flapper_y = prizeWheel.backWheel_y - ( flapper_y_adj + prizeWheel.backWheel_size / 2);
-    flapper_alpha = prizeWheel.backWheel_alpha;
-    
-    //Used for Collision Calculations
-    image_xscale = flapper_scale;
-    image_yscale = flapper_scale;
-    x = flapper_x;
-    y = flapper_y;
-
-    // If Spin is Active
-    if prizeWheel.spinState[0] == 1
-    {
-    
-        //Remember Old image_angle
-        prev_image_angle = image_angle;
-        
-        // Ease Down Flapper Rot 
-        flapper_rot_dec = .1 * sign(prizeWheel.wheelVelStart);
-        if image_angle != 0 and is_touching == noone {
-            image_angle += (0 - image_angle) * .075 * RMSPD_DELTA;// flapper_rot_dec;
-            if abs(image_angle) &lt; abs(flapper_rot_dec) {
-                image_angle = 0;
-            }
-        }
-        
-        
-        // Reset Is Touching
-        is_touching = noone;
-        // Detect Collision With Knobs
-        if !TweenExists(prizeWheel.mainTween)  
-        {
-            flapper_rot_inc = flapper_rot_dec * -1 ;// NB: Might be better to use bigger interval for collision performance reasons
-            
-            // With Knobs
-            with ( obj_prize_knob ) {
-            
-                // Check if Touching Flapper
-                flapper.is_touching = scr_prize_flapper_collision();
-                        //NB: This is distinct from the instance is_touching
-                            //So we know when it's ok to tween down.
-                
-                // If Collision
-                if flapper.is_touching != noone {
-                    // If New Knob, Play Sound
-                    if flapper.flapper_knob_contact_id != id {
-                        scr_sound(sd_prize_wheel_flap,1,false);
-                    }
-                    // Cache Knob ID
-                    flapper.flapper_knob_contact_id = id;
-                    
-                    // Set Instance  IsTouching
-                    is_touching = flapper.is_touching;
-                    // While Touching
-                    while (is_touching != noone){
-                        // Move-Rotate Flapper
-                        flapper.image_angle += flapper.flapper_rot_inc;
-                        
-                        // Check if Touching Flapper
-                        is_touching = scr_prize_flapper_collision()
-                            
-                    }
-                }
-            }
-        }
-        
-        // Round Image Angle, to avoid epsilon errors
-        image_angle = real_roundto(image_angle, .0001);
-     
-    }
-}
-else {
-    instance_destroy();
-
-}
-
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="7" enumb="25">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -204,28 +68,117 @@ else {
             <kind>1</kind>
             <string>/// Draw Flapper
 
-if instance_exists(prizeWheel) and flapper_draw == 2{
 
-    // Draw Wheel Flapper
-    draw_sprite_ext(flapper_spr, 0,
-    flapper_x,flapper_y,flapper_scale,flapper_scale,
-    image_angle,COLORS[0],flapper_alpha) 
+//Set Draw Params
+flapper_scale = prizeWheel.backWheel_scale;
+flapper_x = prizeWheel.backWheel_x
+flapper_y_adj = sprite_get_width(flapper_spr) / 4 * flapper_scale;
+flapper_y = prizeWheel.backWheel_y - ( flapper_y_adj + prizeWheel.backWheel_size / 2);
+flapper_alpha = prizeWheel.backWheel_alpha;
+
+//Used for Collision Calculations
+image_xscale = flapper_scale;
+image_yscale = flapper_scale;
+x = flapper_x;
+y = flapper_y;
+
+// If Spin is Active
+if prizeWheel.spinState[0] == 1 or prev_image_angle != flapper_image_angle
+{
+
+    //Remember Old image_angle
+    prev_image_angle = flapper_image_angle;
     
-    // Draw Wheel Flapper Center
-    draw_sprite_ext(spr_prize_wheel_flapper_center, 0,
-    flapper_x,flapper_y,flapper_scale,flapper_scale,
-    image_angle,COLORS[5],flapper_alpha)                                
-
-    /*
-    // Debug Draw
-    var i, knob;
-    for (i = 0; i &lt; instance_number(obj_prize_knob); i += 1)
+    // Ease Down Flapper Rot 
+    flapper_rot_dec = .1 * sign(prizeWheel.wheelVelStart);
+    if flapper_image_angle != 0 and is_touching == noone {
+        flapper_image_angle += (0 - flapper_image_angle) * .075 * RMSPD_DELTA;// flapper_rot_dec;
+        if abs(flapper_image_angle) &lt; abs(flapper_rot_dec) {
+            flapper_image_angle = 0;
+        }
+    }
+    
+    
+    // Round Image Angle, to avoid epsilon errors
+    var tmp = real_roundto(flapper_image_angle, .0001);
+    //flapper_image_angle = 0;
+    flapper_image_angle = tmp;
+    
+    
+    // Reset Is Touching
+    is_touching = noone;
+    // Detect Collision With Knobs
+    if !TweenExists(prizeWheel.mainTween)  
     {
-        knob[i] = instance_find(obj_prize_knob,i);
-        draw_circle_colour(knob[i].x,knob[i].y,10*RMSPD_DELTA,COLORS[6],COLORS[6],0);
-    }*/
-
+        flapper_rot_inc = flapper_rot_dec * -1 ;// NB: Might be better to use bigger interval for collision performance reasons
+        
+        // With Knobs
+        with ( obj_prize_knob ) {
+        
+            // Check if Touching Flapper
+            flapper.image_angle = flapper.flapper_image_angle;
+            if scr_prize_flapper_collision() != noone {
+                // Set Knob ID as touching
+                flapper.is_touching = id; 
+                
+                // If Collision
+                if flapper.is_touching != noone {
+                    // If New Knob, Play Sound
+                    if flapper.prev_touching != id {
+                        scr_sound(sd_prize_wheel_flap);
+                        // Cache Knob ID
+                        flapper.prev_touching = id;
+                    }
+                    // Cache Knob ID
+                    //flapper.flapper_knob_contact_id = id;
+                    
+                    // Set Instance  IsTouching
+                    still_touching = true;
+                    // While Touching
+                    while (still_touching){
+                        // Move-Rotate Flapper
+                        flapper.flapper_image_angle += flapper.flapper_rot_inc;
+                        
+                        // Check if Touching Flapper
+                        flapper.image_angle = flapper.flapper_image_angle;
+                        if scr_prize_flapper_collision() {
+                            continue
+                        } else {
+                            break;
+                        }
+                            
+                    }
+                }           
+            } 
+           
+        }
+    }
+    
+    // Round Image Angle, to avoid epsilon errors
+    var tmp = real_roundto(flapper_image_angle, .0001);
+    //flapper_image_angle = 0;
+    flapper_image_angle = tmp;
+ 
 }
+
+// Draw Wheel Flapper
+draw_sprite_ext(flapper_spr, 0,
+flapper_x,flapper_y,flapper_scale,flapper_scale,
+flapper_image_angle,COLORS[0],flapper_alpha) 
+
+// Draw Wheel Flapper Center
+draw_sprite_ext(spr_prize_wheel_flapper_center, 0,
+flapper_x,flapper_y,flapper_scale,flapper_scale,
+flapper_image_angle,COLORS[5],flapper_alpha)                                
+
+/*
+// Debug Draw
+var i, knob;
+for (i = 0; i &lt; instance_number(obj_prize_knob); i += 1)
+{
+    knob[i] = instance_find(obj_prize_knob,i);
+    draw_circle_colour(knob[i].x,knob[i].y,10*RMSPD_DELTA,COLORS[6],COLORS[6],0);
+}*/
 </string>
           </argument>
         </arguments>

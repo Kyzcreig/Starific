@@ -18,10 +18,6 @@
 - (void)everyplay_set_metadata;
 - (void)everyplay_show_everyplay;
 - (void)everyplay_show_share_modal;
-/*
-- (void)everyplay_facecam_start_recording;
-- (void)everyplay_facecam_stop_recording;
-- (int)everyplay_facecam_is_recording;
-*/
+
 
 @end

@@ -288,9 +288,9 @@ backWheel_x,backWheel_y,backWheel_scale,backWheel_scale,
 wheelRot,COLORS[0],backWheel_alpha) 
 
 // Draw Wheel Flapper
-//if flapper.flapper_draw
-/*
 with (obj_prize_flapper){
+    event_user(15)
+    /*
     if flapper_draw {
         // Draw Wheel Flapper
         draw_sprite_ext(flapper_spr, 0,
@@ -301,8 +301,9 @@ with (obj_prize_flapper){
         flapper_x,flapper_y,flapper_scale,flapper_scale,
         image_angle,COLORS[5],flapper_alpha) 
     }
+    */
 }
-*/
+
 
 // Spin Button Data
 spinButton_spr = spr_button_basic;
@@ -335,7 +336,8 @@ if point_in_rectangle(mouse_x,mouse_y,
             wheelVel = wheelVelStart;
             // Randomize Friction
             wheelFrictionDur = random_range(5,7) * room_speed  // takes x seconds
-            wheelFrictionThreshold = .01 * RMSPD_DELTA;
+            //wheelFrictionThreshold = .01 * RMSPD_DELTA;
+            wheelFrictionThreshold = .01 * RMSPD_DELTA; //EVALUATE
             wheelFrictionCoefficient = 1 - exp( ln(wheelFrictionThreshold) / wheelFrictionDur );
             
             // Decrement StarCash
@@ -351,6 +353,8 @@ if point_in_rectangle(mouse_x,mouse_y,
             
             // Analytics
             analytics_button_counter("spinPrizeWheel");
+            
+            
         
         }
         else {
@@ -361,6 +365,44 @@ if point_in_rectangle(mouse_x,mouse_y,
         } 
     }
 }
+
+
+
+// Handle Wheel Position by Velocity
+if spinState[0] == 1 {//abs(wheelVel) &gt; 0 {
+
+    //Increment Wheel Rot
+    wheelRot += wheelVel;
+    
+    // Friction
+    wheelVel += max((0 - wheelVel) * wheelFrictionCoefficient, 
+                    min((0 - wheelVel),wheelFrictionThreshold))
+    
+    
+    // If Slowed Sufficiently
+    if (abs(wheelVel) &lt;= abs(wheelFrictionThreshold)  ) or
+       (abs(wheelVel) &lt;= abs(wheelFrictionThreshold) * 5 and flapper.flapper_image_angle == 0 )
+    {
+        //spinState[0] = 2;
+        wheelVel = 0;
+        if flapper.flapper_image_angle == flapper.prev_image_angle {  
+            // Switch Wheel State to [2] Selected Slice
+            if !ScheduleExists(spinStateSchedule){
+                // Delay State Switch to Allow Flapper to Settle in Place
+                spinStateSchedule = ScheduleScript(id,true, 0.1,array_set_index_1d,spinState,0,2);
+                
+                // If no more cash
+                if STAR_CASH &lt; 100 {
+                    //Schedule Prize Prompt to Exit
+                    ScheduleScript(id, true, .2, scr_prompt_exit)
+                
+                }
+            }
+        }
+    } 
+}
+
+
 //Draw Spin Button
 draw_sprite_ext(spinButton_spr, 0,spinButton_x,spinButton_y,
 spinButton_scale,spinButton_scale,0,COLORS[0],1) 
@@ -373,6 +415,7 @@ spinButton_text = CASH_STR+string(PRIZE_WHEEL_COST);
 spinButton_text_y_adj = string_height("S") * .15;
 draw_text_ext_transformed_colour(spinButton_x, spinButton_y - spinButton_text_y_adj , 
 spinButton_text, -1,-1,spinButton_scale,spinButton_scale,0,COLORS[6],COLORS[6],COLORS[6],COLORS[6],1)
+
 
 // Spin Button Jiggles
 if spinState[0] == 0 {
@@ -418,32 +461,6 @@ for (var i=0, n = 2; i &lt; n; i++){
         prompt_jiggle[i,2] = 0;
     }
 }
-
-// Handle Wheel Position by Velocity
-if spinState[0] == 1 {//abs(wheelVel) &gt; 0 {
-
-    //Increment Wheel Rot
-    wheelRot += wheelVel;
-    
-    // Friction
-    wheelVel += (0 - wheelVel) * wheelFrictionCoefficient//.01//.055;
-    
-    // If Slowed Sufficiently
-    if abs(wheelVel) &lt;= abs(wheelFrictionThreshold) or
-     ( abs(wheelVel) &lt;= abs(wheelFrictionThreshold) * 10 and
-        flapper.image_angle == 0 )
-    {
-        //spinState[0] = 2;
-        wheelVel = 0;
-        //if flapper.image_angle == flapper.prev_image_angle and 
-        // Delay State Switch to Allow Flapper to Settle in Place
-        if !ScheduleExists(spinStateSchedule){
-            spinStateSchedule = ScheduleScript(id,false,5,array_set_index_1d,spinState,0,2);
-        
-        }
-    } 
-}
-
 
 
 // Prompt Foot

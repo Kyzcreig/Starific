@@ -321,7 +321,7 @@ return stillPrizes;
 
 var sliceData = noone;
     
-switch argument0 {
+switch argument[0] {
 
 // Empty Slice
 case 0: 
@@ -350,13 +350,17 @@ break;
 
 
 }
-    // Other Slice Data
-    sliceData[2] = argument0//slice type
+
+// Other Slice Data
+sliceData[2] = argument[0]//slice type
+// Knob Slice Data
+if instance_exists(obj_prize_flapper){
     sliceData[3] = instance_create(x,y,obj_prize_knob)//slice knob
-    with (sliceData[3] ) {
+    with (sliceData[3]) {
         prizeWheel = other.id;
         flapper = other.flapper;
     }
+}
 
 
 return sliceData;

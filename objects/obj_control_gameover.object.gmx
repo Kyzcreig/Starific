@@ -255,8 +255,26 @@ if rate_prompt[0] {
                 ScheduleScript,obj_control_main,false,2,
                     CreateInstance,x,y,obj_prompt_feedback_gameover); 
     rate_prompt[0] = false;
+} 
+
+// Schedule Interstitial on Gameover
+else if ADS_INTERSTITIALS != "" and ADS_INTERSTITIAL_CACHED
+{
+    //Adaptive Prompting: Display Ads under following conditions
+    var vetPlayer = careerPlaytimeTotal &gt; 60*60*4 - lastPlaytime;
+    if ( vetPlayer and gamesPlayed mod 3 == 0) 
+    {
+        //Schedule Interstitial 
+        TweenAddCallback(go_TweenSlideText,TWEEN_EV_FINISH,id,
+                ScheduleScript,obj_control_main,true,.20,
+                    ads_show_interstitial,false); 
+      
+                    
+    }
+    
 }
-            
+
+         
             
 TweenDestroyWhenDone(go_TweenFade,true);
 TweenDestroyWhenDone(go_TweenSlide2,true);
@@ -279,27 +297,6 @@ TweenAddCallback(go_TweenFade,TWEEN_EV_FINISH,id,Destroy,obj_text_generic);
 
 
 
-
-
-// Display Ads on Gameover?
-if ADS_INTERSTITIALS != "" and !interstitals_requested and false{ //NB: Disabled 
-    ini_open("scores.ini")
-    
-        var current_games_played = check_stats(0);
-        var current_high_score = check_stats(1);
-        var current_play_time = lastPlaytime;
-        
-        //Adaptive Prompting: Display Ads under following conditions
-        if ( (current_high_score &gt; 10000 or gamesPlayedTotal &gt; 10) and
-              current_games_played mod 3 == 0){
-            //Display Interstitial 1 second after
-            TweenAddCallback(go_TweenSlide3,TWEEN_EV_FINISH,id,
-                    ScheduleScript,id,1,1,array_set_index_1d,global.interShow,0,1) 
-            interstitals_requested = true;
-        }
-    
-    ini_close();
-}
    
 
 

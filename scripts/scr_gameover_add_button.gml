@@ -13,9 +13,11 @@ ds_list_add(go_sp_buttons, scr_gameover_create_button(argument0));
     newButtonData[0] = //sprite
     newButtonData[1] = //subtext
     newButtonData[2] = //function_id
-    newButtonData[3] = //meta functionality: 
-                        -2 means transparency
-                        -1 means transparency and non-functioning
+    newButtonData[3] = //meta functionality (button state):
+                        -4 flag for removal
+                        -3 means transparent, non-functioning, and ease out
+                        -2 means transparency and non-functioning
+                        -1 means transparency
                         0 means normal
                         1 means flashing
 */
@@ -25,7 +27,7 @@ var newButtonData = noone;
 
 
 // Starting X/y Coordinates for easing
-newButtonData[2] = argument0; //function
+newButtonData[2] = argument0; //function/button_id
 newButtonData[3] = 0; //meta functionality
 newButtonData[4] = GAME_MID_X; //x coordinate (for easing)
 newButtonData[5] = GAME_Y+GAME_H*1.05; //y coordinate (for easing)
@@ -99,12 +101,16 @@ break;
 case 13:     
     newButtonData[0] = s_v_prize //spr
     newButtonData[1] = "new#reward"; //subtext
+    // Add Notification Bubble
+    newButtonData[6] = 1 //count indicator
 break;
 
 // Gift Reward Button
 case 14:     
     newButtonData[0] = s_v_gift; //spr
     newButtonData[1] = "new#gift"; //subtext
+    // Add Notification Bubble
+    newButtonData[6] = 1 //count indicator
 break;
 
 
@@ -112,12 +118,15 @@ break;
 case 15:     
     newButtonData[0] = s_v_wheel //spr
     newButtonData[1] = "win#prize"; //subtext
+    // Add Notification Bubble
+    newButtonData[6] = 1 //count indicator
 break;
 
 // Video Reward Button
 case 16:     
     newButtonData[0] = s_v_video //spr
     newButtonData[1] = "earn#+"+CASH_STR+CASH_STR+CASH_STR; //subtext
+    newButtonData[6] = 1 //count indicator
 break;
 
 // Quest Cancel Button
@@ -140,6 +149,7 @@ break;
 case 19:     
     newButtonData[0] = s_v_interstitial //spr
     newButtonData[1] = "earn#+"+CASH_STR; //subtext
+    newButtonData[6] = 1 //count indicator
 break;
 
 // PLM Promote Reward Button
@@ -309,3 +319,8 @@ var buttonData = go_sp_buttons[| buttonIndex];
 
 
 return buttonData;
+#define scr_go_remove_button
+///scr_go_remove_button(button_id)
+var buttonPos = scr_go_is_button(argument0);
+
+ds_list_delete(go_sp_buttons, buttonPos);

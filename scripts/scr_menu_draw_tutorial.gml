@@ -258,7 +258,8 @@ if TUTORIAL_ENABLED{
             arrowSpr = scr_return_arrow_sprite(2,1);
             // Oscillate Scale on Right Arrow
             if tutorialAdvance != -2 {
-                arrowScale *= lerp(.85,1.15,FULL_SECOND_SINE);
+                //arrowScale *= lerp(.85,1.15,FULL_SECOND_SINE);
+                arrowScale *= lerp(.80,1.2,FULL_SECOND_SINE);
             }
         }
         

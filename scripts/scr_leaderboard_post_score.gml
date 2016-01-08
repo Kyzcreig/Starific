@@ -1,34 +1,7 @@
 #define scr_leaderboard_post_score
 ///scr_leaderboard_post_score()
 
-if os_type == os_ios or os_type == os_android{
-    achievement_post_score(
-                get_leaderboard_id(MODE,GRID),
-                lastScore)
-    //NB: I think the leaderboard services already handle offline submission of scores.
-
-
-} 
-else if os_browser != browser_not_a_browser{
-
-    // booksmaster added this
-    /*
-    with obj_networking
-    {
-        scr_bm_net_score(score_p1,MODE,(gridSize/5 - 2),level);
-    }*/
-    with obj_gj_networking
-    {
-        scr_bm_gj_score(lastScore,MODE,GRID,level); 
-    }
-
-} else {
-//TO DO custom leaderboard stuff here
-
-
-}
-
-
+ach_custom_post_score();
 
 
 

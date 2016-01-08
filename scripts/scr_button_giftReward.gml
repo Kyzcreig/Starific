@@ -18,7 +18,7 @@ ini_close()
 
 
 // Calculate Reward, Set Cash and Execute Confetti
-scr_button_reward_helper(14, 1)
+scr_button_reward_helper(14, 1, true)
 
 
 // Update Gift Text with Next Gift Time

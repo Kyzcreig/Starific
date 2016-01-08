@@ -2,11 +2,14 @@
 
 analytics_button_counter("leaderboards");
 
-if achievement_available(){
-    achievement_show_leaderboards();
+var success = false;
+
+if ach_custom_available() {
+    success = ach_custom_show_leaderboards();
 }
-//Else error message
-else{
+
+//Error Message
+if !success{
     txt_font = fnt_menu_bn_26_italic//fnt_menu_bn_40_bold;//fnt_game_bn_30_black; 
     txt_text = "not connected to leaderboards!"; //tap rate to unlock
     draw_set_font(txt_font)

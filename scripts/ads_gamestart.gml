@@ -22,16 +22,13 @@ if (os_type == os_ios || os_type == os_android) and !PREMIUM{
             //If we get a decent amount of downloads then we'll turn it up.
  
     //What Kinds of Ads to show?
-    AD_PROVIDERS = "ChartBoost";  //AdMob, 
-    //AD_PROVIDERS = "ChartBoost"; 
+    AD_PROVIDERS = "HeyZap"; //"ChartBoost";  //AdMob, 
     /* Holds which ad provider objects to initialize
-       e.g. "Admob", "ChartBoost"
+       e.g. "Admob", "ChartBoost", "HeyZap"
     
     */
-    ADS_INTERSTITIALS = "ChartBoost" 
-        //NB: We can experiment with interstitials later if we're not making much money but popular.  
-        //If we are making money and popular I'd rather not fix what's not broken.
-    ADS_REWARD_VIDEOS = "ChartBoost"; 
+    ADS_INTERSTITIALS = "HeyZap"; //"ChartBoost"; 
+    ADS_REWARD_VIDEOS = "HeyZap"; //"ChartBoost"; 
     ADS_MORE_APPS = "";
     ADS_BANNERS = ""; //supposedly people hate banner ads, true they ruin ambience
 }

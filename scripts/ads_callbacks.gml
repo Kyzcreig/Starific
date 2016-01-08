@@ -10,17 +10,60 @@ if string_pos(ads_provider, AD_PROVIDERS) != 0 {
     switch ads_provider {
     
     case "AdMob" :
-            ads_callbacks_AdMob();
+        ads_callbacks_AdMob();
     break;
     
     
     case "ChartBoost" :
         ads_callbacks_ChartBoost();
+    break;
     
+    case "HeyZap" :
+        ads_callbacks_HeyZap();
     break;
     
     }
 }
+
+#define ads_callbacks_HeyZap
+///ads_callbacks_HeyZap()
+
+
+
+show_debug_message("GM Social Async Event...");
+
+// Get Callback Data
+var type = string(ds_map_find_value(async_load, "type"));
+var value = ds_map_find_value(async_load, "value");
+
+if (type == "heyzap_ad_loaded") {
+    if value {
+        if HeyZap_InterstitialStatus() {
+            ADS_INTERSTITIAL_CACHED = true;
+        }
+        if HeyZap_VideoStatus() {
+            ADS_REWARD_VIDEO_CACHED = true;
+        }
+    } 
+} else if (type == "heyzap_reward") {
+    if value {
+        if HeyZap_RewardStatus() {
+            ADS_REWARD_VIDEO_CACHED = true;
+        }
+    }
+} else if (type == "heyzap_banner_loaded") {
+    if value {
+        // pass
+    }
+} 
+
+
+
+
+
+
+
+
 
 #define ads_callbacks_AdMob
 ///ads_callbacks_AdMob()

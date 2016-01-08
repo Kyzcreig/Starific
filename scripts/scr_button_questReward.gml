@@ -7,7 +7,7 @@ analytics_button_counter("questReward");
 var questDelayMinutes = scr_button_questClear(true);
 
 // Calculate Reward, Set Cash and Execute Confetti
-scr_button_reward_helper(13, 1)
+scr_button_reward_helper(13, 1, true)
 
 
 // Update Quest Text with Next Quest Time

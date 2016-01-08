@@ -2154,7 +2154,10 @@ if !GAMEOVER{
               }
         }
         pause_color = merge_color(COLORS[0],COLORS[6],.5);
-        pause_scale = 1.2
+        pause_scale = 1.2;
+        
+        // Pause Event Analytics
+        analytics_send_pause_stats();
         
     }
     else if GAME_PAUSE {pause_scale = 1.2/*pause_color = merge_color(COLORS[0],COLORS[6],.5)*/} //lightens during PAUSE

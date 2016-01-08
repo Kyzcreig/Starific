@@ -223,20 +223,24 @@ with(promptID) {
 }
 
 #define scr_button_reward_helper
-///scr_button_reward_helper(button_id, rewardScalar)
+///scr_button_reward_helper(button_id, rewardScalar, [remove_button])
 
-var buttonID = argument0;
+var buttonID = argument[0];
+var rewardScalar = argument[1];
+var removeButton = false;
+if argument_count > 2 {
+    removeButton = argument[2];
+}
 
 // Calculate Reward and Confetti
-rewardValue = scr_reward_set(argument1, true);
+rewardValue = scr_reward_set(rewardScalar, true);
 
 
 // Check if enough cash for prize, and add prize wheel button
 scr_check_if_available_prize_wheel();
 
 //Update Button State/Text
-scr_button_helper_update(buttonID, -1, "earned#+"+CASH_STR+string(rewardValue))
-;
+scr_button_helper_update(buttonID, -2, "earned#+"+CASH_STR+string(rewardValue), removeButton);
 /*
 // Remove Button from List [disabled]
 var rewardButtonIndex = scr_go_is_button(buttonID);
@@ -246,7 +250,7 @@ ds_list_delete( go_sp_buttons, rewardButtonIndex)
 
 
 #define scr_button_helper_update
-///scr_button_helper_enable(button_id, button_state, [button_text])
+///scr_button_helper_update(button_id, button_state, [button_text, remove_button])
 
 var buttonID = argument[0];
 var buttonState = argument[1];
@@ -259,3 +263,14 @@ if argument_count > 2 {
     buttonData[@ 1] = argument[2]; //"earned#+"+CASH_STR+string(rewardValue); 
 }
 buttonData[@ 3] = buttonState; ///comment out for unlimited rewards 
+
+// Remove Button
+if argument_count > 3 {
+    if argument[3] {
+        // Schedule Button State to Ease Out/Remove
+        ScheduleScript(id, true, .5, array_set_index_1d,buttonData, 3, -3);
+        
+    }
+    // Reset Notifcation Bubble
+    buttonData[@ 6] = 0 //count indicator
+}

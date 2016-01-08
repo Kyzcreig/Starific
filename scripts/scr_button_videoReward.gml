@@ -12,4 +12,4 @@ ini_close();
 
 
 // Show Reward Video
-ads_show_reward_video();
+ads_show_reward_video(true);

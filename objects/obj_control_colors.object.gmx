@@ -1993,7 +1993,7 @@ mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color 
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerups
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerdowns
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerchaos
-mColors[(++j)mod k,i] = mColors[0,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
 mColors[(++j)mod k,i] = "sea turtle"

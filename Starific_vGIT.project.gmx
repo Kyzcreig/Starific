@@ -6,20 +6,45 @@
     <Config>Configs\AndroidAmazon</Config>
     <Config>Configs\iOSTest</Config>
   </Configs>
-  <datafiles number="24" name="datafiles"/>
+  <datafiles number="25" name="datafiles">
+    <datafile>
+      <name>MyChartboost.gmez</name>
+      <exists>-1</exists>
+      <size>10789196</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="AndroidGoogleplay">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="AndroidAmazon">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="iOSTest">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>MyChartboost.gmez</filename>
+    </datafile>
+  </datafiles>
   <NewExtensions>
     <extension index="0">extensions\TweenGMS</extension>
-    <extension index="1">extensions\Screen Shake Scripts</extension>
-    <extension index="2">extensions\DS Grid Get Line</extension>
-    <extension index="3">extensions\DsList Extended Scripts</extension>
-    <extension index="4">extensions\ScheduleGMS</extension>
-    <extension index="5">extensions\TMC Frame Skip</extension>
+    <extension index="1">extensions\ScheduleGMS</extension>
+    <extension index="2">extensions\TMC Frame Skip</extension>
+    <extension index="3">extensions\FMS_Loading_SCreen</extension>
+    <extension index="4">extensions\HTML5_Mouse_Ext</extension>
+    <extension index="5">extensions\AmazonGameCircle</extension>
     <extension index="6">extensions\FlurryAnalyticsExt</extension>
-    <extension index="7">extensions\MyChartboost</extension>
-    <extension index="8">extensions\FMS_Loading_SCreen</extension>
-    <extension index="9">extensions\HTML5_Mouse_Ext</extension>
-    <extension index="10">extensions\Share</extension>
-    <extension index="11">extensions\Everyplay</extension>
+    <extension index="7">extensions\Everyplay</extension>
+    <extension index="8">extensions\Share</extension>
+    <extension index="9">extensions\HeyZapExt</extension>
   </NewExtensions>
   <sounds name="sound">
     <sounds name="Collision Sounds">
@@ -409,7 +434,9 @@
       <scripts name="Game Control">
         <scripts name="Gameover">
           <script>scripts\scr_restart_game_init.gml</script>
+          <script>scripts\scr_go_set_gameover_rating_set_index.gml</script>
           <script>scripts\scr_gameover_init.gml</script>
+          <script>scripts\scr_share_screen_make_combined.gml</script>
         </scripts>
         <scripts name="Field">
           <script>scripts\scr_board_init.gml</script>
@@ -427,6 +454,13 @@
           <scripts name="Tweens">
             <script>scripts\introspawn.gml</script>
           </scripts>
+        </scripts>
+        <scripts name="Gamestart">
+          <script>scripts\ads_gamestart.gml</script>
+          <script>scripts\scr_share_gameplay_screen_init.gml</script>
+          <script>scripts\set_promotion_urls_gamestart.gml</script>
+          <script>scripts\scr_everyplay_init.gml</script>
+          <script>scripts\scr_game_data_init.gml</script>
         </scripts>
         <script>scripts\scr_calculate_points.gml</script>
         <script>scripts\scr_increment_combo.gml</script>
@@ -529,10 +563,8 @@
         <script>scripts\scr_star_inPlay_direction_is_valid.gml</script>
       </scripts>
       <scripts name="Advertising &amp; Analytics">
-        <script>scripts\ads_gamestart.gml</script>
         <script>scripts\ads_init.gml</script>
         <script>scripts\ads_load_interstitial.gml</script>
-        <script>scripts\ads_show_interstitial.gml</script>
         <script>scripts\ads_show_banner.gml</script>
         <script>scripts\ads_remove_banner.gml</script>
         <script>scripts\ads_toggle_test_ads.gml</script>
@@ -543,9 +575,8 @@
         <script>scripts\ads_timer_show_interstitial.gml</script>
         <script>scripts\ads_callbacks.gml</script>
         <script>scripts\ads_show_reward_video.gml</script>
-        <script>scripts\leaderboards_gamestart.gml</script>
-        <script>scripts\set_promotion_urls_gamestart.gml</script>
         <script>scripts\analytics_send_unlock.gml</script>
+        <script>scripts\analytics_send_pause_stats.gml</script>
       </scripts>
       <scripts name="GUI">
         <script>scripts\scr_room_goto.gml</script>
@@ -576,7 +607,6 @@
             <script>scripts\scr_button_interstitialReward.gml</script>
             <scripts name="Button Helpers">
               <script>scripts\scr_check_if_available_prize_wheel.gml</script>
-              <script>scripts\scr_check_if_unavailable_prize_wheel.gml</script>
               <script>scripts\scr_calculate_reward.gml</script>
               <script>scripts\scr_inc_button_array_cursor.gml</script>
               <script>scripts\scr_button_explain_spawn.gml</script>
@@ -632,7 +662,6 @@
       <scripts name="Stats">
         <script>scripts\scr_stats_save.gml</script>
         <script>scripts\scr_stats_load.gml</script>
-        <script>scripts\scr_game_data_init.gml</script>
         <scripts name="Unlocks">
           <script>scripts\scr_unlocks_init.gml</script>
           <script>scripts\scr_new_unlock.gml</script>
@@ -1004,6 +1033,9 @@
         <script>scripts\scr_bm_gj_score.gml</script>
         <script>scripts\scr_bm_gj_get_table_id.gml</script>
       </scripts>
+      <scripts name="Achievements">
+        <script>scripts\ach_custom_login.gml</script>
+      </scripts>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -1199,7 +1231,6 @@
         <object>objects\obj_prompt_feedback_main</object>
         <object>objects\obj_prompt_feedback_gameover</object>
         <object>objects\obj_prompt_quest_cancel</object>
-        <object>objects\obj_prompt_rate</object>
         <object>objects\obj_prompt_confirm_exit</object>
         <object>objects\obj_prompt_everyplay</object>
         <object>objects\obj_prompt_share_preview</object>
@@ -1233,6 +1264,7 @@
         <object>objects\obj_touch_pointer</object>
         <object>objects\obj_projectile_dummy</object>
         <object>objects\obj_launch_dummy</object>
+        <object>objects\obj_prizewheel_dummy</object>
         <object>objects\obj_block_dummy</object>
         <object>objects\obj_turn_dummy</object>
         <object>objects\obj_bomb_dummy</object>
@@ -1250,6 +1282,7 @@
         <object>objects\obj_control_analytics</object>
         <object>objects\obj_control_ads_AdMob</object>
         <object>objects\obj_control_ads_ChartBoost</object>
+        <object>objects\obj_control_ads_HeyZap</object>
       </objects>
       <objects name="GUI">
         <object>objects\obj_control_swipe</object>

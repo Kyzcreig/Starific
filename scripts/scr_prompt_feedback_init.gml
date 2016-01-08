@@ -364,11 +364,8 @@ if ((!point_in_rectangle(mouse_x,mouse_y, rect_x,rect_y, rect_x+rect_w,rect_y+re
     and mouse_check_button_pressed(mb_left)) or keyboard_check_pressed(vk_backspace))
     and !TweenExists(mainTween) and enable_exit
 {
-    // Exit Tween
-    mainTween = TweenFire(id, mainEase,EaseLinear,
-                     TWEEN_MODE_ONCE,1,0,.75,mainEase[0],0);
-    //Destroy Prompt On Tween Finish
-    TweenAddCallback(mainTween,TWEEN_EV_FINISH, id, Destroy, id);
+    // Exit Prompt
+    scr_prompt_exit()
 }
 
 
@@ -458,3 +455,12 @@ draw_sprite_ext(spr_temp, 0, VIEW_X, VIEW_Y, 1, 1, 0, c_white, argument0);
 
 // Draw Mask Over Screen
 draw_sprite_stretched_ext(scr_return_solid_sprite(argument1),0,VIEW_X,VIEW_Y,VIEW_W,VIEW_H,COLORS[7],argument0)
+#define scr_prompt_exit
+///scr_prompt_exit()
+
+
+// Exit Tween
+mainTween = TweenFire(id, mainEase,EaseLinear,
+                 TWEEN_MODE_ONCE,1,0,.75,mainEase[0],0);
+//Destroy Prompt On Tween Finish
+TweenAddCallback(mainTween,TWEEN_EV_FINISH, id, Destroy, id);

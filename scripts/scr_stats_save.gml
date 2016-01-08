@@ -165,7 +165,7 @@ ini_open("scores.ini")
                 // Mark Deflector as Discovered
                 data[@ 11] = 1;
                 // If Veteran Player
-                if gamesPlayedTotal > 10 {
+                if gamesPlayedTotal > 15 {
                     // Set Flag to Add "New Codex" Dialogue
                     DEFLECTOR_DISCOVERED = true;
                 } else {
@@ -292,7 +292,8 @@ ini_open("scores.ini")
     }
     
     //If mobile Leaderboards
-    if LEADERBOARDS{// and achievement_available(){ //NB: I believe leaderboard stuff is saved when offline and sent automatically later.
+    if LEADERBOARDS{// and achievement_available(){ 
+                //NB: I believe leaderboard stuff is saved when offline and sent automatically later.
         scr_leaderboard_post_score()
     
     }
@@ -307,9 +308,10 @@ with (obj_control_gameover) {
      
     // Add Share and Get Buttons
     sh_greatGame = scr_great_game_check();
-    
+    // Delay For New Players
+    sh_veteran = careerPlaytimeTotal > 60*60*1 - lastPlaytime; // (gamesPlayedTotal > 4) 
     // Share Stat
-    sh_doShare = ((gamesPlayedTotal > 2) and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
+    sh_doShare = (sh_veteran and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
     // If Non-Mobile Version
     if touchPad == 0{
         //Add Landing Page (GET) Button
@@ -379,7 +381,7 @@ with (obj_control_gameover) {
         }
         
         // Add Everyplay Button
-        if EVERYPLAY_ENABLED and everyplay_is_recording() 
+        if everyplay_is_recording() 
         {
             scr_gameover_add_button(21);
         } 
@@ -418,55 +420,61 @@ with (obj_control_gameover) {
      }
            
      
-     
-     // Check if time for a gift
-     questRewardAvailable = scr_go_is_button(13) != -1;
-     giftNextTime = ini_read_real("misc", "GIFT_NEXT_TIME", 0); 
-     giftAvailable = date_compare_datetime(giftNextTime, date_current_datetime()) == -1;
-     //If No Reward Button (To Avoid Button Crowding)
-     if !questRewardAvailable  {
-         // If gift available
-         if giftAvailable{ 
-             // Add Gift Button to Gameover
-             if scr_go_is_button(14)  == -1{ // if button not in list
-                 scr_gameover_add_button(  14);
+     // Delay For New Players
+     if sh_veteran 
+     {
+         // Check if time for a gift
+         questRewardAvailable = scr_go_is_button(13) != -1;
+         giftNextTime = ini_read_real("misc", "GIFT_NEXT_TIME", 0); 
+         giftAvailable = date_compare_datetime(giftNextTime, date_current_datetime()) == -1;
+         //If No Reward Button (To Avoid Button Crowding)
+         if !questRewardAvailable {
+             // If gift available
+             if giftAvailable{ 
+                 // Add Gift Button to Gameover
+                 if scr_go_is_button(14)  == -1{ // if button not in list
+                     scr_gameover_add_button(  14);
+                 }
+                 // Add Placeholder Dialogue object for "Free Gift in Time" Text
+                 ScheduleScript(id, 0, 5, scr_gameover_add_dialogue,  6);
              }
-             // Add Placeholder Dialogue object for "Free Gift in Time" Text
-             ScheduleScript(id, 0, 5, scr_gameover_add_dialogue,  6);
+             // Else add "Free Gift in Time" dialogue
+             else if random(1) > .5{
+                 ScheduleScript(id, 0, 5, scr_gameover_add_dialogue,  7);
+             }
          }
-         // Else add "Free Gift in Time" dialogue
-         else if random(1) > .5{
-             ScheduleScript(id, 0, 5, scr_gameover_add_dialogue,  7);
+         
+         
+         // Add Prize Wheel Button
+         if STAR_CASH >= PRIZE_WHEEL_COST  { 
+             // Add Prize Wheel Button to Gameover
+             if scr_go_is_button(15)  == -1{ // if button not in list
+                 scr_gameover_add_button(  15);
+             }
+         }
+         // Else add dialogue "$#/100 to go for prize" text
+         else if random(1) > .5 or ds_list_size(go_dialogue_txt) < 2{
+            // Add To Go Prize Text on Gameover
+             scr_gameover_add_dialogue( 3);
+         }
+         
+         
+         
+         // Add Video Reward Button
+         scr_gameover_buttons_add_adverts(true);
+         
+         
+         
+         //If New Deflector Discovered
+         if DEFLECTOR_DISCOVERED { //DEFLECTOR_DISCOVERED_COUNT > 20{
+                        //NB: We delay showing the codex thing until they're farther along.
+             DEFLECTOR_DISCOVERED = false;
+             // Add Dialogue
+             scr_gameover_add_dialogue( 9);
          }
      }
      
      
-     // Add Prize Wheel Button
-     if STAR_CASH >= PRIZE_WHEEL_COST { 
-         // Add Prize Wheel Button to Gameover
-         if scr_go_is_button(15)  == -1{ // if button not in list
-             scr_gameover_add_button(  15);
-         }
-     }
-     // Else add dialogue "$#/100 to go for prize" text
-     else if random(1) > .5 or ds_list_size(go_dialogue_txt) < 2{
-        // Add To Go Prize Text on Gameover
-         scr_gameover_add_dialogue( 3);
-     }
-     
-     
-     
-     // Add Video Reward
-     scr_gameover_buttons_add_adverts(true);
-     
-     
-     //If New Deflector Discovered
-     if DEFLECTOR_DISCOVERED { //DEFLECTOR_DISCOVERED_COUNT > 20{
-                    //NB: We delay showing the codex thing until they're farther along.
-         DEFLECTOR_DISCOVERED = false;
-         // Add Dialogue
-         scr_gameover_add_dialogue( 9);
-     }
      
      
 }

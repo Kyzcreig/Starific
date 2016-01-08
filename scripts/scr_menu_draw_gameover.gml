@@ -329,10 +329,31 @@ if GAMEOVER
     {
         // Grab Button data
         sp_data = go_sp_buttons[| i];
-        // Ease Coordinates
-        //sp_data[@ 4] += ((sp_start_x + sp_gap*i) - sp_data[4]) * .1;          //ease x coordinate
-        sp_data[@ 4] += ((GAME_MID_X + sp_gap * (i - (n-1)/2)) - sp_data[4]) * .1 * RMSPD_DELTA;          //ease x coordinate
-        sp_data[@ 5] +=  (sp_end_y - sp_data[@ 5]) * .1;   //ease y coordinate
+        // If Not Easing Out
+        if sp_data[3] >= -2 {
+            // Ease Coordinates into Place
+            //sp_data[@ 4] += ((sp_start_x + sp_gap*i) - sp_data[4]) * .1;          //ease x coordinate
+            sp_data[@ 4] += ((GAME_MID_X + sp_gap * (i - (n-1)/2)) - sp_data[4]) * .1 * RMSPD_DELTA;          //ease x coordinate
+            sp_data[@ 5] +=  (sp_end_y - sp_data[@ 5]) * .1 * RMSPD_DELTA;   //ease y coordinate
+        } else {
+            // Ease Coordinates out of Place
+            sp_data[@ 4] += (GAME_MID_X - sp_data[4]) * .1 * RMSPD_DELTA;          //ease x coordinate
+            sp_data[@ 5] +=  ((GAME_Y+GAME_H*1.05 + 30) - sp_data[@ 5]) * .1 * RMSPD_DELTA;   //ease y coordinate
+            
+            // Flag to Remove
+            if sp_data[5] > (GAME_Y+GAME_H*1.00 + 30) and 
+               sp_data[3] != -4
+            {
+                // Schedule Button Removal
+                ScheduleScript(id, false, 0, scr_go_remove_button,sp_data[2]);
+                // Flag for Removal
+                sp_data[@ 3] = -4; 
+            }
+        
+        }
+            
+        
+        
         // Set Coordinates
         sp_x = sp_data[4]; // set x coordinate
         sp_y = sp_data[5]; // set y coordinate
@@ -386,7 +407,7 @@ if GAMEOVER
             //On Social Text Press
             if mouse_check_button_pressed(mb_left) and 
                 go_selected[1] == true and 
-                sp_data[3] != -1 // check button meta data
+                sp_data[3] >= -1 // check button meta data
             {
                 //Call Switch Code for this menu choice
                 mouse_clear(mb_left);
