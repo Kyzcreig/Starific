@@ -22,7 +22,7 @@
     <option_android_arch_mipsr2sf>false</option_android_arch_mipsr2sf>
     <option_android_arch_x86>True</option_android_arch_x86>
     <option_android_build_tools_version>23.0.1</option_android_build_tools_version>
-    <option_android_build_version>104</option_android_build_version>
+    <option_android_build_version>106</option_android_build_version>
     <option_android_color_depth>0</option_android_color_depth>
     <option_android_compile_sdk_version>23</option_android_compile_sdk_version>
     <option_android_display_name>Starific</option_android_display_name>
@@ -52,7 +52,7 @@
     <option_android_licensing_enable>0</option_android_licensing_enable>
     <option_android_licensing_key>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhd2fRnwlMzsIqhjAbcf/4DWu/1UqfJnXQ4z0dpNaQ1eWHf6RUtO/sauKXdxkw5Hox9pKZPrnbk9P4Mpq+i5s73IzFEZEnxv0rtnwYz3v+rDho6GXYKjYGhHcK6YhgnMNv6VbDgfN+TnmD3ALNJf7KgsxTpV4No0jDL1r+Y8VWJaQ/OuALBCO805sjdejPUHPd/xlb6aO81QjJL/XdMZUjfqOcdSnT2Z3odsuSssYXNYavWqZ7PgO1e9UjKTekANRbxabjo8ckxRoh6vpTTRFmXbw4NLZBv9Asj/mBIRAF4UmWV3IN3wvI0j7Gcyn5sLBwIy7asEwZpE5iRDO+ag1sQIDAQAB</option_android_licensing_key>
     <option_android_major_version>1</option_android_major_version>
-    <option_android_min_sdk_version>9</option_android_min_sdk_version>
+    <option_android_min_sdk_version>11</option_android_min_sdk_version>
     <option_android_minor_version>0</option_android_minor_version>
     <option_android_mmedia_ads>0</option_android_mmedia_ads>
     <option_android_moga>0</option_android_moga>
@@ -209,9 +209,7 @@
     <option_argumenterrors>True</option_argumenterrors>
     <option_audioGroup1_targets>9223372036854775807</option_audioGroup1_targets>
     <option_audioGroup2_targets>0</option_audioGroup2_targets>
-    <option_audioGroup3_targets>17593040736494</option_audioGroup3_targets>
-    <option_audioGroup4_targets>17593040736462</option_audioGroup4_targets>
-    <option_audioGroupCount>5</option_audioGroupCount>
+    <option_audioGroupCount>3</option_audioGroupCount>
     <option_author></option_author>
     <option_backimage>nil</option_backimage>
     <option_borderless>False</option_borderless>

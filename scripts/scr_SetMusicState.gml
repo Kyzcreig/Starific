@@ -17,21 +17,21 @@ if audio_exists(CURRENT_SONG)
          
      
      // Destroy Previous Easers
-     if TweenExists(musicEaser) {
-        TweenDestroy(musicEaser);
+     if TweenExists(MUSIC_TWEEN) {
+        TweenDestroy(MUSIC_TWEEN);
      }
      
      // Ease Music
-     musicEaser = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
+     MUSIC_TWEEN = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
                     0, fadeDuration, CURRENT_SONG_GAIN, 0);
                          
     // Cancel Scheduled Stop                
-    if ScheduleExists(musicStopper) {
-        ScheduleCancel(musicStopper);
+    if ScheduleExists(MUSIC_SCHEDULE) {
+        ScheduleCancel(MUSIC_SCHEDULE);
     }
                 
      // Schedule Music Stop
-     musicStopper = ScheduleScript(id,false,fadeDuration,scr_MusicStop);
+     MUSIC_SCHEDULE = ScheduleScript(id,false,fadeDuration,scr_MusicStop);
      
      // Clear Song Time
      CURRENT_SONG_TIME = -1;
@@ -51,21 +51,21 @@ if room != rm_game {
     fadeDuration = 1; 
 }
      
-if audio_exists(CURRENT_SONG) and audio_is_playing(CURRENT_SONG) and !ScheduleExists(musicStopper){
+if audio_exists(CURRENT_SONG) and audio_is_playing(CURRENT_SONG) and !ScheduleExists(MUSIC_SCHEDULE){
      
 
      // Destroy Previous Easers
-     if TweenExists(musicEaser) {
-        TweenDestroy(musicEaser);
+     if TweenExists(MUSIC_TWEEN) {
+        TweenDestroy(MUSIC_TWEEN);
      }
      
      // Ease Music
-     musicEaser = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
+     MUSIC_TWEEN = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
                     0, fadeDuration, CURRENT_SONG_GAIN, 0);
                     
                     
      // Schedule Music Pauser
-     musicStopper = ScheduleScript(id,false,fadeDuration,scr_MusicPause,CURRENT_SONG);
+     MUSIC_SCHEDULE = ScheduleScript(id,false,fadeDuration,scr_MusicPause,CURRENT_SONG);
 }
 
 // Set Music State to Fade Paused
@@ -89,17 +89,17 @@ if (MUSIC_STATE == 2) and audio_exists(CURRENT_SONG)
      audio_resume_sound(CURRENT_SONG);
                          
     // Cancel Scheduled Stop                
-    if ScheduleExists(musicStopper) {
-        ScheduleCancel(musicStopper);
+    if ScheduleExists(MUSIC_SCHEDULE) {
+        ScheduleCancel(MUSIC_SCHEDULE);
     }
      
      // Destroy Previous Easers
-     if TweenExists(musicEaser) {
-        TweenDestroy(musicEaser);
+     if TweenExists(MUSIC_TWEEN) {
+        TweenDestroy(MUSIC_TWEEN);
      }
      
      // Ease Music
-     musicEaser = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
+     MUSIC_TWEEN = TweenFire(id, MusicSoundGain, EaseLinear, TWEEN_MODE_ONCE, false, 
                     0, fadeDuration, CURRENT_SONG_GAIN, 1); 
 
  

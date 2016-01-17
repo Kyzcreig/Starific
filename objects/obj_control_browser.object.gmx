@@ -51,8 +51,8 @@
             <string>///Draw Chrome Required, app link
 
 
-var text_x = GAME_X +GAME_W/2;
-var text_y = GAME_Y +GAME_H/2;
+var text_x = GAME_MID_X;
+var text_y = GAME_MID_Y;
 
 
 draw_set_font(fnt_menu_bn_40_bold);

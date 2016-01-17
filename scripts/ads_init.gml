@@ -32,7 +32,6 @@ if string_pos(ads_provider, AD_PROVIDERS) != 0 {
         ads_time = 0;
     
     }
-
 }
 
 #define ads_init_ChartBoost
@@ -83,7 +82,7 @@ ScheduleScript(id, true, 10, ads_cb_cacheRewardedVideo);
 if (os_type == os_android) or (os_type == os_ios)
 { 
     // publisher_id, test_mode
-    HeyZap_Init("dc259a87f560c942657155ecb21b98c2",false); 
+    HeyZap_Init("dc259a87f560c942657155ecb21b98c2",0); 
 }
 
 HeyZap_LoadInterstitial();

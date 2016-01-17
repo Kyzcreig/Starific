@@ -389,7 +389,7 @@
 <b>Returns:</b> tween id </br></br>
 <b>Example</b><pre>
 <c>// Tween x position from x to mouse_x over 30 steps</c>
-TweenFire(id, x__, EaseOutQuad, TWEEN_MODE_ONCE, false, 30, x, mouse_x);
+TweenFire(id, x__, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 30, x, mouse_x);
 
 <c>// Tween instance's image alpha back and forth from 0 to 1 over 2.0 seconds</c>
 TweenFire(id, image_alpha__, EaseInOutQuad, TWEEN_MODE_PATROL, true, 0.0, 2.0, 0, 1);
@@ -400,29 +400,6 @@ TweenFire(id, image_angle__, EaseInOutBack, TWEEN_MODE_ONCE, true, 1.5, 1.0, 0, 
 <c>// Tween instance's position to mouse position using extended property setter</c>
 TweenFire(id, ext_xy__, EaseOutElastic, 0, true, 0.0, 1.0, 0, 1, x, mouse_x, y, mouse_y);
 </pre></td></tr></table></br></br>
-
-<!-- TweenGo() 
-<a name="TweenGo"></a><table class="script_info"><tr><td>
-	<script_title> 	TweenGo </script_title>
-	</br> 			A simplified version of TweenFire().
-					Creates and plays a tween which eases a property between two values over a set duration of time.
-					Tween is automatically destroyed when finished or stopped. 
-					The calling instance is automatically set as the target. Extended property setters are not supported.
-	</br></br><b> 	TweenGo(prop,ease,delta,dur,start,dest) </b>
-</td></tr></table><table border="1"><col class="col_def_left"> <col class="col_def_right">
-	<tr><td> prop 	</td><td> Property setter script (e.g. x__) </td></tr>
-	<tr><td> ease 	</td><td> Ease algorithm script (e.g. EaseInOutQuad)</td></tr>
-	<tr><td> delta 	</td><td> Whether to set timing in seconds(true) or steps (false) </td></tr>
-	<tr><td> dur 	</td><td> Duration of time to ease property from start to destination </td></tr>
-	<tr><td> start 	</td><td> Starting value of eased property </td></tr>
-	<tr><td> dest 	</td><td> Destination value of eased property </td></tr>
-</table><table class="script_info"><tr><td>
-<b>Returns:</b> tween id </br></br>
-<b>Example</b><pre>
-<c>// Ease “x” property from x to mouse_x over 2 seconds</c>
-TweenGo(x__, EaseInCubic, true, 2.0, x, mouse_x);
-</pre></td></tr></table></br></br>
---> 
 
 
 <!-- TweenCreate() --> 
@@ -458,9 +435,6 @@ tween_undef = TweenCreate(id);
 <c>// Create defined tween</c>
 tween_def = TweenCreate(id, x__, EaseOutQuart, TWEEN_MODE_BOUNCE, true, 1.0, 5.0, x, mouse_x);	
 </pre></td></tr></table></br></br>
-
-</body>
-</html>
 
 
 <!-- TweenPlay() --> 

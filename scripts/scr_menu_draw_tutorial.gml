@@ -24,69 +24,76 @@ if !TUTORIAL_ENABLED{
     var n = 2; //set number of buttons;
     for (var i = 0; i < n; i++) {
     
-        data = text_buttons[i];
-        text_text = data[0];
-        text_id = data[1];
-        text_w = string_width(text_text) * 1.25;
-        text_h = string_height(text_text) * 1.25; //may need a /2 here if it's too big an area
-    
-        //Set Button Data
+        // Get Button Data
+        data = help_buttons[i];
+        btn_spr = data[0];
+        btn_id = data[1];
+        
+        // Set Parameters
+        btn_w = 60;
+        btn_h = 60;
         if i == 0 {
-            text_x = GAME_X+GAME_W - (10 + text_w/2) +100 * (1 -helpTween[0])
+            btn_x = GAME_X+GAME_W - (30 + btn_w/2) + 100 * (1 -helpEase[0])
             
         } else if i == 1 {
-            text_x = GAME_X + (10+text_w/2) - 100 * (1 -helpTween[0])
+            btn_x = GAME_X + (30 + btn_w/2) - 100 * (1 -helpEase[0])
             
         }
-        text_y = GAME_Y+GAME_H -20 -text_h/2 +100* (1 -helpTween[0]);
-        intro_text_y = text_y; //cache pre-wiggle coordinates
+        btn_y = GAME_Y+GAME_H - (20 + btn_h/2) + 100 * (1 -helpEase[0]);
         
         // Set wiggle 
         if wiggle_index = i {
+            // Calculate Wiggle
             wig_str = 6; //4
             wig_x = random_range(-1,1)*wig_str;
             wig_y = random_range(-1,1)*wig_str;
             
-            text_x += wig_x;
-            text_y += wig_y;
+            // Add Wiggle
+            btn_x += wig_x;
+            btn_y += wig_y;
         
         }
         
-        
-        text_color = COLORS[0];
-        text_scale = 1;
+        // Set Color, Scale
+        btn_scale = btn_w / sprite_get_width(btn_spr);
+        btn_color = COLORS[0];
         
         //Check for Mouse Hover
-        text_hover = point_in_rectangle(mouse_x,mouse_y,text_x-text_w,text_y-text_h,text_x+text_w,text_y+text_h) 
+        btn_hover = point_in_rectangle(mouse_x,mouse_y,
+                    btn_x-btn_w/2*1.2,btn_y-btn_h/2*1.2,
+                    btn_x+btn_w/2*1.2,btn_y+btn_h/2*1.2) 
         
         //Prevent touchpad from moving to a button
-        if text_hover{ tp_on_button[0] = 2}
+        if btn_hover{tp_on_button[0] = 2}
             
-        if text_hover and help_selected[0] == noone and 
-        (!touchPad or mouse_check_button(mb_left)) and (!TweenExists(TweenHelp))
+        if btn_hover and help_selected[0] == noone and 
+        (!touchPad or mouse_check_button(mb_left)) and 
+        (!TweenExists(helpTween))
         {
             //Interupt and disable wigglers if mouseover
             scr_wiggle_reset(-1, 8*room_speed);
             
             
             //Grow and alt color on hover
-            text_scale *= 1.2
-            text_color = merge_colour(text_color,COLORS[6],.5);
+            btn_scale *= 1.2
+            btn_color = merge_colour(btn_color,COLORS[6],.5);
         
             
             //On Clicking Text
-            if mouse_check_button_pressed(mb_left) and help_selected[1] == true
+            if mouse_check_button_pressed(mb_left) and 
+               help_selected[1] == true
             {
             
                 SWIPE = false; // disable other clicks
                 mouse_clear(mb_left);
-                  
-                if text_id == 0{
+                
+                // if Help Button  
+                if btn_id == 0{
                     //Set Flag tutorial active
                     TUTORIAL_STARTED[0] = true;
                 }
                 
-                ScheduleScript(id,0,.25,scr_delayed_selection,help_selected,text_id)
+                ScheduleScript(id,0,.25,scr_delayed_selection,help_selected,btn_id)
                 
                 help_selected[1] = false
               
@@ -97,9 +104,8 @@ if !TUTORIAL_ENABLED{
             } 
             
         }
-        // Draw Help Text
-        draw_text_ext_transformed_colour(text_x, text_y, text_text, -1, -1, 
-        text_scale, text_scale, 0, text_color,text_color,text_color,text_color,1);
+        // Draw Help Button
+        draw_sprite_ext(btn_spr, 0, btn_x, btn_y, btn_scale, btn_scale, 0, btn_color, 1);
     }
     
     
@@ -113,11 +119,11 @@ if !TUTORIAL_ENABLED{
 
         
     //TWEEN OUT IF GAME STARTS
-    if MOVE_ACTIVE and helpTween[0] != 0 and !TweenExists(TweenHelp){
+    if MOVE_ACTIVE and helpEase[0] != 0 and !TweenExists(helpTween){
     
-        TweenHelp = TweenFire(id,helpTween,guiEaseReverse,
+        helpTween = TweenFire(id,helpEase,guiEaseReverse,
                            TWEEN_MODE_ONCE, 1, 0,.5,1,0)
-        TweenAddCallback(TweenHelp,TWEEN_EV_FINISH,id,Destroy,id)
+        TweenAddCallback(helpTween,TWEEN_EV_FINISH,id,Destroy,id)
     }
     
 
@@ -143,8 +149,8 @@ if TUTORIAL_ENABLED{
     title_text = "how to play"
     title_w = string_width(title_text);
     title_h = string_height(title_text);
-    title_x = GAME_X+GAME_W/2
-    title_y = obj_control_game.fieldEndY + 10 +title_h/2
+    title_x = GAME_MID_X;
+    title_y = fieldEndY + 10 +title_h/2
     
     title_scale = tutorialTitleTween[0];
     
@@ -166,7 +172,6 @@ if TUTORIAL_ENABLED{
     
     
     
-    
     //SKIP TUTORIAL
     draw_set_font(button_font);
     //Tween help button in
@@ -182,10 +187,11 @@ if TUTORIAL_ENABLED{
     text_w = string_width(text_text) * 1.25;
     text_h = string_height(text_text) * 1.25; //may need a /2 here if it's too big an area
         
+    /*
     skip_hover = point_in_rectangle(mouse_x,mouse_y,text_x-text_w,text_y-text_h,text_x+text_w,text_y+text_h) 
     
     if skip_hover{
-        //To prevent TP from moving to a button
+        //To prevent Touchpad from jumping to the button
         tp_on_button[0] = 2
     }
     
@@ -228,12 +234,12 @@ if TUTORIAL_ENABLED{
         draw_text_colour(text_x,text_y,text_text,
         text_color,text_color,text_color,text_color,1);
     }
-    
+    */
     
     //TUTORIAL DOTS indicator STUFF
     
     //Draw bottom of page frame indicator
-    dots_x = GAME_X+GAME_W/2;
+    dots_x = GAME_MID_X;
     dots_y = text_y;
     dot_height = 8;
     dot_width = 32

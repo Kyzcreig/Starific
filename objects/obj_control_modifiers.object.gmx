@@ -143,8 +143,8 @@ bMCount[0] = 0;
 mixPos[0] = 0;
 //Normal Position
 mixers_x[0] = centerfieldx - 2.5*90-15/2;//GAME_X +60;
-mixers_y[0] = global.texty+15+30;
-dialogue_x[0] = GAME_X +GAME_W/2;
+mixers_y[0] = fieldEndY+15+30;
+dialogue_x[0] = GAME_MID_X;
 dialogue_y[0] = (mixers_y[0] +GAME_Y+GAME_H)/2; //(fieldEndY + mixers_y)/2;
 dialogue_w[0] = (GAME_W* 11/32 * 2);
 if TOUCH_ENABLED {

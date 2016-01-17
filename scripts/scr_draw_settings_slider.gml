@@ -26,16 +26,17 @@ slider_pressed = scr_value_slider(sliderMidX, sliderMidY,sliderW * ease, sliderH
 // If Value Was Changed                   
 if current_val != value_data[0]
 {
-    /*
-   //Save new value to file
-    ini_open("scores.ini")
-        ini_write_real(save_section, save_key, value_data[0]);
-    ini_close();
-    */ 
-    //NB: Factored this out because i/o lags bad in step events.
-    
-    // If Sound/Music Slider     
-    if slider_type < 2
+    // If Music Slider   
+    if slider_type == 0
+    {
+       //Raise music to new volume
+       cur_sound = sound_list
+       if audio_exists(cur_sound) {
+            audio_sound_gain(cur_sound,value_data[0]*value_data[1],0);
+       }
+    }
+    // Else If Sound Slider     
+    else if slider_type == 1
     {
        //Raise list of sounds to new volume
        for (var k = 0, o = ds_list_size(sound_list); k < o; k++)

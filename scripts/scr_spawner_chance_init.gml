@@ -14,7 +14,7 @@ weight = noone; out = noone; w = 0;
 
 //Set Weights and Outcomes
 // Cash Deflectors
-if enableVC{
+if VC_ENABLED{
     // Default Cash Weight
     //weight[w] = .0050;//.01; //.02
         /* NB: I think let's keep cash this common again.

@@ -309,7 +309,7 @@ with (obj_control_gameover) {
     // Add Share and Get Buttons
     sh_greatGame = scr_great_game_check();
     // Delay For New Players
-    sh_veteran = careerPlaytimeTotal > 60*60*1 - lastPlaytime; // (gamesPlayedTotal > 4) 
+    sh_veteran = careerPlaytimeTotal > 60*60*2.5 - lastPlaytime; // (gamesPlayedTotal > 4) 
     // Share Stat
     sh_doShare = (sh_veteran and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
     // If Non-Mobile Version
@@ -355,27 +355,8 @@ with (obj_control_gameover) {
             */
         }
         
-        // PLM Promote for Android Googleplay
-        var plm_enabled = false;
-        if os_type == os_android and 
-           plm_enabled and
-           PLATFORM_SUBTYPE == 0 and
-           gamesPlayedTotal > 12 and 
-           random(1) < .20
-           // NB: Enable on Googleplay Launch Nov. 3rd
-           // NB: Disable on December 1st
-        { 
-            // Has PLM Been Clicked Before?
-            PLM_COUNT = ini_read_real("misc", "PLM_COUNT", 0);
-            if PLM_COUNT <= 0 {
-                // Add Button
-                if scr_go_is_button(20)  == -1{ // if button not in list
-                    scr_gameover_add_button(20);
-                }
-            }
-        }
         //Add Deluxe/No-Ads Button
-        if !PREMIUM and false{ //DISABLED because I'm no longer doing premium version
+        if PREMIUM == 0 { //DISABLED because I'm no longer doing premium version
             //Get Deluxe
             scr_gameover_add_button(7);
         }

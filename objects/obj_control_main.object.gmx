@@ -83,140 +83,11 @@ if RESTART_GAME {
           <argument>
             <kind>1</kind>
             <string>///Music System
-/*
-if !audio_exists(CURRENT_SONG) or !audio_is_playing(CURRENT_SONG)
-{
-    //audio_stop_sound(CURRENT_SONG)
-    var r_song = irandom(ds_list_size(music_list)-1)
-    var newsong = music_list[| r_song] //music_list[| irandom(ds_list_size(music_list)-1)]//
-    CURRENT_SONG = scr_sound(newsong, 100);
 
-}*/
-//Enable music on star launch or mixer select
-
-if (MUSIC_STATE == 0 or MUSIC_STATE == 2) and MUSIC_ACTIVE and
-    room == rm_game and !TUTORIAL_ENABLED and !GAMEOVER
-{
-    scr_ResumeMusic(3*room_speed);
-}
-//If music playing and not on pause page
-else if MUSIC_STATE == 1  
-{
-    // decrement track time counter
-    if CURRENT_SONG_TIME &gt; 0 and audio_exists(CURRENT_SONG) and audio_is_playing(CURRENT_SONG){
-       CURRENT_SONG_TIME -= 1 * RMSPD_DEFAULT/room_speed //scaled in case we toy with FPS
-       
-    }
-    // if music loaded
-    else if audio_group_is_loaded(AG_MusicAll) and // Basic Music Loaded
-    (os_browser != browser_not_a_browser or // If HTML
-    audio_group_is_loaded(AG_MusicMobile)) and // Or MobileMusic is Loaded
-    !GAME_PAUSE //And Game isn't Paused
-    {
-    
-        // if no song active or music is scheduled to be stopped
-        if (!audio_exists(CURRENT_SONG) or !audio_is_playing(CURRENT_SONG) or ScheduleExists(musicStopper))
-        {
-            // immediately stop music
-            if ScheduleExists(musicStopper) {ScheduleFinish(musicStopper)}
-            
-            // select new music
-            var rng_song = irandom(ds_list_size(music_list)-1)
-            var new_song = music_list[| rng_song];
-            CURRENT_SONG_GAIN = 1;
-            CURRENT_SONG = scr_sound(new_song, 100);
-            CURRENT_SONG_TIME = 5+ audio_sound_length(new_song) * RMSPD_DEFAULT
-            //we don't use room_speed because it could be variable, instead we use RMSPD_DEFAULT
-        }
-        // else we have a mismatch between CURRENT_SONG_TIME and song playing
-        else{ 
-            // so mute song and clear song index
-             scr_MusicStop();
-             // NB: Keep Below other lines
-             CURRENT_SONG_TIME += .1*RMSPD_DEFAULT 
-             
-
-        }
-    }
-}
+scr_music_step()
 
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Debugging (Unlock Everything)
 
-
-/// Unlock Everything Keyboard
-if keyboard_check(vk_shift){
-    if keyboard_check_pressed(vk_tab){
-        scr_unlocks_set_status_types("0,1,2,3");
-    
-        // Show Unlock Text
-        txt_font = fnt_menu_bn_40_bold;
-        draw_set_font(txt_font);
-        txt_text = "everything unlocked!";   
-        txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
-        txt_x = GAME_MID_X;
-        txt_y = GAME_MID_Y;  //NB: This'll break if we ever add another toggle
-        txt_dur = 2 * room_speed;  
-        scr_popup_text_field_static(txt_x,txt_y + txt_height,
-        txt_text,COLORS[0],txt_font, true, txt_dur);
-        
-        // Play Unlock Sound
-        scr_sound(sd_gameover_unlock);
-    }
-    
-}
-
-
-// Unlock Everything Touch
-if instance_exists(obj_settings_credits) and 
-   point_in_rectangle(mouse_x,mouse_y, VIEW_X+VIEW_W*.9, VIEW_Y, 
-   VIEW_X+VIEW_W, VIEW_Y+VIEW_H*.1)
-{
-    if mouse_check_button_pressed(mb_left) {
-        unlockEverythingCounter += 1;
-        
-        if unlockEverythingCounter &gt;= 7 {
-            unlockEverythingCounter = 0;
-            scr_unlocks_set_status_types("0,1,2,3");
-            
-                
-            // Show Unlock Text
-            txt_font = fnt_menu_bn_40_bold;
-            draw_set_font(txt_font);
-            txt_text = "everything unlocked!";   
-            txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
-            txt_x = GAME_MID_X;
-            txt_y = GAME_MID_Y;  //NB: This'll break if we ever add another toggle
-            txt_dur = 2 * room_speed;  
-            scr_popup_text_field_static(txt_x,txt_y + txt_height,
-            txt_text,COLORS[0],txt_font, true, txt_dur);
-            
-            // Play Unlock Sound
-            scr_sound(sd_gameover_unlock);
-             
-        }
-    }
-}
 </string>
           </argument>
         </arguments>
@@ -346,18 +217,87 @@ if 0 and GAME_IS_HTML5 {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Debugging 
+            <string>/// Set Fixed Touch Pad Home Location
 
-if keyboard_check(vk_shift) and keyboard_check_pressed(vk_home){
-    scr_screenshot_highdef_file("ss_debug.png",0);
+
+scr_tp_set_fixed();
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Debugging (Unlock Everything)
+
+
+/// Unlock Everything Keyboard
+if keyboard_check(vk_shift){
+    if keyboard_check_pressed(vk_tab){
+        scr_unlocks_set_status_types("0,1,2,3");
+    
+        // Show Unlock Text
+        txt_font = fnt_menu_bn_40_bold;
+        draw_set_font(txt_font);
+        txt_text = "everything unlocked!";   
+        txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
+        txt_x = GAME_MID_X;
+        txt_y = GAME_MID_Y;  //NB: This'll break if we ever add another toggle
+        txt_dur = 2 * room_speed;  
+        scr_popup_text_field_static(txt_x,txt_y + txt_height,
+        txt_text,COLORS[0],txt_font, true, txt_dur);
+        
+        // Play Unlock Sound
+        scr_sound(sd_gameover_unlock);
+    }
+    
 }
 
-/*
-if mouse_check_button_pressed(mb_right) {
-    scr_popup_text_field_static(mouse_x,mouse_y,string(random(100000)),
-        COLORS[0],fnt_menu_bn_40_bold,1,5*room_speed);
-    
-    
+
+// Unlock Everything Touch
+if instance_exists(obj_settings_credits) and 
+   point_in_rectangle(mouse_x,mouse_y, VIEW_X+VIEW_W*.9, VIEW_Y, 
+   VIEW_X+VIEW_W, VIEW_Y+VIEW_H*.1)
+{
+    if mouse_check_button_pressed(mb_left) {
+        unlockEverythingCounter += 1;
+        
+        if unlockEverythingCounter &gt;= 7 {
+            unlockEverythingCounter = 0;
+            scr_unlocks_set_status_types("0,1,2,3");
+            
+                
+            // Show Unlock Text
+            txt_font = fnt_menu_bn_40_bold;
+            draw_set_font(txt_font);
+            txt_text = "everything unlocked!";   
+            txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
+            txt_x = GAME_MID_X;
+            txt_y = GAME_MID_Y;  //NB: This'll break if we ever add another toggle
+            txt_dur = 2 * room_speed;  
+            scr_popup_text_field_static(txt_x,txt_y + txt_height,
+            txt_text,COLORS[0],txt_font, true, txt_dur);
+            
+            // Play Unlock Sound
+            scr_sound(sd_gameover_unlock);
+             
+        }
+    }
 }
 </string>
           </argument>
@@ -379,12 +319,64 @@ if mouse_check_button_pressed(mb_right) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Set Fixed Touch Pad Home Location
+            <string>///Debugging (Screenshot)
 
+if keyboard_check(vk_shift) and keyboard_check_pressed(vk_home){
+    scr_screenshot_highdef_file("ss_debug.png",0);
+    
+    
+    // Show Screenshot Path Text
+    txt_font = fnt_menu_bn_40_bold;
+    draw_set_font(txt_font);
+    txt_text = temp_directory+"ss_debug.png";   //NB: This is the directory where stuff is saved
+    txt_height = string_height("H") * .6 ;//+ string_height(txt_text) / 2;
+    txt_x = GAME_MID_X;
+    txt_y = GAME_MID_Y;  
+    txt_dur = 5 * room_speed;  
+    scr_popup_text_field_static(txt_x,txt_y + txt_height,
+    txt_text,COLORS[0],txt_font, true, txt_dur);
+    
+    // Play Unlock Sound
+    scr_sound(sd_woosh);
+}
 
-scr_tp_set_fixed();
+if keyboard_check(vk_shift) and keyboard_check_pressed(vk_control){
+    
+        CreateInstanceIfNone(x,y,obj_prompt_loading);
+}
+    
 
-
+/*
+if mouse_check_button_pressed(mb_right) {
+    scr_popup_text_field_static(mouse_x,mouse_y,string(random(100000)),
+        COLORS[0],fnt_menu_bn_40_bold,1,5*room_speed);
+    
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="62">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Handle Music DLC
+scr_music_dlc();
 </string>
           </argument>
         </arguments>
@@ -426,7 +418,7 @@ scr_main_reset_room_speed()
 
 //Create Frameskipper for Lag
 //NB: We don't use skipper on HTML because we would need to not clear the app surface for it to work.
-if os_browser == browser_not_a_browser and 
+if CONFIG != CONFIG_TYPE.HTML and 
     RMSPD_DEFAULT &gt;= 60
     //NB: Only use frame skipper when FPS is &gt;= 60
 { 
@@ -451,8 +443,9 @@ case rm_menu:
 
 
     // Create Menu Object
-    if !instance_exists(obj_control_menu) and (
-        os_browser == browser_not_a_browser 
+    if !instance_exists(obj_control_menu) and 
+      (
+        CONFIG != CONFIG_TYPE.HTML 
         or (os_browser == browser_chrome)
         or (os_browser == browser_firefox)
        )
@@ -573,6 +566,29 @@ scr_sounds_dealloc();
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// Set Config
+
+scr_config_init()
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///Set Aspect
 
 
@@ -581,8 +597,7 @@ scr_draw_smoothing(1);
 // Set Filming 
 game_filming = 0; //0
 //Enable Debug
-show_debug_overlay(os_browser == browser_not_a_browser 
-                   &amp;&amp; os_type == os_windows &amp;&amp; !game_filming);
+show_debug_overlay(CONFIG == CONFIG_TYPE.DESKTOP &amp;&amp; !game_filming);
 //show_debug_overlay(1); //Override
 
      
@@ -607,21 +622,18 @@ application_surface_enable(0);
 
 
 // Mobile Devices
-if (os_type == os_ios || os_device == device_ios_ipad) || 
-   (os_type == os_android || os_device == device_tablet)
+if (CONFIG == CONFIG_TYPE.IOS) || 
+   (CONFIG == CONFIG_TYPE.ANDROID)
 {
     PADDING = true;
 }
 // Desktops and browsers  
-else if os_browser == browser_not_a_browser ||
-        os_browser != browser_not_a_browser
-        //os_type == os_windows || 
-        //os_type == os_macosx  ||  
+else 
 {
     //Scale Down Display to at most XX%
     var MAX_H_SCALE;
     // If Desktop 
-    if os_browser == browser_not_a_browser{
+    if CONFIG != CONFIG_TYPE.HTML{
         MAX_H_SCALE = .75;
     }
     // If Browser 
@@ -650,8 +662,9 @@ else if os_browser == browser_not_a_browser ||
     ASPECT = PORT_W / PORT_H;
 }
 
-//TESTING RESOLUTION
-if os_type == os_windows and game_filming//DISABLE THIS BLOCK
+// FILMING RESOLUTION
+if CONFIG == CONFIG_TYPE.DESKTOP and 
+    game_filming and true 
 {
     application_surface_enable(0); 
     //For all this to work app surface needs to be enabled
@@ -661,17 +674,27 @@ if os_type == os_windows and game_filming//DISABLE THIS BLOCK
     //window_set_size(1920,1136)
     //window_set_size(1920,1080)
     
-    if 1{
+    // Filming Resolution
+    if true{
         PORT_W = round( GAME_W * .95)//.75;
         PORT_H = round( GAME_H * .95 )//.75;
-        //PORT_W = 768;
-        //PORT_H = 1024;
         window_set_size(PORT_W, PORT_H)
         
         // Set Views
         VIEW_W = GAME_W;
         VIEW_H = GAME_H;
     }
+    // Other Resolution
+    else if false {
+        PORT_W = 768
+        PORT_H = 1024
+        window_set_size(PORT_W, PORT_H)
+        
+        // Flag Padding
+        PADDING = true;
+    
+    }
+    // Mega Resolution
     else{ //Doesn't work exactly
         PORT_W =  640
         PORT_H =  1136 
@@ -702,7 +725,6 @@ if PADDING {
     {
         VIEW_W = GAME_W;
         VIEW_H = VIEW_W / ASPECT;
-    
     }
     //Fatter than our default ASPECT
     else if ASPECT &gt; 640 / 1136 
@@ -816,11 +838,8 @@ RU = 1//GAME_W / GAME_WIDTH_ORIGINAL;
             <kind>1</kind>
             <string>///Draw Optimizations
 
-globalvar GAME_IS_HTML5;
 // If Not HTML
-if os_browser == browser_not_a_browser {
-    GAME_IS_HTML5 = false;
-        
+if CONFIG != CONFIG_TYPE.HTML {
     // Set Display (not available on HTML5)F
     display_reset(0, false);
     /* NB:Evaluate me, it's supposed to keep android phone cooler.
@@ -828,7 +847,6 @@ if os_browser == browser_not_a_browser {
     */
  
 } else {
-    GAME_IS_HTML5 = true;
     //sprite_set_cache_size(s_v_star_white, 8)
     // Allow more font cache for these frequently colored fonts
     font_set_cache_size(fnt_game_bn_40_bold, 8);
@@ -924,12 +942,14 @@ RMSPD_OPTIONS[++i] = 60;
 // Set Room Speed
 var toggle_default;
 // Detect if Android
-if os_type == os_android { 
+if CONFIG == CONFIG_TYPE.ANDROID ||
+   CONFIG != CONFIG_TYPE.AMAZON
+{ 
     // Toggle Low FPS On
     opt_default = 0;
 }
 // Detect if HTML5
-else if os_browser != browser_not_a_browser{
+else if CONFIG == CONFIG_TYPE.HTML{
     // Use Normal FPS
     opt_default = 1;
 }
@@ -1021,32 +1041,29 @@ instance_create(x,y, obj_control_swipe)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Data Init, URLs, Everyplay, Share, Monetization
+            <string>///Data Init, Social, Monetization
 
-globalvar 
-PREMIUM, 
-enableVC;
 
-enableVC = 1;
-PREMIUM = false;
 
 // Field Data Init
 scr_field_data_init();
 
-/// Ads Init
-ads_gamestart();
+// Game Data Init
+scr_game_data_init();
+    //NB: Initializes unlockables and miscellaneous data
+
+/// Monetization Init
+monetization_init();
+    //NB: Keep below scr_game_data_init, because it enables purchased unlocks 
 
 // Leaderboards Init
 leaderboards_gamestart();
 
-// Everyplay 
-scr_everyplay_init();
-
-// Game Data Init
-scr_game_data_init();
-
 //Set URL Globals
 set_promotion_urls_gamestart();
+
+// Everyplay 
+scr_everyplay_init();
 
 // Share Screenshot
 scr_share_gameplay_screen_init();
@@ -1078,10 +1095,10 @@ scr_share_gameplay_screen_init();
 //Load PlayerID
 ini_open("savedata.ini");
 
-global.playerID = ini_read_real("settings", "playerID", 0)
+global.playerID = ini_read_real("settings", "playerID", -1)
 
 //If we didn't find one generate a new one
-if global.playerID == 0{
+if global.playerID == -1{
    randomize();
    global.playerID = irandom(900000000)
    
@@ -1094,19 +1111,22 @@ ANALYTICS = 0;
 
 //Set API Key for Flurry based on platform
 //Android Key
-if os_type == os_android{
+if CONFIG == CONFIG_TYPE.ANDROID ||
+   CONFIG == CONFIG_TYPE.AMAZON 
+{
    global.analyticsKey = "7VJPCTC9JGPMHKGC3TNT"; 
    global.ana_platform = "Android";
    global.ana_type = 1;
 }
 //iOS key
-else if os_type == os_ios{
+else if CONFIG == CONFIG_TYPE.IOS
+{
    global.analyticsKey = "9QKQYMCWZFKGZB3RXMDD"; 
    global.ana_platform = "iOS";
    global.ana_type = 1;
 }
 //HTML key
-else if os_browser != browser_not_a_browser{
+else if CONFIG == CONFIG_TYPE.HTML{
    global.analyticsKey = "5STTYCCFKDGCQ4QTX3ST"; 
    global.ana_platform = "HTML5";
    global.ana_type = 2;

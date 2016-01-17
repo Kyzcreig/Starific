@@ -256,13 +256,15 @@ if rate_prompt[0] {
                     CreateInstance,x,y,obj_prompt_feedback_gameover); 
     rate_prompt[0] = false;
 } 
-
 // Schedule Interstitial on Gameover
-else if ADS_INTERSTITIALS != "" and ADS_INTERSTITIAL_CACHED
+else if ADS_INTERSTITIALS != "" and 
+        ADS_INTERSTITIAL_CACHED and 
+        ADS_FORCED != 0
 {
     //Adaptive Prompting: Display Ads under following conditions
-    var vetPlayer = careerPlaytimeTotal &gt; 60*60*4 - lastPlaytime;
-    if ( vetPlayer and gamesPlayed mod 3 == 0) 
+    var vetPlayer = 1//careerPlaytimeTotal &gt; 60*60*4 - lastPlaytime;
+    if ( vetPlayer and gamesPlayed mod 2 == 0)//4 == 0) 
+                            //NB: Evaluate our much more aggressive advertising on android first
     {
         //Schedule Interstitial 
         TweenAddCallback(go_TweenSlideText,TWEEN_EV_FINISH,id,

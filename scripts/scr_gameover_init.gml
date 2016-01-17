@@ -69,5 +69,3 @@ with (obj_control_modifiers){
     MixersTween = TweenFire(id,MixersEase,EaseLinear,
                         TWEEN_MODE_ONCE,1,0,1, MixersEase[0],0);
 }
-
-

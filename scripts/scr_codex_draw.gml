@@ -24,15 +24,15 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
     switch text_align {
     case -1: 
         draw_set_halign(fa_left);
-        cat_text_x = GAME_W/2 - inner_width;
+        cat_text_x = GAME_MID_X - inner_width;
     break;
     case 0: 
         draw_set_halign(fa_center);
-        cat_text_x = GAME_W/2;
+        cat_text_x = GAME_MID_X;
     break;
     case 1: 
         draw_set_halign(fa_right);
-        cat_text_x = GAME_W/2 + inner_width;
+        cat_text_x = GAME_MID_X + inner_width;
             //We use GAME_W/2 instead of GAME_MID_X because we're on a scroll surface
     break;
     }    

@@ -36,22 +36,26 @@ show_debug_message("GM Social Async Event...");
 var type = string(ds_map_find_value(async_load, "type"));
 var value = ds_map_find_value(async_load, "value");
 
-if (type == "heyzap_ad_loaded") {
+if (type == "HeyZap_Ad_Loaded") {
     if value {
         if HeyZap_InterstitialStatus() {
             ADS_INTERSTITIAL_CACHED = true;
         }
+    } 
+} else if (type == "HeyZap_Video_Loaded") {
+    if value {
         if HeyZap_VideoStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
         }
-    } 
-} else if (type == "heyzap_reward") {
+    }
+} else if (type == "HeyZap_Reward_Loaded") {
     if value {
         if HeyZap_RewardStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
         }
     }
-} else if (type == "heyzap_banner_loaded") {
+} 
+/*else if (type == "heyzap_banner_loaded") {
     if value {
         // pass
     }

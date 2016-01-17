@@ -35,7 +35,7 @@ return -argument2 * _arg0 * (_arg0 - 2) + argument1;
 #define EaseInOutQuad
 /// EaseInOutQuad(time,start,change,duration)
 
-var _arg0 = argument0/(argument3 * 0.5);
+var _arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1){
     return argument2 * 0.5 * _arg0 * _arg0 + argument1;
@@ -57,7 +57,7 @@ return argument2 * (power(argument0/argument3 - 1, 3) + 1) + argument1;
 #define EaseInOutCubic
 /// EaseInOutCubic(time,start,change,duration)
 
-_arg0 = argument0 / (argument3 * 0.5);
+_arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1){
    return argument2 * 0.5 * power(_arg0, 3) + argument1;
@@ -78,7 +78,7 @@ return -argument2 * (power(argument0 / argument3 - 1, 4) - 1) + argument1;
 #define EaseInOutQuart
 /// EaseInOutQuart(time,start,change,duration)
 
-var _arg0 = argument0 / (argument3 * 0.5);
+var _arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1) {
     return argument2 * 0.5 * power(_arg0, 4) + argument1;
@@ -99,7 +99,7 @@ return argument2 * (power(argument0/argument3 - 1, 5) + 1) + argument1;
 #define EaseInOutQuint
 /// EaseInOutQuint(time, start, change, duration)
 
-var _arg0 = argument0 / (argument3 * 0.5);
+var _arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1){
     return argument2 * 0.5 * power(_arg0, 5) + argument1;
@@ -135,10 +135,11 @@ return argument2 * (1 - sqrt(1 - _arg0 * _arg0)) + argument1;
 var _arg0 = argument0/argument3 - 1;
 return argument2 * sqrt(1 - _arg0 * _arg0) + argument1;
 
+
 #define EaseInOutCirc
 /// EaseInOutCirc(time,start,change,duration)
 
-var _arg0 = argument0 / (argument3 * 0.5);
+var _arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1){
     return argument2 * 0.5 * (1 - sqrt(1 - _arg0 * _arg0)) + argument1;
@@ -161,7 +162,7 @@ return argument2 * (-power(2, -10 * argument0 / argument3) + 1) + argument1;
 #define EaseInOutExpo
 /// EaseInOutExpo(time,start,change,duration)
 
-var _arg0 = argument0 / (argument3 * 0.5);
+var _arg0 = 2*argument0/argument3;
 
 if (_arg0 < 1) {
     return argument2 * 0.5 * power(2, 10 * --_arg0) + argument1;
@@ -348,7 +349,7 @@ else
 #define EaseInOutBounce
 /// EaseInOutBounce(time,start,change,duration)
 
-if (argument0 < argument3*0.5) {
+if (2*argument0 < argument3) {
     return (EaseInBounce(argument0*2, 0, argument2, argument3)*0.5 + argument1);
 }
 

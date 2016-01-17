@@ -11,16 +11,25 @@ if !TweenExists(TweenMarker) and mixers_alpha[0] == 1{
         //Grab marker direction with SWIPE
         if mouse_check_button_released(mb_left) and SWIPE_BRK {//SWIPE_TAP{
         
-            marker_dir = darctan2(SMY - SMYS, SMX - SMXS);
-            marker_dir = ((marker_dir+45)+360*5) mod 360;
-            marker_dir = floor(marker_dir/90);
+            // Get Swipe Direction
+            var swipe_dir = darctan2(SMY - SMYS, SMX - SMXS);
+            //swipe_dir = ((swipe_dir+45)+360*5) mod 360;
+            marker_dir = real_roundto(swipe_dir, 45);
+            // Normalize Direction
+            while (marker_dir < 0) {
+                marker_dir += 360;
+            } 
+            while (marker_dir >= 360) {
+                marker_dir -= 360;
+            } 
+            
 
             //Deselect
             selected[0] = false;
             
             
-            //If Additional Stars in Inventory, Reselect 
-            if false{ //Disabled for now, because it feels unnecessary
+            //If Additional Stars in Inventory, Reselect Star Egg Placer
+            if false{ //Disabled for now, because you never have that many stars to place
                 with (Creator_ID){  
                     if boardMixers[bMStarIndex,0] > 0{
                         bMSelected[0] = bMStarIndex;

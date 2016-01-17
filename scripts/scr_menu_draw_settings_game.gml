@@ -141,7 +141,7 @@ for(i = 0; i < array_length_1d(menu);i++)
         //Music Volume bar
         if menu_data[2] == 0
         {
-            scr_draw_settings_slider(music_sound, music_list, "settings", "music_volume", 
+            scr_draw_settings_slider(music_sound, CURRENT_SONG, "settings", "music_volume", //music_list
                                     subEase[i+2], menu_data[2]);
             toggle_spr = music_spr[music_sound[1]];
             scr_draw_settings_slider_button(toggle_spr, menu_data[3], subEase[i+2]) 

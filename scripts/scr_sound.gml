@@ -13,9 +13,9 @@ else {looping = false}
 // If SFX Priority
 if priority < 100{
     var list, maxSize, listSize;
-    list = managed_sounds[? sound];
+    list = MANAGED_SOUNDS[? sound];
     listSize = ds_list_size(list);
-    maxSize = sound_caps[? sound];
+    maxSize = MANAGED_SOUND_CAPS[? sound];
     
     // If More than Max Sounds in List
     if (listSize >= maxSize) {

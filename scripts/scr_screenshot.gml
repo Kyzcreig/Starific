@@ -254,27 +254,36 @@ if SHAKE_TIME > -2{
 #define scr_resume_effects
 ///scr_resume_effects()
 
-//unpause audio
-if !sfx_sound[1]
+// RESUME SFX
+if !sfx_sound[1] {
    for (i=0;i<ds_list_size(sfx_list);i++){
        audio_stop_sound(sfx_list[| i])
    }
-else
+} else {
    for (i=0;i<ds_list_size(sfx_list);i++){
        audio_resume_sound(sfx_list[| i])
        audio_sound_gain(sfx_list[| i],sfx_sound[0],0);
    }
-
-if !music_sound[1]
+}
+// RESUME MUSIC
+if audio_exists(CURRENT_SONG) {
+   audio_resume_sound(CURRENT_SONG)
+   audio_sound_gain(CURRENT_SONG,music_sound[0]*music_sound[1],0);
+                                // NB: Volume * Mute
+}
+/*
+if !music_sound[1] {
    for (i=0;i<ds_list_size(music_list);i++){
        audio_resume_sound(music_list[| i])
        audio_sound_gain(music_list[| i],0,0);
    }
-else
+} else {
    for (i=0;i<ds_list_size(music_list);i++){
        audio_resume_sound(music_list[| i])
        audio_sound_gain(music_list[| i],music_sound[0],0);
    }
+}
+*/
 //audio_resume_all();
 
 

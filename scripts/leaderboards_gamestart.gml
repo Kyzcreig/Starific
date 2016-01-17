@@ -1,4 +1,3 @@
-#define leaderboards_gamestart
 ///leaderboards_gamestart()
 globalvar 
 LEADERBOARDS;
@@ -6,7 +5,7 @@ LEADERBOARDS;
 // Mobile and HTML   
 if (os_type == os_ios or 
     os_type == os_android or 
-    os_browser != browser_not_a_browser){ 
+    CONFIG == CONFIG_TYPE.HTML){ 
     //Log into achievement Service
     ach_custom_login();
     LEADERBOARDS = 1;
@@ -19,31 +18,3 @@ else {
 
  
 
-
-
-#define scr_everyplay_init
-///scr_everyplay_init()
-
-globalvar
-EVERYPLAY_ENABLED,
-EVERYPLAY_AUTO;
-
-if os_type == os_ios or os_type == os_android
-{
-    EVERYPLAY_ENABLED = true;
-} else {
-    EVERYPLAY_ENABLED = false;
-}
-
-
-//EVERYPLAY_ENABLED = true; //debugging
-
-// Init Everyplay
-if EVERYPLAY_ENABLED {
-    everyplay_init("2976c8ed4a6f1b8608633696d8102db9a3434ef6","6d5826af9a9214e1a11e4d864b40de836d690e3a");
-}
-
-// Set Auto Recording
-ini_open("savedata.ini");
-    EVERYPLAY_AUTO = ini_read_real("settings", "EVERYPLAY_AUTO", 1);
-ini_close();

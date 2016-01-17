@@ -67,8 +67,7 @@ if game_filming{
 }
 //DEBUGGING
 if 1 { //debugging
-    if (os_type == os_windows) and 
-       (os_browser == browser_not_a_browser) { 
+    if (CONFIG == CONFIG_TYPE.DESKTOP) { 
         touchPad = 2;//0;
     }
     
@@ -130,7 +129,7 @@ scr_tp_set_rad();
 oldMX = mouse_x
 oldMY = mouse_y
 
-if GAME_IS_HTML5 {
+if CONFIG == CONFIG_TYPE.HTML {
     scr_HTML5_mouse_set_xy();
 }
 

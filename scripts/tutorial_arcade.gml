@@ -417,7 +417,7 @@ switch argument0{
         draw_set_valign(fa_middle);
         draw_set_halign(fa_left);
         //Draw first line text
-        frame_text = "Use coins to unlock content#at the prizewheel on gameover."
+        frame_text = "Use coins to unlock prizes#at the wheel on gameover."
         text_w = string_width(frame_text);
         text_h = string_height(frame_text);
         sprite_w = 40//50;
@@ -447,8 +447,8 @@ switch argument0{
            tutorial_dummy = instance_create(padcenterx,padcentery,obj_prizewheel_dummy);
            
            //pass these in for scene top and bottom
-           scene_top = text_y + text_h ;//+ sprite_gap;
-           scene_bottom = (dots_y-dot_height) - sprite_gap//GAME_Y+GAME_H;
+           scene_top = text_y + text_h/2;//+ sprite_gap;
+           scene_bottom = (dots_y-dot_height)//GAME_Y+GAME_H;
            
            //Set params for scene
            with (tutorial_dummy){

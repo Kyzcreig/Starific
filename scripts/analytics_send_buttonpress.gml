@@ -8,7 +8,6 @@ with(obj_control_analytics){
     
     //Send game stats
     var params = "playerID"+","+string(global.playerID)+","+
-                 //"premium"+","+string(PREMIUM)+","+
                  "count"+","+string(argument[1]);
     if argument_count > 2 {
         params += ","+argument[2];

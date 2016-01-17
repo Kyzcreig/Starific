@@ -272,11 +272,11 @@ if colIndex != -1 {
 //if !outline or (color_get_hsl_lightness(COLORS[6]) &gt; 75)
 //If No outline or light background draw no outline
 if !outline and !background_too_light //!contrast_is_high or 
-   draw_text_ext_transformed_colour(x,y,text,-1, -1, 
+   draw_text_ext_transformed_colour(x,y,text,-1, GAME_W, 
             text_scale,text_scale, 0, col,col,col,col,alpha)
 else{
    draw_text_outline_ext_transformed_color(x,y,string_lower(text),
-   -1, -1, text_scale,text_scale, 0,col,col,col,col,alpha,outlinewidth,COLORS[6],4)
+   -1, GAME_W, text_scale,text_scale, 0,col,col,col,col,alpha,outlinewidth,COLORS[6],4)
 }
 
 

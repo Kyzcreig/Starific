@@ -255,7 +255,7 @@ switch argument0{
                if !modifiers_mutex and !sMSelected and !MOVE_ACTIVE{
                
                   if dummy_star_exists{//tutorial_dummy.bMCount[0] >= 1{
-                      frame_text = "Tap anywhere to launch or tap star egg to re-place.";
+                      frame_text = "Tap anywhere to launch or tap star to pick it up.";
                       draw_text_ext_transformed_colour(text_x,text_y,frame_text,-1,text_w,
                       1,1,0,text_color,text_color,text_color,text_color,tutorialTextTween[0]);
                   

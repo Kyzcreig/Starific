@@ -39,7 +39,6 @@ with(obj_control_analytics){
 
     //Send game stats
     var params = "playerID"+","+string(global.playerID)+","+
-                 "premium"+","+string(PREMIUM)+","+
                  "visit_count"+","+string(ana_roomtimes[ri])+","+
                  "time_seconds"+","+string(time_in_room / 60)
     FlurryAnalytics_SendEventExt( event_name, params);

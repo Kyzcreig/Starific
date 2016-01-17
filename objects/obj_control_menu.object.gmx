@@ -90,8 +90,8 @@ menu_button[i,(++j)mod k] = 0; //button indicator value
 
 if touchPad != 0{
     
-    if !PREMIUM and false{ //DISABLED
-        if ADVERTISING == 1 menu_button[++i,(++j)mod k]  = s_v_noads //button sprite
+    if PREMIUM == 0 { //DISABLED
+        if ADS_FORCED == 1 menu_button[++i,(++j)mod k]  = s_v_noads //button sprite
         else  menu_button[++i,(++j)mod k] = s_v_deluxe  //button sprite
         menu_button[i,(++j)mod k] = 8; //button user_event index
         menu_button[i,(++j)mod k] = 0; //button indicator value

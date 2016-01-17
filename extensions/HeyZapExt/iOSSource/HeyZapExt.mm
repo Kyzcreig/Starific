@@ -1,17 +1,16 @@
 //
-//  HeyZapExt.mm
-//  iOS Extension
+//  HeyZap Extension for GameMaker: Studio
+//  ver 1.0
 //
-//  Created by Vitaliy Sidorov on 10/10/2015.
+//  Released by Vitaliy Sidorov on 14/01/2016
+//  Copyright SilenGames, 2016.
 //
+//  For support please e-mail at contact@silengames.com
 //
 
 #import "HeyZapExt.h"
 #import <HeyzapAds/HeyzapAds.h>
 #import <UIKit/UIKit.h>
-
-@interface HeyZapExt ()<HZAdsDelegate, HZIncentivizedAdDelegate>
-@end
 
 const int EVENT_OTHER_SOCIAL = 70;
 extern int CreateDsMap( int _num, ... );
@@ -27,13 +26,42 @@ double g_BannerHeight = 0;
 - (void) HeyZap_Init:(char *)_app_id Arg2:(double)_istest
 {
 	g_AppId  = [NSString stringWithCString:_app_id encoding:NSUTF8StringEncoding];
-	[HeyzapAds startWithPublisherID: g_AppId];
+	if (_istest == 2) {
+		[HeyzapAds startWithPublisherID: g_AppId andOptions: HZAdOptionsDisableAutoPrefetching];
+	} else {
+		[HeyzapAds startWithPublisherID: g_AppId];
+	}
 	if (_istest == 1) {
 		[HeyzapAds presentMediationDebugViewController];
 	}
-	[HZInterstitialAd setDelegate:self];
-	[HZVideoAd setDelegate:self];
-	[HZIncentivizedAd setDelegate:self];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAdNotificationStatic:) name:HZMediationDidReceiveAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAdNotificationVideo:) name:HZMediationDidReceiveAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveAdNotificationReward:) name:HZMediationDidReceiveAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToReceiveAdNotificationStatic:) name:HZMediationDidFailToReceiveAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToReceiveAdNotificationVideo:) name:HZMediationDidFailToReceiveAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToReceiveAdNotificationReward:) name:HZMediationDidFailToReceiveAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didShowAdNotificationStatic:) name:HZMediationDidShowAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didShowAdNotificationVideo:) name:HZMediationDidShowAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didShowAdNotificationReward:) name:HZMediationDidShowAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToShowAdNotificationStatic:) name:HZMediationDidFailToShowAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToShowAdNotificationVideo:) name:HZMediationDidFailToShowAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToShowAdNotificationReward:) name:HZMediationDidFailToShowAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didClickAdNotificationStatic:) name:HZMediationDidClickAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didClickAdNotificationVideo:) name:HZMediationDidClickAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didClickAdNotificationReward:) name:HZMediationDidClickAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didHideAdNotificationStatic:) name:HZMediationDidHideAdNotification object:[HZInterstitialAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didHideAdNotificationVideo:) name:HZMediationDidHideAdNotification object:[HZVideoAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didHideAdNotificationReward:) name:HZMediationDidHideAdNotification object:[HZIncentivizedAd class]];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didCompleteIncentivizedAdNotification:) name:HZMediationDidCompleteIncentivizedAdNotification object:[HZIncentivizedAd class]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFailToCompleteIncentivizedAdNotification:) name:HZMediationDidFailToCompleteIncentivizedAdNotification object:[HZIncentivizedAd class]];
+
 }
 
 - (void) HeyZap_AddBanner:(double)_pos
@@ -150,22 +178,84 @@ double g_BannerHeight = 0;
 		"value", value, (void*)NULL);
 	CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 }
-	
-- (void)didReceiveAdWithTag:(NSString *)tag {
-    [self sendCallbacks:(char *)"heyzap_ad_loaded" Arg2:1];
+
+
+- (void) didReceiveAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_loaded" Arg2:1];
+}
+- (void) didReceiveAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_loaded" Arg2:1];
+}
+- (void) didReceiveAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_loaded" Arg2:1];
 }
 
-- (void)didFailToReceiveAdWithTag:(NSString *)tag {
-    [self sendCallbacks:(char *)"heyzap_ad_loaded" Arg2:0];
+
+- (void) didFailToReceiveAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_loaded" Arg2:0];
+}
+- (void) didFailToReceiveAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_loaded" Arg2:0];
+}
+- (void) didFailToReceiveAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_loaded" Arg2:0];
 }
 
-- (void) didCompleteAdWithTag: (NSString *)tag {
+
+- (void) didShowAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_shown" Arg2:1];
+}
+- (void) didShowAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_shown" Arg2:1];
+}
+- (void) didShowAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_shown" Arg2:1];
+}
+
+
+- (void) didFailToShowAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_shown" Arg2:0];
+}
+- (void) didFailToShowAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_shown" Arg2:0];
+}
+- (void) didFailToShowAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_shown" Arg2:0];
+}
+
+
+- (void) didClickAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_clicked" Arg2:1];
+}
+- (void) didClickAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_clicked" Arg2:1];
+}
+- (void) didClickAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_clicked" Arg2:1];
+}
+
+
+- (void) didHideAdNotificationStatic: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_ad_hidden" Arg2:1];
+}
+- (void) didHideAdNotificationVideo: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_video_hidden" Arg2:1];
+}
+- (void) didHideAdNotificationReward: (NSNotification *)notification {
+	[self sendCallbacks:(char *)"heyzap_reward_hidden" Arg2:1];
+}
+
+
+- (void) didCompleteIncentivizedAdNotification: (NSNotification *)notification {
 	[self sendCallbacks:(char *)"heyzap_reward" Arg2:1];
 }
- 
-- (void) didFailToCompleteAdWithTag: (NSString *)tag {
+- (void) didFailToCompleteIncentivizedAdNotification: (NSNotification *)notification {
 	[self sendCallbacks:(char *)"heyzap_reward" Arg2:0];
 }
 
+- (void) dealloc
+{
+    [super dealloc];
+}
 
 @end

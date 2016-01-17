@@ -15,7 +15,7 @@
 - (void)everyplay_stop_recording;
 - (int)everyplay_is_recording;
 - (void)everyplay_play_last_recording;
-- (void)everyplay_set_metadata;
+- (void)everyplay_set_metadata:(NSString *)key :(NSString *)value;
 - (void)everyplay_show_everyplay;
 - (void)everyplay_show_share_modal;
 

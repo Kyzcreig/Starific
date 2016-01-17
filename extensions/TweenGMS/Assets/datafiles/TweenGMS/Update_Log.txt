@@ -6,11 +6,51 @@
 Special thanks to Cody Penner @DagurDragon for new TweenGMS logo.
 
 ****************************************************************
+** PLEASE MAKE THE REQUIRED CHANGES IF UPGRADING FROM v0.9.6_ **
+****************************************************************
+
+****************************************************************
 ** PLEASE CLEAR COMPILER CACHE FOR YYC TARGETS AFTER UPDATING **
 ****************************************************************
 
-!! NOTE THAT THIS IS A MAJOR UPDATE !!
-!! PLEASE MAKE THE REQUIRED CHANGES !!
+===============
+    v0.9.72 
+===============
+
+- Fixed tweens starting updates too soon (racing ahead) when played from various events or when delays finish
+  * Creates more consistent timings, regardless of when tween is played/fired
+  * Change affects all tweens started in events executed before Begin Step
+  * Time critical tweens may need to be adjusted by 1 step
+
+- TweenExists() no longer spams HTML5 console when tween doesn't exist
+
+
+===============
+    v0.9.71 
+===============
+
+- Fix for tween being calculated with time outside expected boundaries (0 - DURATION)
+  * Fixes negative sqrt() error with Ease*Circ algorithms when using various modes (BOUNCE/PATROL/LOOP/REPEAT)
+  * Epsilon!!! *shakes fist*
+
+- Modified TweenSystemFlushDestroyed() to use Shared Tweener's garbage collector in step event
+  * Prevents chance of error when called during tween callbacks and other edge cases
+  * Removes redundant code
+
+- Optimised shared tweener destruction
+  * Removed needless list deletions before destroying whole tween list (derp)
+
+- Fixed TweenStep() creating "_time" as an instance variable instead of local variable
+
+- Added safety check to ensure obj_SharedTweener never calls Destroy/Room_End events if already destroyed
+
+- Added missing auto-complete parameter ("deactivated") for TweenReverseTarget()
+
+- Minor ease algorithm tweaks
+
+- Minor documentation tweaks
+
+
 
 ===============
     v0.9.70 

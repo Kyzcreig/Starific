@@ -166,7 +166,7 @@ if caught and GAME_ACTIVE{
            wVals[w] = .1;    wResult[w++] = obj_powerup_splitpaddle; //split paddle
            wVals[w] = .1;    wResult[w++] = obj_powerup_offsetpaddle; //split paddle
         }
-        if enableVC {
+        if VC_ENABLED {
             wVals[w] = 1;    wResult[w++] = obj_powerup_cash_1; //starcash
             wVals[w] = .1;    wResult[w++] = obj_powerup_cash_1; //starcash
             wVals[w] = .1;    wResult[w++] = obj_powerup_cash_2; //starcash

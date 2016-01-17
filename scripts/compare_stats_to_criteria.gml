@@ -4,7 +4,7 @@
 var data = argument0; 
 var criteria_type = data[3];
 var criteria_quantity = data[4];
-var tmp, cmp;
+var tmp, cmp = false;
 
 switch criteria_type {
 
@@ -45,29 +45,29 @@ case 25:
     if data[1] >= 2{
         cmp = true;
     }
-    /* NB: No longer necessary
-    //Exceptions for Old Saves
-    else { //DELETE ME BEFORE RELEASE, BECAUSE I WON'T BE NECESSARY
-        var oldIndex = scr_unlocks_get_old_index(data);
-        cmp = 0 < ini_read_real("UNLOCKS_ARRAY",string(oldIndex), 0);
-        data[@ 2] =  ini_read_real("UNLOCKS_ARRAY","s"+string(oldIndex), -1);
-    }*/
 break;
 
 
 //Check for Achievement 
 case 27:
-    cmp = scr_unlock_get_status(5,criteria_quantity) != 0;
+    // If More than X GamesplayedTotal
+    if check_stats(0) >= 5 {
+        /*NB: Req. 5 games to avoid overwhelming new players
+        */ 
+        cmp = scr_unlock_get_status(5,criteria_quantity) != 0;
+    }
 break
 
 
 //Less than X points
 case 28:
-    tmp = check_stats(criteria_type);
-    cmp = (tmp >= 0) and (tmp <= criteria_quantity) 
-            and check_stats(0) >= 10; 
-            //NB: Req. 10 games to make sure we don't confuse people too much at first
-            // when they do poorly
+    // If More than X GamesplayedTotal
+    if check_stats(0) >= 10 {
+        /*NB: Req. 10 games to avoid overwhelming new players
+        */ 
+        tmp = check_stats(criteria_type);
+        cmp = (tmp >= 0) and (tmp <= criteria_quantity) 
+    }
 break;
 
 //Default
@@ -328,7 +328,7 @@ switch stat_type{
             
        //Premium Unlock     
        case -2:
-            if PREMIUM{
+            if PREMIUM == 1{
                 tmp = 1;
             }
             else{

@@ -26,8 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///set center of starfield
-fieldx = GAME_X + GAME_W/2;
-fieldy = GAME_Y + GAME_H/2;
+fieldx = GAME_MID_X;
+fieldy = GAME_MID_Y;
 </string>
           </argument>
         </arguments>

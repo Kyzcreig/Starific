@@ -41,7 +41,7 @@ autoCleanIterations = global.TGMS_AutoCleanIterations; // Number of tweens to ch
 
 // System maintenance variables
 tick = 0;                            // System update timer
-autoCleanIndex = 0;                  // Used for processing step tweens' passive memory manager
+autoCleanIndex = 0;                  // Used to track index when processing passive memory manager
 keepPersistent = false;              // Becomes true if tweening used in persistent room
 maxDelta = 1/minDeltaFPS;            // Cache delta cap
 deltaTime = delta_time/1000000;      // Let's make delta time more practical to work with, shall we?
@@ -50,6 +50,10 @@ deltaRestored = false;               // Used to help maintain predictable delta 
 addDelta = 0.0;                      // Amount to add to delta time if update interval not reached
 timeScales[0] = timeScale;           // Store time scale in time scales array for step/delta selection
 timeScales[1] = timeScale*deltaTime; // Store delta time scale in time scales array for step/delta selection
+flushDestroyed = false;              // Flag to indicate if destroyed tweens should be immediately cleared
+isDestroyed = false;                 // Flag to ensure Destroy/Room_End events only called when appropriate
+tweensProcessNumber = 0;             // Number of tweens to be actively processed in update loop
+delaysProcessNumber = 0;             // Number of delays to be actively processed in update loop
 
 // Required data structures
 tweens = ds_list_create();           // Stores automated step tweens
@@ -62,6 +66,11 @@ eventCleaner = ds_priority_create(); // Used to clean callbacks from events
 #define TGMS_Tweener_Destroy
 /// TGMS_Tweener_Destroy()
 
+// Return early if Destroy Event already called
+// Else mark tweener as being destroyed
+if (isDestroyed) { return 0; }
+else             { isDestroyed = true; }
+
 //-------------------------------------------------
 // Destroy Tweens and Delays for Persistent Rooms
 //-------------------------------------------------
@@ -71,11 +80,10 @@ TGMS_ClearAllRooms();
 // Destroy remaining tweens
 //---------------------------------------------
 var _tweens = tweens;
-var _tIndex = ds_list_size(_tweens);
-repeat(_tIndex)
+var _tIndex = -1;
+repeat(ds_list_size(_tweens))
 {   
-    var _t = _tweens[| --_tIndex];             // Get tween and decrement iterator
-    ds_list_delete(_tweens, _tIndex);          // Remove tween from tweens list
+    var _t = _tweens[| ++_tIndex];             // Get tween and decrement iterator
     _t[@ TWEEN.STATE] = TWEEN_STATE.DESTROYED; // Set state as destroyed
     _t[@ TWEEN.ID] = undefined;                // Nullify self reference
     
@@ -91,11 +99,14 @@ repeat(_tIndex)
             ds_map_delete(_events, ds_map_find_first(_events));     // Delete event key   
         }
         
-        ds_map_destroy(_events); // Destroy events map
+        // Destroy events map
+        ds_map_destroy(_events);
     }
 }
 
+//-----------------------------------------
 // Remove self as shared tweener singleton
+//-----------------------------------------
 global.TGMS_SharedTweener = noone;
 
 //---------------------------------------
@@ -120,7 +131,6 @@ ds_map_clear(global.TGMS_MAP_CALLBACK);
 //--------------------------
 // Manage Delta Timing
 //--------------------------
-
 prevDeltaTime = deltaTime;      // Store previous usable delta time format
 deltaTime = delta_time/1000000; // Update usable delta time format
 
@@ -132,7 +142,7 @@ if (deltaTime > maxDelta)
     if (deltaRestored)
     { 
         deltaTime = maxDelta; // Set delta time to max delta value
-    } 
+    }
     else
     { 
         deltaTime = prevDeltaTime; // Restore delta time to value from previous step
@@ -174,12 +184,143 @@ if (isEnabled)
         
         // IF system timescale isn't "paused"
         if (timeScale != 0)
-        {
+        {   
+            //--------------------------------------------------
+            // Process Tweens
+            //--------------------------------------------------
+            _tIndex = -1; 
+            repeat(tweensProcessNumber)
+            {
+                var _t = _tweens[| ++_tIndex]; // Get tween and increment index
+                
+                // Process tween if target/state exists/active
+                if (instance_number(_t[TWEEN.STATE]))
+                {
+                    // Get updated tween time -- DELTA boolean selects between step/delta time scales
+                    var _time = _t[TWEEN.TIME] + _t[TWEEN.TIME_SCALE] * _systemTimeScales[_t[TWEEN.DELTA]];
+                    var _duration = _t[TWEEN.DURATION]; // Cache duration
+                    var _property = _t[TWEEN.PROPERTY]; // Cache property
+                    
+                    // IF tween is within start/destination
+                    if (_time > 0 && _time < _duration)
+                    {
+                        // Assign updated time
+                        _t[@ TWEEN.TIME] = _time;
+                        // Update tweened property with eased value
+                        if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); 
+                    }
+                    else // Tween has reached start or destination
+                    if (_t[TWEEN.TIME_SCALE] != 0) // Make sure time scale isn't "paused"
+                    {
+                        // Update tween based on its play mode -- Could put overflow wait time in here????
+                        switch(_t[TWEEN.MODE])
+                        {
+                        case TWEEN_MODE_ONCE:
+                            _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;  // Set tween's state as STOPPED
+                            _t[@ TWEEN.TIME] = _duration*(_time > 0); // Update tween's time
+                            
+                            // Update property
+                            if (_property != null__) { script_execute(_property, _t[TWEEN.START] + _t[TWEEN.CHANGE]*(_time > 0), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
+                            
+                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
+                            if (_t[TWEEN.DESTROY]) { TweenDestroy(_t); }          // Destroy tween if temporary
+                        break;
+                        
+                        case TWEEN_MODE_BOUNCE:
+                            if (_time > 0)
+                            {
+                                _time = 2*_duration - _time;        // Update raw time with epsilon compensation
+                                _t[@ TWEEN.TIME] = _time;           // Assign raw time to tween
+                                _time = clamp(_time, 0, _duration); // Clamp raw time used for tween calculation
+                                
+                                // Update property
+                                if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+                                
+                                _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse direction 
+                                _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Reverse time scale
+                                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute CONTINUE event
+                            }
+                            else
+                            {
+                                // Update tween's time
+                                _t[@ TWEEN.TIME] = 0;
+                                
+                                // Update property
+                                if (_property != null__) { script_execute(_property, _t[TWEEN.START], _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
+                                
+                                _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;              // Set tween state as STOPPED
+                                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
+                                if (_t[TWEEN.DESTROY]) { TweenDestroy(_t); }          // Destroy tween if temporary
+                            }
+                        break;
+                        
+                        case TWEEN_MODE_PATROL:
+                            // Update raw time with epsilon compensation
+                            if (_time > 0) { _time = 2*_duration - _time; }
+                            else           { _time = -_time; }
+                        
+                            _t[@ TWEEN.TIME] = _time;           // Assign raw time to tween
+                            _time = clamp(_time, 0, _duration); // Clamp raw time used for tween calculation
+                            
+                            // Update property
+                            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+                            
+                            _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse tween's direction
+                            _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Reverse tween's time scale
+                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute CONTINUE event
+                        break;
+                        
+                        case TWEEN_MODE_LOOP:
+                            // Update tween's time depending on side of loop
+                            if (_time > 0) { _time = _time - _duration; }
+                            else           { _time = _time + _duration; }
+                            
+                           _t[@ TWEEN.TIME] = _time;           // Assign raw time to tween
+                           _time = clamp(_time, 0, _duration); // Clamp raw time used for tween calculation
+                            
+                            // Update property
+                            if (_property != null__) { script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
+                            
+                            // Execute LOOP event
+                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
+                        break;
+                        
+                        case TWEEN_MODE_REPEAT:
+                            // Update tween's time and starting location based on side of loop
+                            if (_time > 0)
+                            {
+                                _time = _time - _duration; // Update raw time with epsilon compensation
+                                _t[@ TWEEN.START] = _t[TWEEN.START] + _t[TWEEN.CHANGE]; // Update start
+                            }
+                            else
+                            {
+                                _time = _time + _duration; // Update raw time with epsilon compensation
+                                _t[@ TWEEN.START] = _t[TWEEN.START] - _t[TWEEN.CHANGE]; // Update start
+                            }
+                            
+                            _t[@ TWEEN.TIME] = _time;          // Assign raw time to tween
+                           _time = clamp(_time, 0, _duration); // Clamp raw time used for tween calculation
+                            
+                            // Update property
+                            if (_property != null__) { script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
+                            
+                            // Execute LOOP event
+                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
+                        break;
+                        
+                        default:
+                            show_error("Invalid Tween Mode! --> Reverting to TWEEN_MODE_ONCE", false);
+                            _t[@ TWEEN.MODE] = TWEEN_MODE_ONCE;
+                        }
+                    }
+                }
+            }
+            
             //----------------------------------------
-            // Process delays
+            // Process Delays
             //----------------------------------------
             _tIndex = -1;
-            repeat(ds_list_size(_delayedTweens))
+            repeat(delaysProcessNumber)
             {
                 var _t = _delayedTweens[| ++_tIndex]; // Get next tween from delayed tweens list
     
@@ -208,109 +349,6 @@ if (isEnabled)
                     _t[@ TWEEN.DELAY] = -10;                   // Indicate that delay has been removed from delay list
                 }
             }
-            
-            //--------------------------------------------------
-            // Process Tweens
-            //--------------------------------------------------
-            _tIndex = -1; 
-            repeat(ds_list_size(_tweens))
-            {
-                var _t = _tweens[| ++_tIndex]; // Get tween and increment index
-                
-                // Process tween if target/state exists/active
-                if (instance_number(_t[TWEEN.STATE]))
-                {
-                    // Get updated tween time -- DELTA boolean selects between step/delta time scales
-                    var _time = _t[TWEEN.TIME] + _t[TWEEN.TIME_SCALE] * _systemTimeScales[_t[TWEEN.DELTA]];
-                    var _duration = _t[TWEEN.DURATION]; // Cache duration
-                    var _property = _t[TWEEN.PROPERTY]; // Cache property
-                    
-                    // IF tween is within start/destination
-                    if (_time > 0 && _time < _duration)
-                    {
-                        _t[@ TWEEN.TIME] = _time; // Assign updated time
-                        // Update tweened property with eased value
-                        if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); 
-                    }
-                    else // Tween has reached start or destination
-                    if (_t[TWEEN.TIME_SCALE] != 0) // Make sure time scale isn't "paused"
-                    {
-                        // Update tween based on its play mode -- Could put overflow wait time in here????
-                        switch(_t[TWEEN.MODE])
-                        {
-                        case TWEEN_MODE_ONCE:
-                            _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;    // Set tween's state as STOPPED
-                            _t[@ TWEEN.TIME] = _duration*(_time > 0);   // Update tween's time
-                            // Update property
-                            if (_property != null__) { script_execute(_property, _t[TWEEN.START] + _t[TWEEN.CHANGE]*(_time > 0), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
-                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
-                            if (_t[TWEEN.DESTROY]) { TweenDestroy(_t); }          // Destroy tween if temporary
-                        break;
-                        
-                        case TWEEN_MODE_PATROL:
-                            _t[@ TWEEN.TIME] = _duration * 2 * (_time > 0) - _time; // Update tween's time
-                            // Update property
-                            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
-                            _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse tween's direction
-                            _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Reverse tween's time scale
-                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute CONTINUE event
-                        break;
-                           
-                        case TWEEN_MODE_BOUNCE:
-                            if (_time > 0)
-                            {
-                                _t[@ TWEEN.TIME] = 2*_duration - _time; // Update tween's time
-                                // Update property
-                                if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
-                                _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse direction 
-                                _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Reverse time scale
-                                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute CONTINUE event
-                            }
-                            else
-                            {
-                                _t[@ TWEEN.TIME] = 0; // Update tween's time
-                                // Update property
-                                if (_property != null__) { script_execute(_property, _t[TWEEN.START], _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
-                                _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;              // Set tween state as STOPPED
-                                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
-                                if (_t[TWEEN.DESTROY]) { TweenDestroy(_t); }          // Destroy tween if temporary
-                            }
-                        break;
-                        
-                        case TWEEN_MODE_LOOP:
-                            // Update tween's time depending on side of loop
-                            if (_time > 0) { _t[@ TWEEN.TIME] = _time - _duration; }
-                            else           { _t[@ TWEEN.TIME] = _time + _duration; }
-                            // Update property
-                            if (_property != null__) { script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
-                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute LOOP event
-                        break;
-                        
-                        case TWEEN_MODE_REPEAT:
-                            // Update tween's time and starting location based on side of loop
-                            if (_time > 0)
-                            {
-                                _t[@ TWEEN.TIME] = _time - _duration;                   // Update time
-                                _t[@ TWEEN.START] = _t[TWEEN.START] + _t[TWEEN.CHANGE]; // Update start
-                            }
-                            else
-                            {
-                                _t[@ TWEEN.TIME] = _time + _duration;                   // Update time
-                                _t[@ TWEEN.START] = _t[TWEEN.START] - _t[TWEEN.CHANGE]; // Update start
-                            }
-                            
-                            // Update property
-                            if (_property != null__) { script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); }
-                            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute LOOP event
-                        break;
-                        
-                        default:
-                            show_error("Invalid Tween Mode! --> Reverting to TWEEN_MODE_ONCE", false);
-                            _t[@ TWEEN.MODE] = TWEEN_MODE_ONCE;
-                        }
-                    }
-                }
-            }
         }
     }
 }
@@ -329,12 +367,13 @@ if (ds_priority_size(eventCleaner))
         var _cb = _event[| --_cbIndex];           // Get next callback and decrement iterator
         var _target = _cb[TWEEN_CALLBACK.TARGET]; // Cache callback's target instance
         
-        // If the tween's target instance doesn't exist
+        // If the tween's target instance doesn't exist...
         if (instance_exists(_target) == false)
         {
-            instance_activate_object(_target); // Attempt to activate target instance
+            // Attempt to activate target instance
+            instance_activate_object(_target);
             
-            // If the target instance now exists
+            // If the target instance now exists...
             if (instance_exists(_target))
             {
                 instance_deactivate_object(_target); // Put target instance back to deactivated state
@@ -351,44 +390,63 @@ if (ds_priority_size(eventCleaner))
 //--------------------------------------------------
 // Passive Tween Cleaner
 //--------------------------------------------------
-repeat(min(autoCleanIterations, autoCleanIndex, ds_list_size(_tweens)))
+// Check to see if system is being flushed
+// Else clamp number of cleaning iterations
+var _cleanIterations;
+if (flushDestroyed)
+{
+    flushDestroyed = false;                   // Clear "flush" flag
+    autoCleanIndex = ds_list_size(_tweens);   // Set starting clean index to list size
+    _cleanIterations = ds_list_size(_tweens); // Set number of iterations to list size 
+}
+else
+{
+    _cleanIterations = min(autoCleanIterations, autoCleanIndex, ds_list_size(_tweens)); // CLAMP!
+}
+
+// Start the cleaning!
+repeat(_cleanIterations)
 {   
-    var _t = _tweens[| --autoCleanIndex]; // Cache tween
+    // Cache tween
+    var _t = _tweens[| --autoCleanIndex];
     
-    // IF tween target does not exist
+    // IF tween target does not exist...
     if (instance_exists(_t[TWEEN.TARGET]) == false)
     {
-        // IF tween is set for destruction
+        // IF tween is set for destruction...
         if (_t[TWEEN.TARGET] == noone)
         {
-            ds_list_delete(_tweens, autoCleanIndex); // Remove tween from tweens list
+            // Remove tween from tweens list
+            ds_list_delete(_tweens, autoCleanIndex);
             
-            // IF tween events are valid
+            // IF tween events are valid...
             if (_t[TWEEN.EVENTS] != -1)
             {
                 var _events = _t[TWEEN.EVENTS];        // Cache tween's events map
                 var _key = ds_map_find_first(_events); // Get first key in data map
                 
-                // Cycle through all events
+                // For each tween event...
                 repeat(ds_map_size(_events))
                 {
-                    ds_list_destroy(_events[? _key]);       // Destroy list data for specific event
-                    _key = ds_map_find_next(_events, _key); // Get key to next event
+                    ds_list_destroy(_events[? _key]);       // Destroy event's list data
+                    _key = ds_map_find_next(_events, _key); // Get key for next event
                 }
                 
-                ds_map_destroy(_events); // Destroy tween's events map
+                // Destroy tween's events map
+                ds_map_destroy(_events);
             }
         }
         else
         {
-            instance_activate_object(_t[TWEEN.TARGET]); // Attempt to activate target instance
+            // Attempt to activate target instance
+            instance_activate_object(_t[TWEEN.TARGET]);
             
-            // Put instance back to deactivated state if it now exists
+            // IF instance now exists, put it back to deactivated state
             if (instance_exists(_t[TWEEN.TARGET]))
             {
                 instance_deactivate_object(_t[TWEEN.TARGET]);
             }
-            else // Handle tween destruction
+            else // Handle tween destruction...
             {
                 ds_list_delete(_tweens, autoCleanIndex);            // Remove tween from tweens list
                 ds_map_delete(global.TGMS_MAP_TWEEN, _t[TWEEN.ID]); // Invalidate tween handle
@@ -432,7 +490,11 @@ if (autoCleanIndex <= 0) { autoCleanIndex = ds_list_size(_tweens); }
 #define TGMS_Tweener_RoomStart
 /// TGMS_Tweener_RoomStart()
 
-autoCleanIndex = 0; // Reset auto-cleaner index
+// Return early if tweener already marked as being destroyed
+if (isDestroyed) { return 0; }
+
+// Reset auto-cleaner index
+autoCleanIndex = 0;
 
 // IF the entered room is persistent
 if (room_persistent)
@@ -445,7 +507,8 @@ if (room_persistent)
     // IF stored tween data exists for persistent room
     if (ds_map_exists(pRoomTweens, _key))
     {
-        var _queuedTweens = pRoomTweens[? _key]; // Cache queue of room's tweens
+        // Cache queue of room's tweens
+        var _queuedTweens = pRoomTweens[? _key];
         // Iterate through queue, adding stored tweens back to main tween list
         repeat(ds_queue_size(_queuedTweens)) { ds_list_add(_tweens, ds_queue_dequeue(_queuedTweens)); }
     }
@@ -453,14 +516,23 @@ if (room_persistent)
     // IF stored tween delay data exists for persistent room
     if (ds_map_exists(pRoomDelays, _key))
     {
-        var _queuedDelays = pRoomDelays[? _key]; // Cache queue of room's delayed tweens
+        // Cache queue of room's delayed tweens
+        var _queuedDelays = pRoomDelays[? _key];
         // Iterate through queue, adding stored tween delays back to main tween delay list
         repeat(ds_queue_size(_queuedDelays)) { ds_list_add(_delayedTweens, ds_queue_dequeue(_queuedDelays)); }
     }
+
+    // Update process counts
+    tweensProcessNumber = ds_list_size(tweens);
+    delaysProcessNumber = ds_list_size(delayedTweens);
 }
+
 
 #define TGMS_Tweener_RoomEnd
 /// TGMS_Tweener_RoomEnd()
+
+// Return early if tweener already marked as being destroyed
+if (isDestroyed) { return 0; }
 
 var _tweens = tweens;
 var _simpleTweens = simpleTweens;
@@ -478,7 +550,8 @@ if (room_persistent)
     // Create persistent queue for room if it doesn't exist
     if (ds_map_exists(pRoomTweens, _key) == false) { ds_map_replace(pRoomTweens, _key, ds_queue_create()); }
     
-    var _pRoomQueue = pRoomTweens[? _key]; // Cache room's tween queue
+    // Cache room's tween queue
+    var _pRoomQueue = pRoomTweens[? _key];
         
     // Add tweens to persistent room data 
     var _index = ds_list_size(_tweens);
@@ -525,7 +598,8 @@ if (room_persistent)
     // Create persistent delays queue for room if it doesn't exist
     if (ds_map_exists(pRoomDelays, _key) == false) { ds_map_replace(pRoomDelays, _key, ds_queue_create()); }
     
-    var _pRoomDelays = pRoomDelays[? _key]; // Cache room's delayed tweens queue
+    // Cache room's delayed tweens queue
+    var _pRoomDelays = pRoomDelays[? _key];
     
     // Iterate through all delayed tweens backwards
     var _index = ds_list_size(delayedTweens);
@@ -546,7 +620,8 @@ if (room_persistent)
         }
         else
         {
-            instance_activate_object(_target); // Attempt to activate target
+            // Attempt to activate target
+            instance_activate_object(_target);
             
             // IF target now exists
             if (instance_exists(_target))
@@ -590,7 +665,8 @@ else
         }
         else
         {
-            instance_activate_object(_target); // Attempt to activate instance
+            // Attempt to activate instance
+            instance_activate_object(_target);
             
             // IF target now exists
             if (instance_exists(_target))
@@ -616,6 +692,10 @@ else
         }
     }
 }
+
+// Update process counts
+tweensProcessNumber = ds_list_size(tweens);
+delaysProcessNumber = ds_list_size(delayedTweens);
 
 //-----------------------------------------------------
 // Destroy Shared Tweener if not set as persistent

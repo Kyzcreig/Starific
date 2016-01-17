@@ -42,7 +42,7 @@ for (var i = 0; i&lt; row_size; i++){
     deflector_array[i] = noone;
 }
 
-deflector_start_x = GAME_X+GAME_W/2 - row_width/2+deflector_w/2;
+deflector_start_x = GAME_MID_X - row_width/2+deflector_w/2;
 deflector_x = deflector_start_x;
 deflector_y = (scene_top + scene_bottom)/2
 

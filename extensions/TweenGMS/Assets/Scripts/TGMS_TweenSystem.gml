@@ -97,7 +97,7 @@ return SharedTweener().updateInterval;
 global.TGMS_UpdateInterval = argument0;
 
 #define TweenSystemCount
-/// TweenSystemCount(TWEEN_COUNT_****)
+/// TweenSystemCount()
 /*
     RETURN:
         real
@@ -107,6 +107,7 @@ global.TGMS_UpdateInterval = argument0;
 */
 
 return ds_list_size(SharedTweener().tweens);
+
 
 #define TweenSystemCountPlaying
 /// TweenSystemCountPlaying()
@@ -225,75 +226,9 @@ with(SharedTweener())
         all destroyed tweens from the system
 */
 
-with(SharedTweener())
+if (instance_exists(global.TGMS_SharedTweener))
 {
-    // Make sure auto clean index is reset after flushing system
-    autoCleanIndex = 0;
-    
-    var _tweens = tweens;
-    var _index = ds_list_size(_tweens);
-    
-    repeat(ds_list_size(_tweens))
-    {   
-        var _t = _tweens[| --_index];
-        var _target = _t[TWEEN.TARGET];
-        
-        // Check to see if target no longer exists -- Proceed with attempting to destroy tween if so
-        if (instance_exists(_target) == false)
-        { 
-            // Attempt to reactivate instance if it has simply been deactivated
-            instance_activate_object(_target);
-            
-            // IF instance still exists, put target back in deactivated state 
-            // ELSE proceed with destroying tween
-            if (instance_exists(_target))
-            {
-                instance_deactivate_object(_target);
-            }
-            else
-            {
-                // Delete simple tween data
-                ds_map_delete(simpleTweens, _t[TWEEN.SIMPLE_KEY]); 
-                // Invalidate tween handle
-                ds_map_delete(global.TGMS_MAP_TWEEN, _t[TWEEN.ID]);
-                // Remove tween from tweens list 
-                ds_list_delete(_tweens, _index);
-                
-                // Destroy tween events if events map exists
-                if (_t[TWEEN.EVENTS] != -1)
-                {
-                    // Cache events
-                    var _events = _t[TWEEN.EVENTS];
-                    // Find key to first event
-                    var _key = ds_map_find_first(_events);
-                    
-                    // Cycle through and destroy all events
-                    repeat(ds_map_size(_events))
-                    {
-                        // Cache event
-                        var _event = _events[? _key];
-                        
-                        // Cycle through all event callbacks...
-                        var _cbIndex = 0;
-                        repeat(ds_list_size(_event)-1)
-                        {
-                            // Invalidate callback handle
-                            var _cb = _event[| ++_cbIndex];
-                            ds_map_delete(global.TGMS_MAP_CALLBACK, _cb[2]);
-                        }
-                        
-                        // Destroy event
-                        ds_list_destroy(_event);
-                        // Find key for next event
-                        _key = ds_map_find_next(_events, _key);
-                    } 
-                    
-                    // Destroy events map
-                    ds_map_destroy(_events);
-                }
-            }
-        }
-    }
+    global.TGMS_SharedTweener.flushDestroyed = true;
 }
 
 #define TweenSystemClearRoom

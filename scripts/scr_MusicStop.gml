@@ -5,7 +5,7 @@ MusicSoundGain(0);
 // Stop Song
 audio_stop_sound(CURRENT_SONG);
 // Clear Timer
-CURRENT_SONG_TIME = -1;
+//CURRENT_SONG_TIME = -1;
 // Clear Song
 CURRENT_SONG = noone;
 //musicPlaying = 0;
@@ -22,8 +22,8 @@ audio_pause_sound(argument0)
 // If Music is Playing
 if MUSIC_STATE == 1{
     //Resume Music
-    for (i=0; i < ds_list_size(music_list);i++){
-        if audio_is_paused(music_list[| i]) audio_resume_sound(music_list[| i]);
+    if audio_exists(CURRENT_SONG){
+        audio_resume_sound(CURRENT_SONG);
     }
     MUSIC_ACTIVE = true;
 }

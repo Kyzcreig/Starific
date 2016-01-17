@@ -319,13 +319,13 @@ mColors[(++j)mod k,i] = "cocoa"
 
 i+=1
 //Theme 22, pink on white blue/pink/navy; colors
-mColors[(++j)mod k,i] =  5636338//7751356//8457202//12426211//13942509  ////  - titles/text/star
-mColors[(++j)mod k,i] =  7231279 //11053320//7461386  //////// - power ups
-mColors[(++j)mod k,i] =  3905234//14316298   //     // //- - power downs
-mColors[(++j)mod k,i] =  12302776 //14289521 // //   //  - neutrals
-mColors[(++j)mod k,i] =  16765882//8553090  //13353800 //- - bombs
-mColors[(++j)mod k,i] =  13810431//14342591//15723741//13483441//7539418  //  //- basic reflectors
-mColors[(++j)mod k,i] =  16185078//14675188   // / - background color
+mColors[(++j)mod k,i] =  4993753//4915384//7751356//8457202//12426211//13942509  ////  - titles/text/star
+mColors[(++j)mod k,i] =  6750397//10180841//7231279 //11053320//7461386  //////// - power ups
+mColors[(++j)mod k,i] =  7864320//5643069//14316298   //     // //- - power downs
+mColors[(++j)mod k,i] =  10719889 //14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] =  9661833//12224772  //8553090  //13353800 //- - bombs
+mColors[(++j)mod k,i] =  11508734//14406645//14342591//15723741//13483441//7539418  //  //- basic reflectors
+mColors[(++j)mod k,i] =  16577269//14675188   // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -398,11 +398,11 @@ mColors[(++j)mod k,i] = "apple"
 i+=1
 //Theme 10, white on brown; colors
 mColors[(++j)mod k,i] = 11853047////  - titles/text/star
-mColors[(++j)mod k,i] = 13353800////13870761//// - power ups
-mColors[(++j)mod k,i] = 9070057    // //- - power downs
-mColors[(++j)mod k,i] = 14523296//5421821 //  - neutrals
+mColors[(++j)mod k,i] = 5479895//13353800////13870761//// - power ups
+mColors[(++j)mod k,i] = 4925193//2569021//9070057    // //- - power downs
+mColors[(++j)mod k,i] = 3293270//14523296//5421821 //  - neutrals
 mColors[(++j)mod k,i] = 6190428 // // //- - bombs
-mColors[(++j)mod k,i] = 8691612////5293392//- basic reflectors
+mColors[(++j)mod k,i] = 8691612//8691612////5293392//- basic reflectors
 mColors[(++j)mod k,i] = 6127017 // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
@@ -424,13 +424,13 @@ mColors[(++j)mod k,i] = "woodlands"
 
 i+=1
 //Theme 11, white on lavender; colors
-mColors[(++j)mod k,i] = 14614527////  - titles/text/star
-mColors[(++j)mod k,i] = 13337160 //13353800////// - power ups
-mColors[(++j)mod k,i] = 6502878//      // //- - power downs
-mColors[(++j)mod k,i] = 8881968// - neutrals
-mColors[(++j)mod k,i] = 13322384    //13353800 //- - bombs
-mColors[(++j)mod k,i] = 15716305//15517899//- basic reflectors
-mColors[(++j)mod k,i] = 14523296   // / - background color
+mColors[(++j)mod k,i] = 12836080//14614527////  - titles/text/star
+mColors[(++j)mod k,i] = 7216432//8745034//13153402 //8538747//13322384////13337160 //13353800////// - power ups
+mColors[(++j)mod k,i] = 5321088//7163479//6209457//12433543//6502878//      // //- - power downs
+mColors[(++j)mod k,i] = 10270934//8618889//9424846//8881968// - neutrals
+mColors[(++j)mod k,i] = 10140275//9747850//10591090//13322384    //13353800 //- - bombs
+mColors[(++j)mod k,i] = 14071734//15716305////15716305//15517899//- basic reflectors
+mColors[(++j)mod k,i] = 11235183//14523296   // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -450,14 +450,18 @@ mColors[(++j)mod k,i] = "lavender"
 
 
 
+
+
+
+
 i+=1
 //Theme 14, light green on beige
-mColors[(++j)mod k,i] = 3546145 //6874781//7595941   // - titles/text/star
+mColors[(++j)mod k,i] = 3546145//3546145 //6874781//7595941   // - titles/text/star
 mColors[(++j)mod k,i] = 4286998//5931382//11361792 //15185267 // - power ups
 mColors[(++j)mod k,i] = 5931382//11337893//11891687//14644199//  - power downs
 mColors[(++j)mod k,i] = 10007220//3760862//7583207//3782110//3760862//42669//20397//7583207//3760862//  - neutrals
 mColors[(++j)mod k,i] = 7698535  //3792483// - bombs
-mColors[(++j)mod k,i] = 8364651//3747369//3883817 // - basic reflectors
+mColors[(++j)mod k,i] = 8364651// 3747369//3883817 // - basic reflectors
 mColors[(++j)mod k,i] = 12773348// - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
@@ -472,6 +476,11 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
 //Theme Info
 mColors[(++j)mod k,i] = "forest"
+
+
+
+
+
 
 
 
@@ -556,12 +565,12 @@ mColors[(++j)mod k,i] = "sky"
 
 i+=1
 //Theme 21, hot pink on pink blue/pink/navy; colors
-mColors[(++j)mod k,i] =  9185226//7539418  ////  - titles/text/star
+mColors[(++j)mod k,i] =  5577424//9185226//7539418  ////  - titles/text/star
 mColors[(++j)mod k,i] =  10715237//9466459   //11053320//7461386  //////// - power ups
-mColors[(++j)mod k,i] =  4931638//5720382//3352875   //     // //- - power downs
-mColors[(++j)mod k,i] =  9671571//8553090//14289521 // //   //  - neutrals
-mColors[(++j)mod k,i] =  10053120//16246489//14316298  //13353800 //- - bombs
-mColors[(++j)mod k,i] = 15789031//14675188//13942509//  //- basic reflectors
+mColors[(++j)mod k,i] =  0 ////5720382//3352875   //     // //- - power downs
+mColors[(++j)mod k,i] =  7300211//9671571//8553090//14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] =  6169517////10053120//16246489//14316298  //13353800 //- - bombs
+mColors[(++j)mod k,i] = 15264255//15789031//14675188//13942509//  //- basic reflectors
 mColors[(++j)mod k,i] =  12426211    // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
@@ -569,8 +578,8 @@ mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
 mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
 mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
 mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
-mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerups
-mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
@@ -602,7 +611,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "night forest"
+mColors[(++j)mod k,i] = "night camo"
 
 
 
@@ -820,13 +829,13 @@ mColors[(++j)mod k,i] = "sublime"
 
 i+=1
 //Theme 32, white on black monochrome green
-mColors[(++j)mod k,i] =  16777215//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   11206570    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   43520  // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  5635925      // //   //  - neutrals
-mColors[(++j)mod k,i] =  65280   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  21760    //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 0 //16016520  // / - background color
+mColors[(++j)mod k,i] =  3719653  //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  15575095         //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  8600319      // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  3794005        // //   //  - neutrals
+mColors[(++j)mod k,i] =  6710886     // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  10202042      //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  0 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -839,19 +848,19 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultragreen"
+mColors[(++j)mod k,i] = "thor"
 
 
 
 i+=1
 //Theme 37, black on white monochrome green
-mColors[(++j)mod k,i] = 0 //13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   21760    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =  5635925   // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] = 43520       // //   //  - neutrals
-mColors[(++j)mod k,i] =  65280   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  11206570     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 16777215  //16016520  // / - background color
+mColors[(++j)mod k,i] = 2554196  // - titles/text/star
+mColors[(++j)mod k,i] =  14134073      //- power ups
+mColors[(++j)mod k,i] =  6315007  //-power downs
+mColors[(++j)mod k,i] =  65535      //  - neutrals
+mColors[(++j)mod k,i] =  6190435 //  - - bombs
+mColors[(++j)mod k,i] = 12632256  // //- basic reflectors
+mColors[(++j)mod k,i] = 0    //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -864,7 +873,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infragreen"
+mColors[(++j)mod k,i] = "science"
 
 
 
@@ -996,14 +1005,14 @@ mColors[(++j)mod k,i] = "rainy day" //could be deluxe with black rain particle e
 
 
 
-i+=1//HARD TO SEE
+i+=1
 //Theme 36, white on black  monochrome blue
 mColors[(++j)mod k,i] =  16777215//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =  16755370    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   11141120 // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  16733525     // //   //  - neutrals
-mColors[(++j)mod k,i] =  16711680  // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  5570560   //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  15790533//16755370    //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  8397335//8214063//11141120 // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  8017426//10843965//16733525     // //   //  - neutrals
+mColors[(++j)mod k,i] =  13610100//7821887//16711680  // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  9062432//6304022//5570560   //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
 mColors[(++j)mod k,i] = 0 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
@@ -1012,23 +1021,23 @@ mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
 mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
 mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
-mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
-mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
+mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultrablue"
+mColors[(++j)mod k,i] = "stormy sea"
 
 
 
-i+=1//HARD TO SEE
+i+=1
 //Theme 36, black on white blue monochrome blue
 mColors[(++j)mod k,i] = 0  //13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =  5570560    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   16733525  // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =    11141120   // //   //  - neutrals
-mColors[(++j)mod k,i] =  16711680  // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  16755370    //  //- basic reflectors
+mColors[(++j)mod k,i] = 4198925// 5570560    //16741714  //////// - power ups
+mColors[(++j)mod k,i] = 13746537//16733525  // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] = 8397335// 11141120   // //   //  - neutrals
+mColors[(++j)mod k,i] =  14389546//16711680  // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  14736853//16755370    //  //- basic reflectors
 mColors[(++j)mod k,i] = 16777215  //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
@@ -1042,7 +1051,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infrablue"
+mColors[(++j)mod k,i] = "quiet sea"
 
 
 
@@ -1151,13 +1160,13 @@ mColors[(++j)mod k,i] = "sepia"
 
 i+=1
 //Theme 35, white on black monochrome yellow
-mColors[(++j)mod k,i] =  16777215 //13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   16755455    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =  11141290   // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  16733695       // //   //  - neutrals
-mColors[(++j)mod k,i] =  16711935   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  5570645     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 0 //16016520  // / - background color
+mColors[(++j)mod k,i] =  9627647  //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] = 3054054 //5426364       //16741714  //////// - power ups
+mColors[(++j)mod k,i] = 14134588   // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] = 3952855   //9627647  // //   //  - neutrals
+mColors[(++j)mod k,i] = 12118878 //9813578 // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] = 6839377//14134580      //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] = 1182984  //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1170,20 +1179,20 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultrapink"
+mColors[(++j)mod k,i] = "neka"
 
 
 
 
 i+=1
 //Theme 35, white on black monochrome yellow
-mColors[(++j)mod k,i] =  0 //13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =  5570645     //16741714  //////// - power ups
-mColors[(++j)mod k,i] =  16733695   // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  11141290        // //   //  - neutrals
-mColors[(++j)mod k,i] =  16711935   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  16755455      //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 16777215  //16016520  // / - background color
+mColors[(++j)mod k,i] = 13684991   //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  15794096      //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  8421376    // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  16752768         // //   //  - neutrals
+mColors[(++j)mod k,i] =  16756832    // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  9465968//7995514       //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  2097184  //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1196,7 +1205,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infrapink"
+mColors[(++j)mod k,i] = "amy"
 
 
 
@@ -1306,13 +1315,13 @@ mColors[(++j)mod k,i] = "hive"
 
 i+=1
 //Theme 35, white on black monochrome yellow
-mColors[(++j)mod k,i] =  16777215//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   11206655    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   43690  // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  5636095      // //   //  - neutrals
-mColors[(++j)mod k,i] =  65535   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  21845    //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 0 //16016520  // / - background color
+mColors[(++j)mod k,i] =  8621206 //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  10397820      //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  4826602     // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  7957058//2904727       // //   //  - neutrals
+mColors[(++j)mod k,i] =  921790    // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  5395038//6455685     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  395292 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1325,7 +1334,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultrayellow"
+mColors[(++j)mod k,i] = "belafonte"
 
 
 
@@ -1333,13 +1342,13 @@ mColors[(++j)mod k,i] = "ultrayellow"
 
 i+=1//HARD TO SEE
 //Theme 35, white on black monochrome yellow
-mColors[(++j)mod k,i] =  0 //13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   21845    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =  5636095   // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  43690       // //   //  - neutrals
-mColors[(++j)mod k,i] =  65535   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  11206655     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 16777215 //16016520  // / - background color
+mColors[(++j)mod k,i] =  16316664  //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =   3006203     //16741714  //////// - power ups
+mColors[(++j)mod k,i] =   25855   // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =   3984993       // //   //  - neutrals
+mColors[(++j)mod k,i] =   11178111   // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =   11447982     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  2039583 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1352,7 +1361,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infrayellow"
+mColors[(++j)mod k,i] = "blackboard"
 
 
 
@@ -1428,7 +1437,7 @@ mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "dark forest"
+mColors[(++j)mod k,i] = "bosco"
 
 
 i+=1;
@@ -1511,13 +1520,13 @@ mColors[(++j)mod k,i] = "biscuit"
 
 i+=1
 //Theme 34, white on black monochrome teal
-mColors[(++j)mod k,i] =  16777215//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   16777130    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   11184640  // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  16777045      // //   //  - neutrals
-mColors[(++j)mod k,i] =  16776960   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  5592320    //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 0 //16016520  // / - background color
+mColors[(++j)mod k,i] =  4737096 //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  14772545      //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  3937500    // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  16755285//16748574       // //   //  - neutrals
+mColors[(++j)mod k,i] =  2139610    // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  5737262     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  16775408 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1530,20 +1539,20 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultrateal"
+mColors[(++j)mod k,i] = "solarized"
 
 
 
 
 i+=1
 //Theme 34, white on black monochrome teal
-mColors[(++j)mod k,i] =  0//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   5592320    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =  16777045   // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  11184640       // //   //  - neutrals
-mColors[(++j)mod k,i] =  16776960   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  16777130     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 16777215  //16016520  // / - background color
+mColors[(++j)mod k,i] =  4997711 //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  15709702        //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  1416185     // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  8762952         // //   //  - neutrals
+mColors[(++j)mod k,i] =  10771329     // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  8881805       //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  14412263   //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1556,7 +1565,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infrateal"
+mColors[(++j)mod k,i] = "paraiso"
 
 
 
@@ -1689,15 +1698,20 @@ mColors[(++j)mod k,i] = "america"
 
 
 
+
+
+
+
+
 i+=1
 //Theme 33, white on black monochrome red
-mColors[(++j)mod k,i] =  16777215//13622928 //15291325     //7688959  ////  - titles/text/star
-mColors[(++j)mod k,i] =   11184895    //16741714  //////// - power ups
-mColors[(++j)mod k,i] =   170  // 12311926   //     // //- - power downs
-mColors[(++j)mod k,i] =  5592575      // //   //  - neutrals
-mColors[(++j)mod k,i] =  255   // c_white //3271969         //13353800 //- - bombs
-mColors[(++j)mod k,i] =  85    //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
-mColors[(++j)mod k,i] = 0 //16016520  // / - background color
+mColors[(++j)mod k,i] =  0 //13622928 //15291325     //7688959  ////  - titles/text/star
+mColors[(++j)mod k,i] =  4297253      //16741714  //////// - power ups
+mColors[(++j)mod k,i] =  8388672    // 12311926   //     // //- - power downs
+mColors[(++j)mod k,i] =  7373711       // //   //  - neutrals
+mColors[(++j)mod k,i] =  6643504    // c_white //3271969         //13353800 //- - bombs
+mColors[(++j)mod k,i] =  4356755     //14852492//10393822//7700470//12311926//8497707//15966427 //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  12703203 //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1710,18 +1724,23 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "ultrared"
+mColors[(++j)mod k,i] = "humane"
+
+
+
+
+
 
 
 i+=1
 //Theme 33, white on black monochrome red
-mColors[(++j)mod k,i] =  0 //  ////  - titles/text/star
-mColors[(++j)mod k,i] = 85      //  //////// - power ups
-mColors[(++j)mod k,i] =  5592575   //    //     // //- - power downs
-mColors[(++j)mod k,i] =  170       // //   //  - neutrals
-mColors[(++j)mod k,i] =  255   // - - bombs
-mColors[(++j)mod k,i] =  11184895     //  - basic reflectors
-mColors[(++j)mod k,i] = 16777215 //16016520  // / - background color
+mColors[(++j)mod k,i] = 10474969   //  ////  - titles/text/star
+mColors[(++j)mod k,i] =  9093791       //  //////// - power ups
+mColors[(++j)mod k,i] =  6717122    //    //     // //- - power downs
+mColors[(++j)mod k,i] =  9873361//9149588//223866        // //   //  - neutrals
+mColors[(++j)mod k,i] = 223866//8449791     // - - bombs
+mColors[(++j)mod k,i] = 9149588//9149588       //  - basic reflectors
+mColors[(++j)mod k,i] = 921874  //16016520  // / - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
@@ -1734,7 +1753,7 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "infrared"
+mColors[(++j)mod k,i] = "kronos"
 
 
 
@@ -2025,6 +2044,103 @@ mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
 mColors[(++j)mod k,i] = "tortoise"
 
 
+
+
+
+
+i+=1
+//Theme 26, white on navy blue/pink/navy; colors
+mColors[(++j)mod k,i] =  11384320       //  ////  - titles/text/star
+mColors[(++j)mod k,i] = 955910  //7461386  //////// - power ups
+mColors[(++j)mod k,i] = 10240801        //     // //- - power downs
+mColors[(++j)mod k,i] = 14580077// 7490620  //14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] =  16777215//10240801   //13353800 //- - bombs
+mColors[(++j)mod k,i] =  7490620  //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  1248268     // / - background color
+//modified support colors
+mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
+mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
+//Theme Info
+mColors[(++j)mod k,i] = "crystal"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i+=1
+//Theme 26, white on navy blue/pink/navy; colors
+mColors[(++j)mod k,i] =  14474460         //  ////  - titles/text/star
+mColors[(++j)mod k,i] =   9225471        //7461386  //////// - power ups
+mColors[(++j)mod k,i] =   809212       //     // //- - power downs
+mColors[(++j)mod k,i] =   93076 // 7490620  //14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] =   2599423 //10240801   //13353800 //- - bombs
+mColors[(++j)mod k,i] =  5462369 //12575739    //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =   2829358      // / - background color
+//modified support colors
+mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
+mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
+//Theme Info
+mColors[(++j)mod k,i] = "laravel"
+
+
+
+
+
+
+
+
+i+=1
+//Theme 26, white on navy blue/pink/navy; colors
+mColors[(++j)mod k,i] =  12040120          //  ////  - titles/text/star
+mColors[(++j)mod k,i] =  9232384          //7461386  //////// - power ups
+mColors[(++j)mod k,i] =  6458624         //     // //- - power downs
+mColors[(++j)mod k,i] =  15792376   // 7490620  //14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] = 6455965     //10240801   //13353800 //- - bombs
+mColors[(++j)mod k,i] = 3753046    //12575739    //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] = 1843755         // / - background color
+//modified support colors
+mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
+mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
+//Theme Info
+mColors[(++j)mod k,i] = "chocolate mint"
+
+
+
+
 ////////////////////////////START PREMIUM PALETTES//////////////////////////////////////
 
 globalvar PREMIUM_SKIN_COUNT;
@@ -2032,6 +2148,7 @@ PREMIUM_SKIN_COUNT = 0;
 
 
 //PREMIUM_SKIN_COUNT++;
+
 
 
 /*NB: Focus on what's important.
@@ -2045,57 +2162,31 @@ PREMIUM_SKIN_COUNT = 0;
 
 */
 ////////////////////////////END PREMIUM PALETTES//////////////////////////////////////
+/* Saving for Later:::
 
 
-
-
-
-
-/////////////////////////////START WORKING PALETTE///////////////////////////////////
-
-
-
-
-
-
-
-//ScheduleScript(id,false,1,set_CURSKIN,i) //DISABLE ME
-
-
-/////////////////////////////END WORKING PALETTE///////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Unused Skins
-
-/* UNUSED THEMES:
+i+=1
+//Theme 26, white on navy blue/pink/navy; colors
+mColors[(++j)mod k,i] = 14212573         //  ////  - titles/text/star
+mColors[(++j)mod k,i] =  16767628        //7461386  //////// - power ups
+mColors[(++j)mod k,i] =  11337193       //     // //- - power downs
+mColors[(++j)mod k,i] =  8564989// 7490620  //14289521 // //   //  - neutrals
+mColors[(++j)mod k,i] =  6184703 //10240801   //13353800 //- - bombs
+mColors[(++j)mod k,i] =  7171437//12575739    //12426211   //  //- basic reflectors
+mColors[(++j)mod k,i] =  1644825      // / - background color
+//modified support colors
+mColors[(++j)mod k,i] = mColors[6,i]  //fade out color
+mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerdowns
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol cash
+//Theme Info
+mColors[(++j)mod k,i] = "tyrant"
 
 
 
@@ -2121,7 +2212,29 @@ mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerchaos
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
-mColors[(++j)mod k,i] = "valentines" //we could ue this as a holiday theme, shelve for now
+mColors[(++j)mod k,i] = "valentine" //we could ue this as a holiday theme, shelve for now
+
+
+
+/////////////////////////////START WORKING PALETTE///////////////////////////////////
+
+
+
+
+
+
+
+//ScheduleScript(id,false,1,set_CURSKIN,i) //DISABLE ME
+
+
+/////////////////////////////END WORKING PALETTE///////////////////////////////////
+
+
+
+
+
+
+
 
 
 

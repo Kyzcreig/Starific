@@ -14,7 +14,7 @@ ini_open("scores.ini")
     if questCompleted {
         ini_write_real("misc", "QUEST_COUNT", ++QUEST_DATA[4]); 
     }
-    questDelayMinutes = 0; 
+    questDelayMinutes = 0; //NB: No Quest Delay for now
     questNextTime =  date_inc_minute(date_current_datetime(), questDelayMinutes)
     ini_write_real("misc", "QUEST_NEXT_TIME", 
        questNextTime); 

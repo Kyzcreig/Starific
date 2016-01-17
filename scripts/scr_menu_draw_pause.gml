@@ -218,6 +218,46 @@ info_y = GAME_Y + 10;
 draw_text_ext_colour(info_x, info_y, info_txt, -1, GAME_W/2,
 COLORS[0], COLORS[0], COLORS[0], COLORS[0],p_SlideTween3[0]);
 
+
+// Draw Song Ticker
+if MUSIC_STATE == 1 {
+    draw_set_font(fnt_menu_calibri_24_bold);
+    draw_set_valign(fa_bottom);
+    draw_set_halign(fa_left);
+    
+    // Process Ticker
+    for (var i = 0; i < 2; i ++){
+        // Draw Tickers
+        draw_text_ext_colour(np_x[i], np_y, np_text, -1, -1,
+        COLORS[0], COLORS[0], COLORS[0], COLORS[0], p_SlideTween3[0]);
+        // Move Ticker by NP Velocity
+        if p_SlideTween3[0] == 1 {
+            np_x[i] -= np_vel;
+        }
+        // If Ticker Off Screen
+        if np_x[i] + np_w < GAME_X {
+            // Get Other Ticker Index
+            var tmp;
+            switch i {
+                case 0:
+                    tmp = 1;
+                    break;
+                case 1:
+                    tmp = 0;
+                    break;
+            }
+            // Reset Location Behind Other Ticker
+            np_x[i] = np_x[tmp] + np_w + GAME_W/2;
+        } 
+    }
+    
+    
+
+}
+
+
+
+
 #define scr_menu_pause_make_background
 ///scr_menu_pause_make_background()
 

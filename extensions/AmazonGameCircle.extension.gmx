@@ -90,7 +90,7 @@ android:theme="@style/GCAlert"&gt;&lt;/activity&gt;
           <kind>11</kind>
           <help>AmazonGameCircle_Login()</help>
           <returnType>2</returnType>
-          <argCount>0</argCount>
+          <argCount>-1</argCount>
           <args/>
         </function>
         <function>

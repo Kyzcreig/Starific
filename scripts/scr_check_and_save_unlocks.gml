@@ -14,36 +14,6 @@ scr_check_and_save_unlocks_type("0,1,2,3,4",is_gameover, is_relock);
 /*
 //NB:  Using our string type pattern to do the unlocks in any order we like e.g. achievements first = "5,0,1,2,3,4" might be useful later    
 var size, key;
-size = ds_map_size(UNLOCKS_DATA)
-key = ds_map_find_first(UNLOCKS_DATA)
-for (var i = 0; i < size ; i++){
-    //Pull Data
-    data = UNLOCKS_DATA[? key];
-    
-    scr_check_criteria(data,is_gameover,is_relock);
-    
-    
-    //If Gameover (Not Pause Screen)
-    if is_gameover{
-        //Mark New Unlocks as Seen
-        with (obj_control_gameover){
-            //NB: We do this because stats are checked and saved even when you exit via pause screen.
-            //if ds_list_size(go_sp_dialogues) <= dialogue_max_display{
-            if other.data[1] == 1{
-                other.data[@ 1] += 1; //data[1]==2 means we've seen the unlock on gameover
-            } 
-        }
-    }
-    
-    //Save unlock
-    ini_write_real("UNLOCKS_DATA",key+"-status",data[1])
-    ini_write_real("UNLOCKS_DATA",key+"-views",data[2])
-    
-    //Iterate to next key.
-    key = ds_map_find_next(UNLOCKS_DATA, key); 
-}
-
-
 
 /*
 //Debug: Force Displays unlock text in spite of no unlocks
@@ -90,7 +60,7 @@ for (var i = 0; i < types_len; i++){
         
         //Pull Data
         data = scr_unlock_get_data(types[i],j);
-        
+        // Check and Set Unlock Status
         scr_check_criteria(data,is_gameover,is_relock);
         
         
@@ -135,10 +105,12 @@ if (data[1] >= 2 and !is_relock) or //skip unlocks if relock is off
 
 //Check stat if unlocked or "unseen" yet
 if compare_stats_to_criteria(data) {
+    // If Unlocked
     if data[1] < 2{
         //data[@ 1] = 1; // Mark as Unlocked (but not yet seen)
         data[@ 1] = 2; // Mark as Unlocked 
         data[@ 2] = max(data[2], 0); // Mark As Viewable
+                //NB: We use max to increment the -1 unviewable games_played status on each unlock
         
         //Set display in gameover
         if is_gameover and data[0] != 5{ //Presently Achievements do not show up on gameover

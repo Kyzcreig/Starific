@@ -70,5 +70,3 @@ if sprite_exists(SHARE_SCREEN_SPR){
 SHARE_SCREEN_SPR = noone;
 SHARE_SCREEN_METRIC = noone;
 //SHARE_SCREEN_FLAG = false;
-
-

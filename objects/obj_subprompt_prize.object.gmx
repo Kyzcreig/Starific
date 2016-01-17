@@ -113,7 +113,7 @@ prizeData[5] = 0;  //extra data
 
 
 // Prompt Head
-scr_prompt_step_head_prize();
+scr_prompt_step_head_blank();
 
 //Prompt Body
 if dataLoaded {
@@ -159,7 +159,7 @@ if dataLoaded {
     bottom_text_col,prize_alpha, 4, COLORS[6], 4);
     
     // Mobile Share for New Feature or Big Cash Prize
-    if TOUCH_ENABLED and 
+    if TOUCH_ENABLED and prizeData[9] == true and
         //  Prompt is for Feature or Theme and "New" Noise
         (((prizeData[5] == 2 or prizeData[5] == 3) and prizeData[4] == 2) or 
         //  Prompt is for Cash and &gt;= 200 reward value

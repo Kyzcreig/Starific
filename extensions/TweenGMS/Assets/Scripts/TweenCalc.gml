@@ -22,12 +22,14 @@
 
 var _t = TGMS_FetchTween(argument0);
 if (is_undefined(_t)) return 0;
-    
+
+var _duration = _t[TWEEN.DURATION];
+
 // Return start if duration is invalid
-if (_t[TWEEN.DURATION] == 0) { return _t[TWEEN.START]; }
+if (_duration == 0) { return _t[TWEEN.START]; }
 
 // Return tween's calculated value for its current state
-return script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _t[TWEEN.DURATION]);
+return script_execute(_t[TWEEN.EASE], clamp(_t[TWEEN.TIME], 0, _duration), _t[TWEEN.START], _t[TWEEN.CHANGE], _duration);
 
 #define TweenCalcTime
 /// TweenCalcTime(tween,time)

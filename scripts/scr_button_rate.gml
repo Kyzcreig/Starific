@@ -18,12 +18,13 @@ ini_close();
 
 
 
-if !PREMIUM{
-   url_open_ext(FREE_APP_URL,URL_TARGET)
-}
-else{
+if PREMIUM == 1{
    //Premium app store link
    url_open_ext(PREMIUM_APP_URL,URL_TARGET)//"_blank")
+}
+else{
+    // Normal Appstore link
+   url_open_ext(FREE_APP_URL,URL_TARGET)
 } 
 
 

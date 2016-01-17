@@ -50,9 +50,10 @@ TweensExecute(TWEENS_ALL, 0, argument0, TweenReverse);
 TweensExecute(TWEENS_GROUP, argument0, argument1, TweenReverse);
 
 #define TweenReverseTarget
-/// TweenReverseTarget(target)
+/// TweenReverseTarget(target,deactivated)
 /*
-    @target = target instance id or object index
+    @target      = target instance id or object index
+    @deactivated = affect tweens associated with deactivated targets?
     
     RETURN:
         NA

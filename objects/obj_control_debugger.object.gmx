@@ -167,8 +167,6 @@ draw_text(x,y-16,'field saturation % '+string((ir * 100) / (fi))+'%');
 //draw_text(x,y+16,'paddle_id='+string(paddle_id));
 draw_text(x,y,t); //draws grid coords and vals
 //draw_text(x,y+16, );
-draw_text(x,y+32,'CURRENT_SONG_TIME: '+string(CURRENT_SONG_TIME)+ 
-', songname='+audio_get_name(CURRENT_SONG));
 draw_text(x,y+48,'instance count: '+string(ia)
 + ', DENSITY: '+string(DENSITY)
 + ', railOverload: '+string(railOverload)

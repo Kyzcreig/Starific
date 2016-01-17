@@ -43,10 +43,8 @@ if (argument0 != -1)
         var _index = 0;
         repeat(_event[| 0] * (ds_list_size(_event)-1))
         {
-            // Cache callback
-            var _cb = _event[| ++_index];
-            // Cache target
-            var _target = _cb[TWEEN_CALLBACK.TARGET];
+            var _cb = _event[| ++_index];             // Cache callback
+            var _target = _cb[TWEEN_CALLBACK.TARGET]; // Cache target
         
             with(_target) // Using target environment...
             {

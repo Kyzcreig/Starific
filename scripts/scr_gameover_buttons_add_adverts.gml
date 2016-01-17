@@ -6,7 +6,7 @@ var advertRNG = !useRNG or random(1) < .80;
 // Add Video Reward
 var mostFeaturesAreUnlocked = scr_unlock_get_status(2,2) != 0; //NB: We do this to avoid having tons of buttons all at once... that's ugly
 var pageNotCrowded = (ds_list_size(go_sp_buttons) < 4) or mostFeaturesAreUnlocked;
-//var veteranPlaytime = careerPlaytimeTotal > 60*60*1 - lastPlaytime; // gamesPlayedTotal > 2
+//var veteranPlaytime = careerPlaytimeTotal > 60*60*4 - lastPlaytime; // gamesPlayedTotal > 2
                                                   //3 //Evaluate me
                                                     
            //Reward Video Available if Few other buttons or Player has already unlocked most settings

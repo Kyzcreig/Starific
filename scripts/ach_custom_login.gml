@@ -1,27 +1,20 @@
 #define ach_custom_login
 ///ach_custom_login()
 
-if (os_type == os_ios ){ 
-    //Log into achievement Service
+//Log into achievement Service
+if CONFIG == CONFIG_TYPE.IOS{ 
     achievement_login();
-}
-else if (os_type == os_android) {
-    //Log into achievement Service
-    if PLATFORM_SUBTYPE == 0{
-        // GoogleServices
-        achievement_login();
+} else if CONFIG == CONFIG_TYPE.ANDROID {
+    // GoogleServices
+    achievement_login();
     
-    } else if PLATFORM_SUBTYPE == 1 {
-        // AmazonServices
-        ///Start our services
-        AmazonGameCircle_InitFeatures(AmazonGameCircle_Achievements| AmazonGameCircle_Leaderboards| AmazonGameCircle_Whispersync| AmazonGameCircle_Progress| AmazonGameCircle_IAP);
-        AmazonGameCircle_SetAppKey("b51db49a7364426ca82130bdbcc2f8de"); //NB: This is the app key on your amazon app page.  http://i.imgur.com/5fMsypU.png
+} else if CONFIG == CONFIG_TYPE.AMAZON {
+    // AmazonServices
+    AmazonGameCircle_InitFeatures(AmazonGameCircle_Achievements| AmazonGameCircle_Leaderboards| AmazonGameCircle_Whispersync| AmazonGameCircle_Progress| AmazonGameCircle_IAP);
+    AmazonGameCircle_SetAppKey("b51db49a7364426ca82130bdbcc2f8de"); //NB: This is the app key on your amazon app page.  http://i.imgur.com/5fMsypU.png
+    AmazonGameCircle_Login();
 
-    }
-    
-}
-//HTML
-else if os_browser != browser_not_a_browser{ 
+} else if CONFIG == CONFIG_TYPE.HTML{ 
     //If browser add gamejolt networking (later add our own networking)
     instance_create(x,y,obj_gj_networking);
 
@@ -31,23 +24,13 @@ else if os_browser != browser_not_a_browser{
 ///ach_custom_available()
 var rtn = false;
 
-// Android
-if (os_type == os_android) {
-    
-    // Google
-    if PLATFORM_SUBTYPE == 0 {
-        rtn = achievement_available();
-    
-    }
-    // Amazon
-    else if PLATFORM_SUBTYPE == 1{
-        rtn = AmazonGameCircle_IsSignedIn();
-    }
-
-}
-// iOS 
-else if (os_type == os_ios) {
+if CONFIG == CONFIG_TYPE.IOS{ 
     rtn = achievement_available();
+} else if CONFIG == CONFIG_TYPE.ANDROID {
+    rtn = achievement_available();
+
+}else if CONFIG == CONFIG_TYPE.AMAZON {
+    rtn = AmazonGameCircle_IsSignedIn();
 }
 //HTML 
 //TO DO: MAYBE
@@ -63,25 +46,15 @@ return rtn;
 
 var rtn = false;
 
-// Android
-if (os_type == os_android) {
-    
-    // Google
-    if PLATFORM_SUBTYPE == 0 {
-        achievement_show_leaderboards();
-        rtn = true;
-    
-    }
-    // Amazon
-    else if PLATFORM_SUBTYPE == 1{
-        AmazonGameCircle_ShowLeaderboards();
-        rtn = true;
-    }
-
-}
-// iOS 
-else if (os_type == os_ios) {
+if CONFIG == CONFIG_TYPE.IOS{ 
     achievement_show_leaderboards();
+    rtn = true;
+} else if CONFIG == CONFIG_TYPE.ANDROID {
+    achievement_show_leaderboards();
+    rtn = true;
+
+}else if CONFIG == CONFIG_TYPE.AMAZON {
+    AmazonGameCircle_ShowLeaderboards();
     rtn = true;
 }
 //HTML 
@@ -93,30 +66,20 @@ return rtn;
 ///ach_custom_post_score(leaderboard_id, score)
 
 
-// Android
-if os_type == os_android{
-    // Google
-    if PLATFORM_SUBTYPE == 0 {
-        achievement_post_score(
-            get_leaderboard_id(MODE,GRID),
-            lastScore);
-    }
-    // Amazon
-    else if PLATFORM_SUBTYPE == 1{
-        AmazonGameCircle_PostLeaderboardScore(
-            get_leaderboard_id(MODE,GRID),
-            lastScore);
-    }     
-    //NB: The leaderboard services already handle offline submission of scores.
-}
-// iOS 
-else if (os_type == os_ios) {
+if CONFIG == CONFIG_TYPE.IOS{ 
     achievement_post_score(
         get_leaderboard_id(MODE,GRID),
         lastScore);
-}
-//HTML 
-else if (os_browser != browser_not_a_browser){
+} else if CONFIG == CONFIG_TYPE.ANDROID {
+    achievement_post_score(
+        get_leaderboard_id(MODE,GRID),
+        lastScore);
+
+}else if CONFIG == CONFIG_TYPE.AMAZON {
+    AmazonGameCircle_PostLeaderboardScore(
+        get_leaderboard_id(MODE,GRID),
+        lastScore);
+}else if CONFIG == CONFIG_TYPE.HTML {
 
     // booksmaster added this
     /*

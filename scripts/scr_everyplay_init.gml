@@ -1,12 +1,10 @@
-#define scr_everyplay_init
 ///scr_everyplay_init()
 
 globalvar
 EVERYPLAY_ENABLED,
 EVERYPLAY_AUTO;
 
-if os_type == os_ios 
-{
+if os_type == os_ios {
     EVERYPLAY_ENABLED = true;
 } else if os_type == os_android {
     // Get OS Info
@@ -48,26 +46,3 @@ if EVERYPLAY_ENABLED {
 ini_open("savedata.ini");
     EVERYPLAY_AUTO = ini_read_real("settings", "EVERYPLAY_AUTO", 1);
 ini_close();
-
-#define leaderboards_gamestart
-///leaderboards_gamestart()
-globalvar 
-LEADERBOARDS;
-
-// Mobile and HTML   
-if (os_type == os_ios or 
-    os_type == os_android or 
-    os_browser != browser_not_a_browser){ 
-    //Log into achievement Service
-    ach_custom_login();
-    LEADERBOARDS = 1;
-}
-// Desktop 
-else {
-    //No External Leaderboard Services 
-    LEADERBOARDS = 0;
-}
-
- 
-
-

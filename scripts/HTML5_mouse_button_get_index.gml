@@ -54,7 +54,7 @@ case 3:
 ///HTML5_mouse_check_button_pressed(mouse_button)
 
 // Use Normal MB Check
-if os_browser == browser_not_a_browser {
+if CONFIG != CONFIG_TYPE.HTML {
     return mouse_check_button_pressed(argument0);
 }
 // Use HTML5 Safe Version
@@ -76,7 +76,7 @@ return 0;
 ///HTML5_mouse_check_button_released(mouse_button)
 
 // Use Normal MB Check
-if os_browser == browser_not_a_browser {
+if CONFIG != CONFIG_TYPE.HTML {
     return mouse_check_button_released(argument0);
 }
 // Use HTML5 Safe Version

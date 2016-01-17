@@ -10,20 +10,9 @@ ini_open("scores.ini") //NB: Eventually I 'd like to switch this to the savedata
 ini_close();
 
 
-// If Music enabled
-if music_sound[1] {
-    // For Each SFX
-    for (var i = 0; i < ds_list_size(music_list); i++){  
-        // Set Volume
-       audio_sound_gain(music_list[| i], music_sound[0], 0);
-    }
-
-} else {
-    // For Each SFX
-    for (var i = 0; i < ds_list_size(music_list); i++){
-        // Mute
-       audio_sound_gain(music_list[| i], 0, 0);
-    }
+// If Song Exists
+if audio_exists(CURRENT_SONG) {
+    audio_sound_gain(CURRENT_SONG, music_sound[0]*music_sound[1], 0);
 }
 
 #define scr_sound_toggle_sfx

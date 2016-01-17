@@ -130,15 +130,17 @@ ini_open("scores.ini")
         //It seems datetimes are stored as reals.
     
     // Grab datetimes of next quest and gift
-    var giftNextTime = ini_read_real("misc", "GIFT_NEXT_TIME", 0);
     var questNextTime = ini_read_real("misc", "QUEST_NEXT_TIME", 0);
     // Quest is available if current datatime is after questNextTime and before giftNextTime
-    var newQuestAvailable = ( date_compare_datetime(questNextTime,date_current_datetime() ) != 1 ) and
-                            ( date_compare_datetime(giftNextTime,date_current_datetime() ) != -1 );
-    var veteranPlaytime = careerPlaytimeTotal > 60*60*3; // gamesPlayedTotal > 2
+    var newQuestAvailable = date_compare_datetime(questNextTime,date_current_datetime() ) != 1;
+    //var giftNextTime = ini_read_real("misc", "GIFT_NEXT_TIME", 0);
+    //var giftAvailable = date_compare_datetime(giftNextTime,date_current_datetime() ) != -1;
+    var veteranPlaytime = careerPlaytimeTotal > 60*60*2.5; // gamesPlayedTotal > 2
     
     //If No Quest Selected and Quest is Available
-    if QUEST_DATA[0] == -1 and veteranPlaytime and newQuestAvailable //and random(1) > .5
+    if QUEST_DATA[0] == -1 and 
+       veteranPlaytime and 
+       newQuestAvailable //and !giftAvailable//and random(1) > .5
     {
         // Get new quest
         //randomize();

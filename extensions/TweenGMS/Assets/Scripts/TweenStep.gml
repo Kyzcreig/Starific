@@ -56,7 +56,7 @@ if (_t[TWEEN.STATE] != TWEEN_STATE.STOPPED && _sharedTweener.timeScale != 0)
     }
                 
     // Get updated time -- [DELTA] boolean selects between step/delta time scale
-    _time = _t[TWEEN.TIME] + argument1 * (_t[TWEEN.TIME_SCALE] * _systemTimeScales[_t[TWEEN.DELTA]]);
+    var _time = _t[TWEEN.TIME] + argument1 * (_t[TWEEN.TIME_SCALE] * _systemTimeScales[_t[TWEEN.DELTA]]);
     
     // Cache PROPERTY and DURATION
     var _property = _t[TWEEN.PROPERTY];
@@ -77,86 +77,92 @@ if (_t[TWEEN.STATE] != TWEEN_STATE.STOPPED && _sharedTweener.timeScale != 0)
         switch(_t[TWEEN.MODE])
         {
         case TWEEN_MODE_ONCE:
-            // Set tween's state as STOPPED
-            _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;
-            // Update tween's time
-            _t[@ TWEEN.TIME] = _duration*(_time > 0);
+            _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;  // Set tween's state as STOPPED
+            _t[@ TWEEN.TIME] = _duration*(_time > 0); // Update tween's time
+            
             // Update property
             if (_property != null__) script_execute(_property, _t[TWEEN.START] + _t[TWEEN.CHANGE]*(_time > 0), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
-            // Execute FINISH event
-            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH);
-            // Destroy tween if temporary
-            if (_t[TWEEN.DESTROY]) TweenDestroy(_t);   
+             
+            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
+            if (_t[TWEEN.DESTROY]) TweenDestroy(_t);              // Destroy tween if temporary
         break;
         
-        case TWEEN_MODE_PATROL:
-            // Update tween's time
-            _t[@ TWEEN.TIME] = _duration * 2 * (_time > 0) - _time;
-            // Update property
-            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); 
-            // Reverse tween's direction and time scale
-            _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];
-            _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];
-            // Execute BOUNCE event
-            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
-        break;
-           
         case TWEEN_MODE_BOUNCE:
             if (_time > 0)
             {
-                // Update tween's time
-                _t[@ TWEEN.TIME] = 2*_duration - _time;
+                _time = 2*_duration - _time;        // Update local raw time
+                _t[@ TWEEN.TIME] = _time;           // Update tween with local raw time
+                _time = clamp(_time, 0, _duration); // Clamp local raw time
+                
                 // Update property
-                if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
-                // Reverse direction and time scale
-                _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];
-                _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];
-                // Execute BOUNCE event
-                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
+                if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+                
+                _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse direction
+                _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Invert time scale
+                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute BOUNCE event
             }
             else
             {
                 // Update tween's time
                 _t[@ TWEEN.TIME] = 0;
+                
                 // Update property
                 if (_property != null__) script_execute(_property, _t[TWEEN.START], _t[TWEEN.DATA], _t[TWEEN.TARGET]);
-                // Set tween state as STOPPED
-                _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;
-                // Execute FINISH event
-                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH);
-                // Destroy tween if temporary
-                if (_t[TWEEN.DESTROY]) TweenDestroy(_t);
+                
+                _t[@ TWEEN.STATE] = TWEEN_STATE.STOPPED;              // Set tween state as STOPPED
+                TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_FINISH); // Execute FINISH event
+                if (_t[TWEEN.DESTROY]) TweenDestroy(_t);              // Destroy tween if temporary
             }
         break;
         
+        case TWEEN_MODE_PATROL:
+            // Update local time with epsilon compensation
+            if (_time > 0) { _time = 2*_duration - _time; }
+            else           { _time = -_time; }
+            
+            _t[@ TWEEN.TIME] = _time;           // Update with raw time value
+            _time = clamp(_time, 0, _duration); // Clamp local time
+
+            // Update property
+            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]); 
+            
+            _t[@ TWEEN.DIRECTION] = -_t[TWEEN.DIRECTION];           // Reverse tween direction
+            _t[@ TWEEN.TIME_SCALE] = -_t[TWEEN.TIME_SCALE];         // Invert time scale
+            TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE); // Execute BOUNCE event
+        break;
+        
         case TWEEN_MODE_LOOP:
-            // Update tween's time depending on side of loop
-            if (_time > 0)
-                _t[@ TWEEN.TIME] = _time - _duration;
-            else 
-                _t[@ TWEEN.TIME] = _duration + _time;
+            // Update local raw time
+            if (_time > 0) { _time = _time - _duration; }
+            else           { _time = _time + _duration; }
+            
+            _t[@ TWEEN.TIME] = _time;           // Update tween with local raw time
+            _time = clamp(_time, 0, _duration); // Clamp local raw time   
             
             // Update property
-            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
             // Execute LOOP event
             TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
         break;
         
         case TWEEN_MODE_REPEAT:
-            // Update tween's time and starting location
+            // Update local time and tween's starting location
             if (_time > 0)
             {
-                _t[@ TWEEN.TIME] = _time - _duration;
+                _time = _time - _duration;
                 _t[@ TWEEN.START] = _t[TWEEN.START] + _t[TWEEN.CHANGE];
             }
             else
             {
-                _t[@ TWEEN.TIME] = _duration + _time;
+                _time = _time + _duration;
                 _t[@ TWEEN.START] = _t[TWEEN.START] - _t[TWEEN.CHANGE];
             }
             
+            _t[@ TWEEN.TIME] = _time;           // Update tween with raw local time
+            _time = clamp(_time, 0, _duration); // Clamp local raw time
+            
             // Update property
-            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+            if (_property != null__) script_execute(_property, script_execute(_t[TWEEN.EASE], _time, _t[TWEEN.START], _t[TWEEN.CHANGE], _duration), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
             // Execute LOOP event
             TGMS_ExecuteEvent(_t[TWEEN.EVENTS], TWEEN_EV_CONTINUE);
         break;

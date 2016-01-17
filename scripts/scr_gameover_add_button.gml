@@ -60,7 +60,7 @@ break;
 
 case 7:
     var bSpr;
-    if ADVERTISING == 1 { bSpr  = s_v_noads }
+    if ADS_FORCED == 1 { bSpr  = s_v_noads }
     else { bSpr = s_v_deluxe }
     newButtonData[0] = bSpr; //spr
     newButtonData[1] = "get it"; //app"; //subtext
@@ -100,7 +100,7 @@ break;
 // Quest Reward Button
 case 13:     
     newButtonData[0] = s_v_prize //spr
-    newButtonData[1] = "new#reward"; //subtext
+    newButtonData[1] = "claim#reward"; //subtext
     // Add Notification Bubble
     newButtonData[6] = 1 //count indicator
 break;
@@ -108,7 +108,7 @@ break;
 // Gift Reward Button
 case 14:     
     newButtonData[0] = s_v_gift; //spr
-    newButtonData[1] = "new#gift"; //subtext
+    newButtonData[1] = "free#gift"; //subtext
     // Add Notification Bubble
     newButtonData[6] = 1 //count indicator
 break;

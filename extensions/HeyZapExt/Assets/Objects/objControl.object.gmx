@@ -27,9 +27,16 @@
             <kind>1</kind>
             <string>///INIT
 
-//HeyZap_Init("57abcbbe6c246d022e9f927b3b6cf80f",false);
-HeyZap_Init("dc259a87f560c942657155ecb21b98c2",false); //my pid
-//HeyZap_Init("HeyZap_Publisher_ID",is_test_mode?);
+HeyZap_Publisher_ID =  "57abcbbe6c246d022e9f927b3b6cf80f";
+// paste your Heyzap publiher ID
+
+HeyZap_Mode = 0;
+// 0 - normal mode (auto fetch enabled)
+// 1 - test mode
+// 2 - normal mode (auto fetch disabled)
+// 3 - amazon ads (android only)
+
+HeyZap_Init(HeyZap_Publisher_ID,HeyZap_Mode);
 
 global.coins = 0;
 global.banner_width = 0;
@@ -68,10 +75,34 @@ var value = ds_map_find_value(async_load, "value");
 
 if (type == "heyzap_ad_loaded") {
     HeyZap_Ad_Loaded(value);
+} else if (type == "heyzap_ad_shown") {
+    HeyZap_Ad_Shown(value);
+} else if (type == "heyzap_ad_hidden") {
+    HeyZap_Ad_Hidden();
+} else if (type == "heyzap_ad_clicked") {
+    HeyZap_Ad_Clicked();
+} else if (type == "heyzap_video_loaded") {
+    HeyZap_Video_Loaded(value);
+} else if (type == "heyzap_video_shown") {
+    HeyZap_Video_Shown(value);
+} else if (type == "heyzap_video_hidden") {
+    HeyZap_Video_Hidden();
+} else if (type == "heyzap_video_clicked") {
+    HeyZap_Video_Clicked();
+} else if (type == "heyzap_reward_loaded") {
+    HeyZap_Reward_Loaded(value);
+} else if (type == "heyzap_reward_shown") {
+    HeyZap_Reward_Shown(value);
+} else if (type == "heyzap_reward_hidden") {
+    HeyZap_Reward_Hidden();
+} else if (type == "heyzap_reward_clicked") {
+    HeyZap_Reward_Clicked();
 } else if (type == "heyzap_reward") {
     HeyZap_Get_Reward(value);
 } else if (type == "heyzap_banner_loaded") {
     HeyZap_Banner_Loaded(value);
+} else if (type == "heyzap_banner_clicked") {
+    HeyZap_Banner_Clicked();
 } 
 </string>
           </argument>

@@ -34,7 +34,7 @@ sprite_y_offset = sprite_get_yoffset(s_v_pointer);
 sprite_h = sprite_get_height(s_v_pointer);
 sprite_circle_top = (sprite_y_offset);
 sprite_circle_bottom = (GAME_Y+GAME_H-(sprite_h - sprite_y_offset));
-sprite_center_x = GAME_X+GAME_W/2;
+sprite_center_x = GAME_MID_X;
 sprite_center_y = (sprite_circle_top+sprite_circle_bottom)/2;
 sprite_circle_rad = sprite_center_y - sprite_circle_top;
 

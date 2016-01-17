@@ -25,6 +25,6 @@ draw_sprite_ext(marker_spr,0,x,y,mkr_scl,mkr_scl,0,marker_col,marker_alpha*mixer
 //Draw Marker Pointer
 if marker_dir != noone and !selected[0] and mixers_alpha[0] == 1{
 
-   draw_arrow_width(x, y, x+arrowEndX, y+arrowEndY, cellW, 3, marker_col);
+   draw_arrow_width(x, y, x+arrowEndX, y+arrowEndY, cellW*1.5, 3, marker_col); 
 
 }

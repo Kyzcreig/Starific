@@ -40,5 +40,5 @@
   <compressed>1</compressed>
   <streamed>0</streamed>
   <uncompressOnLoad>0</uncompressOnLoad>
-  <audioGroup>3</audioGroup>
+  <audioGroup>2</audioGroup>
 </sound>

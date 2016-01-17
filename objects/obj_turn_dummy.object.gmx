@@ -57,7 +57,7 @@ deflector_h = 40//32;
 deflector_scale = deflector_h/sprite_get_width(object_get_sprite(obj_reflector_parent_basic)); //1.6* cellheight
 deflector_tween[0] = 0;
 //Calculate the x,y, of the fake deflector
-deflector_x = GAME_X+GAME_W/2;
+deflector_x = GAME_MID_X;
 deflector_y = scene_top -deflector_h/2;
 
 //Duration of star approach

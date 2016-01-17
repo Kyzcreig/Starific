@@ -20,6 +20,28 @@ info_txt += string(RMSPD_DEFAULT)+" fps";
 
 return info_txt;
 
+#define scr_set_pause_now_playing
+///scr_set_pause_now_playing()
+
+np_text = "";
+np_vel = 1 * RMSPD_DELTA;
+np_w = 0;
+
+if MUSIC_STATE == 1 {
+    draw_set_font(fnt_menu_calibri_24_bold);
+    // Get Music Data
+    var _md = MUSIC_DATA[CURRENT_SONG_INDEX];
+    np_text = "Now Playing:    "+_md[1];
+    np_w = string_width(np_text);
+
+}
+
+np_x[0] = GAME_MID_X; // + 20 
+np_x[1] = np_x[0] + np_w + GAME_W/2;
+np_y = GAME_Y + GAME_H - 20;
+
+return np_text;
+
 #define scr_set_quest_cancel_button_status
 ///scr_set_quest_cancel_button_status()
 

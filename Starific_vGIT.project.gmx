@@ -6,33 +6,139 @@
     <Config>Configs\AndroidAmazon</Config>
     <Config>Configs\iOSTest</Config>
   </Configs>
-  <datafiles number="25" name="datafiles">
-    <datafile>
-      <name>MyChartboost.gmez</name>
-      <exists>-1</exists>
-      <size>10789196</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="AndroidGoogleplay">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>MyChartboost.gmez</filename>
-    </datafile>
+  <datafiles number="30" name="datafiles">
+    <datafiles number="30" name="Music">
+      <datafile>
+        <name>track3.ogg</name>
+        <exists>-1</exists>
+        <size>2046665</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidGoogleplay">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidAmazon">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="iOSTest">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>track3.ogg</filename>
+      </datafile>
+      <datafile>
+        <name>track7.ogg</name>
+        <exists>-1</exists>
+        <size>1644141</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidGoogleplay">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidAmazon">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="iOSTest">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>track7.ogg</filename>
+      </datafile>
+      <datafile>
+        <name>track16.ogg</name>
+        <exists>-1</exists>
+        <size>2073944</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidGoogleplay">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidAmazon">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="iOSTest">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>track16.ogg</filename>
+      </datafile>
+      <datafile>
+        <name>track20.ogg</name>
+        <exists>-1</exists>
+        <size>2075124</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidGoogleplay">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidAmazon">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="iOSTest">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>track20.ogg</filename>
+      </datafile>
+      <datafile>
+        <name>track28.ogg</name>
+        <exists>-1</exists>
+        <size>2448980</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidGoogleplay">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="AndroidAmazon">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+          <Config name="iOSTest">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>track28.ogg</filename>
+      </datafile>
+    </datafiles>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\TweenGMS</extension>
@@ -45,6 +151,7 @@
     <extension index="7">extensions\Everyplay</extension>
     <extension index="8">extensions\Share</extension>
     <extension index="9">extensions\HeyZapExt</extension>
+    <extension index="10">extensions\GooglePlayServicesExtension</extension>
   </NewExtensions>
   <sounds name="sound">
     <sounds name="Collision Sounds">
@@ -55,7 +162,7 @@
       <sound>sound\sd_collide_trigger_powerup</sound>
       <sound>sound\sd_collide_with_paddle</sound>
       <sounds name="Catch Power Sounds">
-        <sound>sound\sd_catch_power_freeze</sound>
+        <sound>sound\sd_woosh</sound>
         <sound>sound\sd_catch_cash</sound>
         <sound>sound\sd_cash_register</sound>
         <sound>sound\sd_catch_power_generic</sound>
@@ -93,57 +200,12 @@
       <sound>sound\sd_coin_bag</sound>
     </sounds>
     <sounds name="Music">
-      <sounds name="HTML &amp; Mobile">
+      <sounds name="HTML">
         <sound>sound\sd_music_cheatcodes</sound>
         <sound>sound\sd_music_turbopenguin</sound>
         <sound>sound\sd_music_badpitched</sound>
         <sound>sound\sd_music_sugarrush</sound>
         <sound>sound\sd_music_dancetoit</sound>
-      </sounds>
-      <sounds name="Mobile Only">
-        <sound>sound\sd_music_ftwletsbefriends</sound>
-        <sound>sound\sd_music_newgame</sound>
-        <sound>sound\sd_music_badboy</sound>
-        <sound>sound\sd_music_atlantic</sound>
-        <sound>sound\sd_music_hotpursuit</sound>
-        <sound>sound\sd_music_supernova</sound>
-        <sound>sound\sd_music_overworkmyhouse</sound>
-        <sound>sound\sd_music_flight</sound>
-        <sound>sound\sd_music_topoftheworld</sound>
-        <sound>sound\sd_music_eclipse</sound>
-        <sound>sound\sd_music_rocktronic</sound>
-        <sound>sound\sd_music_virtualriot</sound>
-        <sound>sound\sd_music_onlyforyou</sound>
-        <sound>sound\sd_music_coffins</sound>
-        <sound>sound\sd_music_trythis</sound>
-        <sound>sound\sd_music_whoiam</sound>
-      </sounds>
-      <sounds name="Not Implemented">
-        <sound>sound\sd_music_timebomb</sound>
-        <sound>sound\sd_music_ecstacy</sound>
-        <sound>sound\sd_music_followme</sound>
-        <sound>sound\sd_music_armorlock</sound>
-        <sound>sound\sd_music_snakeeyes</sound>
-        <sound>sound\sd_music_fainbreeze</sound>
-        <sound>sound\sd_music_swag</sound>
-        <sound>sound\sd_music_labyrinth</sound>
-        <sound>sound\sd_music_throttle</sound>
-        <sound>sound\sd_music_tillitsover</sound>
-        <sound>sound\sd_music_tothestars</sound>
-        <sound>sound\sd_music_errorcode</sound>
-        <sound>sound\sd_music_pressurecooker</sound>
-        <sound>sound\sd_music_emergency</sound>
-        <sound>sound\sd_music_disconnected</sound>
-        <sound>sound\sd_music_razorsharp</sound>
-        <sound>sound\sd_music_selfdestruct</sound>
-        <sound>sound\sd_music_thisisnottheend</sound>
-        <sound>sound\sd_music_adventuretime</sound>
-        <sound>sound\sd_music_letsbefriends</sound>
-        <sound>sound\sd_music_oneminute</sound>
-        <sound>sound\sd_music_backandforth</sound>
-        <sound>sound\sd_music_sweet</sound>
-        <sound>sound\sd_music_reasons</sound>
-        <sound>sound\sd_music_dropthatchild</sound>
       </sounds>
     </sounds>
   </sounds>
@@ -220,6 +282,8 @@
             <sprite>sprites\spr_prize_wheel_flapper_center</sprite>
           </sprites>
           <sprite>sprites\spr_button_basic</sprite>
+          <sprite>sprites\sp_button_buy</sprite>
+          <sprite>sprites\sp_store_cart_40</sprite>
           <sprite>sprites\spr_button_note_cash</sprite>
           <sprite>sprites\spr_button_basic_game</sprite>
           <sprite>sprites\s_v_leftarrow</sprite>
@@ -288,6 +352,8 @@
           <sprite>sprites\s_v_minus</sprite>
           <sprite>sprites\s_v_solid_circle</sprite>
           <sprite>sprites\s_v_solid_circle_x2</sprite>
+          <sprite>sprites\s_v_gamesettings_game</sprite>
+          <sprite>sprites\s_v_help_game</sprite>
           <sprite>sprites\s_v_gamesettings_x2</sprite>
           <sprite>sprites\s_v_displaysettings_x2</sprite>
           <sprite>sprites\s_v_info_x2</sprite>
@@ -308,6 +374,7 @@
           <sprite>sprites\spr_ep_everyplay</sprite>
           <sprite>sprites\spr_toggle_on</sprite>
           <sprite>sprites\spr_toggle_off</sprite>
+          <sprite>sprites\s_v_buy_theme_099</sprite>
         </sprites>
       </sprites>
       <sprites name="Bomb Symbols">
@@ -421,6 +488,7 @@
           <sprite>sprites\sp_particle_sparkle_neutral2</sprite>
           <sprite>sprites\sp_particle_triangle</sprite>
         </sprites>
+        <sprite>sprites\spr_loading_spinner</sprite>
       </sprites>
       <sprites name="Misc">
         <sprite>sprites\sp_button</sprite>
@@ -456,11 +524,13 @@
           </scripts>
         </scripts>
         <scripts name="Gamestart">
-          <script>scripts\ads_gamestart.gml</script>
+          <script>scripts\monetization_init.gml</script>
           <script>scripts\scr_share_gameplay_screen_init.gml</script>
           <script>scripts\set_promotion_urls_gamestart.gml</script>
           <script>scripts\scr_everyplay_init.gml</script>
           <script>scripts\scr_game_data_init.gml</script>
+          <script>scripts\scr_config_init.gml</script>
+          <script>scripts\leaderboards_gamestart.gml</script>
         </scripts>
         <script>scripts\scr_calculate_points.gml</script>
         <script>scripts\scr_increment_combo.gml</script>
@@ -562,11 +632,9 @@
         <script>scripts\scr_avoid_overlap_dynamic.gml</script>
         <script>scripts\scr_star_inPlay_direction_is_valid.gml</script>
       </scripts>
-      <scripts name="Advertising &amp; Analytics">
+      <scripts name="Monetization">
         <script>scripts\ads_init.gml</script>
         <script>scripts\ads_load_interstitial.gml</script>
-        <script>scripts\ads_show_banner.gml</script>
-        <script>scripts\ads_remove_banner.gml</script>
         <script>scripts\ads_toggle_test_ads.gml</script>
         <script>scripts\analytics_send_gameover_stats.gml</script>
         <script>scripts\analytics_send_gameover_sound_data.gml</script>
@@ -577,6 +645,7 @@
         <script>scripts\ads_show_reward_video.gml</script>
         <script>scripts\analytics_send_unlock.gml</script>
         <script>scripts\analytics_send_pause_stats.gml</script>
+        <script>scripts\scr_iap_init.gml</script>
       </scripts>
       <scripts name="GUI">
         <script>scripts\scr_room_goto.gml</script>
@@ -624,9 +693,9 @@
         <script>scripts\scr_leaderboard_post_score.gml</script>
         <scripts name="Pages and Prompts">
           <script>scripts\scr_screenshot.gml</script>
+          <script>scripts\scr_prompt_prize_create_data.gml</script>
           <script>scripts\scr_prompt_feedback_init.gml</script>
           <script>scripts\scr_draw_settings_arrows.gml</script>
-          <script>scripts\scr_prize_type_process.gml</script>
           <script>scripts\scr_settings_page_header.gml</script>
           <script>scripts\scr_codex_draw.gml</script>
           <script>scripts\scr_draw_title.gml</script>
@@ -641,6 +710,7 @@
           <script>scripts\scr_prompt_confirm_init.gml</script>
           <script>scripts\scr_prompt_everyplay_init.gml</script>
           <script>scripts\scr_prompt_share_preview_init.gml</script>
+          <script>scripts\scr_prompt_loading_init.gml</script>
         </scripts>
         <scripts name="Menus">
           <script>scripts\scr_menu_draw_main.gml</script>
@@ -1234,6 +1304,7 @@
         <object>objects\obj_prompt_confirm_exit</object>
         <object>objects\obj_prompt_everyplay</object>
         <object>objects\obj_prompt_share_preview</object>
+        <object>objects\obj_prompt_loading</object>
       </objects>
       <objects name="Prize Wheel">
         <object>objects\obj_prompt_prize_wheel</object>
@@ -1277,12 +1348,14 @@
       <objects name="Networking">
         <object>objects\obj_gj_networking</object>
         <object>objects\obj_mobile_networking</object>
+        <object>objects\obj_control_music</object>
       </objects>
-      <objects name="Ads &amp; Analytics">
+      <objects name="Monetization">
         <object>objects\obj_control_analytics</object>
         <object>objects\obj_control_ads_AdMob</object>
         <object>objects\obj_control_ads_ChartBoost</object>
         <object>objects\obj_control_ads_HeyZap</object>
+        <object>objects\obj_control_IAP</object>
       </objects>
       <objects name="GUI">
         <object>objects\obj_control_swipe</object>
@@ -1317,9 +1390,7 @@
   <audiogroups name="audiogroups">
     <audiogroup name="audiogroup_default"/>
     <audiogroup name="AG_SFX"/>
-    <audiogroup name="AG_MusicExtra"/>
-    <audiogroup name="AG_MusicAll"/>
-    <audiogroup name="AG_MusicMobile"/>
+    <audiogroup name="AG_MusicHTML"/>
   </audiogroups>
   <TutorialState>
     <IsTutorial>0</IsTutorial>

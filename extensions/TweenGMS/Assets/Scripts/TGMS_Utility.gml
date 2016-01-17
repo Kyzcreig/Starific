@@ -108,7 +108,7 @@ ds_map_destroy(global.TGMS_MAP_TWEEN);      // Destroy global tween id map
 ds_map_destroy(global.TGMS_MAP_CALLBACK);   // Destroy global callback id map
 
 #define TweensExecute
-/// TweensExecute(tweens,data,deactivated,script,arg0,...)
+/// TweensExecute(TWEENS_*,data,deactivated,script,arg0,...)
 /*
     @tweens         Tweens to select for performing script (0=TWEENS_ALL, 1=TWEENS_GROUP, 2=TWEEN_TARGET)
     @data           Relevant group or target when using TWEENS_GROUP or TWEENS_TARGET -- not important when using TWEENS_ALL
@@ -417,9 +417,10 @@ with(obj_SharedTweener) instance_destroy();
 */
 
 var _t = TGMS_FetchTween(argument0);
+
 if (_t[TWEEN.STATE] >= 0 && _t[TWEEN.DURATION]!= 0)
 {
-    if (_t[TWEEN.PROPERTY] != null__) script_execute(_t[TWEEN.PROPERTY], script_execute(_t[TWEEN.EASE], _t[TWEEN.TIME], _t[TWEEN.START], _t[TWEEN.CHANGE], _t[TWEEN.DURATION]), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
+    if (_t[TWEEN.PROPERTY] != null__) script_execute(_t[TWEEN.PROPERTY], script_execute(_t[TWEEN.EASE], clamp(_t[TWEEN.TIME], 0, _t[TWEEN.DURATION]), _t[TWEEN.START], _t[TWEEN.CHANGE], _t[TWEEN.DURATION]), _t[TWEEN.DATA], _t[TWEEN.TARGET]);
 }
 
 #define TGMS_EventUser

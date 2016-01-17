@@ -1,9 +1,11 @@
 //
-//  HeyZapExt.h
-//  iOS Extension
+//  HeyZap Extension for GameMaker: Studio
+//  ver 1.0
 //
-//  Created by Vitaliy Sidorov on 10/10/2015.
+//  Released by Vitaliy Sidorov on 14/01/2016
+//  Copyright SilenGames, 2016.
 //
+//  For support please e-mail at contact@silengames.com
 //
 
 #import <HeyzapAds/HeyzapAds.h>

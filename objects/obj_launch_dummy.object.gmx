@@ -32,7 +32,7 @@ scene_top = 0//+sprite_gap; //grab this from creation
 scene_bottom = GAME_Y+GAME_H;
 
 //Calculate the x,y, of the fake paddle
-paddle_x = GAME_X+GAME_W/2;
+paddle_x = GAME_MID_X;
 //i'll need about 120 for the cooldown icon so it has breathing space
 paddle_y = scene_bottom -60;//- 160;
 paddle_w = 256;

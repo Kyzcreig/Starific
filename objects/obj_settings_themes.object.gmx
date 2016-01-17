@@ -42,20 +42,8 @@
             <string>///Themes Page
 
 
-title_txt = "themes";
+scr_themes_init()
 
-
-// Get Theme Locked Counts
-ini_open("scores.ini")
-    unlockCounts[0] = 0; //total
-    unlockCounts[1] = 0; //progress
-    unlockCounts[2] = 0; //new
-    unlockCounts = scr_unlock_get_type_counts("3");
-    // [0] = total; [1] = unlocked; [2] = new;
-    
-    // Set Unlocks Criteria Text
-    scr_unlock_set_description("3");
-ini_close();
 
 
 </string>
@@ -109,7 +97,15 @@ scr_page_scroll_init();
 
 //Switch To Last Valid Theme
 ini_open("scores.ini");
-    CURSKIN = ini_read_real("settings","CURSKIN",0);
+    // Get Selected Skin Data
+    var data = scr_unlock_get_data(3, CURSKIN);
+    if data[1] == 0 {
+        // If Locked, Switch to Last Saved Skin
+        CURSKIN = ini_read_real("settings","CURSKIN",0);
+    } else {
+        // Else Save Selection
+        ini_write_real("settings","CURSKIN",CURSKIN);
+    }
 ini_close();
 //Color Easer
 scr_color_easer(.5)

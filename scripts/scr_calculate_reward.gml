@@ -205,7 +205,7 @@ return rewardValue;
 var rewardValue = argument0;
 
 prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,0,
-                "earned!", "+"+CASH_STR+string(0), 1, 1, rewardValue, 0, "");
+                "earned!", "+"+CASH_STR+string(0), 1, 1, rewardValue, 0, "", true);
 // Spawn Prize Prompt and Pass Prize Data
 scr_prompt_prize_spawn(prizeData);
 

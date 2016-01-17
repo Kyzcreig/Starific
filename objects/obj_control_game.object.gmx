@@ -394,7 +394,7 @@ spr_temp = -1
 globalvar mouseangle, NewMAFromCenter, paddle_id, RAIL_ANGLES;
 globalvar pradius, pradiusx, pradiusy, PADDLE_H; //paddle is a global var referring to obj_launcher
 globalvar vertx, verty, tvertx, tverty, innerVertx, innerVerty, vertangles;
-globalvar padcenterx, padcentery,pad_radius, touchPad;
+globalvar padcenterx, padcentery,pad_radius, touchPad, fieldEndY;
 globalvar 
 PADDLE_W, 
 PADDLE_SCALE, 
@@ -451,9 +451,11 @@ PADDLE_H = scr_paddle_calc_height(cellSize)
 //PADDLE_SCALE = (3 * TOUCH_ENABLED + 2.5 * !TOUCH_ENABLED)//3//2.75;
 //PADDLE_SCALE = 3.5;//2.75;
 var padCoverage = .42 - RIGOR * .04;
-if gamesPlayedTotal &lt; 5 //or true
+var careerMinutes = careerPlaytimeTotal/(60*60); // gamesPlayedTotal &gt; 2
+//if gamesPlayedTotal &lt; 5 //or true
+if careerMinutes &lt; 5
 { 
-    padCoverage += .10 / 5 * (5 - gamesPlayedTotal);
+    padCoverage += .10 * (1 - careerMinutes/5);
     //NB: We make it a lot easier for new players.
 }
 //padCoverage = .65;
@@ -673,10 +675,6 @@ SHAKE_POWER = false
 SHAKE_TIME = -1
 restoreFPSTween = noone//TweenCreate(id,room_speed__,false,EaseLinear,room_speed,RMSPD_DEFAULT,15)
 
-global.textx = GAME_X + GAME_W/2;
-//global.texty = centerfieldy +pradius +25// +cellH*2
-global.texty = fieldEndY//centerfieldy +pradius //-17//-cellH 
-//fix this and the other in terms of cells
 
 //Combo vars
 global.pComboTimer = -1
@@ -1470,7 +1468,7 @@ if instance_exists(obj_launcher) and !GAME_PAUSE and GAME_ACTIVE
         if !TOUCH_ENABLED
         {
             // Desktop
-            if !GAME_IS_HTML5 {
+            if CONFIG != CONFIG_TYPE.HTML {
                 //New Mouseangle
                 NewMAFromCenter = darctan2(mouse_y-centerfieldy,mouse_x-centerfieldx);
             }
@@ -2326,7 +2324,7 @@ else if booster_Aimer{//booster_Aimer would be used here normally.
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///score,lives,levels,combos,PAUSE,touchtrail
+            <string>///GUI, Intro Text
 
 if !GAMEOVER { 
     draw_set_colour(COLORS[0]);
@@ -2365,7 +2363,7 @@ if !GAMEOVER {
         
         
     // DRAW CASH VALUE
-    if enableVC {
+    if VC_ENABLED {
         // Saved starcash, points based starcash (unused), caught starcash
         var cash_val = STAR_CASH;// 
         //cash_val_from_this_game = starCashEarned + starCashCaught;
@@ -2754,7 +2752,7 @@ if !GAMEOVER {
         text_y_bottom = GAME_Y+GAME_H -20 ;
         text_y = (text_y_top + text_y_bottom)/2 +75* (1 -introTextEase[0]);
         
-        text_x = GAME_X +GAME_W/2;
+        text_x = GAME_MID_X;
         text_w = (GAME_W* 11/32 * 2);
         
         text_alpha = clamp(introTextEase[0],0,1); //clamp((1 - lastPlaytime/room_speed),0,1)
@@ -2786,7 +2784,7 @@ if !GAMEOVER {
                 text_y = (mixers_y[mixPos[0]]+GAME_Y+GAME_H)/2;
                 text_alpha *= clamp(MixersEase[0],0,1);
                 
-                text_text = "Modify the board or place a star and tap to begin.";
+                text_text = "Modify the board or place a star and tap anywhere to begin.";
                 
                 text_display = true;
             }

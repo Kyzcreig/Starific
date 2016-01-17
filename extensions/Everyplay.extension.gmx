@@ -3,7 +3,7 @@
   <name>Everyplay</name>
   <version>1.0.0</version>
   <packageID></packageID>
-  <ProductID></ProductID>
+  <ProductID>ACBD3CFF4E539AD869A0E8E3B4B022DD</ProductID>
   <date>03/11/15</date>
   <license>Free to use, also for commercial games.</license>
   <description></description>
@@ -96,29 +96,28 @@
                    android:name="com.everyplay.Everyplay.communication.upload.EveryplayUploadService" /&gt;               </androidinject>
   <gradleinject></gradleinject>
   <iosSystemFrameworks>
-    <Framework weak="-1">AdSupport.framework</Framework>
-    <Framework weak="-1">AssetsLibrary.framework</Framework>
-    <Framework weak="-1">AudioToolbox.framework</Framework>
-    <Framework weak="-1">AVFoundation.framework</Framework>
-    <Framework weak="-1">CoreGraphics.framework</Framework>
-    <Framework weak="-1">CoreImage.framework</Framework>
-    <Framework weak="-1">CoreMedia.framework</Framework>
-    <Framework weak="-1">CoreVideo.framework</Framework>
-    <Framework weak="-1">Foundation.framework</Framework>
-    <Framework weak="-1">MessageUI.framework</Framework>
-    <Framework weak="-1">MobileCoreServices.framework</Framework>
-    <Framework weak="-1">OpenGLES.framework</Framework>
-    <Framework weak="-1">QuartzCore.framework</Framework>
-    <Framework weak="-1">Security.framework</Framework>
-    <Framework weak="-1">Social.framework</Framework>
-    <Framework weak="-1">StoreKit.framework</Framework>
-    <Framework weak="-1">SystemConfiguration.framework</Framework>
-    <Framework weak="-1">Twitter.framework</Framework>
-    <Framework weak="-1">UIKit.framework</Framework>
+    <Framework weak="0">AdSupport.framework</Framework>
+    <Framework weak="0">AssetsLibrary.framework</Framework>
+    <Framework weak="0">AudioToolbox.framework</Framework>
+    <Framework weak="0">AVFoundation.framework</Framework>
+    <Framework weak="0">CoreGraphics.framework</Framework>
+    <Framework weak="0">CoreImage.framework</Framework>
+    <Framework weak="0">CoreMedia.framework</Framework>
+    <Framework weak="0">CoreVideo.framework</Framework>
+    <Framework weak="0">Foundation.framework</Framework>
+    <Framework weak="0">MessageUI.framework</Framework>
+    <Framework weak="0">MobileCoreServices.framework</Framework>
+    <Framework weak="0">OpenGLES.framework</Framework>
+    <Framework weak="0">QuartzCore.framework</Framework>
+    <Framework weak="0">Security.framework</Framework>
+    <Framework weak="0">Social.framework</Framework>
+    <Framework weak="0">StoreKit.framework</Framework>
+    <Framework weak="0">SystemConfiguration.framework</Framework>
+    <Framework weak="0">Twitter.framework</Framework>
+    <Framework weak="0">UIKit.framework</Framework>
   </iosSystemFrameworks>
   <iosThirdPartyFrameworks>
-    <Framework weak="-1">Everyplay.framework</Framework>
-    <Framework weak="-1">Placeholder.bundle</Framework>
+    <Framework weak="0">Everyplay.framework</Framework>
   </iosThirdPartyFrameworks>
   <androidPermissions>
     <Permission>android.permission.INTERNET</Permission>

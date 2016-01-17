@@ -23,8 +23,8 @@ var _t;
 
 if (is_real(argument0))
 {
-    _t = global.TGMS_MAP_TWEEN[? argument0];
-    if (is_undefined(_t)) { return false; }
+    if (ds_map_exists(global.TGMS_MAP_TWEEN, argument0)) { _t = global.TGMS_MAP_TWEEN[? argument0]; }
+    else                                                 { return false; }
 }
 else
 if (is_array(argument0))
