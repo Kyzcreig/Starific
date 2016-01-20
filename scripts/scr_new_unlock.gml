@@ -5,6 +5,7 @@
                    1 = unlocked but not displayed on gameover
                    2 = unlocked and seen on gameover
                    3 = default unlocked
+                   4 = premium IAP
                    
    load_as_new:    0 = load in stats from file
                    1 = set stats to default_status

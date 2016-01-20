@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Shader
 
-//shader_set(sh_pass_alpha);
+shader_set(sh_passthrough);
 
 
 /*

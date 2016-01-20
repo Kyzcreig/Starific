@@ -51,11 +51,12 @@ nextPage = obj_settings_main;
 nextPageAnalytic = "BackToMainSettings";
 
 
-/// If SETTINGS_ROOM PreSet
-if SETTINGS_ROOM == -1 {
+/// If QUICK_PAGE_CONTROLLER was PreSet
+if QUICK_PAGE_CONTROLLER == -1 {
+    // Set Page to Not Return to Main Options Page
     nextPage = noone;
     nextPageAnalytic = "";
-    SETTINGS_ROOM = 0;
+    QUICK_PAGE_CONTROLLER = noone;
 }
 
 

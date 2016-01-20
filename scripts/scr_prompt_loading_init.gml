@@ -14,7 +14,7 @@ load_number = sprite_get_number(load_sprite);
 image_index = 0;
 image_speed = load_number / room_speed;
 
-load_destroy = false;
+load_destroy[0] = false;
 
 
 #define scr_prompt_loading_step
@@ -32,7 +32,7 @@ draw_sprite_ext(load_sprite, image_index, GAME_MID_X, GAME_MID_Y,
 
 
 // Exit
-if (load_destroy or SWIPE_TAP or 
+if (load_destroy[0] or SWIPE_TAP or 
     iap_status() == iap_status_available) and 
     !TweenExists(mainTween) 
 {

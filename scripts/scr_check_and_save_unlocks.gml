@@ -103,10 +103,12 @@ if (data[1] >= 2 and !is_relock) or //skip unlocks if relock is off
 
 
 
-//Check stat if unlocked or "unseen" yet
-if compare_stats_to_criteria(data) {
+//Check Unlocked has met criteria for unlocking
+if compare_stats_to_criteria(data) or 
+    data[1] == 3 // or if purchased
+{
     // If Unlocked
-    if data[1] < 2{
+    if data[1] < 2 {
         //data[@ 1] = 1; // Mark as Unlocked (but not yet seen)
         data[@ 1] = 2; // Mark as Unlocked 
         data[@ 2] = max(data[2], 0); // Mark As Viewable
@@ -136,7 +138,11 @@ if compare_stats_to_criteria(data) {
     }
 } 
 //Else Mark as Locked
-else if is_relock{
-    data[@ 1] = 0;
-    data[@ 2] = 0;
+else if is_relock {
+    // If Unlocked for Debugging
+    if data[1] < 0 {
+        // Reset Views Too
+        data[@ 2] = 0; //views to zero
+    }
+    data[@ 1] = 0; // Set Unlock Status to Zero
 }

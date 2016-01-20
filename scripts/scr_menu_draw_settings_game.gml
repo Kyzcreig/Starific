@@ -5,7 +5,7 @@
 
 
 // SubEasers
-scr_menu_draw_settinga_set_easers();
+scr_menu_draw_settings_set_easers();
 
 ///Page Header
 scr_settings_page_header(subEase[0], subEase[1]);
@@ -90,7 +90,7 @@ scr_settings_page_footer();
 
 
 // SubEasers
-scr_menu_draw_settinga_set_easers();
+scr_menu_draw_settings_set_easers();
 
 
 ///Page Header
@@ -176,6 +176,25 @@ for(i = 0; i < array_length_1d(menu);i++)
 
 
 
+#define scr_menu_draw_settings_set_easers
+///scr_menu_draw_settings_set_easers()
+
+// SubEasers
+if true {//TweenExists(mainTween) {// and TweenIsPlaying(mainTween) {
+    // Eases For Title/Underline
+    subEase[0] = EaseOutBack(clamp(mainEase[0],0,1), 0, 1, 1)
+    subEase[1] = clamp(mainEase[0]-0.5,0,1)
+    //subEase[2] = EaseOutBack(clamp(mainEase[0]-1.0,0,1), 0, 1, 1);
+    
+    //Menu Item Eases (Categories)
+    menu_len = array_length_1d(menu)+1;
+    baseEase = ((mainEase[0] - 1) * menu_len);
+    for(i = 0; i < menu_len; i++) { 
+        subEase[i+2] = EaseInOutSine(clamp(baseEase - i,0,1), 0, 1, 1);
+    }
+
+}
+
 #define scr_draw_settings_slider_button
 ///scr_draw_settings_slider_button(toggle_spr, function_id, ease) 
 
@@ -221,24 +240,6 @@ if toggle_hover and selected[0] == noone and
 //Draw Sound Icons from Sprite Array
 draw_sprite_ext(toggle_spr, 0,toggle_x,toggle_y,toggle_scale,toggle_scale,0,COLORS[8],ease)
 
-#define scr_menu_draw_settinga_set_easers
-///scr_menu_draw_settinga_set_easers()
-
-// SubEasers
-if true {//TweenExists(mainTween) {// and TweenIsPlaying(mainTween) {
-    subEase[0] = EaseOutBack(clamp(mainEase[0],0,1), 0, 1, 1)
-    subEase[1] = clamp(mainEase[0]-0.5,0,1)
-    //subEase[2] = EaseOutBack(clamp(mainEase[0]-1.0,0,1), 0, 1, 1);
-    
-    //Category Eases
-    cat_len = array_length_1d(menu)+1;
-    for(i = 0; i < cat_len;i++) {
-        baseEase = ((mainEase[0] - 1) * cat_len) - (i)
-        subEase[i+2] = clamp(baseEase,0,1)
-    
-    }
-
-}
 #define scr_menu_draw_settings_baseline
 ///scr_menu_draw_settings_baseline()
 

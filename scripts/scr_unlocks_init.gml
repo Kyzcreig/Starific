@@ -44,8 +44,8 @@ scr_new_unlock(2, 3, load_as_new, -1, 0,  "easy") //beginner
 scr_new_unlock(2, 0, load_as_new, 25, 2*2,  "normal")  //amateur //2
 scr_new_unlock(2, 0, load_as_new, 25, 5*2,  "hard")  //expert //5
 scr_new_unlock(2, 0, load_as_new, 25, 8*2,  "chaos")  //master //8
-//Misc
-//scr_new_unlock(4, 0, load_as_new, 25, 8,  "song ticker")
+// Misc (Perks)
+scr_new_unlock(4, 0, load_as_new, -2, 0,  "coin doubler") // Coin Doubler Perk
 
 //Themes
 var i = -1

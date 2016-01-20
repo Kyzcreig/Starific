@@ -854,10 +854,10 @@ if CONFIG != CONFIG_TYPE.HTML {
 }
 
 
-// This Shader Helps Performance
-//CreateInstanceIfNone(0,0,obj_shader_begin);
-//CreateInstanceIfNone(0,0,obj_shader_end);
-/* NB: The pass through shader seems to help but it adds 2 swaps on android.
+// Create Shader Objects 
+CreateInstanceIfNone(0,0,obj_shader_begin);
+CreateInstanceIfNone(0,0,obj_shader_end);
+/* NB: The pass through shader improves performance.
 
 
 */
@@ -1057,7 +1057,7 @@ monetization_init();
     //NB: Keep below scr_game_data_init, because it enables purchased unlocks 
 
 // Leaderboards Init
-leaderboards_gamestart();
+leaderboards_gamestart(); 
 
 //Set URL Globals
 set_promotion_urls_gamestart();
@@ -1228,8 +1228,7 @@ TUTORIAL_ENABLED,
 PADDLE_TEXTURES,
 PRIZE_WHEEL_COST,
 GAME_START,
-RESOURCE_POOLING,
-CASH_STR;
+RESOURCE_POOLING;
 
 
 
@@ -1247,7 +1246,6 @@ MOVE_ACTIVE = false;
 GAME_ACTIVE = false;
 BOARD_INIT_COUNT = 0;
 
-CASH_STR = "¢";//"$"
 
 ///Tutorial stuff
 TUTORIAL_ENABLED=false; //this is declared in the file load vars

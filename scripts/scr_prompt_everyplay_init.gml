@@ -237,8 +237,7 @@ switch button_id {
         if everyplay_is_recording() {
             scr_everyplay_stop_recording();
         } 
-        
-        everyplay_play_last_recording();
+        ScheduleScript(id, true, .20, scr_everyplay_play_last_recording);
         
         
     
@@ -306,3 +305,7 @@ button_data[@ 3] = everyplay_is_recording();
 //show_message("EP_is_recording="+string(everyplay_is_recording())) 
 // Reset Flashing
 button_data[@ 4] = button_data[3];
+#define scr_everyplay_play_last_recording
+///scr_everyplay_play_last_recording()
+
+everyplay_play_last_recording();

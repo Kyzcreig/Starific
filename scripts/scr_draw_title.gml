@@ -29,7 +29,7 @@ draw_text_color(GAME_MID_X + 8*RU, title_y, title_txt, COLORS[0], COLORS[0],COLO
 if argument_count > 2{
     texture_page = argument[2];
 } else {
-    texture_page = 0; //default is menu texture page
+    texture_page = 0; //default is menu texture page == 0
 
 }
 line_spr = scr_return_solid_sprite(texture_page);

@@ -309,7 +309,7 @@ with (obj_control_gameover) {
     // Add Share and Get Buttons
     sh_greatGame = scr_great_game_check();
     // Delay For New Players
-    sh_veteran = careerPlaytimeTotal > 60*60*2.5 - lastPlaytime; // (gamesPlayedTotal > 4) 
+    sh_veteran = scr_veteran_playtime_status(lastPlaytime); // (gamesPlayedTotal > 4) 
     // Share Stat
     sh_doShare = (sh_veteran and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
     // If Non-Mobile Version
@@ -427,7 +427,7 @@ with (obj_control_gameover) {
          
          
          // Add Prize Wheel Button
-         if STAR_CASH >= PRIZE_WHEEL_COST  { 
+         if scr_prize_wheel_available()  { 
              // Add Prize Wheel Button to Gameover
              if scr_go_is_button(15)  == -1{ // if button not in list
                  scr_gameover_add_button(  15);

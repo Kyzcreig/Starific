@@ -10,7 +10,11 @@ if CONFIG == CONFIG_TYPE.IOS{
     
 } else if CONFIG == CONFIG_TYPE.AMAZON {
     // AmazonServices
-    AmazonGameCircle_InitFeatures(AmazonGameCircle_Achievements| AmazonGameCircle_Leaderboards| AmazonGameCircle_Whispersync| AmazonGameCircle_Progress| AmazonGameCircle_IAP);
+    AmazonGameCircle_InitFeatures(AmazonGameCircle_Achievements| 
+                                  AmazonGameCircle_Leaderboards| 
+                                  AmazonGameCircle_Whispersync| 
+                                  AmazonGameCircle_Progress| 
+                                  AmazonGameCircle_IAP);
     AmazonGameCircle_SetAppKey("b51db49a7364426ca82130bdbcc2f8de"); //NB: This is the app key on your amazon app page.  http://i.imgur.com/5fMsypU.png
     AmazonGameCircle_Login();
 

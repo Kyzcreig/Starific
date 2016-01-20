@@ -148,6 +148,9 @@ with (promptID) {
         scr_confetti_new_unlock(0);
     }
 }
+
+
+return promptID;
      
 
 #define scr_prize_select_unlock_range

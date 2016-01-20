@@ -59,7 +59,7 @@ with (obj_control_gameover){
         scr_go_queue_button(other.indexList[| i]);
     }
     // Update Spin Button if Out of Cash
-    scr_check_if_unavailable_prize_wheel();
+    scr_validate_prize_wheel_button();
 }
 
 

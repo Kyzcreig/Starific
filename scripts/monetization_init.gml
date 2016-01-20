@@ -14,7 +14,8 @@ ADS_REWARD_VIDEO_CACHED,
 ADS_INTERSTITIAL_CACHED,
 IAP_ENABLED,
 PREMIUM, 
-VC_ENABLED;
+VC_ENABLED,
+CASH_STR;
 
 
 // Declare Vars
@@ -26,6 +27,7 @@ PREMIUM = -1; //Controls the No-Ads/Deluxe buttons showing up
     
     */
 VC_ENABLED = 1; //Enable Virtual Currency
+CASH_STR = "¢";//"$" //NB: Maybe refactor to VC_SYMBOL
 IAP_ENABLED = 1 //FIX ME //0;
 ADS_FORCED = 0;
 AD_PROVIDERS = ""; 
@@ -40,11 +42,15 @@ ADS_INTERSTITIAL_CACHED = false;
 if (os_type == os_ios || os_type == os_android)
 {
     //Enable IAPs
-    IAP_ENABLED = 1;
+    if CONFIG != CONFIG_TYPE.AMAZON {
+        IAP_ENABLED = 1;
+    } else {
+        IAP_ENABLED = 0; //NB: Fix me when we know better how to get Amazon working
+    }
     
     // Set Ad Parameters
     if PREMIUM != 1 {
-        ADS_FORCED = 1;
+        ADS_FORCED = true;
         //0 disables ads AND shows "deluxe" button; 
         //1 shows "no-ads" button; 
         //2 shows "deluxe" button;

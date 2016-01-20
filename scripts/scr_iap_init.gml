@@ -4,8 +4,17 @@
 var map_create, product_map, product_id, product_list, product_data;
 globalvar 
 IAP_PURCHASE_MAP,
-IAP_PRICE_MAP;
+IAP_PRICE_MAP, 
+IAP_COIN_AMOUNTS,
+IAP_RESTORE;
 
+// Init IAP Restore
+IAP_RESTORE = false;
+// Initialize Price Map
+IAP_PRICE_MAP = ds_map_create();
+
+// Init Coin Amounts
+scr_iap_coin_declare()
 
 // Initialize List of Product IDs
 var product_list = scr_iap_product_list_init()
@@ -55,8 +64,6 @@ if map_create {
     ds_map_secure_save(IAP_PURCHASE_MAP, "iap_data.json");
 }
 
-// Initialize Price Map
-IAP_PRICE_MAP = ds_map_create();
 
 // Activate IAPs
 scr_iap_activate(product_list);
@@ -83,15 +90,21 @@ if ds_map_exists(IAP_PURCHASE_MAP, product_id) {
         // Disable Ads for ANY purchase
         ADS_FORCED = 0;
         // If Theme
-        if string_pos("theme_",product_id) != -1 {
+        if string_pos("theme_",product_id) != 0 {
             // Unlock Theme
             var theme_index = real(string_digits(product_id));
-            var theme_data = scr_unlock_set_status(3, theme_index, 2, false);
+            var theme_data = scr_unlock_set_status(3, theme_index, 4, false);
+                //NB: Set Unlock Status to == 4, which is a premium unlock.
         }
         // If Perk
-        //TO DO
-        // If Coins (run iap_consume)
-        //TO DO
+        else if string_pos("perk_",product_id) != 0 {
+            // Unlock Perk
+            var perk_index = real(string_digits(product_id));
+            var perk_data = scr_unlock_set_status(4, perk_index, 4, false);
+        }
+        
+        // NB: Unconsumed Coins Are Consumed in the IAP Product Event
+        //if string_pos("coins_",product_id) != 0 {}
         
     } else if status > 1 {
         // Key Broken
@@ -126,9 +139,12 @@ case iap_ev_storeload:
         show_debug_message("iap_ev_storeload: status = iap_storeload_ok");
     } else if status == iap_storeload_failed {
         show_debug_message("iap_ev_storeload: status = iap_storeload_failed");
+        // Disable IAPs
+        //IAP_ENABLED = false;
+        
         if os_is_network_connected() {
             // Maybe Do a second activation attempt?
-              
+              // We could put scr_iap_init here, but we'd need to prevent infinite loops.
         }
     }
     break;
@@ -148,18 +164,29 @@ case iap_ev_product:
     show_debug_message("iap_ev_product: price="+string(price));
     
     // Format Price
-    price = string_digits(price);
-        /* 
-            iOS Format is [Currency Symbol][Currency Value]
-    // TO DO
-            Google Format is ????
-    // TO DO
-            Amazon Format is ????
-        */
+    price = string_keep_chars(price, "123456789,.");
+    /* 
+        iOS Format is 
+            [Currency Symbol][Currency Value]
+        Google Format is ????
+            // TO DO
+        Amazon Format is ????
+            // TO DO
+    */
     
     // Set Regional Price, Formatted
     IAP_PRICE_MAP[? product_id] = price;
     show_debug_message("iap_ev_product: price_formatted="+string(price));
+    
+    // Consume Coin Products
+    if IAP_PURCHASE_MAP[? product_id] == 1 and 
+       string_pos("coins_",product_id) != 0 
+    {
+        // Disable Ads
+        ADS_FORCED = false;
+        // Consume
+        iap_consume(product_id);
+    }
     
     // Garbage Collect
     ds_map_destroy(product_map);
@@ -174,9 +201,9 @@ case iap_ev_product:
     
     break;
 case iap_ev_restore: 
-    //TO DO
     var result = iap_map[? "result"]
     show_debug_message("iap_ev_restore: result="+string(result));
+    //NB: Explanation http://joelsandberg.com/gamemaker/ios-in-app-purchases-tutorial-part-6/
     break;
     
 case iap_ev_purchase: 
@@ -198,79 +225,21 @@ case iap_ev_purchase:
             show_debug_message("iap_ev_purchase: product_status="+string(product_status));
             // If Not Purchased
             if product_status == 0 {
-                // Flag Product as Purchased
-                IAP_PURCHASE_MAP[? product_id] = 1;
-                        
-                // If Theme Purchase
-                if string_pos("theme_",string(product_id)) != 0 {
-                    var theme_index = real(string_digits(product_id));
-                    
-                    // Get Theme Data
-                    var theme_data = scr_unlock_get_data(3, theme_index);
-                    // Unlock Theme
-                    theme_data[@ 1] = 2;
-                    theme_data[@ 2] = max(theme_data[2], 0);
-                      
-                    // Delete Loading Icon
-                    with(obj_prompt_loading) {
-                        load_destroy = true;
-                    }
-                    
-                    if room != rm_menu {
-                        // Set Prize Prompt
-                        var prizeData, prizeText, prizeName, prizeNoise;
-                        prizeText = "great choice!"; //kudos! //winner!
-                        prizeName = scr_unlock_get_name_long(theme_data);
-                        prizeNoise = 2; //unlock noise
-                        
-                        prizeData = scr_prompt_prize_create_data(s_v_themeswitcher_x2,4,
-                                    prizeText, prizeName, prizeNoise, 3, theme_data, 0, "", false);
-                        // Spawn Prize Prompt (allow .25 seconds for loading icons to die);
-                        ScheduleScript(id, true, .3, scr_prompt_prize_spawn, prizeData);
-                        //ScheduleScript(id, false, 1, scr_prompt_prize_spawn, prizeData);
-                    }
-                    
-                    // Set Current Theme
-                    CURRENT_SKIN = theme_index;
-                    
-                }
-                // If Coin Purchase
-                    //TO DO
-                    //iap_consume(index)
-                
-                //If Perk Purchase
-                    //TO DO
+                // Process The Purchase
+                scr_iap_purchase_process(product_id);
             }
         }
-    
+    } else if status == iap_failed {
+        show_message_async("Store is not available."); 
     }
     
     
     // Garbage Collect
     ds_map_destroy(purchase_map);
     
-    
-    
-    //TO DO
-    // Process themes, coins, cashdoubler purchases here based on index
-    /* s
-        
-        
-        
-        
-        for coins_## you would do something similar and call
-               iap_consume(product_id);
-        
-        for perks you could use an index to make the perks to names maybe or just use the name...
-        we can figure that out last.
-        
-        i think maybe 3 levels of coin purchases plus the cash doubler would be sufficient,
-        though i imagine it would be fine to open an entire store page too and we could scroll it then 
-        
-    
-    */
-    
     break;
+    
+    
 case iap_ev_consume: 
     var product_id = iap_map[? "product"];
     show_debug_message("iap_ev_consume: product="+string(product_id));
@@ -281,14 +250,15 @@ case iap_ev_consume:
         
         // Delete Loading Icon
         with(obj_prompt_loading) {
-            load_destroy = true;
+            load_destroy[0] = true;
         }
             
         // If Coin Consume
         if string_pos("coins_",product_id) != 0 {
         
-            var quantity = real(string_digits(product_id));
-            STAR_CASH += quantity
+            var index = real(string_digits(product_id));
+            var quantity = IAP_COIN_AMOUNTS[index];
+            STAR_CASH += quantity;
             
             //Save StarCash
             ini_open("scores.ini");
@@ -304,7 +274,7 @@ case iap_ev_consume:
             prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,3,
                         prizeText, prizeName, prizeNoise, 3, prizeValue, 0, "", false);
             // Spawn Prize Prompt (allow .25 seconds for loading icons to die);
-            ScheduleScript(id, true, .3, scr_prompt_prize_spawn, prizeData);
+            ScheduleScript(id, true, .3, scr_iap_unlock_prompt, noone, noone, obj_control_main, prizeData);
             //ScheduleScript(id, false, 1, scr_prompt_prize_spawn, prizeData);
         }
     
@@ -328,42 +298,257 @@ ds_map_secure_save(IAP_PURCHASE_MAP, "iap_data.json");
 
 
 
+#define scr_iap_purchase_process
+///scr_iap_purchase_process(product_id)
+
+var product_id = argument0;
+
+// Flag Product as Purchased
+IAP_PURCHASE_MAP[? product_id] = true;
+
+// Disable Ads
+ADS_FORCED = false;
+        
+// If Theme Purchase
+if string_pos("theme_",string(product_id)) != 0 {
+    var theme_index = real(string_digits(product_id));
+    
+    // Get Theme Data
+    var theme_data = scr_unlock_get_data(3, theme_index);
+    // Unlock Theme
+    theme_data[@ 1] = 4; // Set Theme to Purchased, status == 4
+    theme_data[@ 2] = max(theme_data[2], 0);
+    
+    // If Not Restoring Purchases
+    if !IAP_RESTORE {
+        // Set Prize Prompt
+        var prizeData, prizeText, prizeName, prizeNoise;
+        prizeText = "great choice!"; //kudos! //winner!
+        prizeName = scr_unlock_get_name_long(theme_data);
+        prizeNoise = 2; //unlock noise
+        prizeData = scr_prompt_prize_create_data(s_v_themeswitcher_x2,4,
+                    prizeText, prizeName, prizeNoise, 3, theme_data, 0, "", false);
+        //(allow .25 seconds for loading icons to die);
+        ScheduleScript(id, true, .3, scr_iap_unlock_prompt, theme_index, theme_data, obj_settings_themes, prizeData);
+    }
+      
+    // Delete Loading Icon (Not for Consummables)
+    with(obj_prompt_loading) {
+        load_destroy[0] = true;
+    }
+    
+    
+}
+//If Perk Purchase
+else if string_pos("perk_",string(product_id)) != 0 {
+    //NB: Lots of redundancy between this and the theme prompt stuff, we could probably make it a script...
+        //Just swap out the unlock_type, prize_sprite, prize_type, page_controller
+
+    var perk_index = real(string_digits(product_id));
+    
+    // Get Perk Data
+    var perk_data = scr_unlock_get_data(4, perk_index);
+    // Unlock Perk
+    perk_data[@ 1] = 4; // Set Perk to Purchased, status == 4
+    perk_data[@ 2] = max(perk_data[2], 0);
+    
+    // If Not Restoring Purchases
+    if !IAP_RESTORE {
+        // Set Prize Prompt
+        var prizeData, prizeText, prizeName, prizeNoise;
+        prizeText = "great choice!"; //kudos! //winner!
+        prizeName = scr_unlock_get_name_long(perk_data);
+        prizeNoise = 2; //unlock noise
+        prizeData = scr_prompt_prize_create_data(s_v_options_x2,4, //TO DO: replace with the buff icon x2 size
+                    prizeText, prizeName, prizeNoise, 2, perk_data, 0, "", false);
+        //(allow .25 seconds for loading icons to die);
+        ScheduleScript(id, true, .3, scr_iap_unlock_prompt, perk_index, perk_data, obj_settings_shop, prizeData);
+    }
+    
+    //ADD +1000 STARCASH
+    var quantity = IAP_COIN_AMOUNTS[0];
+    STAR_CASH += quantity;
+    
+    //Save StarCash
+    ini_open("scores.ini");
+        ini_write_real("misc", "STAR_CASH", STAR_CASH);
+    ini_close();
+          
+    // Delete Loading Icon (Not for Consummables)
+    with(obj_prompt_loading) {
+        load_destroy[0] = true;
+    }
+}
+// If Coin Purchase 
+else if string_pos("coins_",string(product_id)) != 0 {
+    // Consume Product
+    iap_consume(product_id)
+}
+
+#define scr_iap_restore_all
+///scr_iap_restore_all()
+
+// Flag IAP Restore
+IAP_RESTORE = true;
+
+//Create Loading Icon
+var loading = instance_create(x,y,obj_prompt_loading);
+with (loading) {
+    // Schedule Self Destruct
+    ScheduleScript(loading, true, 1.75, array_set_index_1d, load_destroy, 0, true); 
+}
+
+// For iOS
+if CONFIG == CONFIG_TYPE.IOS {
+    var status = iap_status();
+    if status == iap_status_available {
+        iap_restore_all()
+    } else if status == iap_status_unavailable {
+        show_message_async("Store is not available."); 
+    }
+} 
+// For GooglePlay
+else if CONFIG == CONFIG_TYPE.ANDROID {
+    var status = iap_status();
+    if status == iap_status_available {
+        var size, key, value;
+        size = ds_map_size(IAP_PURCHASE_MAP);
+        key = ds_map_find_first(IAP_PURCHASE_MAP);
+        for (var i = 0; i < size; i++) {
+            // Get Value
+            value = IAP_PURCHASE_MAP[? key];
+            
+            // If IAP InActive and IsPurchased
+            if value == false and iap_is_purchased(key) {
+                // Process The Purchase
+                scr_iap_purchase_process(key);
+            }
+            // Get Next Key
+            key = ds_map_find_next(IAP_PURCHASE_MAP, key);
+        }
+    } else if status == iap_status_unavailable {
+        show_message_async("Store is not available."); 
+    }
+} 
+// For Amazon
+else if CONFIG == CONFIG_TYPE.AMAZON {
+    //TO DO amazon
+
+}
+
+
+
+
+#define scr_iap_acquire
+///scr_iap_acquire(product_id)
+
+
+var store_status = iap_status();
+
+// Check if IAP Available
+if store_status == iap_status_available {
+    // Get Product ID
+    var product_id =  argument[0];
+    // Get Purchase Status
+    var status = IAP_PURCHASE_MAP[? product_id];
+    show_debug_message("IAP Acquire Attempt: "+string(product_id)+","+string(status));
+    // If status == Unpurchased
+    if status == 0 {
+        iap_acquire(product_id, "");
+        //Create Loading Icon Object
+        CreateInstanceIfNone(x,y,obj_prompt_loading);
+    }
+    return true;
+} else if store_status == iap_status_unavailable{
+    show_message_async("Store is not available."); 
+    return false;  
+} 
+
+/*
+
+// Get Product ID
+var product_id =  argument[0];
+// Get Purchase Status
+var status = IAP_PURCHASE_MAP[? product_id];
+show_debug_message("IAP Acquire Attempt: "+string(product_id)+","+string(status));
+// If status == UnPurchased
+if status == 0 {
+    iap_acquire(product_id, "");
+    //Create Loading Icon Object
+    CreateInstanceIfNone(x,y,obj_prompt_loading);
+}    
+
+     
+
+#define scr_iap_unlock_prompt
+///scr_iap_unlock_prompt(unlock_index, unlock_data, page_controller, prizeData)
+
+var unlock_index = argument0;
+var unlock_data = argument1;
+var page_controller = argument2;
+var prizeData = argument3;
+
+if instance_exists(page_controller) { 
+        //TO DO, we'll need some condition so this doesn't fire during a purchase restore. 
+            //NB: Probably use a variable like IAP_RESTORE and set it to true when iap restore is pressed and false once you leave the shop page or another button is pressed.
+                
+    // Spawn Prize Prompt 
+    scr_prompt_prize_spawn(prizeData);
+    //ScheduleScript(id, false, 1, scr_prompt_prize_spawn, prizeData);
+    
+    // If Durable IAP
+    if is_array(unlock_data) {
+        // If Theme IAP
+        if unlock_data[0] == 3 {
+            // Set Current Theme (scheduled after unlock prompt dies)
+            ScheduleScript(obj_settings_themes, false, 5, scr_theme_select, unlock_index, true, unlock_data);
+        }
+        // If Perk
+        else if unlock_data[0] == 4 {
+            //TO DO
+            // Activate the perk's buff (in case of an ongoing game, so they don't need to wait for new game)
+            //FIX ME (add the code here after we code the buff system)
+        }
+    }
+}
+
 #define scr_iap_product_list_init
 ///scr_iap_product_list_init()
 
 
 var product_list = ds_list_create();
-var durable_maps = noone;
-var consumable_maps = noone;
+var theme_maps = noone;
+var coin_maps = noone;
+var perk_maps = noone;
 
 
 // Iterate Through Themes
 for (i = SKIN_COUNT-1; i >= 0 ; i--) {
     // Make Product Map
-    durable_maps[i] = scr_iap_product_create(ds_map_create(), 
+    theme_maps[i] = scr_iap_product_create(ds_map_create(), 
                         "theme_"+string(i), "Theme "+string(i),
                         "The greatest of themes! An excellent choice!",
                         "$0.99", "Durable");
-    ds_list_add(product_list, durable_maps[i]);
+    ds_list_add(product_list, theme_maps[i]);
 }
-/*
-// Coin Doubler
-//TO DO
-
 // Iterate Through Consummables
-for (i = 0; i < ....; i++) {
+for (i = array_length_1d(IAP_COIN_AMOUNTS); i >= 0; i--) {
     // Make Product Map
-    consumable_maps[i] = scr_iap_product_create(ds_map_create(), 
-                        "theme_"+string(i), "Theme "+string(i),
-                        "The greatest of themes! An excellent choice!",
-                        "$0.99", "Consumable");
-    ds_list_add(product_list, consumable_maps[i]);
+    coin_maps[i] = scr_iap_product_create(ds_map_create(), 
+                        "coins_"+string(i), "Coins "+string(i), //NB: Wrong titles here
+                        "So many coins, how ever will we spend them!",
+                        "$0.99", "Consumable"); //NB: Wrong Prices here
+    ds_list_add(product_list, coin_maps[i]);
 }
-
-*/
-// TO DO
-// Other IAPs, including coins and cash doubler
-//coins will probably be consummables
+// Iterate Through Perks (Coin Doubler)
+for (i = 0; i >= 0 ; i--) {
+    // Make Product Map
+    perk_maps[i] = scr_iap_product_create(ds_map_create(), 
+                        "perk_"+string(i), "Perk "+string(i), //NB: Wrong titles here
+                        "Earn coins twice as fast! Wonderful!",
+                        "$4.99", "Durable"); 
+    ds_list_add(product_list, perk_maps[i]);
+}
 
 
 return product_list;
@@ -416,30 +601,6 @@ ds_map_add(map, "type", argument[5]);
 
 return map;
 
-#define scr_iap_acquire
-///scr_iap_acquire(product_id, store_status)
-
-var store_status = argument[1];//iap_status();
-
-// Check if IAP Available
-if store_status == iap_status_available {
-    // Get Product ID
-    var product_id =  argument[0];
-    // Get Purchase Status
-    var status = IAP_PURCHASE_MAP[? product_id];
-    show_debug_message("IAP Purchase Attempt: "+string(product_id)+","+string(status));
-    // If status == Unpurchased
-    if status == 0 {
-        iap_acquire(product_id, "");
-        //Create Loading Icon Object
-        CreateInstanceIfNone(x,y,obj_prompt_loading);
-    }
-    return true;
-} else {
-    show_message_async("Store is not available."); 
-    return false;  
-}      
-
 #define scr_iap_get_price
 //scr_iap_get_price(product_id, default)
 
@@ -451,4 +612,12 @@ if ds_map_exists(IAP_PRICE_MAP, product_id) {
 } else {
     return argument1;
 }
+#define scr_iap_coin_declare
+///scr_iap_coin_declare()
 
+
+IAP_COIN_AMOUNTS[2] = 20000;
+IAP_COIN_AMOUNTS[1] = 5000;
+IAP_COIN_AMOUNTS[0] = 1000;
+
+return IAP_COIN_AMOUNTS;

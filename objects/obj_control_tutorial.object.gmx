@@ -386,7 +386,7 @@ switch help_selected[0]
         var obj = instance_create(x,y, obj_settings_quick_select)
         with (obj) {
             // Set State to Game Settings constant
-            quick_settings_state[0] = 1
+            quick_page_goto[0] = obj_settings_game;
         
         }
     

@@ -93,7 +93,7 @@ if buttonData[3] == 0 {
     scr_reward_set(.5,argument1);
     
     // Check if enough cash for prize, and add prize wheel button
-    scr_check_if_available_prize_wheel();
+    scr_refresh_prize_wheel_button();
     
     // Update Gift Button to indicate used
     buttonData[@ 1] = "earned#+"+CASH_STR+string(rewardValue); 

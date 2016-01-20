@@ -199,7 +199,7 @@ draw_set_blend_mode(bm_normal);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Draw Page Blended
+            <string>///Draw Page
 
 //draw_set_blend_mode_ext( bm_one, bm_zero );
 scr_menu_draw_themes()

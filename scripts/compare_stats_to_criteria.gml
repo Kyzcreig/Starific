@@ -74,6 +74,8 @@ break;
 case -1:
 //Premium
 case -2:
+// IAP Unlock
+case -3:
 default:
     tmp = check_stats(criteria_type);
     cmp = tmp >= criteria_quantity;
@@ -330,17 +332,20 @@ switch stat_type{
        case -2:
             if PREMIUM == 1{
                 tmp = 1;
-            }
-            else{
+            } else {
                 tmp = -1;
             }
+            break;
+       
+       // IAP Unlock     
+       case -3:
+            tmp = -1;
             break;
        
            
             
        //Not Implemented   
        default:
-       
             tmp = -1
             break;
        

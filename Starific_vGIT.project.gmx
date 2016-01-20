@@ -151,7 +151,7 @@
     <extension index="7">extensions\Everyplay</extension>
     <extension index="8">extensions\Share</extension>
     <extension index="9">extensions\HeyZapExt</extension>
-    <extension index="10">extensions\GooglePlayServicesExtension</extension>
+    <extension index="10">extensions\DispatchGMS</extension>
   </NewExtensions>
   <sounds name="sound">
     <sounds name="Collision Sounds">
@@ -282,8 +282,6 @@
             <sprite>sprites\spr_prize_wheel_flapper_center</sprite>
           </sprites>
           <sprite>sprites\spr_button_basic</sprite>
-          <sprite>sprites\sp_button_buy</sprite>
-          <sprite>sprites\sp_store_cart_40</sprite>
           <sprite>sprites\spr_button_note_cash</sprite>
           <sprite>sprites\spr_button_basic_game</sprite>
           <sprite>sprites\s_v_leftarrow</sprite>
@@ -305,6 +303,16 @@
           <sprite>sprites\s_v_reset</sprite>
         </sprites>
         <sprites name="Menu GUI">
+          <sprites name="Shop Page">
+            <sprite>sprites\spr_button_buy_theme</sprite>
+            <sprite>sprites\spr_button_buy_round</sprite>
+            <sprite>sprites\spr_shop_cart_40</sprite>
+            <sprite>sprites\spr_button_shop</sprite>
+            <sprite>sprites\spr_coins_stack</sprite>
+            <sprite>sprites\spr_coins_bag</sprite>
+            <sprite>sprites\spr_coins_vault</sprite>
+            <sprite>sprites\spr_perk_coin_doubler</sprite>
+          </sprites>
           <sprite>sprites\s_v_rate</sprite>
           <sprite>sprites\s_v_cash</sprite>
           <sprite>sprites\s_v_share</sprite>
@@ -346,6 +354,7 @@
           <sprite>sprites\s_v_gift</sprite>
           <sprite>sprites\s_v_cash_circle</sprite>
           <sprite>sprites\s_v_cash_circle_x2</sprite>
+          <sprite>sprites\s_v_shop_x2</sprite>
           <sprite>sprites\s_v_prize</sprite>
           <sprite>sprites\s_v_wheel</sprite>
           <sprite>sprites\s_v_cancel</sprite>
@@ -374,7 +383,6 @@
           <sprite>sprites\spr_ep_everyplay</sprite>
           <sprite>sprites\spr_toggle_on</sprite>
           <sprite>sprites\spr_toggle_off</sprite>
-          <sprite>sprites\s_v_buy_theme_099</sprite>
         </sprites>
       </sprites>
       <sprites name="Bomb Symbols">
@@ -675,7 +683,7 @@
             <script>scripts\scr_button_videoReward.gml</script>
             <script>scripts\scr_button_interstitialReward.gml</script>
             <scripts name="Button Helpers">
-              <script>scripts\scr_check_if_available_prize_wheel.gml</script>
+              <script>scripts\scr_refresh_prize_wheel_button.gml</script>
               <script>scripts\scr_calculate_reward.gml</script>
               <script>scripts\scr_inc_button_array_cursor.gml</script>
               <script>scripts\scr_button_explain_spawn.gml</script>
@@ -722,6 +730,7 @@
           <script>scripts\scr_menu_draw_settings_game.gml</script>
           <script>scripts\scr_menu_draw_codex.gml</script>
           <script>scripts\scr_menu_draw_credits.gml</script>
+          <script>scripts\scr_menu_draw_shop.gml</script>
         </scripts>
         <script>scripts\scr_modular_delta.gml</script>
         <script>scripts\scr_exit_page.gml</script>
@@ -999,6 +1008,8 @@
         <script>scripts\string_split.gml</script>
         <script>scripts\string_extract.gml</script>
         <script>scripts\string_split_lines.gml</script>
+        <script>scripts\string_rpos.gml</script>
+        <script>scripts\string_keep_chars.gml</script>
       </scripts>
     </scripts>
     <scripts name="Misc.">
@@ -1108,6 +1119,9 @@
       </scripts>
     </scripts>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\sh_passthrough.shader</shader>
+  </shaders>
   <fonts name="fonts">
     <fonts name="Baron Neue">
       <fonts name="Main Game">
@@ -1290,6 +1304,7 @@
           <object>objects\obj_settings_game</object>
           <object>objects\obj_settings_display</object>
           <object>objects\obj_settings_themes</object>
+          <object>objects\obj_settings_shop</object>
           <object>objects\obj_settings_codex</object>
           <object>objects\obj_settings_credits</object>
           <object>objects\obj_settings_quick_select</object>

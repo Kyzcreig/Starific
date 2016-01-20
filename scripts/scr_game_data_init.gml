@@ -5,7 +5,7 @@
 
 globalvar TUTORIAL_ENABLED, GRID, MODE, RIGOR, STAR_CASH;
 globalvar MODES, RIGORS, GRIDS;
-globalvar QUEST_DATA, EASY_SPINS, SETTINGS_ROOM;//, QUEST_COUNT;
+globalvar QUEST_DATA, EASY_SPINS, QUICK_PAGE_CONTROLLER;//, QUEST_COUNT;
 
 // Init Enumerations
 scr_game_data_init_enums()
@@ -45,7 +45,7 @@ ini_open("scores.ini")
     RIGOR = 0;
     STAR_CASH = ini_read_real("misc", "STAR_CASH", 100); //start users off with 100;
     TUTORIAL_ENABLED = 0;//ini_read_real("misc", "TUTORIAL_ENABLED", 0);
-    SETTINGS_ROOM = 0; //used in quick settings room switcher
+    QUICK_PAGE_CONTROLLER = noone; //used in quick settings room switcher
     
     
     //Quest Stuff

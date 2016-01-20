@@ -44,4 +44,4 @@ else {
 
 
 // Check if enough cash for prize, and Add Prize wheel button
-scr_check_if_available_prize_wheel();
+scr_refresh_prize_wheel_button();

@@ -21,7 +21,7 @@ if VC_ENABLED{
             Just add more stuff to win.
         
         */
-    weight[w] = .010;//.01; //.02
+    weight[w] = .0075;//.01; //.02
     switch MODE {
         case MODES.MOVES:
             // Scale Up Moves Mode Cash

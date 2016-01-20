@@ -159,6 +159,7 @@ if TUTORIAL_ENABLED{
     
     line_w = (GAME_W* 11/32) * title_scale//(GAME_W/2 +title_w)/2 * title_scale
     hideline_w = title_w/2 * title_scale; //*1.2
+    
     // Draw Backline
     scr_draw_menu_choice_backline(title_x, title_y+10, line_w, hideline_w, text_color,text_color_accent, 1, 1, 0)
   
@@ -208,7 +209,7 @@ if TUTORIAL_ENABLED{
         draw_text_ext_transformed_colour(text_x, text_y, text_text, 
         -1, -1, text_scalar, text_scalar, 0, text_color,text_color,text_color,text_color,1);
         
-        //On Clicking help
+        //On Clicking Skip
         if mouse_check_button_pressed(mb_left) and help_selected[1] == true
         {
         
@@ -328,80 +329,90 @@ if TUTORIAL_ENABLED{
     
     //Display Tutorial Frame
     tutorial_frame( tutorialFrame[0] );
- 
     
+
            
     //Swipe to go to next or previous frame
-    if (tutorialAdvance != 0 and tutorialAdvance != -2 and !TweenExists(TweenTutorialText) and TUTORIAL_STARTED[0])
+    if (tutorialAdvance != 0 and tutorialAdvance != -2 and 
+        !TweenExists(TweenTutorialText) and TUTORIAL_STARTED[0])
     {
-       //Swiped Left
-       if tutorialAdvance == 1 {
-       
-          //Go to next frame
-          if tutorialFrame[0] < frameCount-1{
-          
-              //outro tween text alpha
-              TweenTutorialText = TweenFire(id,tutorialTextTween,EaseLinear,
-                                       TWEEN_MODE_ONCE, true, 0, .5, 1, 0);
-              //increment tutorialFrame[0] on tweenfinish
-              TweenAddCallback(TweenTutorialText,TWEEN_EV_FINISH,
-                                        id, array_set_value, tutorialFrame,tutorialFrame[0]+1);
-              //Destroy dummy objects
-              with(obj_parent_dummy){
-                 TweenAddCallback(other.TweenTutorialText,TWEEN_EV_FINISH,
-                                        other.id, Destroy,id);
-              }
-              
-              //Disable Paddle Movement
-              if PADDLE_MOTION != 0{
-                 PADDLE_MOTION = 0;
-                 //Reset paddle movement counters
-                 obj_control_game.tutorialPaddleMovePercent = -1; //negative is so it doesn't fire in obj_control_game
-                 
-                 //Tween In Touchpad
-                 scr_touch_pad_tween_out();
-              }
-              
-              //scr_sound(sd_menu_click,1,false);
-          }
-          //End Tutorial if on last frame
-          if tutorialFrame[0] >= frameCount-1{
-          
-               ScheduleScript(id,1, .25,scr_delayed_selection,help_selected,2)
-               //Set Flag tutorial inactive
-               TutorialEnding = true;
-               //TUTORIAL_STARTED[0] = false;
+        //Swiped Left
+        if tutorialAdvance == 1 {
+        
+           //Go to next frame
+           if tutorialFrame[0] < frameCount-1{
+           
+               //outro tween text alpha
+               TweenTutorialText = TweenFire(id,tutorialTextTween,EaseLinear,
+                                        TWEEN_MODE_ONCE, true, 0, .5, 1, 0);
+               //increment tutorialFrame[0] on tweenfinish
+               TweenAddCallback(TweenTutorialText,TWEEN_EV_FINISH,
+                                         id, array_set_value, tutorialFrame,tutorialFrame[0]+1);
+               //Destroy dummy objects
+               with(obj_parent_dummy){
+                  TweenAddCallback(other.TweenTutorialText,TWEEN_EV_FINISH,
+                                         other.id, Destroy,id);
+               }
+               
+               //Disable Paddle Movement
+               if PADDLE_MOTION != 0{
+                  PADDLE_MOTION = 0;
+                  //Reset paddle movement counters
+                  obj_control_game.tutorialPaddleMovePercent = -1; //negative is so it doesn't fire in obj_control_game
+                  
+                  //Tween In Touchpad
+                  scr_touch_pad_tween_out();
+               }
+               
                //scr_sound(sd_menu_click,1,false);
-            
-          }
-       }
-       //Swiped Right; Go to Previous Frame
-       if (tutorialAdvance == -1) and tutorialFrame[0] > 0{
-              //outro tween text alpha
-              TweenTutorialText = TweenFire(id,tutorialTextTween,EaseLinear,
-                                       TWEEN_MODE_ONCE, 1, 0,.5,1,0);
-              //increment tutorialFrame[0] on tweenfinish
-              TweenAddCallback(TweenTutorialText,TWEEN_EV_FINISH,
-                                        id, array_set_value, tutorialFrame,tutorialFrame[0]-1);
-              //Destroy All Dummy Objects
-              with(obj_parent_dummy){
-                 TweenAddCallback(other.TweenTutorialText,TWEEN_EV_FINISH,
-                                        other.id, Destroy,id);
-              }
-              
-              //Disable Paddle Movement
-              if PADDLE_MOTION != 0{
-                 PADDLE_MOTION = 0;
-                 //Reset paddle movement counters
-                 obj_control_game.tutorialPaddleMovePercent = -1; //negative is so it doesn't fire in obj_control_game
-                 
-                 //Tween In Touchpad
-                 scr_touch_pad_tween_out();
-              }
-              //scr_sound(sd_menu_click,1,false);
-       }
-       
-       
+           }
+           //End Tutorial if on last frame
+           if tutorialFrame[0] >= frameCount-1{
+           
+                ScheduleScript(id,1, .25,scr_delayed_selection,help_selected,2)
+                //Set Flag tutorial inactive
+                TutorialEnding = true;
+                //TUTORIAL_STARTED[0] = false;
+                //scr_sound(sd_menu_click,1,false);
+             
+           }
+        }
+        //Swiped Right; Go to Previous Frame
+        if (tutorialAdvance == -1) {
+            if tutorialFrame[0] > 0 {
+                //outro tween text alpha
+                TweenTutorialText = TweenFire(id,tutorialTextTween,EaseLinear,
+                                         TWEEN_MODE_ONCE, 1, 0,.5,1,0);
+                //increment tutorialFrame[0] on tweenfinish
+                TweenAddCallback(TweenTutorialText,TWEEN_EV_FINISH,
+                                          id, array_set_value, tutorialFrame,tutorialFrame[0]-1);
+                //Destroy All Dummy Objects
+                with(obj_parent_dummy){
+                   TweenAddCallback(other.TweenTutorialText,TWEEN_EV_FINISH,
+                                          other.id, Destroy,id);
+                }
+                
+                //Disable Paddle Movement
+                if PADDLE_MOTION != 0{
+                   PADDLE_MOTION = 0;
+                   //Reset paddle movement counters
+                   obj_control_game.tutorialPaddleMovePercent = -1; //negative is so it doesn't fire in obj_control_game
+                   
+                   //Tween In Touchpad
+                   scr_touch_pad_tween_out();
+                }
+                //scr_sound(sd_menu_click,1,false);
+            }
+            // Back On First Slide == Skip 
+            else {
+                //Set Flag tutorial inactive
+                // Trigger Tutorial Skip
+                ScheduleScript(id,1,.25,scr_delayed_selection,help_selected,1)
+                //Set Flag tutorial inactive
+                TutorialEnding = true;
+                
+            }
+        }
        //Reset Tutorial Advance
        tutorialAdvance = 0;
     }

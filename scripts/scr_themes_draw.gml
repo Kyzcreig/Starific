@@ -9,15 +9,13 @@ var ease = argument2;
 theme_y = start_y +50; 
 mouse_on_themes = ScrollStartY < mouse_y and ScrollEndY > mouse_y;
 
+
 /*
-if FULL_SECOND_INTERVAL == 1 {
-    if IAP_ENABLED {
-        iap_store_state = iap_status();
-    } else {
-        iap_store_state = iap_status_unavailable;
-    }
-}
-*/
+if FULL_SECOND_INTERVAL == 1 and IAP_ENABLED {
+    // Update Store State
+    store_state = iap_status();
+}*/
+
 
 
 // For Each Type
@@ -67,7 +65,7 @@ for (var index = 0; index < UNLOCKS_DATA_SIZES[3]; index++ ){
     def_scale = rect_scale;
     def_margin = 6 * def_scale;
     def_size = 40 * def_scale;
-    def_gap = (rect_h - (def_size+def_margin) * 2);
+    def_gap = 8 * def_scale;//(rect_h - (def_size+def_margin) * 2);
     def_x = rect_x + def_margin;
     def_y = rect_y + def_margin;
     scr_themes_draw_deflectors(def_x,def_y, theme_available, index, def_size, def_gap, def_scale);
@@ -144,32 +142,8 @@ for (var index = 0; index < UNLOCKS_DATA_SIZES[3]; index++ ){
             //Track Analytics
             analytics_button_counter("Options-ThemeChosen");
             
-            //Change current theme
-            CURSKIN = index;
-            
-            //If Theme Available
-            if theme_available{
-                // If During Game Pause Flag Color Changer for Pause Screenshot
-                if GAME_PAUSE {mColorsChanger = true;}
-                
-                //Save New Current Skin
-                ini_open("scores.ini")
-                    ini_write_real("settings", "CURSKIN", CURSKIN);
-                    
-                    //Increment File View Count
-                    scr_unlock_update_views_file(data);
-                ini_close()
-                
-                // Set Easing Flag
-                SKIN_LOCKED_FLAG = false;
-            }
-            else{
-                // Set Easing Flag
-                SKIN_LOCKED_FLAG = true;
-            }
-    
-            //Color Easer
-            scr_color_easer(.5)
+            // Select theme
+            scr_theme_select(index, theme_available, data);
             
             //Click Sound
             scr_sound(sd_menu_click);
@@ -222,20 +196,24 @@ var def_scale = argument6;
 // If Locked
 if !unlocked {
 
-    //Set Sprite Parameters (Centered)
-    btn_h = def_size * 2 + def_gap;
-    btn_h *= .9; //further downscaling
-    btn_scale = btn_h / 100; //we assume sprite is 100px tall
-    btn_y = def_y + (def_size * 1 + def_gap/2) ;
-    btn_col = mColors[0,theme_index];
     
     // If Theme IAPs Enabled
     if IAP_ENABLED {
         // Set Sprite to Buy Button 
-        btn_spr = sp_button_buy;//s_v_buy_theme_099;
-        btn_alpha = 1;//.65;
-        btn_w = sprite_get_width(btn_spr)*btn_scale;
+        //Set Sprite Parameters (Centered)
+        btn_spr = spr_button_buy_theme//spr_button_buy;//s_v_buy_theme_099;
+        btn_scale = def_scale;//btn_h / 100; //we assume sprite is 100px tall
+        btn_w = sprite_get_width(btn_spr) * btn_scale;
+        btn_h = sprite_get_height(btn_spr) * btn_scale;
         btn_x = def_x + btn_w*.5 + def_gap;
+        btn_y = def_y + (def_size * 1 + def_gap/2) ;
+        btn_col = mColors[0,theme_index];
+        btn_alpha = .65//1;//.65;
+        
+        // Set Product ID
+        product_id = "theme_"+string(theme_index);
+        //show_debug_message(string(btn_scale));
+        
         
         //If Page Tapped (and not scrolling)
         if SWIPE_TAP and !TweenExists(mainTween) and mouse_on_themes
@@ -250,47 +228,44 @@ if !unlocked {
                 //Track Analytics
                 analytics_button_counter("Options-ThemeBuyClick", "theme_index,"+string(theme_index));
                 
-                //Process IAP
-                //var store_status = iap_status();
-                var acquire_status = false//scr_iap_acquire("theme_"+string(theme_index), iap_store_state);
+                //Process IAP at STEP end, to prevent duplicate processing
+                //scr_iap_acquire( "theme_"+string(theme_index));
+                ScheduleScript(obj_control_IAP, false, 1, scr_iap_acquire, product_id) //, store_state)
+                //store_state = iap_status_processing;
                 show_debug_message("Theme Buy Button Tapped: "
                                 +str_debug("theme_index",theme_index)
-                                +str_debug("acquire_status",acquire_status)
                                 +str_debug("SWIPE_TAP",SWIPE_TAP)
                                 +str_debug("mouse_on_themes",mouse_on_themes)
-                                +str_debug("def_x",def_x)
-                                +str_debug("def_y",def_y)
-                                +str_debug("id",id) //ARE TWO THEME UI CONTROLLERS BEING SPAWNED?
                                 );
-                //if !store_available {} 
+
                 // Theme Not Equipped on Buy Button Click
-                //SWIPE_TAP = false;
-                //mouse_clear(mb_left)
+                SWIPE_TAP = false;
+                mouse_clear(mb_left)
                 mouse_on_themes = false; // Flag to prevent theme being equipped
                 //Click Sound
                 scr_sound(sd_menu_click);
                     
             }
         }
-            
-        // Draw Buy Button  
+        
+        // Draw Buy Button 
         draw_sprite_ext(btn_spr,0,btn_x,btn_y,
                     btn_scale,btn_scale,0,btn_col,btn_alpha)
         // Draw Cart Icon
-        cart_spr = sp_store_cart_40;
-        cart_scale = 1 * def_scale
+        cart_spr = spr_shop_cart_40;
+        cart_scale = .8 * def_scale
         cart_w = sprite_get_width(cart_spr) * cart_scale;
         cart_x = btn_x - btn_w * .5 +cart_w *.5 + def_gap;
         cart_y = btn_y;
         cart_col = mColors[6,theme_index];
         draw_sprite_ext(cart_spr,0,cart_x,cart_y,
-                    btn_scale,btn_scale,0,cart_col,1)
+                    cart_scale,cart_scale,0,cart_col,1)
         
         // Draw Price Text
         draw_set_font(fnt_menu_bn_20_black);
         draw_set_valign(fa_middle);
         draw_set_halign(fa_right);
-        price_text = scr_iap_get_price("theme_"+string(theme_index), "$.99");
+        price_text = scr_iap_get_price(product_id, "$0.99");
         price_w = string_width(price_text) * def_scale;
         price_h = string_height("H") * def_scale;
         price_x = btn_x + btn_w * .5 - def_gap*1.5;
@@ -309,10 +284,13 @@ if !unlocked {
     }
     // Else If No IAPs 
     else {
-        // Set Pad Lock Sprite Parameters
-        btn_spr = s_v_padbtn_100;
-        btn_w = btn_h;
-        btn_x = def_x + (def_size * 1.5 + def_gap) ;
+        //Set Sprite Parameters 
+        btn_spr = s_v_padlock_100;
+        btn_scale = .88; //.9
+        btn_h = sprite_get_width(btn_spr) * btn_scale;//def_size * 2 + def_gap;
+        btn_x = def_x + (def_size * 1.5 + def_gap);
+        btn_y = def_y + (def_size * 1 + def_gap/2);
+        btn_col = mColors[0,theme_index];
         btn_alpha = .5;
         // Draw Lock Pad  
         draw_sprite_ext(btn_spr,0,btn_x,btn_y,
@@ -354,6 +332,28 @@ if !unlocked {
     }
 }
  
+
+
+#define scr_themes_init
+///scr_themes_init()
+
+title_txt = "themes";
+
+
+// Get Theme Locked Counts
+ini_open("scores.ini")
+    unlockCounts[0] = 0; //total
+    unlockCounts[1] = 0; //progress
+    unlockCounts[2] = 0; //new
+    unlockCounts = scr_unlock_get_type_counts("3");
+    // [0] = total; [1] = unlocked; [2] = new;
+    
+    // Set Unlocks Criteria Text
+    scr_unlock_set_description("3");
+ini_close();
+
+
+store_state = iap_status();
 
 
 #define scr_themes_index_to_sprite
@@ -505,22 +505,37 @@ var flash_interval = room_speed / flashes_per_second;
 var col_index = (STEP div flash_interval) mod 6;
 
 return col_index;
-#define scr_themes_init
-///scr_themes_init()
-
-title_txt = "themes";
+#define scr_theme_select
+///scr_theme_select(index, theme_available, theme_data)
 
 
-// Get Theme Locked Counts
-ini_open("scores.ini")
-    unlockCounts[0] = 0; //total
-    unlockCounts[1] = 0; //progress
-    unlockCounts[2] = 0; //new
-    unlockCounts = scr_unlock_get_type_counts("3");
-    // [0] = total; [1] = unlocked; [2] = new;
+var theme_index, theme_data, theme_available;
+theme_index = argument0;
+theme_available = argument1;
+theme_data = argument2;
+//Change current theme
+CURSKIN = theme_index;
+
+//If Theme Available
+if theme_available{
+    // If During Game Pause Flag Color Changer for Pause Screenshot
+    if GAME_PAUSE {mColorsChanger = true;}
     
-    // Set Unlocks Criteria Text
-    scr_unlock_set_description("3");
-ini_close();
+    //Save New Current Skin
+    ini_open("scores.ini")
+        ini_write_real("settings", "CURSKIN", CURSKIN);
+        
+        //Increment File View Count
+        scr_unlock_update_views_file(theme_data);
+    ini_close()
+    
+    // Set Easing Flag
+    SKIN_LOCKED_FLAG = false;
+}
+else{
+    // Set Easing Flag
+    SKIN_LOCKED_FLAG = true;
+}
 
-
+//Color Easer
+scr_color_easer(.5)

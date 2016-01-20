@@ -63,8 +63,9 @@ confettiQuantum[++z] = scr_create_array(10, 32*3, 1, 0, 320);
 confettiQuantum[++z] = scr_create_array(25, 32*4, 1, 50, 780); //
 confettiQuantum[++z] = scr_create_array(50, 32*5, 1, 100, 1560); //
 confettiQuantum[++z] = scr_create_array(100, 32*6, 1, 200, 3120); //
-confettiQuantum[++z] = scr_create_array(250, 32*7, 1, 500, 7800); //NB: comes in handy if the click video multiplier hits a jackpot
-confettiQuantum[++z] = scr_create_array(500, 32*8, 1, 1000, 15600); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = scr_create_array(250, 32*6, 1, 500, 7800); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = scr_create_array(500, 32*6, 1, 1000, 15600); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = scr_create_array(1000, 32*6, 1, 2500, 32000); //NB: comes in handy if the click video multiplier hits a jackpot
 
 
 
@@ -237,7 +238,7 @@ rewardValue = scr_reward_set(rewardScalar, true);
 
 
 // Check if enough cash for prize, and add prize wheel button
-scr_check_if_available_prize_wheel();
+scr_refresh_prize_wheel_button();
 
 //Update Button State/Text
 scr_button_helper_update(buttonID, -2, "earned#+"+CASH_STR+string(rewardValue), removeButton);

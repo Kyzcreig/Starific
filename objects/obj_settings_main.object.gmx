@@ -59,6 +59,12 @@ buttonSprite[++i] = scr_create_array(s_v_themeswitcher_x2,
                                      obj_settings_themes, 
                                      scr_unlock_is_new_count("3"),
                                      "themes");
+if IAP_ENABLED {
+    buttonSprite[++i] = scr_create_array(s_v_shop_x2, 
+                                         obj_settings_shop, 
+                                         0, 
+                                         "shop");
+}
 buttonSprite[++i] = scr_create_array(s_v_codex_x2, 
                                      obj_settings_codex, 
                                      0, 
@@ -70,19 +76,24 @@ buttonSprite[++i] = scr_create_array(s_v_info_x2,
 
  
 
-if SETTINGS_ROOM &gt; 0 {
-    // Sprite Get Data
-    sp_data = buttonSprite[SETTINGS_ROOM-1];
+if object_exists(QUICK_PAGE_CONTROLLER) {
+    // Find Button Data
+    for (var i = 0, n = array_length_1d(buttonSprite); i &lt; n; i++) {
+        sp_data = buttonSprite[i];
+        // If We Found Correct Data
+        if sp_data[1] == QUICK_PAGE_CONTROLLER {
+            break;
+        }
+    }
     //Set Next Page
     nextPage = sp_data[1];
     nextPageAnalytic = sp_data[3];
     
     // Reset Room State
-    SETTINGS_ROOM = -1;
+    QUICK_PAGE_CONTROLLER = -1; // Flag for processing in next page
     
     // Self Destruct into Next Page
     instance_destroy();
-    
     
 }
 

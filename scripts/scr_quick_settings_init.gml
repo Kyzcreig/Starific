@@ -4,7 +4,7 @@
 
 title_txt = "";
 
-quick_settings_state[0] = -1;
+quick_page_goto[0] = noone;
 
 //NB: We set this when we create the object
 
@@ -24,15 +24,15 @@ scr_draw_background_mask(subEase[0] * 1, 0);
 
 
 // If State is Set
-if quick_settings_state[0] > -1 {
+if object_exists(quick_page_goto[0]) {
 
     // When Tween Complete
     if !TweenExists(mainTween){
 
         // Set Global Settings State
-        SETTINGS_ROOM = quick_settings_state[0];
+        QUICK_PAGE_CONTROLLER = quick_page_goto[0];
         // Flag Quick Settings State as Done
-        quick_settings_state[0] = -2;
+        quick_page_goto[0] = noone;
         
         //select_menu_choice(rm_options,true,true)
         // Set Up Room Persistence

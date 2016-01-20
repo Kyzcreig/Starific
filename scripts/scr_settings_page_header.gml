@@ -59,7 +59,9 @@ if  ((backButtonHover and (!touchPad or mouse_check_button(mb_left))) or
 draw_sprite_ext(backButtonSpr, 0,backButtonX,title_y+9,backButtonScale,backButtonScale,0,COLORS[0],1);   
 
 
-return titleEndY + 4*RU;
+return titleEndY + 4; 
+//NB: +4 because the width of our underline is 8 and 
+// titleEndY represents the center of that the underline.
 
 #define scr_settings_page_footer
 ///scr_settings_page_footer()
@@ -101,13 +103,13 @@ draw_text_ext_transformed_colour(count_x, count_y, count_text,
 //Draw Right Text
 if name_text != "" {
     draw_set_halign(fa_right);
-    nsmr_x = GAME_MID_X + line_w;
+    name_x = GAME_MID_X + line_w;
     name_y = count_y;
     name_w = string_width(name_text);
     name_max_w = line_w;
     name_xscale = min(count_scale, name_max_w / name_w);
     name_yscale = count_scale;
-    draw_text_ext_transformed_colour(nsmr_x, name_y, name_text, 
+    draw_text_ext_transformed_colour(name_x, name_y, name_text, 
                             -1,-1,name_xscale,name_yscale,0,
                             COLORS[0],COLORS[0],COLORS[0],COLORS[0],1)
 

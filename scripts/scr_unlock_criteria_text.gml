@@ -182,6 +182,11 @@ switch criteria_type{
             str = "see deluxe edition!";
             break;
             
+            
+       // IAP Unlock     
+       case -3:
+            str = "purchase from shop!";
+            break;
        
        
        //Not Implemented   
