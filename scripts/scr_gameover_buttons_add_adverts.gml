@@ -1,11 +1,11 @@
+#define scr_gameover_buttons_add_adverts
 ///scr_gameover_buttons_add_adverts(use_rng)
 
 var useRNG = argument0;
 var advertRNG = !useRNG or random(1) < .80; 
                         
 // Add Video Reward
-var mostFeaturesAreUnlocked = scr_unlock_get_status(2,2) != 0; //NB: We do this to avoid having tons of buttons all at once... that's ugly
-var pageNotCrowded = (ds_list_size(go_sp_buttons) < 4) or mostFeaturesAreUnlocked;
+var pageNotCrowded = (ds_list_size(go_sp_buttons) < 4);
 //var veteranPlaytime = careerPlaytimeTotal > 60*60*4 - lastPlaytime; // gamesPlayedTotal > 2
                                                   //3 //Evaluate me
                                                     
@@ -33,5 +33,33 @@ if ADS_REWARD_VIDEOS != "" and //if videos enabled
         }
         //Attempt to Recache Video Reward
         ads_recache_video();
+    }
+}
+
+#define scr_gameover_buttons_add_forced_ads
+///scr_gameover_buttons_add_forced_ads()
+
+var pageNotCrowded = (ds_list_size(go_sp_buttons) < 5);
+
+ // Toggle Forced Interstitial
+ if ADS_INTERSTITIALS != "" and 
+    ADS_INTERSTITIAL_CACHED and 
+    ADS_FORCED != 0 and 
+    pageNotCrowded and
+    !rate_prompt[0]
+{
+    var alternateGames = gamesPlayed mod 2 == 0; // every other game
+    var minimumPlaytime = lastPlayTime > 60 * 60 * .5; // 30 seconds of play
+    var forcedRNG = random(1) < .5; 
+    if (alternateGames and (minimumPlaytime or forcedRNG))
+    {
+                    //NB: Evaluate our much more aggressive advertising on android first
+        // Flag To Show Interstitial Ad
+        forced_ads_prompt[0] = true;
+         // Add No-Ads Button to Gameover
+         if scr_go_is_button(7) == -1{ // if button not in list
+             scr_gameover_add_button(7);
+         }
+    
     }
 }

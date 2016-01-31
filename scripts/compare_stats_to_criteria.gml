@@ -330,7 +330,7 @@ switch stat_type{
             
        //Premium Unlock     
        case -2:
-            if PREMIUM == 1{
+            if PREMIUM != 0{
                 tmp = 1;
             } else {
                 tmp = -1;

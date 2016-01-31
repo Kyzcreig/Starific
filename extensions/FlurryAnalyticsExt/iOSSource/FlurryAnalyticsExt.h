@@ -11,8 +11,8 @@
 	bool		initCalled;
 }
 -(void)FlurryAnalytics_Init:(char*)_apiKey;
--(double)FlurryAnalytics_SendEvent:(char*)_eventName;
--(double)FlurryAnalytics_SendEventExt:(char*)_eventName Arg2:(char*)_keyValuePairs;
+-(void)FlurryAnalytics_SendEvent:(char*)_eventName;
+-(void)FlurryAnalytics_SendEventExt:(char*)_eventName Arg2:(char*)_keyValuePairs;
 -(bool)FlurryAnalytics_HasSession;
 
 @end

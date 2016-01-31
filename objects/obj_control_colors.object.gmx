@@ -49,9 +49,9 @@ mColors[(++j)mod k,i] = 2565927//15921906 //beige - background color
 //modified support colors
 mColors[(++j)mod k,i] = mColors[6,i]  //fade out color //7
 mColors[(++j)mod k,i] = mColors[0,i]  //write on fadeout color //8
-mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow color 
-mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast color 
-mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color (more or less sat) 
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[1,i],.5) //slow color 9
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[2,i],.5) //fast color 10
+mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color 11
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerups
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerdowns
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
@@ -141,7 +141,7 @@ mColors[(++j)mod k,i] = "sunken"
 i+=1
 //Theme 7, beige on medium blue
 mColors[(++j)mod k,i] = 12842495//14614527// - titles/text/star
-mColors[(++j)mod k,i] = 14460204//14115711//5558185//7595941// - power ups
+mColors[(++j)mod k,i] = 15711056//15443997//14460204//14115711//5558185//7595941// - power ups
 mColors[(++j)mod k,i] = 8032756 //6321407//6320895//11891687//14644199//  - power downs
 mColors[(++j)mod k,i] = 16179152//12842495//6207720//7583207//3760862//  - neutrals
 mColors[(++j)mod k,i] = 10141179//8479703//7028534//5263440//6502878// - bombs
@@ -158,7 +158,7 @@ mColors[(++j)mod k,i] = merge_colour(mColors[0,i],mColors[3,i],.5) //turn color 
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerups
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol powerdowns
 mColors[(++j)mod k,i] = mColors[6,i]  //symbol powerchaos
-mColors[(++j)mod k,i] = mColors[0,i]  //symbol bombs
+mColors[(++j)mod k,i] = mColors[6,i]  //symbol bombs
 mColors[(++j)mod k,i] = mColors[0,i]  //symbol cash
 //Theme Info
 mColors[(++j)mod k,i] = "tyro"
@@ -2389,7 +2389,7 @@ if ColorEase[0] != 0{
 
     //THEME COLOR CHANGER caller
     if mColorsChanger != 0 and !instance_exists(obj_control_pause){
-        scr_change_theme()
+        scr_reset_aesthetics()
     }
 }
 //Reset color tween vars

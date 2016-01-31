@@ -18,7 +18,7 @@ ini_close();
 
 
 
-if PREMIUM == 1{
+if PREMIUM != 0{
    //Premium app store link
    url_open_ext(PREMIUM_APP_URL,URL_TARGET)//"_blank")
 }

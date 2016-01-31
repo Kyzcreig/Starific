@@ -60,12 +60,10 @@ symDraw = false
 objType = 0;
 boardClear = false;
 
-//particle alarm
-alarm[0] = 2
 
 objIndex = noone;
 
-
+power_has_effect = true;
 
 // Star Modifier Data
 scr_reflector_init_star_modifiers();
@@ -76,8 +74,12 @@ scr_reflector_init_star_modifiers();
 
 //depth is set in alarm event
 
+particleScalar = 1;
+if scr_gamemod_get_index("long_effects", 8) &gt; 0 {
+    particleScalar *= scr_gamemod_get_index("long_effects", 10);
+}
 
-trailDelay = round(2 / RMSPD_DELTA)
+trailDelay = round(2 / RMSPD_DELTA);
 
 overlapDelay = 2 * trailDelay; 
 </string>
@@ -104,8 +106,31 @@ overlapDelay = 2 * trailDelay;
             <kind>1</kind>
             <string>///Powerup effects
 
-if caught and GAME_ACTIVE{
+if caught and GAME_ACTIVE
+{
 
+   
+   if scr_gamemod_get_index("downer_immunity", 8) &gt; 0 {
+        //If Downer
+        if object_is_ancestor(objIndex, obj_powerup_parent_downs) {
+            if random(1) &lt; scr_gamemod_get_index("downer_immunity", 10) {
+                //Immunity
+                scr_popup_text_field_moving(x,y,'immunity!',image_blend);
+                power_has_effect = false;
+            }
+        }
+   } 
+   
+   if scr_gamemod_get_index("upper_immunity", 8) &gt; 0 {
+        //If Upper
+        if object_is_ancestor(objIndex, obj_powerup_parent_ups) {
+            if random(1) &lt; scr_gamemod_get_index("upper_immunity", 10) {
+                //Immunity
+                scr_popup_text_field_moving(x,y,'immunity!',image_blend);
+                power_has_effect = false;
+            }
+        }
+   } 
     
 
    //Mystery object
@@ -204,357 +229,386 @@ if caught and GAME_ACTIVE{
    
    
    // Select Powerup Effect
-   switch objIndex {
-   
-   case obj_powerup_growpaddle:
-   
-        POWER_grow[@ 0] += 1; 
-   break;
-   
-   case obj_powerup_shrinkpaddle:
-        POWER_shrink[@ 0] += 1;  
-   break;
-   
-   
-   case obj_powerup_faster:
-        POWER_faster[@ 0] += 1;
-   break;
-   
-   
-   case obj_powerup_slower:
-        POWER_slower[@ 0] += 1;
-   break;
-   
-   
-   case obj_powerup_1up:
-        if MODE == MODES.ARCADE{
-           lives += 1
-           text = '+1 life!'
-        }
-        if MODE == MODES.MOVES{
-           MOVES_REMAINING += 1
-           text = '+1 move!'
-        }
-        if MODE == MODES.TIME{
-           time_left *= 1.5
-           text = '+50% time'
-        }
-        if MODE == MODES.SANDBOX{
-           text = '+20 combo' //not implemented
-        }
-        //Jiggles lives gui
-        obj_control_game.gui_jiggle[1,0] = obj_control_game.gui_jiggletime
-   break;
-   
-   
-   case obj_powerup_1down:
-        if MODE == MODES.ARCADE{
-           lives -= 1
-           text = '-1 life!'
-        }
-        if MODE == MODES.MOVES{
-           MOVES_REMAINING -= 1
-           text = '-1 move!'
-        }
-        if MODE == MODES.TIME{
-           time_left /= 3
-           text = '-33% time'
-        }
-        if MODE == MODES.SANDBOX{
-           text = '-20 combo' //not implemented
-        }
-        //Jiggles lives gui
-        obj_control_game.gui_jiggle[1,0] = obj_control_game.gui_jiggletime
-   break;
-   
-   
-   case obj_powerup_mirrorpaddle:
-        POWER_mirror[@ 0] += 1;
-        with(instance_create(-1000,-1000,obj_launcher_mirror)){
-              switch (POWER_mirror[@ 0]-1) mod 7{
-                 case 0:
-                      inversion = 180
-                      marker_color = c_green
-                      break
-                 case 1:
-                      inversion = 90
-                      marker_color = c_orange
-                      break
-                 case 2:
-                      inversion = 270
-                      marker_color = c_purple
-                      break
-                 case 3:
-                      inversion = 45
-                      marker_color = c_teal
-                      break
-                 case 4:
-                      inversion = 135
-                      marker_color = c_aqua
-                      break
-                 case 5:
-                      inversion = 225
-                      marker_color = c_maroon
-                      break
-                 case 6:
-                      inversion = 315
-                      marker_color = c_black
-                      break
-            }
-        }
-   break;
-   
-   
-   case obj_powerup_freezepaddle:
-        POWER_freeze[@ 0] += 1;  
-   break;
-   
-   
-   case obj_powerup_boardclear:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = 'starnova!';
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
-
-        scr_boardclear(); 
-        scr_sound(sd_catch_power_boardclear, 1, false);
-            //Something to consider: when you get board clear which triggers board fill
-            //in moves mode this is potentially most aggregious, but i think it's ok either way
-   break;
-   
-   
-   case obj_powerup_boardfill:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = 'super starnova!';
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
-             
-             
-             
-        scr_boardfill()
-        scr_sound(sd_catch_power_boardclear, 1, false);
-   break;
-   
-   
-   case obj_powerup_points:
-        POWER_pmulti[@ 0] += 1;
-   break;
-   
-   
-   case obj_powerup_antipoints:
-        POWER_pdivis[@ 0] += 1;
-   break;
-   
-   
-   case obj_powerup_bigstar:
-        POWER_hugestar[@ 0] +=1
-   break;
-   
-   
-   case obj_powerup_halfangleturn:
-        POWER_halfangle[@ 0] +=1
-        
-   break;
-   case obj_powerup_threehalvesangle:
-        POWER_threehalfangle[@ 0] +=1
-        
-   break;
-   case obj_powerup_randomturn:
-        POWER_randomangle[@ 0] +=1
-        
-   break;
-   case obj_powerup_reverseturn:
-        POWER_reverseangle[@ 0] +=1
-        
-   break;
-   case obj_powerup_pierce:
-        POWER_noangle[@ 0] +=1
-        
-   break;
-   case obj_powerup_diagturn:
-        POWER_diagturn[@ 0] +=1
-   break;
-   case obj_powerup_2balls:
-        var obj = shooter_nearest_valid(x,y);
-        if obj != noone{
-            scr_popup_text_field_moving(obj.x,obj.y,'double star!',image_blend)
-            with (obj){
-                 var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
-                 spawn_star(direction +180,copyFieldXY[0],copyFieldXY[1])
-            }
-        }
-   break;
-   
-   case obj_powerup_3balls:
-        var obj = shooter_nearest_valid(x,y);
-        if obj != noone{
-            scr_popup_text_field_moving(obj.x,obj.y,'triple star!',image_blend)
-            with (obj){
-                 var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
-                 spawn_star(direction +90,copyFieldXY[0],copyFieldXY[1])
-                 spawn_star(direction -90,copyFieldXY[0],copyFieldXY[1])
-            }
-        }
-   break;
-   
-   case obj_powerup_4balls:
-        var obj = shooter_nearest_valid(x,y);
-        if obj != noone{
-            scr_popup_text_field_moving(obj.x,obj.y,'quadruple star!',image_blend)
-            with (obj){
-                 var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
-                 spawn_star(direction +180,copyFieldXY[0],copyFieldXY[1])
-                 spawn_star(direction +90,copyFieldXY[0],copyFieldXY[1])
-                 spawn_star(direction -90,copyFieldXY[0],copyFieldXY[1])
-            }
-        }
-   break;
-   
-   case obj_powerup_slowpaddle:
-        POWER_slowpaddle[@ 0] +=1
-        
-   break;
-   case obj_powerup_multistar:
-        POWER_multistar[@ 0] +=1
-        
-   break;
-   case obj_powerup_addgrow:
-        POWER_addgrow[@ 0] +=1
-        
-   break;
-   case obj_powerup_subshrink:
-        POWER_subshrink[@ 0] +=1
-        
-   break;
-   case obj_powerup_addslower:
-        POWER_addslower[@ 0] +=1
-        
-   break;
-   case obj_powerup_subfaster:
-        POWER_subfaster[@ 0] +=1
-        
-   break;
-   case obj_powerup_longerpowerups:
-        POWER_longerpowerups[@ 0] +=1
-        
-   break;
-   case obj_powerup_shorterpowerdowns:
-        POWER_shorterpowerdowns[@ 0] +=1
-        
-   break;
-   case obj_powerup_powersallclear:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = "all powers clear!";
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-        txt_text,image_blend,txt_font)
-        scr_clear_powers();
-        
-   break;
-   case obj_powerup_powerupsclear:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = 'powerup clear!';
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-        txt_text,image_blend,txt_font)
-        scr_clear_power_ups();
-        
-   break;
-   case obj_powerup_powerdownsclear:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = 'powerdown clear!';
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-        txt_text,image_blend,txt_font)
-        scr_clear_power_downs();
-        
-   break;
-   case obj_powerup_staregg:
-        txt_font = fnt_game_bn_40_bold//fnt_game_bn_40_bold;//; 
-        draw_set_font(txt_font)
-        txt_text = "+1 "+string_replace(boardMixers[0,3],"#"," ");
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy+txt_height,
-        txt_text,image_blend,txt_font)
-        
-        with (obj_control_game){
-             boardMixers[bMStarIndex,0] += 1;
-        }
-   break;
-   
-   case obj_powerup_invertpaddle:
-        POWER_invertcontrols[@ 0] +=1
-   break;
-   
-   case obj_powerup_multibonus:
-        POWER_multibonus[@ 0] +=1
-        
-   break;
-   case obj_powerup_multimalus:
-        POWER_multimalus[@ 0] +=1
-        
-   break;
-   case obj_powerup_splitpaddle:
-        POWER_splitpaddle[@ 0] +=1
-   break;
-   case obj_powerup_cash_1:
-        scr_starcash_power_caught(1);
-   break;
-   case obj_powerup_cash_2:
-        scr_starcash_power_caught(2);
-   break;
-   case obj_powerup_cash_5:
-        scr_starcash_power_caught(5);
-        
-   break;
-   case obj_powerup_cash_10:
-        scr_starcash_power_caught(10);
-        
-   break;
-   case obj_powerup_cash_rng:
-        scr_starcash_power_caught(irandom_range(1,15));
-   break;
-   case obj_powerup_cash_tap:
-        POWER_cashtap[@ 0] +=1;
-   break;
-   case obj_powerup_offsetpaddle:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = "paddle offset!";
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
-             
-        POWER_offsetpaddle[@ 0] +=1;
-   break;
-   case obj_powerup_cash_x2:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = "cash doubler!";
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
-             
-        POWER_cashx2[@ 0] +=1;
-   break;
-   case obj_powerup_density_doubler:
-        txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
-        draw_set_font(txt_font)
-        txt_text = "density doubler!";
-        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-        scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
-             txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
-             
-        POWER_density_doubler[@ 0] +=1;
-   break;
-   
+   if power_has_effect {
+       switch objIndex {
+           
+           
+           case obj_powerup_growpaddle:
+           
+                POWER_grow[@ 0] += 1; 
+           break;
+           
+           case obj_powerup_shrinkpaddle:
+                POWER_shrink[@ 0] += 1;  
+           break;
+           
+           
+           case obj_powerup_faster:
+                POWER_faster[@ 0] += 1;
+           break;
+           
+           
+           case obj_powerup_slower:
+                POWER_slower[@ 0] += 1;
+           break;
+           
+           
+           case obj_powerup_1up:
+                if MODE == MODES.ARCADE{
+                   lives += 1
+                   text = '+1 life!'
+                }
+                if MODE == MODES.MOVES{
+                   MOVES_REMAINING += 1
+                   text = '+1 move!'
+                }
+                if MODE == MODES.TIME{
+                   time_left *= 1.5
+                   text = '+50% time'
+                }
+                if MODE == MODES.SANDBOX{
+                   text = '+20 combo' //not implemented
+                }
+                //Jiggles lives gui
+                obj_control_game.gui_jiggle[1,0] = obj_control_game.gui_jiggletime
+           break;
+           
+           
+           case obj_powerup_1down:
+                if MODE == MODES.ARCADE{
+                   lives -= 1
+                   text = '-1 life!'
+                }
+                if MODE == MODES.MOVES{
+                   MOVES_REMAINING -= 1
+                   text = '-1 move!'
+                }
+                if MODE == MODES.TIME{
+                   time_left /= 3
+                   text = '-33% time'
+                }
+                if MODE == MODES.SANDBOX{
+                   text = '-20 combo' //not implemented
+                }
+                //Jiggles lives gui
+                obj_control_game.gui_jiggle[1,0] = obj_control_game.gui_jiggletime
+           break;
+           
+           
+           case obj_powerup_mirrorpaddle:
+                POWER_mirror[@ 0] += 1;
+                with(instance_create(-1000,-1000,obj_launcher_mirror)){
+                      switch (POWER_mirror[@ 0]-1) mod 7{
+                         case 0:
+                              inversion = 180
+                              marker_color = c_green
+                              break
+                         case 1:
+                              inversion = 90
+                              marker_color = c_orange
+                              break
+                         case 2:
+                              inversion = 270
+                              marker_color = c_purple
+                              break
+                         case 3:
+                              inversion = 45
+                              marker_color = c_teal
+                              break
+                         case 4:
+                              inversion = 135
+                              marker_color = c_aqua
+                              break
+                         case 5:
+                              inversion = 225
+                              marker_color = c_maroon
+                              break
+                         case 6:
+                              inversion = 315
+                              marker_color = c_black
+                              break
+                    }
+                }
+           break;
+           
+           
+           case obj_powerup_freezepaddle:
+                POWER_freeze[@ 0] += 1;  
+           break;
+           
+           
+           case obj_powerup_boardclear:
+                // Create Text Dialogue
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = 'starnova!';
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                // Clear Boarb
+                scr_boardclear(); 
+                
+                scr_sound(sd_catch_power_boardclear, 1, false);
+                    //Something to consider: when you get board clear which triggers board fill
+                    //in moves mode this is potentially most aggregious, but i think it's ok either way
+           break;
+           
+           case obj_powerup_bomb_detonate:
+                // Create Text Dialogue
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = 'bomb detonate!';
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                     
+                // Detonate Bombs
+                scr_detonate_bombs(); 
+                // Play Sound
+                scr_sound(sd_catch_power_boardclear, 1, false);
+                    //Something to consider: when you get board clear which triggers board fill
+                    //in moves mode this is potentially most aggregious, but i think it's ok either way
+           break;
+           
+           
+           
+           case obj_powerup_boardfill:
+                // Create Text Dialogue
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = 'super starnova!';
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                     
+                     
+                // Fill Board     
+                scr_boardfill()
+                // Play Sound
+                scr_sound(sd_catch_power_boardclear, 1, false);
+           break;
+           
+           
+           case obj_powerup_points:
+                POWER_pmulti[@ 0] += 1;
+           break;
+           
+           
+           case obj_powerup_antipoints:
+                POWER_pdivis[@ 0] += 1;
+           break;
+           
+           
+           case obj_powerup_bigstar:
+                POWER_hugestar[@ 0] +=1
+           break;
+           
+           
+           case obj_powerup_halfangleturn:
+                POWER_halfangle[@ 0] +=1
+                
+           break;
+           case obj_powerup_threehalvesangle:
+                POWER_threehalfangle[@ 0] +=1
+                
+           break;
+           case obj_powerup_randomturn:
+                POWER_randomangle[@ 0] +=1
+                
+           break;
+           case obj_powerup_reverseturn:
+                POWER_reverseangle[@ 0] +=1
+                
+           break;
+           case obj_powerup_pierce:
+                POWER_noangle[@ 0] +=1
+                
+           break;
+           case obj_powerup_diagturn:
+                POWER_diagturn[@ 0] +=1
+           break;
+           case obj_powerup_2balls:
+                var obj = shooter_nearest_valid(x,y);
+                if obj != noone{
+                    scr_popup_text_field_moving(obj.x,obj.y,'double star!',image_blend);
+                    with (obj){
+                         var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
+                         spawn_star(direction +180,copyFieldXY[0],copyFieldXY[1])
+                    }
+                }
+           break;
+           
+           case obj_powerup_3balls:
+                var obj = shooter_nearest_valid(x,y);
+                if obj != noone{
+                    scr_popup_text_field_moving(obj.x,obj.y,'triple star!',image_blend)
+                    with (obj){
+                         var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
+                         spawn_star(direction +90,copyFieldXY[0],copyFieldXY[1])
+                         spawn_star(direction -90,copyFieldXY[0],copyFieldXY[1])
+                    }
+                }
+           break;
+           
+           case obj_powerup_4balls:
+                var obj = shooter_nearest_valid(x,y);
+                if obj != noone{
+                    scr_popup_text_field_moving(obj.x,obj.y,'quadruple star!',image_blend)
+                    with (obj){
+                         var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
+                         spawn_star(direction +180,copyFieldXY[0],copyFieldXY[1])
+                         spawn_star(direction +90,copyFieldXY[0],copyFieldXY[1])
+                         spawn_star(direction -90,copyFieldXY[0],copyFieldXY[1])
+                    }
+                }
+           break;
+           
+           case obj_powerup_slowpaddle:
+                POWER_slowpaddle[@ 0] +=1
+                
+           break;
+           case obj_powerup_multistar:
+                POWER_multistar[@ 0] +=1
+                
+           break;
+           case obj_powerup_addgrow:
+                POWER_addgrow[@ 0] +=1
+                
+           break;
+           case obj_powerup_subshrink:
+                POWER_subshrink[@ 0] +=1
+                
+           break;
+           case obj_powerup_addslower:
+                POWER_addslower[@ 0] +=1
+                
+           break;
+           case obj_powerup_subfaster:
+                POWER_subfaster[@ 0] +=1
+                
+           break;
+           case obj_powerup_longerpowerups:
+                POWER_longerpowerups[@ 0] +=1
+                
+           break;
+           case obj_powerup_shorterpowerdowns:
+                POWER_shorterpowerdowns[@ 0] +=1
+                
+           break;
+           case obj_powerup_powersallclear:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = "all powers clear!";
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                txt_text,image_blend,txt_font)
+                scr_clear_powers();
+                
+           break;
+           case obj_powerup_powerupsclear:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = 'powerup clear!';
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                txt_text,image_blend,txt_font)
+                scr_clear_power_ups();
+                
+           break;
+           case obj_powerup_powerdownsclear:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = 'powerdown clear!';
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                txt_text,image_blend,txt_font)
+                scr_clear_power_downs();
+                
+           break;
+           case obj_powerup_staregg:
+                txt_font = fnt_game_bn_40_bold//fnt_game_bn_40_bold;//; 
+                draw_set_font(txt_font)
+                txt_text = "+1 "+string_replace(boardMixers[0,3],"#"," ");
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy+txt_height,
+                txt_text,image_blend,txt_font)
+                
+                with (obj_control_game){
+                     boardMixers[bMStarIndex,0] += 1;
+                }
+           break;
+           
+           case obj_powerup_invertpaddle:
+                POWER_invertcontrols[@ 0] +=1
+           break;
+           
+           case obj_powerup_multibonus:
+                POWER_multibonus[@ 0] +=1
+                
+           break;
+           case obj_powerup_multimalus:
+                POWER_multimalus[@ 0] +=1
+                
+           break;
+           case obj_powerup_splitpaddle:
+                POWER_splitpaddle[@ 0] +=1
+           break;
+           case obj_powerup_cash_1:
+                scr_starcash_power_caught(1);
+           break;
+           case obj_powerup_cash_2:
+                scr_starcash_power_caught(2);
+           break;
+           case obj_powerup_cash_5:
+                scr_starcash_power_caught(5);
+                
+           break;
+           case obj_powerup_cash_10:
+                scr_starcash_power_caught(10);
+                
+           break;
+           case obj_powerup_cash_rng:
+                scr_starcash_power_caught(irandom_range(1,15));
+           break;
+           case obj_powerup_cash_tap:
+                POWER_cashtap[@ 0] +=1;
+           break;
+           case obj_powerup_offsetpaddle:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = "paddle offset!";
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                     
+                POWER_offsetpaddle[@ 0] +=1;
+           break;
+           case obj_powerup_cash_x2:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = "cash doubler!";
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                     
+                POWER_cashx2[@ 0] +=1;
+           break;
+           case obj_powerup_density_doubler:
+                txt_font = fnt_game_bn_40_bold;//fnt_game_bn_30_black; 
+                draw_set_font(txt_font)
+                txt_text = "density doubler!";
+                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+                scr_popup_text_field_static(centerfieldx,centerfieldy-txt_height,
+                     txt_text,image_blend,txt_font)// fnt_game_bn_40_bold
+                     
+                POWER_density_doubler[@ 0] +=1;
+           break;
+           
+           case obj_powerup_multidensity:
+                POWER_multidensity[@ 0] +=1;
+           break;
+       
+       }
    }
    /*
    
@@ -597,7 +651,7 @@ if caught and GAME_ACTIVE{
         //NB: Maybe boardclear should make additional combos count half
    }
    var added = 5;
-   score+= added
+   scr_raw_score_add(added);
    added = scr_calculate_points(added);
    score_p1 += added
    lastPPD += added
@@ -608,10 +662,14 @@ if caught and GAME_ACTIVE{
     }
 }
 
+
+
+
 //Particle effect happens on destruction
+var particleCount = 100 * particleScalar;
 //Good power effect
 if objType == 1{
-    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_good,image_blend, 200);//
+    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_good,COLORS[objType], particleCount*2);//
 
     //disable jiggle paddle when catches good powerup
     if caught and paddle_id != noone and instance_exists(paddle_id){
@@ -620,16 +678,10 @@ if objType == 1{
            padColorTimers[other.objType-1] = max(padColorTimers[other.objType-1],room_speed*.5)
        }
     }
-    
-    /*if catcher != noone and instance_exists(catcher){
-       with(catcher){
-           cd_jiggle[0,0] = 0;
-       }
-    }*/
 }
 //Bad power effect
 else if objType == 2{
-    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_bad,image_blend, 100);//number
+    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_bad,COLORS[objType], particleCount);//number
     
     //disable jiggle paddle when catches neutral powerup
     if caught and paddle_id != noone and instance_exists(paddle_id){
@@ -638,16 +690,10 @@ else if objType == 2{
            padColorTimers[other.objType-1] = max(padColorTimers[other.objType-1],room_speed*.5)
        }
     }
-    //jiggle paddle when catches bad powerup
-    /*if catcher != noone and instance_exists(catcher){
-       with(catcher){
-           cd_jiggle[0,0] = jiggletime;
-       }
-    }*/
 }
 //Neutral power effect
 else {// if objType == 3{
-    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_neutral,image_blend, 150);//150
+    part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch_neutral,COLORS[objType], particleCount*1.5);//150
 
     //disable jiggle paddle when catches neutral powerup
     if caught and paddle_id != noone and instance_exists(paddle_id){
@@ -656,14 +702,7 @@ else {// if objType == 3{
            padColorTimers[other.objType-1] = max(padColorTimers[other.objType-1],room_speed*.5)
        }
     }
-    /*if catcher != noone and instance_exists(catcher){
-       with(catcher){
-           cd_jiggle[0,0] = 0;
-       }
-    }*/
 }
-//part_type_gravity(p_catch,0.2*RMSPD_DELTA,direction);
-//part_particles_create_color(PSYS_SUBSTAR_LAYER, x, y, p_catch,image_blend, 200);//number
 
 </string>
           </argument>
@@ -685,7 +724,7 @@ else {// if objType == 3{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///garbage collect particle [disabled]
+            <string>/// GC Particle [disabled]
 
 /*
 if part_type_exists(pFallingPart)
@@ -695,59 +734,6 @@ if part_type_exists(pFallingPart)
    gc_array[1] = 1*room_speed;
    ds_list_add(global.GC_particles,gc_array);
 }
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="2" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Set sprites and particles
-
-//Set Speed
-current_speed = top_speed;
-speed = current_speed * DELTA_TIME_SCALAR;
-
-
-// Set Direction
-image_angle = (direction +270) mod 360
-
-// Flag As Catchable
-inFieldState = inFieldActive;
-
-// Draw Symbol
-symDraw = true;//maybe disable this
-
-// Set Particle Effect
-var pSpr, pDir;
-//Up Powers
-if objType == 1{pSpr = 0;/*sprite_index =s_v_deflector_powerdown;*/}
-//Down Powers
-else if objType == 2{pSpr = 1;}//= 0; sprite_index = object_get_sprite(obj_powerup_parent_ups);}
-//Be sure to upate tutorial object if you change this
-//Neutral Powers
-else if  objType == 3{pSpr = 2;}
-
-//Set Direction of particle effect
-pDir = image_angle div 45;
-
-pFallingPart = pFallingParticle[pSpr,pDir]
 
 </string>
           </argument>
@@ -787,14 +773,7 @@ pFallingPart = pFallingParticle[pSpr,pDir]
 // Set Speed
 speed = current_speed * DELTA_TIME_SCALAR;
 
-currentStep = STEP - birthStep// +1; 
-//auto trigger in MOVES_LEFT mode
-if MODE == MODES.MOVES{
-    if currentStep == 2{
-       caught = true
-       instance_destroy()
-    }
-}
+currentStep = STEP - birthStep;// +1; 
 
 
 // Draw Falling Power Particle Trail
@@ -846,6 +825,122 @@ scr_out_of_bounds_destroy();
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Reset Colors, Sprite
+
+scr_deflector_set_aesthetics()
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Set sprites and particles
+
+//Set Speed
+current_speed = top_speed;
+speed = current_speed * DELTA_TIME_SCALAR;
+
+
+// Set Direction
+image_angle = (direction +270) mod 360;
+
+// Flag As Catchable
+inFieldState = inFieldActive;
+
+//Set Symbol and Colors (and GameMods if active)
+event_perform(ev_other,ev_user1);
+
+// Set Particle Effect
+var pSpr, pDir;
+if scr_gamemod_get_index("mystery_powers", 8) &gt; 0 {
+    pSpr = 2; //Round Sprite
+} else {
+    pSpr = objType - 1; //Else normal sprite: upper=0, downer=1, rounder=2;
+}
+
+//Set Direction of particle effect
+pDir = image_angle div 45;
+// Set Particle Effect
+pFallingPart = pFallingParticle[pSpr,pDir];
+
+
+// Set Auto Catching Status
+var autoCatch = false;
+if MODE == MODES.MOVES{
+    //if currentStep == 2{ //Do we need this condition?
+    autoCatch = true;
+}
+if scr_gamemod_get_index("coin_catcher", 8) &gt; 0 {
+    if object_is_ancestor(objIndex, obj_powerup_parent_cash) {
+        autoCatch = true;
+    }
+}
+if scr_gamemod_get_index("upper_catcher", 8) &gt; 0 {
+    if object_is_ancestor(objIndex, obj_powerup_parent_ups) {
+        autoCatch = true;
+    }
+}
+if scr_gamemod_get_index("downer_catcher", 8) &gt; 0 {
+    if object_is_ancestor(objIndex, obj_powerup_parent_downs) {
+        autoCatch = true;
+    }
+}
+/// Automatically Trigger Power
+if autoCatch {
+   caught = true;
+   instance_destroy();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="5">
       <action>
         <libid>1</libid>
@@ -891,17 +986,34 @@ instance_destroy();
             <string>///Draw Falling Powerup Symbol
 
 
-
-// Set Color
-image_blend = COLORS[objType];
+/*
+// Mysery Power Mod
+if scr_gamemod_get_index("mystery_powers", 8) &gt; 0 {
+    // Auto Update Colors, so theme switching looks good midgame
+    image_blend = COLORS[3];
+    symColor =  power_type_colors(3,1);
+} else {
+    // Auto Update Colors, so theme switching looks good midgame
+    image_blend = COLORS[objType];
+    symColor =  power_type_colors(objType,1);
+} 
+*/
 
 // Draw Self
-draw_self()
-
-if symDraw{//alarm[0] &lt; 1 and 
-   var symColor =  power_type_colors(objType,1);
-   draw_sprite_ext(symSprite,0,x,y,symScale,symScale,0,symColor,1)
+if sprite_exists(sprite_index) {
+    //draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 1);
+    draw_self();
 }
+
+// Draw Symbol
+if symDraw {
+   draw_sprite_ext(symSprite,0,x,y,symScale,symScale,0,symColor,1);
+}
+
+
+
+
+
 
 </string>
           </argument>

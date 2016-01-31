@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>10000000</depth>
   <persistent>-1</persistent>
-  <parentName>obj_persistent_parent</parentName>
+  <parentName>obj_shader_parent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="8" enumb="0">
@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Shader
 
-shader_set(sh_passthrough);
+//shader_set(sh_passthrough);
 
 
 /*

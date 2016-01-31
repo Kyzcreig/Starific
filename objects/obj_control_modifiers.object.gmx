@@ -261,7 +261,7 @@ if GAME_ACTIVE and TUTORIAL_ENABLED{
                 obj_control_tutorial.bMResetInventory = true;
                 
                 // Reset Score in Tutorial
-                score = 0; 
+                RAW_SCORE = 0; 
                 score_display = 0; 
                 score_p1 = 0; ///maybe tween this? nah
                 

@@ -80,17 +80,18 @@ switch argument0{
 
 
 #define scr_share_reward
-///scr_share_reward(share_button_id, confetti);
+///scr_share_reward(share_button_id, rewardExecute);
 
 
 // Get Button Data
 var buttonIndex = scr_go_is_button(argument0);
 var buttonData = go_sp_buttons[| buttonIndex]; 
+var rewardExecute = argument1;
 
 // If first button use
 if buttonData[3] == 0 {
     // Calculate Reward
-    scr_reward_set(.5,argument1);
+    scr_cash_reward_create(.5,rewardExecute);
     
     // Check if enough cash for prize, and add prize wheel button
     scr_refresh_prize_wheel_button();

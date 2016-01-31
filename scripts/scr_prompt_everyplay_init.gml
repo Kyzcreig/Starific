@@ -16,8 +16,8 @@ rect_h = round(.60 * GAME_H);//.50
 
 
 //Toggle Arra
-ep_toggle_array[0] = scr_create_array(spr_ep_start, spr_ep_break);
-ep_toggle_array[1] = scr_create_array("start#record", "stop#record");
+ep_toggle_array[0] = Array(spr_ep_start, spr_ep_break);
+ep_toggle_array[1] = Array("start#record", "stop#record");
 
 // Get is Recording
 ep_recording = everyplay_is_recording();//
@@ -31,16 +31,16 @@ if ep_share_reward {
 
 //Sprite Button Arrays
                                    //sprite,    text,   id, sub_index,  flashing,  reward
-prompt_button[0] = scr_create_array(ep_toggle_array[0], 
+prompt_buttons[0] = Array(ep_toggle_array[0], 
                                     ep_toggle_array[1], 0, ep_recording,
                                     ep_recording, false)//power_type_color_index(1,0), power_type_color_index(1,1)); 
-prompt_button[1] = scr_create_array(spr_ep_playback,
+prompt_buttons[1] = Array(spr_ep_playback,
                                     "watch#replay", 1, 0,
                                     false, false)//power_type_color_index(2,0), power_type_color_index(2,1)); 
-prompt_button[2] = scr_create_array(spr_share_send,
+prompt_buttons[2] = Array(spr_share_send,
                                     ep_share_txt, 2, 0,
                                     false, ep_share_reward)//power_type_color_index(3,0), power_type_color_index(3,1)); 
-prompt_button[3] = scr_create_array(spr_ep_everyplay,
+prompt_buttons[3] = Array(spr_ep_everyplay,
                                     "everyplay#videos", 3, 0, 
                                     false, false)//power_type_color_index(4,0), power_type_color_index(4,1)); 
 
@@ -48,7 +48,7 @@ prompt_button[3] = scr_create_array(spr_ep_everyplay,
 
 /*
 prompt_jiggletime = 1.0*room_speed;
-for ( i = 0; i < array_length_1d(prompt_button); i++ ){
+for ( i = 0; i < array_length_1d(prompt_buttons); i++ ){
     for (j=0;j<3;j++){
         prompt_jiggle[i,j] = 0;
     }
@@ -65,7 +65,7 @@ for ( i = 0; i < array_length_1d(prompt_button); i++ ){
 // Prompt Body
 
 //Draw Sprite Buttons
-var n = array_length_1d(prompt_button);
+var n = array_length_1d(prompt_buttons);
 var sp_scale_start = 1*subEase[2];//3 / (n+1) 
 var sp_width = sprite_get_width(spr_ep_everyplay) * sp_scale_start;
 var sp_height = sprite_get_height(spr_ep_everyplay) * sp_scale_start;
@@ -79,7 +79,7 @@ for(var i = 0; i < n; i++)
 {
 
     // Button Data
-    data = prompt_button[i];
+    data = prompt_buttons[i];
     
     // Data
     sp_id = data[2];
@@ -139,7 +139,7 @@ for(var i = 0; i < n; i++)
                 data[@ 5] = false;
                 
                 // Calculate Reward 
-                rewardValue = scr_reward_set(.5, false);
+                rewardValue = scr_cash_reward_create(.5, false);
                 
                 // Change Share Text and Spawn Cash Reward Prompt
                 ScheduleScript(id, false, 2, scr_prompt_everyplay_reward_helper, data, rewardValue);
@@ -197,7 +197,8 @@ data[@ 1] = "earned#+"+CASH_STR+string(rewardValue);
 
 
 // Create Cash Prompt
-scr_prompt_cash_create(rewardValue);
+var prizeData = scr_prize_cash_create(rewardValue, "earned!", 0);
+scr_prompt_prize_spawn(prizeData);
 
 
 
@@ -263,7 +264,7 @@ switch button_id {
 }
 
 // Set Recording State
-ScheduleScript(id, true, .20, scr_prompt_everyplay_update_record_button, prompt_button[0]);
+ScheduleScript(id, true, .20, scr_prompt_everyplay_update_record_button, prompt_buttons[0]);
 /* .20 second delay needed for everyplay_is_recording to change state
 
 */
@@ -281,6 +282,9 @@ everyplay_set_metadata("rigor",convert_index_to_rigor_name(RIGOR));
 
 // Stop Recording
 everyplay_stop_recording();
+
+//Debug Message
+show_debug_message("YOYO: Everyplay Stop Recording");
 
 #define scr_button_everyplay_set_text
 ///scr_button_everyplay_set_text(give_reward)

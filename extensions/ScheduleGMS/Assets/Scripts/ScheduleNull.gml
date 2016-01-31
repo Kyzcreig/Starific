@@ -1,3 +1,0 @@
-/// ScheduleNull()
-
-return 0;

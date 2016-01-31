@@ -216,17 +216,17 @@ if scene_alpha == 1{
             proj_y = deflector_y;
             //Death effect for deflector
             //if not basic or bomb, do special effect
-            var dType = deflectors[deflector_index,1];
-            var pDensity = scr_particle_explosion_count(0)
+            dType = deflectors[deflector_index,1];
+            particleCount = scr_particle_explosion_count(0)
             if dType != 0 and dType != 4{
-               pDensity = round(pDensity * 2);
+               particleCount = round(particleCount * 2);
                part_type_orientation(p_destroy_ring_long,0,359,0,0,1); //rangerandom(-2,2);
-               part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_sparkles_long, deflector_col, pDensity);//1
+               part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_sparkles_long, deflector_col, particleCount);//1
                part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_ring_long, deflector_col,1);
             }
             //else regular effect
             else{
-               part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_sparkles, deflector_col, pDensity);//1
+               part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_sparkles, deflector_col, particleCount);//1
                part_particles_create_color(PSYS_FIELD_LAYER, deflector_x, deflector_y, p_destroy_ring, deflector_col,1);
             }
     

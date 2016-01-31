@@ -82,10 +82,10 @@ title_txt = "pause";
 
 
 var i = -1;
-menu[++i] = scr_create_array("resume",1)
-menu[++i] = scr_create_array("options",2)
-//menu[++i] = scr_create_array("restart",8)
-menu[++i] = scr_create_array("menu",3)
+menu[++i] = Array("resume",1)
+menu[++i] = Array("options",2)
+//menu[++i] = Array("restart",8)
+menu[++i] = Array("menu",3)
 
 
 
@@ -103,37 +103,35 @@ sfx_spr[1] = s_v_volume_on;
 
 var i = -1;
 //Music First Button
-sp_buttons[++i] = scr_create_array(music_spr, 4, music_sound, 0) //button sprite, userevent, extra data
+btn_items[++i] = Array("music#mute", music_spr, 4, music_sound, 0) //button sprite, userevent, extra data
 
-if touchPad and PREMIUM == 0
-{ //DISABLED
+if touchPad 
+{ 
 
-    if ADS_FORCED == 1 { 
-        var tmp  = s_v_noads
-    } else  { 
-        var tmp  = s_v_deluxe 
-    }   
-    
-    sp_buttons[++i] = scr_create_array(tmp, 6, 0, 0) //button sprite, userevent, extra data
+    /*
+    if ADS_FORCED != 0 { //DISABLED
+        btn_items[++i] = Array(s_v_noads, 6, 0, 0) //button sprite, userevent, extra data
+    }
+    */
 }
 // If Non-Mobile Version
 if touchPad == 0{
     // show "get app" button
-    sp_buttons[++i] = scr_create_array(s_v_app, 7, 0, 0) //button sprite, userevent, extra data
+    btn_items[++i] = Array("mobile#app", s_v_app, 7, 0, 0) //button sprite, userevent, extra data
 }
 
 // Add Quest Cancel Button
 if QUEST_DATA[0] != -1{
-    sp_buttons[++i] = scr_create_array(s_v_cancel, 9, 0, 0) //button sprite, userevent, extra data
+    btn_items[++i] = Array("quest#cancel", s_v_cancel, 9, 0, 0) //button sprite, userevent, extra data
 }
 //Everyplay Button 
 if EVERYPLAY_ENABLED {
     var is_flashing = everyplay_is_recording();
-    sp_buttons[++i] = scr_create_array(spr_ep_prompt, 10, 0, is_flashing); //button sprite, userevent, extra data
+    btn_items[++i] = Array("video#record", spr_ep_prompt, 10, 0, is_flashing); //button sprite, userevent, extra data
 }
 
 //SFX Last Button
-sp_buttons[++i] = scr_create_array(sfx_spr, 5, sfx_sound, 0) //button sprite, userevent
+btn_items[++i] = Array("sfx#mute",sfx_spr, 5, sfx_sound, 0) //button sprite, userevent
 
    
 
@@ -229,6 +227,7 @@ scr_menu_pause_make_background();
 
 //room_persistent = false
 
+// Resume Music, Particles
 scr_resume_effects();
 
 LAST_ROOM = rm_menu
@@ -252,9 +251,7 @@ sprite_delete(spr_temp);
 if returnMenu{
 
     // Clear Effects 
-    part_particles_clear(PSYS_SUBSTAR_LAYER)
-    part_particles_clear(PSYS_FIELD_LAYER)
-    part_particles_clear(PSYS_STAR_LAYER)
+    scr_part_systems_clear_all();
     
     // End All SFX And Music
     if audio_exists(CURRENT_SONG) {
@@ -310,7 +307,7 @@ else {
 //}
 
 //PAUSE = false
-
+/*
 //room_persistent = false
 scr_resume_effects();
 
@@ -351,8 +348,7 @@ instance_destroy()
 if RETURN_TO_PAUSE == true
 {
    // Pause Special Effects and Music 
-   audio_pause_all();
-   MUSIC_ACTIVE = false;
+   scr_pause_audio();
    RETURN_TO_PAUSE = false
    if shaking
    {
@@ -609,10 +605,10 @@ switch p_selected[0]
         
         
         // Set Up Room Persistence
-        LAST_ROOM = room  
-        room_persistent = true
+        LAST_ROOM = room ;
+        room_persistent = true;
         
-        
+        // Restore Offsets incase of screen shake
         view_xview[0] = VIEW_X
         view_yview[0] = VIEW_Y
         
@@ -652,7 +648,9 @@ switch p_selected[0]
         if ADS_BANNERS != "" {ads_remove_banner();}
         
         // Disable Everyplay
-        scr_everyplay_stop_recording();
+        if everyplay_is_recording() {
+            scr_everyplay_stop_recording();
+        }
         
         
         p_selected[0] = noone;  //shouldn't be an issue while all those tweens exist
@@ -717,8 +715,19 @@ switch p_selected[0]
         analytics_button_counter("questCancelPrompt");
         
         // Spawn Prompt
-        instance_create(x,y,obj_prompt_quest_cancel);
-        
+        //instance_create(x,y,obj_prompt_quest_cancel);
+        // Create Dilemma Buttons
+        var promptButtons = noone;
+        promptButtons[0] = Array(spr_button_basic, "no", 0, 
+                            power_type_color_index(2, 0), power_type_color_index(2, 1),
+                            noone, noone, noone, noone) 
+        promptButtons[1] = Array(spr_button_basic, "yes", 1, 
+                            power_type_color_index(1, 0), power_type_color_index(1, 1),
+                            scr_quest_cancel, noone,noone,noone) 
+        // Create Dilemma Prompt       
+        var promptText = "Cancel current quest for "+CASH_STR+"25?  A new one will be selected next game.##" +
+                         "You have "+CASH_STR+string(STAR_CASH)+".";
+        var prompt = scr_prompt_dilemma_create("confirm", "quest cancel", promptText, promptButtons);
         
         // Reset Game Info Text in case quest is cancelled.
         ScheduleScript(id, false, 5, scr_set_game_info_text);

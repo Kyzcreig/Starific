@@ -76,7 +76,7 @@ with(argument0){
     //Particle effect unspawn
     tweenSpawn = TweenFire(id,reflectorScale__,EaseLinear,
                            TWEEN_MODE_ONCE, 1,0,.5,1,0)
-    part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_unspawn,c_part,1);
+    part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_unspawn,image_blend,1);
     
     //Queue Self Destruct
     if argument1 {

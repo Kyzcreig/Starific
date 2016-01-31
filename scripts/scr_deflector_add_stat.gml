@@ -62,6 +62,10 @@ case 1:
 case 2:
 case 3:
 case 4:
+//Buffs
+case 6:
+//Debuffs
+case 7:
     return data[1];
 break;
 
@@ -69,7 +73,6 @@ break;
 case 5:
     return scr_deflector_get_child_type(data[0]);
 break;
-
 
 
 
@@ -103,7 +106,15 @@ case obj_powerup_parent_bomb:
 break;
 
 
+}
 
+#define scr_deflector_is_projectile
+///scr_deflector_is_projectile(objType)
 
+var objType = argument0;
 
+if objType == 1 or objType == 2 or objType == 3 {
+     return true;
+} else {
+    return false;
 }

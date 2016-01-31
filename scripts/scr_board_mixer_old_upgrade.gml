@@ -61,9 +61,9 @@ for (i=0;i<ds_list_size(foundList);i++){
         //Else schedule particle effects
         else{
             cellSpawning = true;
-            part_particles_create_color(PSYS_FIELD_LAYER, fieldXY[0], fieldXY[1], p_unspawn,currentCell.c_part,1);
+            part_particles_create_color(PSYS_FIELD_LAYER, fieldXY[0], fieldXY[1], p_unspawn,currentCell.image_blend,1);
             ScheduleScript(id,1,.5,ParticlesCreateColor,PSYS_FIELD_LAYER,
-            fieldXY[0],fieldXY[1],p_spawn,currentCell.c_part,1);
+            fieldXY[0],fieldXY[1],p_spawn,currentCell.image_blend,1);
         
         }
     }

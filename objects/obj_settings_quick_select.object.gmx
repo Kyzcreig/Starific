@@ -80,11 +80,7 @@ scr_quick_settings_init()
             <kind>1</kind>
             <string>///Cleanup  (Room Restart)
 
-// Set Global Settings State
-//SETTINGS_ROOM = 0;
-// Set Room Restart Stuff
-//scr_reset_game_room_state()
-scr_restart_game_init();
+scr_quick_settings_destroy()
 </string>
           </argument>
         </arguments>

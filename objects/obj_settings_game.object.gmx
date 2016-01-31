@@ -47,14 +47,8 @@ title_txt = "game";
 
 tp_show_spr[0] = spr_TP_hide;
 tp_show_spr[1] = spr_TP_show;
-/*
-//Toggle Sprites
-touchMode_spr[0] = s_v_TM_Fluid;
-touchMode_spr[1] = s_v_TM_Fixed;
-touchMode_spr[2] = s_v_TM_Line;
-for (var i = 0, n = array_length_1d(RMSPD_OPTIONS); i &lt; n; i++){
-    sense_spr[i] = asset_get_index("s_v_FPS_"+string(RMSPD_OPTIONS[i]));
-}*/
+
+
 // TouchMode Names
 var i = -1;
 tm_names[++i] = "fluid";
@@ -75,11 +69,11 @@ selected[1] = true;
 var i;
 i = -1; 
 // Set Game Settings Items
-menu[++i] = scr_create_array("grid size", 1, 0, 1); //name, type, subtype, userevent
-menu[++i] = scr_create_array("rigor",     1, 2, 2); //name, type, subtype, userevent
-menu[++i] = scr_create_array("controls",     1, -2, 3); //name, type, subtype, userevent
+menu[++i] = Array("grid size", 1, 0, 1); //name, type, subtype, userevent
+menu[++i] = Array("rigor",     1, 2, 2); //name, type, subtype, userevent
+menu[++i] = Array("controls",     1, -2, 3); //name, type, subtype, userevent
 if touchPad != 0{
-    menu[++i] = scr_create_array("sensitivity", 2, 2, 4); //name, type, subtype, userevent
+    menu[++i] = Array("sensitivity", 2, 2, 4); //name, type, subtype, userevent
 }
 
 

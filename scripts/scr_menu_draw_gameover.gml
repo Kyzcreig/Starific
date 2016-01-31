@@ -287,7 +287,7 @@ if GAMEOVER
     
     //Fireworks effect for unlocks and newbest
     if (playHighScoreSound or unlock_count[0] > 0){
-       //TO DO: The Share Screenshot +photo sound thing from Crossy Road would be cool here
+       //TO DO: MAYBE The Share Screenshot +photo sound thing from Crossy Road would be cool here
        
        
        //Play unlock sound after fade tween finishes
@@ -319,12 +319,11 @@ if GAMEOVER
     draw_set_halign(fa_center)
     //Draw Sprite Buttons 
     n = ds_list_size(go_sp_buttons);
-    
     sp_size = 60;
     sp_gap_whole = (GAME_W*11/32)*2 - sp_size; //NB: I don't use line_w so position is fixed and not easing
     sp_gap = max(sp_size * 1.1, min(sp_gap_whole / (max(1,n)) * (n-1), sp_gap_whole / (max(1,n-1))))
-    sp_end_y = GAME_Y + GAME_H * .85;
-    
+   
+    sp_end_y = GAME_Y + GAME_H * .85; // for easing buttons into place
     for(var i=0; i < n ; i++)
     {
         // Grab Button data

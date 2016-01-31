@@ -4,7 +4,7 @@
 
 
 var color = argument0//c_white; colorc = c_white
-var alpha = pad_alpha; //NB: decreasing alpha might be a cool effect?
+var alpha = pad_alpha * TWINKLE_ALPHA; //NB: decreasing alpha might be a cool effect?
 
 //scr_draw_smoothing(false)
 var t = PADDLE_TEXTURES[0];
@@ -14,7 +14,7 @@ var xtex1, ytex1, xtex2, ytex2, distcorner;
 xtex1 = 0; ytex1 = 0; xtex2=xtex1; ytex2=1;
 
 
-for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
+for (cc=ds_list_size(paddle_start_x);cc>0;cc--){ //left bends
      //start of left side
      rotAngle = rotML[0] - 45*(cc)
      draw_vertex_texture_colour(xL[cc]+dsin(rotAngle)*(-PADDLE_H/2)*image_yscale,
@@ -23,7 +23,7 @@ for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
                                 yL[cc]+dcos(rotAngle)*(PADDLE_H/2)*image_yscale, xtex2,ytex2,color,alpha);
      
      //end the left side
-     sSX_array = spritestartx[| cc-1]
+     sSX_array = paddle_start_x[| cc-1]
      xtex1 = sSX_array[0]/PADDLE_W; ytex1 = 0; xtex2=xtex1; ytex2=1;
      draw_vertex_texture_colour(xL[cc-1] +dsin(rotAngle)*(-PADDLE_H/2)*image_yscale,
                                 yL[cc-1] +dcos(rotAngle)*(-PADDLE_H/2)*image_yscale, xtex1,ytex1,color,alpha);
@@ -52,7 +52,7 @@ draw_vertex_texture_colour(xL[0] +dsin(rotAngle)*(PADDLE_H/2)*image_yscale,
 if POWER_splitpaddle[7] != 0 {
 
     
-    if ds_list_size(spriteendx) > 0{sEX_array = spriteendx[| 0];lenR=sEX_array[0];}
+    if ds_list_size(paddle_end_x) > 0{sEX_array = paddle_end_x[| 0];lenR=sEX_array[0];}
     else{lenR = PADDLE_W}
     xtex1 = lenR/PADDLE_W/2; ytex1 = 0; xtex2=xtex1; ytex2=1   //half way between                
     draw_vertex_texture_colour(xML[0] +dsin(rotAngle)*(-PADDLE_H/2)*image_yscale,
@@ -74,7 +74,7 @@ if POWER_splitpaddle[7] != 0 {
 
 
 //end middle
-if ds_list_size(spriteendx) > 0{sEX_array = spriteendx[| 0];lenR=sEX_array[0];}
+if ds_list_size(paddle_end_x) > 0{sEX_array = paddle_end_x[| 0];lenR=sEX_array[0];}
 else{lenR = PADDLE_W}
 xtex1 = lenR/PADDLE_W; ytex1 = 0; xtex2=xtex1; ytex2=1
 draw_vertex_texture_colour(xR[0] +dsin(rotAngle)*(-PADDLE_H/2)*image_yscale,
@@ -83,7 +83,7 @@ draw_vertex_texture_colour(xR[0] +dsin(rotAngle)*(PADDLE_H/2)*image_yscale,
                            yR[0] +dcos(rotAngle)*(PADDLE_H/2)*image_yscale, xtex2,ytex2,color,alpha);
 
                        
-for (cc=0; cc<ds_list_size(spriteendx);cc++){ //right bends
+for (cc=0; cc<ds_list_size(paddle_end_x);cc++){ //right bends
      //corner vertex             
      rotAngle = rotMR[0]  + 45*(cc+.5)              
      distcorner = (PADDLE_H*image_yscale)/dsin(67.5)
@@ -102,8 +102,8 @@ for (cc=0; cc<ds_list_size(spriteendx);cc++){ //right bends
            
      
      //end right bend
-     if cc+1 >= ds_list_size(spriteendx){xtex1=1}
-     else{sEX_array = spriteendx[| cc+1];xtex1 = sEX_array[0]/PADDLE_W;}
+     if cc+1 >= ds_list_size(paddle_end_x){xtex1=1}
+     else{sEX_array = paddle_end_x[| cc+1];xtex1 = sEX_array[0]/PADDLE_W;}
      ytex1 = 0; xtex2=xtex1; ytex2=1;
      draw_vertex_texture_colour(xR[cc+1] +dsin(rotAngle)*(-PADDLE_H/2)*image_yscale,
                                 yR[cc+1] +dcos(rotAngle)*(-PADDLE_H/2)*image_yscale, xtex1,ytex1,color,alpha);
@@ -136,8 +136,8 @@ if cd_jiggle[0,0] > 0 {
 
 // Get length to first left corner vertex
 var sSX_array,sEX_array, scl;
-if ds_list_size(spritestartx) > 0{
-   sSX_array = spritestartx[| 0]
+if ds_list_size(paddle_start_x) > 0{
+   sSX_array = paddle_start_x[| 0]
    //if sSX_array[1] > 1 { scl = 1} else{scl = 1.4142135623731;} 
    lenL=(PADDLE_W / 2 - sSX_array[0])*sSX_array[1]
    //draw_text(padcenterx+30,padcentery-32,'lenL,sSX0,scl='+string(lenL)+', '+string(sSX_array[0])+', '+string(sSX_array[1]))
@@ -149,8 +149,8 @@ else{
 
 
 // Get length to first right corner vertex
-if ds_list_size(spriteendx) > 0{
-   sEX_array = spriteendx[| 0]
+if ds_list_size(paddle_end_x) > 0{
+   sEX_array = paddle_end_x[| 0]
    //if sEX_array[1] > 1 { scl = 1} else{scl = 1.4142135623731;} 
    lenR=(PADDLE_W / 2 - sEX_array[0])*sEX_array[1]
    //draw_text(padcenterx+30,padcentery+32,'lenR,sEX0,scl='+string(lenR)+', '+string(sEX_array[0])+', '+string(sEX_array[1]))
@@ -177,27 +177,27 @@ draw_text(padcenterx+30,padcentery-16,'xL,yL='+string(xL[0])+','+string(yL[0]))
 draw_text(padcenterx+30,padcentery+16,'xR,yR='+string(xR[0])+','+string(yR[0]))
 */
                                                                    
-for (cc=0;cc<ds_list_size(spritestartx);cc++){
-    sSX_array = spritestartx[| cc]
+for (cc=0;cc<ds_list_size(paddle_start_x);cc++){
+    sSX_array = paddle_start_x[| cc]
     if sSX_array[1] > 1 { scl = 1} else{scl = 1.4142135623731;} 
     lenL = sSX_array[0]*scl
-    if cc+1 < ds_list_size(spritestartx){
-       sSX_array2 = spritestartx[| cc+1]
+    if cc+1 < ds_list_size(paddle_start_x){
+       sSX_array2 = paddle_start_x[| cc+1]
        lenL-=sSX_array2[0]*scl//sSX_array[1]//change array[1] ->array2[1]
     }
     xL[cc+1] = xL[cc] - dcos((rotML[0] -45*(cc+1)))*(lenL)*image_xscale //+yscaleadjx//- dsin((image_angle -45))*4 
     yL[cc+1] = yL[cc] + dsin((rotML[0] -45*(cc+1)))*(lenL)*image_xscale //+yscaleadjy//- dcos((image_angle -45))*4
     //draw_set_font(fnt_menu_bn_12_bold)
     //draw_text(padcenterx-60,padcentery-16*(cc+3),'xL'+string(cc+1)+',yL'+string(cc+1)+'='+string(xL[cc+1])+','+string(yL[cc+1])
-    //+', spritestartx['+string(cc)+']='+string(spritestartx[| cc])+', lenL='+string(lenL))
+    //+', paddle_start_x['+string(cc)+']='+string(paddle_start_x[| cc])+', lenL='+string(lenL))
 }
 
-for (cc=0;cc<ds_list_size(spriteendx);cc++){
-    sEX_array = spriteendx[| cc]
+for (cc=0;cc<ds_list_size(paddle_end_x);cc++){
+    sEX_array = paddle_end_x[| cc]
     if sEX_array[1] > 1 { scl = 1} else{scl = 1.4142135623731;} 
     lenR = sEX_array[0]*scl//sEX_array[1]
-    if cc+1 < ds_list_size(spriteendx){
-       sEX_array2 = spriteendx[| cc+1]
+    if cc+1 < ds_list_size(paddle_end_x){
+       sEX_array2 = paddle_end_x[| cc+1]
        lenR-=sEX_array2[0]*scl//sEX_array[1] ///change array[1] ->array2[1]
     }
     else lenR -= PADDLE_W*scl//sEX_array[1]
@@ -207,10 +207,10 @@ for (cc=0;cc<ds_list_size(spriteendx);cc++){
 }
 
 // Calculate Thetas of Paddle Ends
-padLenL = ds_list_size(spritestartx)
+padLenL = ds_list_size(paddle_start_x)
 padLTheta = angle_difference(mouseangle,darctan2(yL[padLenL]-centerfieldy,xL[padLenL]-centerfieldx));
 
-padLenR = ds_list_size(spriteendx)
+padLenR = ds_list_size(paddle_end_x)
 padRTheta = angle_difference(mouseangle,darctan2(yR[padLenR]-centerfieldy,xR[padLenR]-centerfieldx));
 
 
@@ -243,7 +243,7 @@ for (var z = 0, m = array_length_1d(xR); z < m; z++){
 
 var s = 4;//Threshold for bending
 var scl = 1.4142135623731; //Scale Factor for diagonals
-var pHalf = (( (PADDLE_W) * image_xscale) / 2) - s;
+var pHalf = (((PADDLE_W) * image_xscale) / 2) - s;
 
 // Recall we're going anti-clockwise when we add angles but 
 // since the y is reversed we're going clockwise when we add angles.
@@ -282,7 +282,7 @@ var lHalf = pHalf; //+ gapSize;
 lHalf -= nearestLCorner
 //If lHalf is greater than 0 then we hit a corner, add it to list
 while lHalf > 0{
-    ds_list_add(dtocornerL,nearestLCorner);
+    ds_list_add(distToCornerL,nearestLCorner);
     nearestLCorner = point_distance(centerfieldx+tvertx[v mod 8],centerfieldy+tverty[v mod 8],
                                     centerfieldx+tvertx[(v+1) mod 8],centerfieldy+tverty[(v+1) mod 8])
     if ((v+1) mod 8) mod 2 == 1 {
@@ -296,16 +296,16 @@ while lHalf > 0{
 
 //For each corner we hit, calculate its distance from center of paddle
 var d2cL = 0
-for (var cc=0; cc<ds_list_size(dtocornerL); cc+=1)
+for (var cc=0; cc<ds_list_size(distToCornerL); cc+=1)
 {
     var armLength, armScale = 1, vals = noone; //To hold diagonal scaling data
-    d2cL += dtocornerL[| cc]
+    d2cL += distToCornerL[| cc]
     armLength = PADDLE_W / 2 - (d2cL) / image_xscale;
     if (rotML[0]+cc*1) mod 2 == 1 {armScale = scl}
     vals[0] = armLength; vals[1] = armScale;
-    ds_list_add(spritestartx,vals)//PADDLE_W / 2 - (d2cL) / image_xscale)
+    ds_list_add(paddle_start_x,vals)//PADDLE_W / 2 - (d2cL) / image_xscale)
 }
-ds_list_clear(dtocornerL)
+ds_list_clear(distToCornerL)
 
 
 
@@ -319,7 +319,7 @@ var rHalf = pHalf; //+ gapSize;
 rHalf -= nearestRCorner;
 //If rHalf is greater than 0 then we hit a corner, add it to list
 while rHalf > 0{
-      ds_list_add(dtocornerR,nearestRCorner)
+      ds_list_add(distToCornerR,nearestRCorner)
       nearestRCorner = point_distance(centerfieldx+tvertx[v mod 8],centerfieldy+tverty[v mod 8],
                                       centerfieldx+tvertx[(v+7) mod 8],centerfieldy+tverty[(v+7) mod 8])
       if ((v+7) mod 8) mod 2 == 0{
@@ -331,29 +331,29 @@ while rHalf > 0{
 }
 //For each corner we hit, calculate its distance from center of paddle
 var d2cR = 0
-for (var cc=0; cc<ds_list_size(dtocornerR); cc+=1)
+for (var cc=0; cc<ds_list_size(distToCornerR); cc+=1)
 {
     var armLength, armScale = 1, vals = noone; //To hold diagonal scaling data
-    d2cR += dtocornerR[| cc]
+    d2cR += distToCornerR[| cc]
     armLength = PADDLE_W / 2 + (d2cR) / image_xscale;
     if ((rotMR[0]+7)+cc*7) mod 2 == 0 {armScale = scl}
     vals[0] = armLength; vals[1] = armScale;
-    ds_list_add(spriteendx,vals)//PADDLE_W / 2 + (d2cR) / image_xscale) 
+    ds_list_add(paddle_end_x,vals)//PADDLE_W / 2 + (d2cR) / image_xscale) 
 }
-ds_list_clear(dtocornerR)
+ds_list_clear(distToCornerR)
 //sin/cos to center the paddle on the rail
 
 
 #define scr_paddle_placement
 ///scr_paddle_placement(mouseangle);
 
-//if ds_list_size(dtocornerL)>1 ds_list_clear(dtocornerL)
-//if ds_list_size(dtocornerR)>1 ds_list_clear(dtocornerR)
+//if ds_list_size(distToCornerL)>1 ds_list_clear(distToCornerL)
+//if ds_list_size(distToCornerR)>1 ds_list_clear(distToCornerR)
 
 
 
-ds_list_clear(spritestartx) //represent lengths of the left paddle sections
-ds_list_clear(spriteendx) //represent lengths of the right side paddle sections
+ds_list_clear(paddle_start_x) //represent lengths of the left paddle sections
+ds_list_clear(paddle_end_x) //represent lengths of the right side paddle sections
 //PADDLE_W = sprite_get_width(sprite_index)
 
 
@@ -472,7 +472,7 @@ if object_index == obj_launcher {
     }
     
     // Set Paddle Color Timer Array
-    padColorTimers = scr_create_array(0,0,0);
+    padColorTimers = Array(0,0,0);
     
     //sprite_index = sp_launcher_white
     image_angle = 0//global.paddle.image_angle - 180
@@ -543,10 +543,10 @@ mirrorColorDeath = false;
 
 
 // Data Structures for Coordinate Calculations
-spritestartx = ds_list_create()
-spriteendx = ds_list_create()
-dtocornerL = ds_list_create()
-dtocornerR = ds_list_create()
+paddle_start_x = ds_list_create()
+paddle_end_x = ds_list_create()
+distToCornerL = ds_list_create()
+distToCornerR = ds_list_create()
 
 // List For Collisions
 caughtList = ds_list_create();
@@ -593,3 +593,17 @@ v4-v5 diagonal
 v5-v6 bigside
 v6-v7 diagonal
 v7-v0 bigside
+#define scr_paddle_destroy
+///scr_paddle_destroy()
+
+
+if ds_exists(distToCornerL, ds_type_list){ds_list_destroy(distToCornerL)}
+if ds_exists(distToCornerR, ds_type_list){ds_list_destroy(distToCornerR)}
+if ds_exists(paddle_start_x, ds_type_list){ds_list_destroy(paddle_start_x)}
+if ds_exists(paddle_end_x, ds_type_list){ds_list_destroy(paddle_end_x)}
+if ds_exists(caughtList, ds_type_list){ds_list_destroy(caughtList)}
+
+
+/*
+surface_free(surfblur1);
+surface_free(surfblur2);

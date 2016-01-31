@@ -68,7 +68,7 @@ scr_wiggle_init(-1, 4*room_speed);
 
 // Used for gameover dialogues...
 //sp_end_y = GAME_Y + GAME_H * .85;
-delayed_button_calls = scr_init_array_loop(0,25); //NB: We"ll need to update this as we add more functions...
+delayed_button_calls = ArrayInit(0,25); //NB: We"ll need to update this as we add more functions...
 
 
 
@@ -143,6 +143,7 @@ for (var i = 0; i &lt; 4; i++ ){
 unlock_count[0] = 0;
 unlock_sound[0] = 1;
 rate_prompt[0] = 0;
+forced_ads_prompt[0] = 0;
 
 dialogue_max_display = 9//6;
 dialogue_font = fnt_menu_bn_20_italic;//fnt_menu_bn_26_italic;
@@ -213,8 +214,6 @@ if ds_exists(go_sp_buttons, ds_type_list){
 //Save Stats
 with (obj_control_game) {
     scr_stats_save() //networking in this function
-    //NB: Evaluate if this is a good spot to save
-        // It might be better to wait until tween text slide is done.
 }
         
 //Set Display Values (So it runs after stat saves)
@@ -257,23 +256,11 @@ if rate_prompt[0] {
     rate_prompt[0] = false;
 } 
 // Schedule Interstitial on Gameover
-else if ADS_INTERSTITIALS != "" and 
-        ADS_INTERSTITIAL_CACHED and 
-        ADS_FORCED != 0
-{
-    //Adaptive Prompting: Display Ads under following conditions
-    var vetPlayer = 1//careerPlaytimeTotal &gt; 60*60*4 - lastPlaytime;
-    if ( vetPlayer and gamesPlayed mod 2 == 0)//4 == 0) 
-                            //NB: Evaluate our much more aggressive advertising on android first
-    {
-        //Schedule Interstitial 
-        TweenAddCallback(go_TweenSlideText,TWEEN_EV_FINISH,id,
-                ScheduleScript,obj_control_main,true,.20,
-                    ads_show_interstitial,false); 
-      
-                    
-    }
-    
+else if forced_ads_prompt[0] {
+    //Schedule Interstitial 
+    TweenAddCallback(go_TweenSlideText,TWEEN_EV_FINISH,id,
+            ScheduleScript,obj_control_main,true,.10,
+                ads_show_interstitial,false); 
 }
 
          
@@ -442,8 +429,10 @@ switch go_selected[0]
          //Remove Banner Ads
          if ADS_BANNERS != "" {ads_remove_banner();}
          
-         // Disable Recording on Return to Game
-         scr_everyplay_stop_recording();
+        // Disable Everyplay
+        if everyplay_is_recording() {
+            scr_everyplay_stop_recording();
+        }
          
     break;
     //Go Back to Menu
@@ -456,8 +445,10 @@ switch go_selected[0]
          //Remove Banner Ads
          if ADS_BANNERS != "" {ads_remove_banner();}
          
-         // Disable Recording on Return to Menu
-         scr_everyplay_stop_recording();
+        // Disable Everyplay
+        if everyplay_is_recording() {
+            scr_everyplay_stop_recording();
+        }
          
     break;
          
@@ -486,7 +477,7 @@ switch go_selected[0]
    
     //No Ads Mobile Selected
     case 7: 
-         scr_button_deluxe();
+         scr_button_noAds();
          go_selected[0] = noone;
     break;
 

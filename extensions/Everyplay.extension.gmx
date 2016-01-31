@@ -18,8 +18,8 @@
   <macsourcedir></macsourcedir>
   <maclinkerflags></maclinkerflags>
   <maccompilerflags></maccompilerflags>
-  <androidinject>  
-               &lt;activity
+  <androidinject>
+&lt;activity
                  android:name="com.everyplay.Everyplay.view.EveryplaySocialActivity" 
                    android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
                    android:theme="@android:style/Theme.NoTitleBar"
@@ -93,7 +93,7 @@
                    android:windowSoftInputMode="adjustResize" /&gt;    
 
                &lt;service 
-                   android:name="com.everyplay.Everyplay.communication.upload.EveryplayUploadService" /&gt;               </androidinject>
+                   android:name="com.everyplay.Everyplay.communication.upload.EveryplayUploadService" /&gt;   </androidinject>
   <gradleinject></gradleinject>
   <iosSystemFrameworks>
     <Framework weak="0">AdSupport.framework</Framework>
@@ -124,6 +124,9 @@
     <Permission>android.permission.ACCESS_NETWORK_STATE</Permission>
     <Permission>android.permission.ACCESS_WIFI_STATE</Permission>
     <Permission>android.permission.WRITE_EXTERNAL_STORAGE</Permission>
+    <Permission>android.permission.RECORD_AUDIO</Permission>
+    <Permission>android.permission.CAMERA</Permission>
+    <Permission>android.permission.WAKE_LOCK</Permission>
   </androidPermissions>
   <IncludedResources/>
   <files>
@@ -142,9 +145,6 @@
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
         <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>

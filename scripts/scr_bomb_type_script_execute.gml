@@ -21,6 +21,7 @@ params[0] = 0 // reserved for implicit delta data
 
 switch type_id{
 
+default: //Used for Money Bomb Gamemod
 // Line 
 case obj_powerup_bomb_line: 
     if (newDir == 90 or newDir == 270) or 

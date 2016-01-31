@@ -15,6 +15,7 @@ globalvar careerSCatches, highestSCatches, lastSCatches,averageSCatches;
 globalvar careerDCatches, highestDCatches, lastDCatches,averageDCatches;
 globalvar careerStars, highestStars, lastStars, averageStars;
 globalvar careerStarsSaved, highestStarsSaved, lastStarsSaved, averageStarsSaved;
+globalvar lastFewPlaytimes, averageLastFewPlaytimes;
 
 ini_open("scores.ini")
 
@@ -94,8 +95,21 @@ ini_open("scores.ini")
     gamesPlayedTotal = ini_read_real_MS_total("0,1,2,3","0,1,2,3", false,"gamesPlayed",0) ;
     careerPlaytimeTotal = ini_read_real_MS_total("0,1,2,3","0,1,2,3", false,"careerPlaytime",0) ;
 
+    // Get Last Few Playtimes
+    for (var i = 0; i < 10; i++){
+        lastFewPlaytimes[i] = ini_read_real("USER_PERFORMANCE", "lastFewPlaytimes["+string(i)+"]", 0);
+    }
+    // Get Average of Last Few Playtimes
+    averageLastFewPlaytimes = array_avg_1d(lastFewPlaytimes);
+    // Advance Last Few Playtimes
+    for (var i = 1; i < 10; i++){
+        lastFewPlaytimes[i] = lastFewPlaytimes[i-1]
+    }
+    lastFewPlaytimes[0] = 0;
+    
+    
     // New Best Array (For Gameover Stats)
-    newBestFlag = scr_create_array(0,0,0,0);
+    newBestFlag = Array(0,0,0,0);
     
         
     //Reset Deflector Data Catch and Death Counts

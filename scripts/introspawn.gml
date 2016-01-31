@@ -69,7 +69,7 @@ x = x1; y = y1;
 tweenSpawn = TweenFire(id,reflectorScale__,EaseLinear,
                           TWEEN_MODE_ONCE,false,0,room_speed*.5,0,1); //NB: Don't use delta time here to be consistent
 // Create Spawn Particle
-part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_spawn,c_part,1);
+part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_spawn,image_blend,1);
 
 // Create extended property setter
 var extraData = TPExt(x1, x2, y1, y2); //creates array of coordinates

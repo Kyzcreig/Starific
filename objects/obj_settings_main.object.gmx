@@ -47,29 +47,29 @@ title_txt = "options"
 
 
 var i = -1;
-buttonSprite[++i] = scr_create_array(s_v_gamesettings_x2,               //sprite
+buttonSprite[++i] = Array(s_v_gamesettings_x2,               //sprite
                                      obj_settings_game,                 //next page object
                                      scr_unlock_is_new_count("0,2"),    //indicator count
                                      "game");                           //text
-buttonSprite[++i] = scr_create_array(s_v_displaysettings_x2,            //sprite
+buttonSprite[++i] = Array(s_v_displaysettings_x2,            //sprite
                                      obj_settings_display,              //next page object
                                      0,                                 //indicator count
                                      "display");                        //text
-buttonSprite[++i] = scr_create_array(s_v_themeswitcher_x2, 
+buttonSprite[++i] = Array(s_v_themeswitcher_x2, 
                                      obj_settings_themes, 
                                      scr_unlock_is_new_count("3"),
                                      "themes");
 if IAP_ENABLED {
-    buttonSprite[++i] = scr_create_array(s_v_shop_x2, 
+    buttonSprite[++i] = Array(s_v_shop_x2, 
                                          obj_settings_shop, 
                                          0, 
                                          "shop");
 }
-buttonSprite[++i] = scr_create_array(s_v_codex_x2, 
+buttonSprite[++i] = Array(s_v_codex_x2, 
                                      obj_settings_codex, 
                                      0, 
                                      "codex");
-buttonSprite[++i] = scr_create_array(s_v_info_x2, 
+buttonSprite[++i] = Array(s_v_info_x2, 
                                      obj_settings_credits, 
                                      0, 
                                      "credits");

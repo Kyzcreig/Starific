@@ -4,10 +4,9 @@
     <Config>Configs\Default</Config>
     <Config>Configs\AndroidGoogleplay</Config>
     <Config>Configs\AndroidAmazon</Config>
-    <Config>Configs\iOSTest</Config>
   </Configs>
-  <datafiles number="30" name="datafiles">
-    <datafiles number="30" name="Music">
+  <datafiles number="31" name="datafiles">
+    <datafiles number="31" name="Music">
       <datafile>
         <name>track3.ogg</name>
         <exists>-1</exists>
@@ -26,9 +25,6 @@
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
           <Config name="AndroidAmazon">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
-          <Config name="iOSTest">
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
         </ConfigOptions>
@@ -54,9 +50,6 @@
           <Config name="AndroidAmazon">
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
-          <Config name="iOSTest">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
         </ConfigOptions>
         <filename>track7.ogg</filename>
       </datafile>
@@ -78,9 +71,6 @@
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
           <Config name="AndroidAmazon">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
-          <Config name="iOSTest">
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
         </ConfigOptions>
@@ -106,9 +96,6 @@
           <Config name="AndroidAmazon">
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
-          <Config name="iOSTest">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
         </ConfigOptions>
         <filename>track20.ogg</filename>
       </datafile>
@@ -132,26 +119,45 @@
           <Config name="AndroidAmazon">
             <CopyToMask>9223372036854775807</CopyToMask>
           </Config>
-          <Config name="iOSTest">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
         </ConfigOptions>
         <filename>track28.ogg</filename>
       </datafile>
     </datafiles>
+    <datafile>
+      <name>api_key.txt</name>
+      <exists>-1</exists>
+      <size>1202</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="AndroidGoogleplay">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+        <Config name="AndroidAmazon">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>api_key.txt</filename>
+    </datafile>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\TweenGMS</extension>
-    <extension index="1">extensions\ScheduleGMS</extension>
-    <extension index="2">extensions\TMC Frame Skip</extension>
-    <extension index="3">extensions\FMS_Loading_SCreen</extension>
-    <extension index="4">extensions\HTML5_Mouse_Ext</extension>
+    <extension index="1">extensions\TMC Frame Skip</extension>
+    <extension index="2">extensions\FMS_Loading_SCreen</extension>
+    <extension index="3">extensions\HTML5_Mouse_Ext</extension>
+    <extension index="4">extensions\HeyZapExt</extension>
     <extension index="5">extensions\AmazonGameCircle</extension>
     <extension index="6">extensions\FlurryAnalyticsExt</extension>
     <extension index="7">extensions\Everyplay</extension>
-    <extension index="8">extensions\Share</extension>
-    <extension index="9">extensions\HeyZapExt</extension>
-    <extension index="10">extensions\DispatchGMS</extension>
+    <extension index="8">extensions\GooglePlayServicesExtension</extension>
+    <extension index="9">extensions\Share</extension>
   </NewExtensions>
   <sounds name="sound">
     <sounds name="Collision Sounds">
@@ -191,6 +197,7 @@
       <sound>sound\sd_menu_click</sound>
       <sound>sound\sd_menu_wrongclick</sound>
       <sound>sound\sd_gameover_unlock</sound>
+      <sound>sound\sd_great_success</sound>
       <sound>sound\sd_clock_tick</sound>
       <sound>sound\sd_clock_tock</sound>
       <sound>sound\sd_near_miss</sound>
@@ -218,12 +225,14 @@
           <sprite>sprites\s_v_deflector_rounder</sprite>
           <sprite>sprites\s_v_deflector_upper</sprite>
           <sprite>sprites\s_v_deflector_downer</sprite>
+          <sprite>sprites\s_v_game_mod</sprite>
           <sprite>sprites\s_v_deflector_abomb</sprite>
           <sprite>sprites\s_v_deflector_basic_60</sprite>
           <sprite>sprites\s_v_deflector_bomb_60</sprite>
           <sprite>sprites\s_v_deflector_rounder_60</sprite>
           <sprite>sprites\s_v_deflector_upper_60</sprite>
           <sprite>sprites\s_v_deflector_downer_60</sprite>
+          <sprite>sprites\s_v_game_mod_60</sprite>
           <sprite>sprites\s_v_star_white</sprite>
         </sprites>
         <sprites name="Menu">
@@ -270,7 +279,6 @@
           <sprite>sprites\spr_tp_top_out</sprite>
           <sprite>sprites\spr_tp_prong_out</sprite>
           <sprite>sprites\spr_tp_prong_in</sprite>
-          <sprite>sprites\spr_tp_prong_prongs</sprite>
           <sprite>sprites\spr_bar_out</sprite>
           <sprite>sprites\spr_bar_in</sprite>
           <sprites name="Prize Wheel">
@@ -281,9 +289,12 @@
             <sprite>sprites\spr_prize_wheel_flapper</sprite>
             <sprite>sprites\spr_prize_wheel_flapper_center</sprite>
           </sprites>
-          <sprite>sprites\spr_button_basic</sprite>
-          <sprite>sprites\spr_button_note_cash</sprite>
-          <sprite>sprites\spr_button_basic_game</sprite>
+          <sprites name="Buttons">
+            <sprite>sprites\spr_button_basic</sprite>
+            <sprite>sprites\spr_button_basic_double</sprite>
+            <sprite>sprites\spr_button_basic_double_game</sprite>
+            <sprite>sprites\spr_button_note_cash</sprite>
+          </sprites>
           <sprite>sprites\s_v_leftarrow</sprite>
           <sprite>sprites\s_v_leftarrow_game</sprite>
           <sprite>sprites\s_v_rightarrow</sprite>
@@ -300,7 +311,6 @@
           <sprite>sprites\s_v_framedot_solid</sprite>
           <sprite>sprites\s_v_framedot_outline</sprite>
           <sprite>sprites\s_v_padlock_100</sprite>
-          <sprite>sprites\s_v_reset</sprite>
         </sprites>
         <sprites name="Menu GUI">
           <sprites name="Shop Page">
@@ -314,10 +324,10 @@
             <sprite>sprites\spr_perk_coin_doubler</sprite>
           </sprites>
           <sprite>sprites\s_v_rate</sprite>
-          <sprite>sprites\s_v_cash</sprite>
           <sprite>sprites\s_v_share</sprite>
           <sprite>sprites\s_v_info</sprite>
           <sprite>sprites\s_v_smile</sprite>
+          <sprite>sprites\s_v_smile_x2</sprite>
           <sprite>sprites\s_v_frown</sprite>
           <sprite>sprites\s_v_frown_x2</sprite>
           <sprite>sprites\s_v_video</sprite>
@@ -325,6 +335,7 @@
           <sprite>sprites\s_v_feedback</sprite>
           <sprite>sprites\s_v_options</sprite>
           <sprite>sprites\s_v_options_x2</sprite>
+          <sprite>sprites\s_v_options_game</sprite>
           <sprite>sprites\s_v_wink</sprite>
           <sprite>sprites\s_v_unlock_everything</sprite>
           <sprite>sprites\s_v_help</sprite>
@@ -367,12 +378,7 @@
           <sprite>sprites\s_v_displaysettings_x2</sprite>
           <sprite>sprites\s_v_info_x2</sprite>
           <sprite>sprites\s_v_codex_x2</sprite>
-          <sprite>sprites\s_v_FPS_60</sprite>
-          <sprite>sprites\s_v_FPS_45</sprite>
-          <sprite>sprites\s_v_FPS_30</sprite>
-          <sprite>sprites\s_v_TM_Fluid</sprite>
-          <sprite>sprites\s_v_TM_Fixed</sprite>
-          <sprite>sprites\s_v_TM_Line</sprite>
+          <sprite>sprites\s_v_double_x2</sprite>
           <sprite>sprites\spr_TP_show</sprite>
           <sprite>sprites\spr_TP_hide</sprite>
           <sprite>sprites\spr_ep_start</sprite>
@@ -441,10 +447,24 @@
         <sprite>sprites\spr_cash_10</sprite>
         <sprite>sprites\spr_cash_rng</sprite>
         <sprite>sprites\spr_cash_x2</sprite>
+        <sprite>sprites\spr_cash_plus</sprite>
+        <sprite>sprites\spr_cash_div</sprite>
+        <sprite>sprites\spr_cash_minus</sprite>
         <sprite>sprites\spr_power_density_doubler</sprite>
+        <sprite>sprites\spr_mod_smiley</sprite>
+        <sprite>sprites\spr_mod_frowny</sprite>
+        <sprite>sprites\spr_power_mystery</sprite>
+        <sprite>sprites\spr_power_multidensity</sprite>
+        <sprite>sprites\spr_power_bomb_detonate</sprite>
+        <sprite>sprites\spr_power_duration</sprite>
+        <sprite>sprites\spr_power_twinkle</sprite>
+        <sprite>sprites\spr_power_learn</sprite>
+        <sprite>sprites\spr_power_extra_bombs</sprite>
+        <sprite>sprites\spr_power_cash_bomb</sprite>
+        <sprite>sprites\spr_power_hidden</sprite>
+        <sprite>sprites\spr_power_immunity</sprite>
       </sprites>
       <sprites name="Misc Symbols">
-        <sprite>sprites\spr_symbol_mystery</sprite>
         <sprite>sprites\spr_missing_icon</sprite>
         <sprite>sprites\spr_power_locked</sprite>
         <sprite>sprites\s_v_icon_background</sprite>
@@ -519,7 +539,7 @@
           <script>scripts\scr_spawner.gml</script>
           <script>scripts\scr_spawner_chance_init.gml</script>
           <script>scripts\scr_spawner_old.gml</script>
-          <script>scripts\scr_field_respawn_queue_add.gml</script>
+          <script>scripts\scr_field_respawn_queue.gml</script>
           <script>scripts\scr_spawner_lane.gml</script>
           <script>scripts\scr_spawner_specific.gml</script>
           <script>scripts\scr_field_set.gml</script>
@@ -626,9 +646,12 @@
         </scripts>
         <scripts name="Deflector Data">
           <script>scripts\scr_new_deflector.gml</script>
-          <script>scripts\scr_powers_data_init.gml</script>
-          <script>scripts\scr_new_power.gml</script>
+          <script>scripts\scr_deflector_data_init.gml</script>
           <script>scripts\scr_deflector_add_stat.gml</script>
+          <script>scripts\scr_new_power.gml</script>
+          <script>scripts\scr_powers_data_init.gml</script>
+          <script>scripts\scr_new_gamemod.gml</script>
+          <script>scripts\scr_gamemods_init.gml</script>
         </scripts>
         <script>scripts\scr_particles_explosion_set.gml</script>
         <script>scripts\scr_starcash_power_caught.gml</script>
@@ -639,6 +662,7 @@
         <script>scripts\scr_shake_add.gml</script>
         <script>scripts\scr_avoid_overlap_dynamic.gml</script>
         <script>scripts\scr_star_inPlay_direction_is_valid.gml</script>
+        <script>scripts\scr_deflector_set_aesthetics.gml</script>
       </scripts>
       <scripts name="Monetization">
         <script>scripts\ads_init.gml</script>
@@ -654,6 +678,7 @@
         <script>scripts\analytics_send_unlock.gml</script>
         <script>scripts\analytics_send_pause_stats.gml</script>
         <script>scripts\scr_iap_init.gml</script>
+        <script>scripts\scr_leaderboard_post_score.gml</script>
       </scripts>
       <scripts name="GUI">
         <script>scripts\scr_room_goto.gml</script>
@@ -682,6 +707,7 @@
             <script>scripts\scr_button_locked_mode.gml</script>
             <script>scripts\scr_button_videoReward.gml</script>
             <script>scripts\scr_button_interstitialReward.gml</script>
+            <script>scripts\scr_button_noAds.gml</script>
             <scripts name="Button Helpers">
               <script>scripts\scr_refresh_prize_wheel_button.gml</script>
               <script>scripts\scr_calculate_reward.gml</script>
@@ -695,30 +721,36 @@
           <script>scripts\scr_gameover_buttons_add_adverts.gml</script>
         </scripts>
         <script>scripts\scr_color_easer.gml</script>
-        <script>scripts\scr_prompt_feedback_text.gml</script>
         <script>scripts\scr_unlock_get_type_counts.gml</script>
         <script>scripts\scr_button_update_indicator.gml</script>
-        <script>scripts\scr_leaderboard_post_score.gml</script>
+        <script>scripts\scr_draw_rails_and_save.gml</script>
         <scripts name="Pages and Prompts">
           <script>scripts\scr_screenshot.gml</script>
-          <script>scripts\scr_prompt_prize_create_data.gml</script>
+          <script>scripts\scr_prompt_feedback_text.gml</script>
           <script>scripts\scr_prompt_feedback_init.gml</script>
           <script>scripts\scr_draw_settings_arrows.gml</script>
           <script>scripts\scr_settings_page_header.gml</script>
-          <script>scripts\scr_codex_draw.gml</script>
           <script>scripts\scr_draw_title.gml</script>
           <script>scripts\scr_page_scroll_begin.gml</script>
           <script>scripts\scr_themes_draw.gml</script>
+          <script>scripts\scr_codex_draw.gml</script>
           <script>scripts\scr_draw_settings_slider.gml</script>
           <script>scripts\scr_set_game_info_text.gml</script>
-          <script>scripts\scr_quick_settings_init.gml</script>
-          <script>scripts\draw_stats_text.gml</script>
-          <script>scripts\draw_stats_background.gml</script>
           <script>scripts\draw_stats.gml</script>
-          <script>scripts\scr_prompt_confirm_init.gml</script>
           <script>scripts\scr_prompt_everyplay_init.gml</script>
           <script>scripts\scr_prompt_share_preview_init.gml</script>
           <script>scripts\scr_prompt_loading_init.gml</script>
+          <script>scripts\scr_quick_settings_init.gml</script>
+          <script>scripts\scr_exit_page.gml</script>
+          <script>scripts\scr_page_draw_surface.gml</script>
+          <script>scripts\scr_gamemod_make_prompt_description.gml</script>
+          <script>scripts\scr_menu_draw_set_easers_simple.gml</script>
+          <script>scripts\scr_subprompt_prize_init.gml</script>
+          <script>scripts\scr_prompt_dilemma_init.gml</script>
+          <script>scripts\scr_prize_wheel_init.gml</script>
+          <script>scripts\scr_prize_type_process.gml</script>
+          <script>scripts\scr_prompt_blank_init.gml</script>
+          <script>scripts\scr_prompt_step_head_no_title.gml</script>
         </scripts>
         <scripts name="Menus">
           <script>scripts\scr_menu_draw_main.gml</script>
@@ -733,9 +765,6 @@
           <script>scripts\scr_menu_draw_shop.gml</script>
         </scripts>
         <script>scripts\scr_modular_delta.gml</script>
-        <script>scripts\scr_exit_page.gml</script>
-        <script>scripts\scr_page_draw_surface.gml</script>
-        <script>scripts\scr_draw_rails_and_save.gml</script>
         <script>scripts\scr_text_get_mask.gml</script>
       </scripts>
       <scripts name="Stats">
@@ -761,6 +790,8 @@
       </scripts>
       <scripts name="Sounds">
         <script>scripts\scr_sounds_init.gml</script>
+        <script>scripts\scr_SetMusicState.gml</script>
+        <script>scripts\scr_MusicStop.gml</script>
         <script>scripts\scr_sound.gml</script>
         <script>scripts\scr_sound_iff_only.gml</script>
         <script>scripts\scr_catch_power_sound.gml</script>
@@ -832,109 +863,13 @@
         <script>scripts\TweenIterator.gml</script>
       </scripts>
     </scripts>
-    <scripts name="ScheduleGMS">
-      <script>scripts\SharedScheduler.gml</script>
-      <scripts name="Schedule_Types">
-        <script>scripts\ScheduleAlarm.gml</script>
-        <script>scripts\ScheduleScript.gml</script>
-        <script>scripts\ScheduleEvent.gml</script>
-        <script>scripts\ScheduleEventUser.gml</script>
-        <script>scripts\ScheduleEventObject.gml</script>
-        <script>scripts\SchedulePath.gml</script>
-        <script>scripts\ScheduleTimeLine.gml</script>
-        <script>scripts\ScheduleSound.gml</script>
-        <script>scripts\ScheduleSoundOn.gml</script>
-        <script>scripts\ScheduleSoundAt.gml</script>
-      </scripts>
-      <scripts name="Utility">
-        <script>scripts\ScheduleNull.gml</script>
-        <script>scripts\ScheduleExists.gml</script>
-        <script>scripts\ScheduleIsPlaying.gml</script>
-        <script>scripts\ScheduleIsPaused.gml</script>
-      </scripts>
-      <scripts name="Cancel">
-        <script>scripts\ScheduleCancel.gml</script>
-        <script>scripts\ScheduleCancelAll.gml</script>
-        <script>scripts\ScheduleCancelGroup.gml</script>
-        <script>scripts\ScheduleCancelTarget.gml</script>
-      </scripts>
-      <scripts name="Pause">
-        <script>scripts\SchedulePause.gml</script>
-        <script>scripts\SchedulePauseAll.gml</script>
-        <script>scripts\SchedulePauseGroup.gml</script>
-        <script>scripts\SchedulePauseTarget.gml</script>
-      </scripts>
-      <scripts name="Resume">
-        <script>scripts\ScheduleResume.gml</script>
-        <script>scripts\ScheduleResumeAll.gml</script>
-        <script>scripts\ScheduleResumeGroup.gml</script>
-        <script>scripts\ScheduleResumeTarget.gml</script>
-      </scripts>
-      <scripts name="Finish">
-        <script>scripts\ScheduleFinish.gml</script>
-        <script>scripts\ScheduleFinishAll.gml</script>
-        <script>scripts\ScheduleFinishGroup.gml</script>
-        <script>scripts\ScheduleFinishTarget.gml</script>
-      </scripts>
-      <scripts name="Accessors">
-        <script>scripts\ScheduleGetForceTimer.gml</script>
-        <script>scripts\ScheduleGetRepeat.gml</script>
-        <script>scripts\ScheduleGetTarget.gml</script>
-        <script>scripts\ScheduleGetDelta.gml</script>
-        <script>scripts\ScheduleGetGroup.gml</script>
-        <script>scripts\ScheduleGetTime.gml</script>
-        <script>scripts\ScheduleGetDuration.gml</script>
-        <script>scripts\ScheduleGetTimeScale.gml</script>
-        <script>scripts\ScheduleGetMute.gml</script>
-      </scripts>
-      <scripts name="Mutators">
-        <script>scripts\ScheduleSetForceTimer.gml</script>
-        <script>scripts\ScheduleSetRepeat.gml</script>
-        <script>scripts\ScheduleSetTarget.gml</script>
-        <script>scripts\ScheduleSetDelta.gml</script>
-        <script>scripts\ScheduleSetGroup.gml</script>
-        <script>scripts\ScheduleSetTime.gml</script>
-        <script>scripts\ScheduleSetDuration.gml</script>
-        <script>scripts\ScheduleSetTimeScale.gml</script>
-        <script>scripts\ScheduleSetTimeScaleAll.gml</script>
-        <script>scripts\ScheduleSetTimeScaleGroup.gml</script>
-        <script>scripts\ScheduleSetTimeScaleTarget.gml</script>
-        <script>scripts\ScheduleSetMute.gml</script>
-        <script>scripts\ScheduleSetMuteAll.gml</script>
-        <script>scripts\ScheduleSetMuteGroup.gml</script>
-        <script>scripts\ScheduleSetMuteTarget.gml</script>
-      </scripts>
-      <scripts name="Defaults">
-        <script>scripts\ScheduleDefaultSetTimeScale.gml</script>
-        <script>scripts\ScheduleDefaultGetTimeScale.gml</script>
-        <script>scripts\ScheduleDefaultSetForceTimer.gml</script>
-        <script>scripts\ScheduleDefaultGetForceTimer.gml</script>
-      </scripts>
-      <scripts name="System_Control">
-        <script>scripts\ScheduleSystemCount.gml</script>
-        <script>scripts\ScheduleSystemClearRoom.gml</script>
-        <script>scripts\ScheduleSystemClearAllRooms.gml</script>
-        <script>scripts\ScheduleSystemGetEnabled.gml</script>
-        <script>scripts\ScheduleSystemSetEnabled.gml</script>
-        <script>scripts\ScheduleSystemGetTimeScale.gml</script>
-        <script>scripts\ScheduleSystemSetTimeScale.gml</script>
-        <script>scripts\ScheduleSystemGetUpdateInterval.gml</script>
-        <script>scripts\ScheduleSystemSetUpdateInterval.gml</script>
-        <script>scripts\ScheduleSystemSetMinDeltaFPS.gml</script>
-      </scripts>
-      <scripts name="Extension_Support">
-        <script>scripts\SGMS_ExecuteCallback.gml</script>
-        <script>scripts\ScheduleGMS_Init.gml</script>
-        <script>scripts\ScheduleGMS_Final.gml</script>
-      </scripts>
-    </scripts>
     <scripts name="Drawing &amp; Effects">
       <scripts name="GUI">
         <script>scripts\scr_draw_pad.gml</script>
         <script>scripts\scr_draw_rail.gml</script>
         <script>scripts\scr_draw_paddle_circular.gml</script>
         <script>scripts\scr_draw_padbuttons.gml</script>
-        <script>scripts\scr_change_theme.gml</script>
+        <script>scripts\scr_reset_aesthetics.gml</script>
         <script>scripts\scr_generate_rail_sprite_gui.gml</script>
       </scripts>
       <scripts name="Effects">
@@ -1013,19 +948,20 @@
       </scripts>
     </scripts>
     <scripts name="Misc.">
+      <scripts name="NewScheduleGMS">
+        <script>scripts\ScheduleScript.gml</script>
+      </scripts>
       <scripts name="ScriptCallers">
         <script>scripts\array_set_index_1d.gml</script>
         <script>scripts\Destroy.gml</script>
         <script>scripts\ParticlesCreateColor.gml</script>
         <script>scripts\DestroyReflector.gml</script>
-        <script>scripts\scr_MusicStop.gml</script>
-        <script>scripts\scr_SetMusicState.gml</script>
         <script>scripts\Alarm.gml</script>
-        <script>scripts\Destroy_Mirror_Lists.gml</script>
         <script>scripts\CreateInstance.gml</script>
         <script>scripts\EnableTutorial.gml</script>
         <script>scripts\scr_set_SWIPE_TAP.gml</script>
         <script>scripts\RestartRoom.gml</script>
+        <script>scripts\Game_End.gml</script>
       </scripts>
       <scripts name="Custom Property Setters">
         <script>scripts\room_speed__.gml</script>
@@ -1054,8 +990,8 @@
         </scripts>
         <script>scripts\real_roundto.gml</script>
         <script>scripts\lines_intersect.gml</script>
-        <script>scripts\scr_create_array.gml</script>
         <script>scripts\array_sum_1d.gml</script>
+        <script>scripts\Array.gml</script>
       </scripts>
       <script>scripts\add_dropdown_option.gml</script>
       <scripts name="GMTwitter">
@@ -1119,9 +1055,6 @@
       </scripts>
     </scripts>
   </scripts>
-  <shaders name="shaders">
-    <shader type="GLSLES">shaders\sh_passthrough.shader</shader>
-  </shaders>
   <fonts name="fonts">
     <fonts name="Baron Neue">
       <fonts name="Main Game">
@@ -1223,6 +1156,7 @@
             <object>objects\obj_powerup_powersallclear</object>
             <object>objects\obj_powerup_powerupsclear</object>
             <object>objects\obj_powerup_powerdownsclear</object>
+            <object>objects\obj_powerup_bomb_detonate</object>
             <object>objects\obj_powerup_cash_1</object>
             <object>objects\obj_powerup_cash_2</object>
             <object>objects\obj_powerup_cash_5</object>
@@ -1243,6 +1177,7 @@
             <object>objects\obj_powerup_slowpaddle</object>
             <object>objects\obj_powerup_splitpaddle</object>
             <object>objects\obj_powerup_multistar</object>
+            <object>objects\obj_powerup_multidensity</object>
             <object>objects\obj_powerup_addgrow</object>
             <object>objects\obj_powerup_subshrink</object>
             <object>objects\obj_powerup_addslower</object>
@@ -1306,8 +1241,8 @@
           <object>objects\obj_settings_themes</object>
           <object>objects\obj_settings_shop</object>
           <object>objects\obj_settings_codex</object>
-          <object>objects\obj_settings_credits</object>
           <object>objects\obj_settings_quick_select</object>
+          <object>objects\obj_settings_credits</object>
         </objects>
       </objects>
       <objects name="Prompts">
@@ -1315,11 +1250,11 @@
         <object>objects\obj_prompt_feedback_parent</object>
         <object>objects\obj_prompt_feedback_main</object>
         <object>objects\obj_prompt_feedback_gameover</object>
-        <object>objects\obj_prompt_quest_cancel</object>
-        <object>objects\obj_prompt_confirm_exit</object>
+        <object>objects\obj_prompt_dilemma</object>
         <object>objects\obj_prompt_everyplay</object>
         <object>objects\obj_prompt_share_preview</object>
         <object>objects\obj_prompt_loading</object>
+        <object>objects\obj_prompt_blank</object>
       </objects>
       <objects name="Prize Wheel">
         <object>objects\obj_prompt_prize_wheel</object>
@@ -1333,7 +1268,7 @@
       </objects>
       <objects name="Powers">
         <object>objects\obj_control_modifiers</object>
-        <object>objects\obj_control_powerups</object>
+        <object>objects\obj_control_powers</object>
         <object>objects\obj_powerup_falling</object>
       </objects>
       <objects name="Misc">
@@ -1341,7 +1276,6 @@
         <object>objects\TMC_FrameSkip_obj</object>
         <object>objects\obj_frame_skip_custom</object>
         <object>objects\obj_SharedTweener</object>
-        <object>objects\obj_SharedScheduler</object>
       </objects>
       <objects name="Tutorial">
         <object>objects\obj_control_tutorial</object>
@@ -1351,6 +1285,7 @@
         <object>objects\obj_projectile_dummy</object>
         <object>objects\obj_launch_dummy</object>
         <object>objects\obj_prizewheel_dummy</object>
+        <object>objects\obj_newOptions_dummy</object>
         <object>objects\obj_block_dummy</object>
         <object>objects\obj_turn_dummy</object>
         <object>objects\obj_bomb_dummy</object>
@@ -1374,6 +1309,7 @@
       </objects>
       <objects name="GUI">
         <object>objects\obj_control_swipe</object>
+        <object>objects\obj_HTML5_mouse</object>
         <object>objects\obj_control_app_surface</object>
         <object>objects\obj_control_browser</object>
         <object>objects\obj_control_debugger</object>
@@ -1385,10 +1321,10 @@
           <object>objects\obj_control_rail_premade</object>
         </objects>
         <objects name="Shaders">
+          <object>objects\obj_shader_parent</object>
           <object>objects\obj_shader_begin</object>
           <object>objects\obj_shader_end</object>
         </objects>
-        <object>objects\obj_HTML5_mouse</object>
       </objects>
     </objects>
   </objects>

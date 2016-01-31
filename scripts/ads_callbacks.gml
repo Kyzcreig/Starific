@@ -30,90 +30,139 @@ if string_pos(ads_provider, AD_PROVIDERS) != 0 {
 
 
 
-show_debug_message("GM Social Async Event...");
 
 // Get Callback Data
 var type = string(ds_map_find_value(async_load, "type"));
 var value = ds_map_find_value(async_load, "value");
 
-if (type == "HeyZap_Ad_Loaded") {
+show_debug_message("GM Social Async Event: "+string(type)+" = "+string(value));
+
+switch type {
+// Caching Ads
+case "heyzap_ad_loaded":
     if value {
         if HeyZap_InterstitialStatus() {
             ADS_INTERSTITIAL_CACHED = true;
         }
     } 
-} else if (type == "HeyZap_Video_Loaded") {
+    break;
+case "heyzap_video_loaded":
     if value {
         if HeyZap_VideoStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
         }
     }
-} else if (type == "HeyZap_Reward_Loaded") {
+    break;
+case "heyzap_reward_loaded":
     if value {
         if HeyZap_RewardStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
         }
     }
-} 
-/*else if (type == "heyzap_banner_loaded") {
+    break;
+case "heyzap_banner_loaded": 
     if value {
         // pass
     }
-} 
-
-
-
-
-
-
-
-
-
-#define ads_callbacks_AdMob
-///ads_callbacks_AdMob()
-
-show_debug_message("AdMob Social Async Event...");
-
-var ads_type = string(ds_map_find_value(async_load, "type" ));
-var loaded = ds_map_find_value(async_load, "loaded");  
-
-switch ads_type {
-
-case "banner_load" :
-    if (loaded)
-    {
-        var bw = ds_map_find_value(async_load, "width");
-        var bh = ds_map_find_value(async_load, "height");
-        
-        show_debug_message("Banner loaded: size=" + string(bw) + "," + string(bh) );
-        
-        // Centre the ad on the screen (override what's in the AddBanner button code)
-        //var px = (display_get_width() - bw)/2;
-        //var py = (display_get_height() - bh/2)///2;
-        //GoogleMobileAds_MoveBanner(px, py);
-        //show_debug_message("Banner moved via Social event to " + string(px) + "," + string(py) );
-        
-        /*
-         The commented-out lines above are what we would have to do for some other ad providers if
-         we wanted to load a banner at a specified location. The code is here for Google also just 
-         to demonstrate how you can still use the event to control positioning ads with this provider.
-        */
-    }
-    else { show_debug_message("Banner failed to load!"); }
-
-break;
-
-case "interstitial_load" :
-    global.interLoading = false; 
-    global.interLoaded = true;
+    break;
     
-    if (loaded) { show_debug_message("Interstitial loaded"); }
-    else { show_debug_message("Interstitial failed to load!"); }
-break;
+// Reward Interstitial Ads
+case "heyzap_ad_shown":
+    if value and ads_interstitial_state >= 0 {
+        ads_interstitial_state = max(ads_interstitial_state,1);
+    }
+    break;
+case "heyzap_ad_clicked":
+    if value and ads_interstitial_state >= 0 {
+        ads_interstitial_state = max(ads_interstitial_state,2);
+    }
+    break;
 
+case "heyzap_ad_hidden":
+    if value and ads_interstitial_state > 0 {
+        // Set Reward Weight
+        switch ads_interstitial_state {
+            case 1:
+                ads_reward_scalar = .75;
+                break;
+            case 2:  //was clicked, give more reward
+                ads_reward_scalar = 1.5;//1;
+                break;
+        }
+        // Clear Reward State
+        ads_interstitial_state = 0;
+        
+        
+        
+        // Calculate Reward, Set Cash and Execute Confetti
+        ScheduleScript(obj_control_gameover, true, .1, scr_button_reward_helper,
+                    19, other.ads_reward_scalar, true);
+                    
+        show_debug_message("YOYO: Interstitial Reward Scalar: "+string(ads_reward_scalar));
+    }
+    
+    // Clear Freeze Prompt    
+    with(obj_prompt_blank){
+        instance_destroy();
+        show_debug_message("YOYO: Blank prompt destroyed");
+        //scr_prompt_exit(0.001);
+    }
+    break;
+    
+    
+    
+// Reward Video Ads
+case "heyzap_video_shown":
+case "heyzap_reward_shown":    
+    if value and ads_reward_video_state >= 0 {
+        ads_reward_video_state = max(ads_reward_video_state,1);
+    }
+    break;
+case "heyzap_video_clicked":
+case "heyzap_reward_clicked":
+    if value and ads_reward_video_state >= 0 {
+        ads_reward_video_state = max(ads_reward_video_state,2);
+    }
+    break;
+case "heyzap_video_hidden":
+case "heyzap_reward_hidden":
+    if value and ads_reward_video_state > 0 {
+        // Set Reward Weight
+        switch ads_reward_video_state {
+            case 1:
+                ads_reward_scalar = 1;//.5;
+                break;
+            case 2:  //was clicked, give more reward
+                ads_reward_scalar = 2;//1;
+                break;
+        }
+        // Clear Reward State
+        ads_reward_video_state = 0;
+        
+        // Calculate Reward, Set Cash and Execute Confetti
+        ScheduleScript(obj_control_gameover, true, .1, scr_button_reward_helper,
+                    16, other.ads_reward_scalar, true);
+                        
+        show_debug_message("YOYO: Video Reward Scalar: "+string(ads_reward_scalar));
+    }
 
+    // Clear Freeze Prompt    
+    with(obj_prompt_blank){
+        instance_destroy();
+        show_debug_message("YOYO: Blank prompt destroyed");
+        //scr_prompt_exit(0.001);
+    }
+    
+    break;
 
+    
 }
+
+
+
+
+
+
 
 #define ads_callbacks_ChartBoost
 ///ads_callbacks_ChartBoost()
@@ -309,6 +358,52 @@ if callback_type != undefined {
         //ads_init_ChartBoost();
         //NB: we'll see if this causes any bug
     }
+}
+
+#define ads_callbacks_AdMob
+///ads_callbacks_AdMob()
+
+show_debug_message("AdMob Social Async Event...");
+
+var ads_type = string(ds_map_find_value(async_load, "type" ));
+var loaded = ds_map_find_value(async_load, "loaded");  
+
+switch ads_type {
+
+case "banner_load" :
+    if (loaded)
+    {
+        var bw = ds_map_find_value(async_load, "width");
+        var bh = ds_map_find_value(async_load, "height");
+        
+        show_debug_message("Banner loaded: size=" + string(bw) + "," + string(bh) );
+        
+        // Centre the ad on the screen (override what's in the AddBanner button code)
+        //var px = (display_get_width() - bw)/2;
+        //var py = (display_get_height() - bh/2)///2;
+        //GoogleMobileAds_MoveBanner(px, py);
+        //show_debug_message("Banner moved via Social event to " + string(px) + "," + string(py) );
+        
+        /*
+         The commented-out lines above are what we would have to do for some other ad providers if
+         we wanted to load a banner at a specified location. The code is here for Google also just 
+         to demonstrate how you can still use the event to control positioning ads with this provider.
+        */
+    }
+    else { show_debug_message("Banner failed to load!"); }
+
+break;
+
+case "interstitial_load" :
+    global.interLoading = false; 
+    global.interLoaded = true;
+    
+    if (loaded) { show_debug_message("Interstitial loaded"); }
+    else { show_debug_message("Interstitial failed to load!"); }
+break;
+
+
+
 }
 
 #define ads_callbacks_ChartBoost_debug

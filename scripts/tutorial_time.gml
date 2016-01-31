@@ -32,7 +32,7 @@ switch argument0{
                //Create dummy scene
                if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
                {
-                  tutorial_dummy = instance_create(padcenterx,padcentery,obj_timer_dummy);
+                  tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_timer_dummy);
                   
                   //pass these in for scene top and bottom
                   scene_top = text_y + text_h*1.0 + sprite_gap;

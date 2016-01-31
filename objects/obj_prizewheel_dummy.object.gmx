@@ -43,38 +43,16 @@ wheelRot = 0;
 var i = -1;
 // Set Wheel Slices
 sliceArray[++i] = scr_slice_data_create(3);
-sliceArray[++i] = scr_slice_data_create(2);
+sliceArray[++i] = scr_slice_data_create(4);
 sliceArray[++i] = scr_slice_data_create(1);
-sliceArray[++i] = scr_slice_data_create(0);
+sliceArray[++i] = scr_slice_data_create(5);
 sliceArray[++i] = scr_slice_data_create(3);
-sliceArray[++i] = scr_slice_data_create(2);
+sliceArray[++i] = scr_slice_data_create(4);
 sliceArray[++i] = scr_slice_data_create(1);
-sliceArray[++i] = scr_slice_data_create(0);
+sliceArray[++i] = scr_slice_data_create(5);
 
 
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="1" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string></string>
           </argument>
         </arguments>
       </action>

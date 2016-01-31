@@ -57,15 +57,15 @@ confettiSoundCountMax = 4 / confettiDelayDuration //4 seconds of pops max
 // Viable Confetti Bombs
 var z = -1, j = -1, k = 5;
                             //cash size, confetti size, odds, min cash, max cash
-confettiQuantum[++z] = scr_create_array(1, 32*1, 1, 0, 40);
-confettiQuantum[++z] = scr_create_array(5, 32*2, 1, 0, 160);
-confettiQuantum[++z] = scr_create_array(10, 32*3, 1, 0, 320);
-confettiQuantum[++z] = scr_create_array(25, 32*4, 1, 50, 780); //
-confettiQuantum[++z] = scr_create_array(50, 32*5, 1, 100, 1560); //
-confettiQuantum[++z] = scr_create_array(100, 32*6, 1, 200, 3120); //
-confettiQuantum[++z] = scr_create_array(250, 32*6, 1, 500, 7800); //NB: comes in handy if the click video multiplier hits a jackpot
-confettiQuantum[++z] = scr_create_array(500, 32*6, 1, 1000, 15600); //NB: comes in handy if the click video multiplier hits a jackpot
-confettiQuantum[++z] = scr_create_array(1000, 32*6, 1, 2500, 32000); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = Array(1, 32*1, 1, 0, 40);
+confettiQuantum[++z] = Array(5, 32*2, 1, 0, 160);
+confettiQuantum[++z] = Array(10, 32*3, 1, 0, 320);
+confettiQuantum[++z] = Array(25, 32*4, 1, 50, 780); //
+confettiQuantum[++z] = Array(50, 32*5, 1, 100, 1560); //
+confettiQuantum[++z] = Array(100, 32*6, 1, 200, 3120); //
+confettiQuantum[++z] = Array(250, 32*6, 1, 500, 7800); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = Array(500, 32*6, 1, 1000, 15600); //NB: comes in handy if the click video multiplier hits a jackpot
+confettiQuantum[++z] = Array(1000, 32*6, 1, 2500, 32000); //NB: comes in handy if the click video multiplier hits a jackpot
 
 
 
@@ -116,26 +116,6 @@ if confettiBombCount > confettiSoundCountMax {
 }
 
 
-// Create Prompt If none exists
-/*
-if promptID == noone {
-    prizeData[0] = s_v_cash_circle_x2//sprite
-    prizeData[1] = 0; //3//color
-    prizeData[2] = "earned!" //top message
-    prizeData[3] = "+"+CASH_STR+string(0) //prize description
-    prizeData[4] = 0; //prize noise type
-    prizeData[5] = 1;  //prize type
-    prizeData[6] = argument[0];  //prize value
-    prizeData[7] = 0;  //extra data
-    promptID = instance_create(GAME_MID_X,GAME_MID_Y,obj_subprompt_prize)
-    with (promptID) {
-        prizeData = other.prizeData;
-        dataLoaded = true;
-        prize_wheel_active = false;
-    }
-}*/
-
-
 //Create Confetti in random places
 var rngX, rngY, tCol, dDur;
 // First Explosion in center;
@@ -178,37 +158,51 @@ for (var s = 0; s < min(confettiSoundCountMax,confettiBombCount); s++) {
 
 
 
-#define scr_reward_set
-///scr_reward_set(rewardScalar, prizePrompt_and_confetti)
+#define scr_cash_reward_create
+///scr_cash_reward_create(rewardScalar, rewardExecute)
+
+var rewardScalar = argument0;
+var rewardExecute = argument1;
 
 // Calculate Reward
-rewardValue = round(scr_calculate_reward() * argument0);
+rewardValue = round(scr_calculate_reward() * rewardScalar);
 
     //.2 for sharing
 
 // Save Cash
 ini_open("scores.ini")
-    STAR_CASH += rewardValue; //prompt_button[i,2];
+    STAR_CASH += rewardValue; //prompt_buttons[i,2];
     ini_write_real("misc", "STAR_CASH", STAR_CASH);
 ini_close()  
 
 // Create Reward Text Zoomup and Confetti
-if argument1 {
-    scr_prompt_cash_create(rewardValue);
-                    
+if rewardExecute {
+    var prizeData = scr_prize_cash_create(rewardValue, "earned!", 0)
+    scr_prompt_prize_spawn(prizeData);
 }
 
 return rewardValue;
 
-#define scr_prompt_cash_create
-///scr_prompt_cash_create(rewardValue)
+#define scr_prize_cash_create
+///scr_prize_cash_create(rewardValue, top_text, color, [sharing])
 
-var rewardValue = argument0;
+var rewardValue = argument[0];
+var top_text = argument[1];
+var col_index = argument[2];
+var sharing = true;
+if argument_count > 3 {
+    sharing = argument[3];
+}
 
+var prize_buttons = noone;
+if rewardValue >= 200 and sharing {
+    // Create Button Data
+    prize_buttons = scr_prize_button_make(0);
+}
 prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,0,
-                "earned!", "+"+CASH_STR+string(0), 1, 1, rewardValue, 0, "", true);
-// Spawn Prize Prompt and Pass Prize Data
-scr_prompt_prize_spawn(prizeData);
+                top_text, "+"+CASH_STR+string(0), 1, 1, rewardValue, 0, "", prize_buttons);
+                
+return prizeData;
 
 
 #define scr_prompt_cash_update
@@ -234,7 +228,7 @@ if argument_count > 2 {
 }
 
 // Calculate Reward and Confetti
-rewardValue = scr_reward_set(rewardScalar, true);
+rewardValue = scr_cash_reward_create(rewardScalar, true);
 
 
 // Check if enough cash for prize, and add prize wheel button
@@ -259,13 +253,16 @@ var buttonState = argument[1];
 // Update Button to indicate used
 var buttonIndex = scr_go_is_button(buttonID);
 var buttonData = go_sp_buttons[| buttonIndex]; 
-//If New Text
-if argument_count > 2 {
-    buttonData[@ 1] = argument[2]; //"earned#+"+CASH_STR+string(rewardValue); 
-}
+// Set Button State
 buttonData[@ 3] = buttonState; ///comment out for unlimited rewards 
 
-// Remove Button
+//If New Button Text
+if argument_count > 2 {
+    if argument[2] != "" { // If button_text == "", we leave text unchanged
+        buttonData[@ 1] = argument[2]; //"earned#+"+CASH_STR+string(rewardValue); 
+    }
+}
+// If Remove Button
 if argument_count > 3 {
     if argument[3] {
         // Schedule Button State to Ease Out/Remove

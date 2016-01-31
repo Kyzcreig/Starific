@@ -34,18 +34,16 @@
     [Flurry startSession:appId];
 }
 
--(double)FlurryAnalytics_SendEvent:(char*)_eventName
+-(void)FlurryAnalytics_SendEvent:(char*)_eventName
 {
     NSString* nsEventName = [NSString stringWithUTF8String:_eventName];
     NSLog(@"---FlurryAnalytics_SendEvent: Event: %@---",nsEventName );
     if ([self FlurryAnalytics_HasSession]) {
         [Flurry logEvent:nsEventName];
-        return 1;
     }
-    return 0;
 }
 
--(double)FlurryAnalytics_SendEventExt:(char*)_eventName Arg2:(char*)_keyValuePairs
+-(void)FlurryAnalytics_SendEventExt:(char*)_eventName Arg2:(char*)_keyValuePairs
 {
 	//extract params from dsMap...
 	NSString* nsEventName = [NSString stringWithUTF8String:_eventName];
@@ -65,9 +63,7 @@
     NSLog(@"---FlurryAnalytics_SendEventExt:event:%@ params:%@---",nsEventName, dict );
     if ([self FlurryAnalytics_HasSession]) {
         [Flurry logEvent:nsEventName withParameters:dict];
-        return 1;
     }
-    return 0;
 }
 
 @end

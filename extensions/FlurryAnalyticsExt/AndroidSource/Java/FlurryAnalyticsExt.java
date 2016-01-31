@@ -37,18 +37,16 @@ public class FlurryAnalyticsExt extends ExtensionBase
 		m_bSessionActive = true;
 	}
 	
-	public double FlurryAnalytics_SendEvent(String _eventName)
+	public void FlurryAnalytics_SendEvent(String _eventName)
 	{
 		if( m_bSessionActive )
 		{
 			Log.i("yoyo", "Flurry SendEvent: " + _eventName );
 			FlurryAgent.logEvent( _eventName );
-			return 1;
 		}
-		return 0;
 	}
 	
-	public double FlurryAnalytics_SendEventExt(String _eventName, String _keyValuePairs )
+	public void FlurryAnalytics_SendEventExt(String _eventName, String _keyValuePairs )
 	{
 		if( m_bSessionActive )
 		{
@@ -61,16 +59,14 @@ public class FlurryAnalyticsExt extends ExtensionBase
 
 			Log.i("yoyo", "Flurry SendEventExt: eventName:" + _eventName + " params:" + params);
 			FlurryAgent.logEvent( _eventName, params );
-			return 1;
 		}
-		return 0;
 	}
 	
 	//lifecycle methods
 	@Override
 	public void onStart()
 	{
-		//RESTART_GAME the session
+		//restart the session
 		if( !m_bSessionActive && m_apiKey != null)
 		{
 			//start the session

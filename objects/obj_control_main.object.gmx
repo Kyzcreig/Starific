@@ -407,7 +407,7 @@ draw_enable_drawevent(1);
 if room_persistent {
     // e.g. When Paused or using Custom button
     exit;
-}
+} 
 
 // Set Room_Speed
 room_speed = RMSPD_DEFAULT;
@@ -440,6 +440,9 @@ case rm_menu:
     //Disable Music
     MUSIC_STATE = 0;
     //scr_StopMusic(1);
+    
+    // Clear Particles From Game
+    scr_part_systems_clear_all();
 
 
     // Create Menu Object
@@ -598,7 +601,7 @@ scr_draw_smoothing(1);
 game_filming = 0; //0
 //Enable Debug
 show_debug_overlay(CONFIG == CONFIG_TYPE.DESKTOP &amp;&amp; !game_filming);
-//show_debug_overlay(1); //Override
+show_debug_overlay(1); //Override //FIX ME
 
      
 globalvar PADDING, STRETCHING;
@@ -855,10 +858,17 @@ if CONFIG != CONFIG_TYPE.HTML {
 
 
 // Create Shader Objects 
-CreateInstanceIfNone(0,0,obj_shader_begin);
-CreateInstanceIfNone(0,0,obj_shader_end);
+//CreateInstanceIfNone(0,0,obj_shader_begin);
+//CreateInstanceIfNone(0,0,obj_shader_end);
 /* NB: The pass through shader improves performance.
+        Unfortunately on mobile targets it adds two batches (independent of alpha test)
 
+*/
+// Use Alpha Test Reference
+//draw_set_alpha_test(true);
+//draw_set_alpha_test_ref_value(1); //EVALUATE
+/* Alpha test improves performance, even with ref value of 1.
+    Unfortunately on mobile targets it adds two batches (independent of shaders)
 
 */
 
@@ -1345,21 +1355,21 @@ DELTA_TIME_SCALAR = 1;
 
 
 
-
-
 //Init Power Arrays
 scr_powers_data_init(); //add new power arrays here
 
 //Init Deflector Data
 scr_deflector_data_init()
 
+// Init Gamemods
+scr_gamemods_init()
+
 //Set Powers Data
 scr_powers_data_set()
 
 /* NB: To add a new power, first add all the info here, then add the sprite to obj_reflector_parent, 
-then add the code to the obj_falling_powers, then add the time duration and step code to the obj_control_powerups
+then add the code to the obj_falling_powers, then add the time duration and step code to the obj_control_powers
 */
-
 
 
 

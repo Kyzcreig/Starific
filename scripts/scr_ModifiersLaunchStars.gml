@@ -37,9 +37,9 @@ and abs(mouse_y - mixers_y[mixPos[0]]) > 60 and instance_exists(argument0) and a
            scr_touch_pad_tween_in(); 
         }
         
-        
+        // Clear Tap
         SWIPE_TAP = false;
-        scr_sound(sd_turn_begin,1,false)
+        
     }
 
 }

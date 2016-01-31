@@ -44,34 +44,28 @@ if priority < 100{
     var newSound = audio_play_sound(sound,priority,looping);
     ds_list_add(list, newSound);
     //ds_list_add(list, audio_play_sound(sound,priority,looping));
-    // Mute if SFX Disabled
-    if !sfx_sound[1]{
-        audio_sound_gain(sound,0,0);
-    }
-    // Else Gain to Volume
-    else{ 
-        audio_sound_gain(sound,sfx_sound[0],0);
-    }
+    audio_sound_gain(newSound,sfx_sound[0]*sfx_sound[1],0);
     
     // Return Sound Instance ID
-    return newSound;//list[| listSize-1]  //return sound for other uses
+    return newSound;
 }
 // Else if Music Priority
 else{
 
    // Play New Song
-   var new_song = audio_play_sound(sound, priority, looping);//music_emit
+   var newSong = audio_play_sound(sound, priority, looping);//music_emit
+   //audio_sound_gain(newSong,music_sound[0]*music_sound[1],3*room_speed);
    
     // Mute if Music Disabled
    if !music_sound[1]{
-        audio_sound_gain(sound,0,0);
+        audio_sound_gain(newSong,0,0);
    }
     // Else Gain to Volume
    else{
-        audio_sound_gain(sound,music_sound[0],3*room_speed);
+        audio_sound_gain(newSong,music_sound[0],3*room_speed);
    }
    
     // Return Sound Instance ID
-   return new_song 
+   return newSong 
      
 }

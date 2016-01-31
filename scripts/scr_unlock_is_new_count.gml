@@ -1,6 +1,7 @@
 ///scr_unlock_is_new_count(string_of_types)
 
-var types = string_split_real(",",argument0);
+var types_string = argument0;
+var types = string_split_real(",",types_string);
 
 // For Each Type
 var data;

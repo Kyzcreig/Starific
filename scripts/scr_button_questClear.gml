@@ -12,12 +12,14 @@ var questCompleted = argument0;
 //Update Quest Data
 ini_open("scores.ini")
     if questCompleted {
-        ini_write_real("misc", "QUEST_COUNT", ++QUEST_DATA[4]); 
+        // Increase Quest Complete Count
+        QUEST_DATA[@ 4] += 1;
+        ini_write_real("misc", "QUEST_COUNT", QUEST_DATA[4]); 
+        //ini_write_real("misc", "QUEST_INCOMPLETE", false); 
     }
     questDelayMinutes = 0; //NB: No Quest Delay for now
     questNextTime =  date_inc_minute(date_current_datetime(), questDelayMinutes)
-    ini_write_real("misc", "QUEST_NEXT_TIME", 
-       questNextTime); 
+    ini_write_real("misc", "QUEST_NEXT_TIME", questNextTime); 
     // Save quest data
     ini_write_real("misc", "QUEST_TYPE", QUEST_DATA[0]);
     ini_write_real("misc", "QUEST_CRITERIA", QUEST_DATA[1]);

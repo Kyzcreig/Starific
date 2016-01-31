@@ -8,7 +8,7 @@
   <parentName>obj_beat_FX_parent</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="3" enumb="2">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -28,12 +28,18 @@
             <string>///Beat FX and garbage collect
 
 //Grow and fade the beat object
-if image_alpha &lt; 0 {
-    scr_beater_destroy();
-} else {
+
+
+if image_alpha &gt; 0 {
     image_alpha -= .025;
     image_xscale += .05;
     image_yscale += .05;
+}
+
+if image_alpha &lt;= 0{
+    //Two separate if conditions instead of if-else to prevent negative image alpha
+    image_alpha = 0;
+    scr_beater_destroy();
 }
 </string>
           </argument>

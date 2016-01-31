@@ -88,7 +88,7 @@ return -1;
 #define convertGridtoEmpty
 ///convertGridtoEmpty(gridX,gridY)
 
-return scr_create_array(argument0 div (global.FIELD_EMPTIES_SIZE), 
+return Array(argument0 div (global.FIELD_EMPTIES_SIZE), 
                         argument1 div (global.FIELD_EMPTIES_SIZE));
 
 
@@ -96,7 +96,7 @@ return scr_create_array(argument0 div (global.FIELD_EMPTIES_SIZE),
 #define convertXYtoGrid
 ///convertXYtoGrid(x,y)
 
-return scr_create_array(
+return Array(
                     (argument0-ox-cellW/2)/cellW,
                     (argument1-oy-cellH/2)/cellH
                     );
@@ -105,7 +105,7 @@ return scr_create_array(
 ///convertGridtoXY(x,y)
 
 
-return scr_create_array(
+return Array(
                     ox +argument0*cellW +cellW/2,
                     oy +argument1*cellH +cellH/2
                     );

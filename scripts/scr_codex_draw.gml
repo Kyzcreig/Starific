@@ -18,8 +18,10 @@ cat_text_y = y_start;
 for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
     // Get Data
     var subArray = mainArray[i];
+    var subFont = subArray[3];
 
     // Draw Category Title
+    draw_set_font(subFont);
     draw_set_valign(fa_middle);
     switch text_align {
     case -1: 
@@ -36,7 +38,6 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
             //We use GAME_W/2 instead of GAME_MID_X because we're on a scroll surface
     break;
     }    
-    draw_set_font(subArray[3]);
     cat_text = subArray[0];
     cat_text_scale = ease;
     cat_text_h = string_height("S") * cat_text_scale
@@ -58,84 +59,106 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
     // Draw Sprites, wrapped
     else if ds_exists(subArray[1], ds_type_list) {
         cat_text_y += cat_text_h;
-        def_list = subArray[1];
-        def_wrap = subArray[2];
+        item_list = subArray[1];
+        item_wrap = subArray[2];
+        item_list_type = subArray[4];
         
-        def_w = 60 * RU;
-        def_h = def_w;
-        def_upscale = 1 //6/4; 
-        def_w_gap = 2*(inner_width - def_w/2) / (5 - 1);
-        def_h_gap = def_w_gap * 1.1; //
-        def_x_start = GAME_MID_X - inner_width// + def_w/2;
+        item_w = 60 * RU;
+        item_h = item_w;
+        item_upscale = 1 //6/4; 
+        item_w_gap = 2*(inner_width - item_w/2) / (5 - 1);
+        item_h_gap = item_w_gap * 1.1; //
+        item_x_start = GAME_MID_X - inner_width// + item_w/2;
         
         //Iterate Through List
-        for (var k = 0, o = ds_list_size(def_list); k < o; k++){
-            def_data = def_list[| k];
-            //Set Object Type and Sprite
-            def_type = scr_deflector_set_draw_type(def_data);
-            def_spr = scr_codex_get_sprite(def_type);
-            //Get Lock Status
-            def_discovered = def_data[11];
-            
-            // Set Symbol
-            if def_discovered != 0{
-                def_symbol = def_data[4];
-            } else {
-                def_symbol = spr_power_locked//padlock
+        for (var k = 0, o = ds_list_size(item_list); k < o; k++){
+            item_data = item_list[| k];
+            // If Deflector 
+            if item_list_type == 0 {
+                //Set Object Type and Sprites  
+                item_type = scr_deflector_set_draw_type(item_data); 
+                item_spr = scr_codex_get_sprite(item_type); 
+                item_symbol = item_data[4]; 
+                // Get Colors
+                item_col = power_type_colors(item_type,0); 
+                item_col_sym = power_type_colors(item_type,1); 
+                // Icon Text
+                item_txt = item_data[5];
             }
-            def_draw_sym = sprite_exists(def_symbol);
-            // Get Colors
-            def_col = power_type_colors(def_type,0);
-            def_col_sym = power_type_colors(def_type,1);
+            // If Gamemod 
+            else if item_list_type == 1 {
+                //Set Object Type and Sprites
+                item_type = item_data[1] ; 
+                item_spr = s_v_deflector_rounder_60; 
+                item_symbol = item_data[5]; 
+                // Get Colors
+                item_col = power_type_colors(item_type+1, 0);   //+9
+                item_col_sym = power_type_colors(item_type+1, 1); //+9
+                // Icon Text
+                item_txt = item_data[6];
+            }
+            //Get Lock Status
+            item_discovered = item_data[11]; 
+                    //NB: 0 == locked, 1 == new, 2 == seen
+            
+            // If Never Discovered
+            if item_discovered == 0 {
+                //Lock Sprite
+                item_symbol = spr_power_locked//padlock
+            }
+            item_draw_sym = sprite_exists(item_symbol);
+            
             // Get Scale
-            def_scale = def_upscale * ease;
-            def_scale_sym = ease;
+            item_scale = item_upscale * ease;
+            item_scale_sym = ease;
             
             // Get Coordinates
-            def_x = def_x_start + def_w/2 + def_w_gap * (k mod def_wrap);
-            def_y = cat_text_y + def_h/2 + def_h_gap * (k div def_wrap);
+            item_x = item_x_start + item_w/2 + item_w_gap * (k mod item_wrap);
+            item_y = cat_text_y + item_h/2 + item_h_gap * (k div item_wrap);
             
-            //Draw Deflector
-            draw_sprite_ext(def_spr, 0, def_x, def_y, def_scale, def_scale, 0, def_col, 1); 
+            //Draw item sprite
+            draw_sprite_ext(item_spr, 0, item_x, item_y, item_scale, item_scale, 0, item_col, 1); 
     
             //Draw Symbol
-            if def_draw_sym {
-                draw_sprite_ext(def_symbol, 0, def_x, def_y, def_scale_sym, def_scale_sym, 0, def_col_sym, 1); 
+            if item_draw_sym {
+                draw_sprite_ext(item_symbol, 0, item_x, item_y, item_scale_sym, item_scale_sym, 0, item_col_sym, 1); 
             }
             
             // Draw "NEW!"
-            if abs(def_discovered) == 1 {
+            if abs(item_discovered) == 1 {
                 // Draw NewMark in Top Right
-                nm_scl = def_scale * .5;
-                nm_spr = spr_button_basic_game;
+                nm_scl = item_scale * .2//.5;
+                nm_spr = spr_button_basic_double_game;
                 nm_spr_h = sprite_get_height(nm_spr) * nm_scl;
-                nm_x = def_x + def_w / 2 * def_scale; 
-                nm_y = def_y - def_h / 2 * def_scale; // + nm_spr_h / 2;
+                nm_x = item_x + item_w / 2 * item_scale; 
+                nm_y = item_y - item_h / 2 * item_scale; // + nm_spr_h / 2;
                 // Draw Note Sprite
                 draw_sprite_ext(nm_spr, 0, nm_x, nm_y, nm_scl, nm_scl, 0, COLORS[0], 1);
                 
                 // Draw New Text
-                draw_set_halign(fa_center);
                 draw_set_font(fnt_game_bn_15_black);
+                draw_set_valign(fa_middle);
+                draw_set_halign(fa_center);
                 nm_txt = "new!";
-                nm_txt_y = nm_y //- .1 * string_height(nm_txt) * nm_scl;
+                nm_txt_scl = item_scale * .5;
+                nm_txt_y = nm_y - .15 * string_height(nm_txt) * nm_txt_scl;
                 nm_col = COLORS[scr_flashing_color_index(10)];
                 draw_text_ext_transformed_colour(nm_x, nm_txt_y, nm_txt, -1, -1, 
-                                nm_scl, nm_scl, 0, nm_col,nm_col,nm_col,nm_col, 1);
+                                nm_txt_scl, nm_txt_scl, 0, nm_col,nm_col,nm_col,nm_col, 1);
                                 
                 //Check if New Codex Has Never Been Seen
-                if def_discovered == 1 {
+                if item_discovered == 1 {
                     
                     // Check if Deflector is Visible on Screen
                     if !TweenExists(mainTween) and 
-                        def_y >= 0 and 
-                        def_y <= ScrollDisplayH 
+                        item_y >= 0 and 
+                        item_y <= ScrollDisplayH 
                     {
                         // Decrement New Count
                         unlockCounts[@ 2]--;
                         
                         // Mark Deflector as Seen
-                        def_data[@ 11] = -1;
+                        item_data[@ 11] = -1;
                     }
                     
                 }
@@ -144,25 +167,25 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
             
             
             //Draw Deflector Text
-            draw_set_halign(fa_center);
             draw_set_font(fnt_game_bn_15_black);
-            def_txt = def_data[5];
-            if def_discovered == 0 {
-                def_txt = scr_cypher_text("abcdefghijklmnopqrstuvwxyz-+$1234567890"+CASH_STR,"?",def_txt);
+            draw_set_valign(fa_middle);
+            draw_set_halign(fa_center);
+            if item_discovered == 0 {
+                item_txt = scr_cypher_text("abcdefghijklmnopqrstuvwxyz-+$1234567890"+CASH_STR,"?",item_txt);
             } 
-            def_txt_scale = ease;
-            def_txt_h = string_height(def_txt) * def_txt_scale;
-            def_txt_x = def_x;
-            def_txt_y = def_y + def_h/2 + def_txt_h * .6;
-            def_txt_col = COLORS[0];
-            draw_text_ext_transformed_colour(def_txt_x, def_txt_y, def_txt, 
-                                    -1,-1,def_txt_scale,def_txt_scale,0,
-                                    def_txt_col,def_txt_col,def_txt_col,def_txt_col,1)
+            item_txt_scale = ease;
+            item_txt_h = string_height(item_txt) * item_txt_scale;
+            item_txt_x = item_x;
+            item_txt_y = item_y + item_h/2 + item_txt_h * .6;
+            item_txt_col = COLORS[0];
+            draw_text_ext_transformed_colour(item_txt_x, item_txt_y, item_txt, 
+                                    -1,-1,item_txt_scale,item_txt_scale,0,
+                                    item_txt_col,item_txt_col,item_txt_col,item_txt_col,1)
 
         }
         
         // Increment Y Coordinate
-        cat_text_y = def_txt_y + def_txt_h/2;
+        cat_text_y = item_txt_y + item_txt_h/2;
 
     
     }
@@ -176,6 +199,64 @@ return cat_text_y;
 
 
 
+
+
+
+
+
+#define scr_codex_init
+///scr_codex_init()
+
+///Codex Page
+
+//Overwrite fonts to be used to be game fonts, not menu fonts
+        //NB: We use game texture page here for all the game icon symbols.
+title_txt = "codex";
+title_font = fnt_game_title_95; 
+counts_font = fnt_game_bn_40_bold;
+
+
+codex_categories = noone;
+codex_sub_simple = noone;
+codex_sub_uppers = noone;
+codex_sub_downers = noone;
+//codex_sub_rounders = noone;
+codex_sub_mods = noone;
+
+
+
+// Set Up Data to Draw  
+                    //label, array/list of deflectors, wrap_width, font
+codex_sub_simple[0] = Array("basic",scr_deflector_get_list("0","0", true),4,fnt_game_bn_26_black, 0);
+codex_sub_simple[1] = Array("bombs",scr_deflector_get_list("4","0", true),4,fnt_game_bn_26_black, 0);
+codex_categories[0] =  Array("simple",codex_sub_simple,5,fnt_game_bn_40_bold, 0);
+
+
+codex_sub_uppers[0] = Array("duration",scr_deflector_get_list("1","1", true),5,fnt_game_bn_26_black, 0);
+codex_sub_uppers[1] = Array("tappers",scr_deflector_get_list("1","3", true),5,fnt_game_bn_26_black, 0);
+codex_sub_uppers[2] = Array("instant",scr_deflector_get_list("1","0", true),5,fnt_game_bn_26_black, 0);
+codex_categories[1] =  Array("uppers",codex_sub_uppers,5,fnt_game_bn_40_bold, 0);
+
+codex_sub_downers[0] = Array("duration",scr_deflector_get_list("2","1", true),5,fnt_game_bn_26_black, 0);
+codex_sub_downers[1] = Array("turn modifiers",scr_deflector_get_list("2","2", true),3,fnt_game_bn_26_black, 0);
+codex_sub_downers[2] = Array("tappers",scr_deflector_get_list("2","3", true),3,fnt_game_bn_26_black, 0);
+codex_sub_downers[3] = Array("instant",scr_deflector_get_list("2","0", true),5,fnt_game_bn_26_black, 0);
+codex_categories[2] =  Array("downers",codex_sub_downers,5,fnt_game_bn_40_bold, 0);
+
+codex_categories[3] =  Array("rounders",scr_deflector_get_list("3","0,1,2,3,4", 1),4,fnt_game_bn_40_bold, 0);
+
+codex_sub_mods[0] = Array("buffs",scr_gamemod_get_list("0","0", true),5,fnt_game_bn_26_black, 1);
+codex_sub_mods[1] = Array("debuffs",scr_gamemod_get_list("1","0", true),5,fnt_game_bn_26_black, 1);
+codex_categories[4] =  Array("mods",codex_sub_mods,5,fnt_game_bn_40_bold, 1);
+
+
+// Set if Deflector is Locked or Not
+ini_open("scores.ini")
+    unlockCounts[0] = 0; //total
+    unlockCounts[1] = 0; //discovered
+    unlockCounts[2] = 0; //new 
+    unlockCounts = scr_codex_get_counts(codex_categories, unlockCounts); 
+ini_close();
 
 
 
@@ -252,7 +333,7 @@ return counts;
 var mainArray = argument0;
 var counts = argument1;
 
-var key, def_data, def_list, tmp, subArray;
+var key, item_data, item_list, tmp, subArray;
 
 //Iterate through each first dimension
 for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
@@ -263,16 +344,16 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
     }
     //Interate through Lists
     else if ds_exists(subArray[1], ds_type_list) {
-        def_list = subArray[1];
-        for (var j = 0, m = ds_list_size(def_list); j < m; j++){
-            def_data = def_list[| j];
+        item_list = subArray[1];
+        for (var j = 0, m = ds_list_size(item_list); j < m; j++){
+            item_data = item_list[| j];
             //Increment Total
             counts[@ 0] += 1;
             //Increment Unlocked
-            if def_data[11] > 0 {
+            if item_data[11] > 0 {
                 counts[@ 1] += 1;
                 //Increment New
-                if def_data[11] == 1 {
+                if item_data[11] == 1 {
                     counts[@ 2] += 1;
                 }
             }
@@ -340,6 +421,16 @@ case 4:
     return s_v_deflector_bomb_60;
 break;
 
+case 5:
+    return s_v_deflector_basic_60;
+break;
+
+//Buffs
+case 6:
+//Debuffs
+case 7:
+    return s_v_game_mod_60;
+break;
 
 default:
     show_message("error get codex sprite")

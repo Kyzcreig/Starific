@@ -59,10 +59,10 @@ help_selected[0] = noone;
 help_selected[1] = true;
 
 /// Set Help Buttons
-//text_buttons[0] = scr_create_array("help",0); //text,  function_id,
-//text_buttons[1] = scr_create_array("custom",3);//text,  function_id,
-help_buttons[0] = scr_create_array(s_v_help_game,0); //text, function_id,
-help_buttons[1] = scr_create_array(s_v_gamesettings_game,3);//text,  function_id,
+//text_buttons[0] = Array("help",0); //text,  function_id,
+//text_buttons[1] = Array("custom",3);//text,  function_id,
+help_buttons[0] = Array(s_v_help_game,0); //text, function_id,
+help_buttons[1] = Array(s_v_gamesettings_game,3);//text,  function_id,
 
 var i, j, k;
 i = -1; j = -1; k = 2;
@@ -383,13 +383,7 @@ switch help_selected[0]
     case 3:
     
         //Spawn Quick Settings Room Changer
-        var obj = instance_create(x,y, obj_settings_quick_select)
-        with (obj) {
-            // Set State to Game Settings constant
-            quick_page_goto[0] = obj_settings_game;
-        
-        }
-    
+        scr_options_goto(Array(obj_settings_game, true));
     
         help_selected[0] = noone;
     break;

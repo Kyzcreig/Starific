@@ -99,6 +99,7 @@ scr_add_sound_management_and_sfx_list(sd_resume_step_beep,1*capfactor)
 scr_add_sound_management_and_sfx_list(sd_resume_final_beep,1*capfactor)
 scr_add_sound_management_and_sfx_list(sd_tp_place,1*capfactor)
 scr_add_sound_management_and_sfx_list(sd_coin_bag,1*capfactor)
+scr_add_sound_management_and_sfx_list(sd_great_success,1*capfactor)
 
                          
 //Initialize music list
@@ -154,7 +155,6 @@ scr_music_select_next();
 
 #define scr_music_step
 ///scr_music_step()
-
 
 
 //Enable music on star launch or mixer select
@@ -224,33 +224,6 @@ else if MUSIC_STATE == 1
 }
 
 
-#define scr_music_select_next
-///scr_music_select_next()
-
-
-// Cache Previous Index
-CURRENT_SONG_INDEX = NEXT_SONG_INDEX;
-
-// Select Next Song Index
-NEXT_SONG_INDEX = irandom(array_length_1d(MUSIC_DATA)-1);
-
-// If Song File Does Not Exist
-if !scr_music_file_exists(NEXT_SONG_INDEX) {
-    var _md, dlc_url, dlc_fname;
-    // Get Music Data
-    _md = MUSIC_DATA[NEXT_SONG_INDEX];
-    
-    // Download Song
-    dlc_url = "http://starificgame.com/music/"+_md[0];
-    dlc_fname = "Music/track"+string(NEXT_SONG_INDEX)+".ogg";
-    MUSIC_DLC = http_get_file(dlc_url, dlc_fname);
-    
-    show_debug_message("selected music index: "+string(NEXT_SONG_INDEX));
-}
-
-
-return NEXT_SONG_INDEX;
-
 #define scr_music_dlc
 ///scr_music_dlc()
 
@@ -302,23 +275,23 @@ if argument0 {
     // Set Music Data
     var i = -1;
     // URL, SongName, ChanceWeight(unused), Available, SoundAsset(if extant)
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Nitro_Fun_Cheat_Codes.ogg",
                         "Nitro Fun - Cheat Codes",
                         1, true, sd_music_cheatcodes);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Sound_Remedy_and_Nitro_Fun_Turbo_Penguin.ogg",
                         "Sound Remedy & Nitro Fun - Turbo Penguin",
                         1, true, sd_music_turbopenguin);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Insan3Lik3_Bad_Pitched_Original_Mix_.ogg",
                         "Insan3Lik3 - Bad Pitched",
                         1, true, sd_music_badpitched);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "110BPM_Tut_Tut_Child_Dance_To_It.ogg",
                         "Tut Tut Child - Dance To It",
                         1, true, sd_music_dancetoit);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_PIXL_Sugar_Rush.ogg",
                         "PIXL - Sugar Rush",
                         1, true, sd_music_sugarrush);
@@ -327,182 +300,183 @@ if argument0 {
     // Set Music Data
     var i = -1;
     // URL, SongName, ChanceWeight(unused), Available, SoundAsset(if extant)
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "110BPM_Haywyre_Back_and_Forth.ogg",
                         "Haywyre - Back and Forth",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "110BPM_Pegboard_Nerds_and_Tristam_Razor_Sharp.ogg",
                         "Pegboard Nerds and Tristam - Razor Sharp",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "110BPM_Razihel_Bad_Boy.ogg",
                         "Razihel - Bad Boy",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "110BPM_Tut_Tut_Child_Dance_To_It.ogg",
                         "Tut Tut Child - Dance To It",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Alex_Ferro_Armor_Lock_Nitro_Fun_Remix_Audiophile_Live.ogg",
                         "Alex Ferro - Armor Lock (Nitro Fun Remix)",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "DnB_Feint_Boyinaband_feat_Veela_Time_Bomb.ogg",
                         "Feint & Boyinaband feat. Veela - Time Bomb",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "DnB_Feint_Snake_Eyes_feat_CoMa.ogg",
                         "Feint feat. CoMa - Snake Eyes ",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Drumstep_Braken_To_The_Stars.ogg",
                         "Braken - To The Stars",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Drumstep_Krewella_One_Minute.ogg",
                         "Krewella - One Minute (DotEXE Remix)",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Drumstep_Pegboard_Nerds_Pressure_Cooker.ogg",
                         "Pegboard Nerds - Pressure Cooker",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Drumstep_Pegboard_Nerds_Try_This.ogg",
                         "Pegboard Nerds - Try This",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Drumstep_Tristam_and_Braken_Flight.ogg",
                         "Tristam and Braken - Flight",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Dubstep_Droptek_and_Tut_Tut_Child_Drop_That_Child.ogg",
                         "Droptek and Tut Tut Child - Drop That Child",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Dubstep_Krewella_and_Pegboard_Nerds_This_Is_Not_The_End.ogg",
                         "Krewella And Pegboard Nerds - This Is Not The End",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Dubstep_Tristam_Follow_Me.ogg",
                         "Tristam - Follow Me",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Case_and_Point_Error_Code.ogg",
                         "Case And Point - Error Code",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Insan3Lik3_Bad_Pitched_Original_Mix_.ogg",
                         "Insan3Lik3 - Bad Pitched",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_I_Y_F_F_E_Au5_and_Auratic_Sweet.ogg",
                         "I.Y.F.F.E, Au5 & Auratic - Sweet",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Laszlo_Supernova.ogg",
                         "Laszlo - Supernova",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Lets_Be_Friends_FTW.ogg",
                         "Lets Be Friends - FTW",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Nitro_Fun_Cheat_Codes.ogg",
                         "Nitro Fun - Cheat Codes",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Nitro_Fun_New_Game.ogg",
                         "Nitro Fun - New Game",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Nitro_Fun_Rob_Gasser_Ecstasy.ogg",
                         "Nitro Fun & Rob Gasser - Ecstasy",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Noisestorm_Eclipse.ogg",
                         "Noisestorm - Eclipse",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_OVERWERK_House_feat_Nick_Nikon_.ogg",
                         "OVERWERK - House (feat. Nick Nikon)",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Pegboard_Nerds_Disconnected.ogg",
                         "Pegboard Nerds - Disconnected",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Pegboard_Nerds_Emergency.ogg",
                         "Pegboard Nerds - Emergency",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Pegboard_Nerds_Rocktronik.ogg",
                         "Pegboard Nerds - Rocktronik",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_PIXL_Sugar_Rush.ogg",
                         "PIXL - Sugar Rush",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Rogue_Adventure_Time.ogg",
                         "Rogue - Adventure Time",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Rogue_Atlantic.ogg",
                         "Rogue - Atlantic",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Sound_Remedy_and_Nitro_Fun_Turbo_Penguin.ogg",
                         "Sound Remedy & Nitro Fun - Turbo Penguin",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Stephen_Walking_Top_of_the_World.ogg",
                         "Stephen Walking - Top of the World",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Electro_Tut_Tut_Child_Hot_Pursuit.ogg",
                         "Tut Tut Child - Hot Pursuit",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Glitch_Hop_110BPM_Pegboard_Nerds_FrainBreeze.ogg",
                         "Pegboard Nerds - FrainBreeze",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Glitch_Hop_or_110BPM_Lets_Be_Friends_Manslaughter.ogg",
                         "Lets Be Friends - Manslaughter",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Glitch_Hop_or_110BPM_Tristam_Till_It's_Over.ogg",
                         "Tristam - Till It's Over",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Mat_Zo_feat_Rachel_K_Collier_Only_For_You_Maor_Levi_Remix.ogg",
                         "Mat Zo feat. Rachel K Collier - Only For You",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Nitro_Fun_SWAG_Original_Mix_Audiophile_Live.ogg",
                         "Nitro Fun - \#SWAG",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Nitro_Fun_Who_I_Am_Original_Mix.ogg",
                         "Nitro Fun – Who I Am",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Progressive_House_Project_46_Reasons_feat_Andrew_Allen.ogg",
-                        "Project 46 - Reasons (feat. Andrew Allen)");
-    MUSIC_DATA[++i] = scr_create_array(
+                        "Project 46 - Reasons (feat. Andrew Allen)",
+                        .25, true);
+    MUSIC_DATA[++i] = Array(
                         "Reaktion_Labyrinth_Nitro_Fun_Remix.ogg",
                         "Reaktion - Labyrinth",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Throttle_Inspire.ogg",
                         "Throttle - Inspire",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Trap_Pegboard_Nerds_x_MisterWives_Coffins.ogg",
                         "Pegboard Nerds and Misterwives - Coffins",
                         1, true);
-    MUSIC_DATA[++i] = scr_create_array(
+    MUSIC_DATA[++i] = Array(
                         "Virtual_Riot_Energy_Drink_DUBSTEP.ogg",
                         "Virtual Riot - Energy Drink",
                         1, true);  
@@ -516,6 +490,49 @@ if argument0 {
 
 
 
+
+#define scr_music_select_next
+///scr_music_select_next()
+
+
+// Cache Previous Index
+CURRENT_SONG_INDEX = NEXT_SONG_INDEX;
+
+//Set Weights of Types
+var w = 0, wVals, wResult, wRNG, data;
+for (var w = 0, n = array_length_1d(MUSIC_DATA); w < n; w++) {
+    // Get Track Data
+    data = MUSIC_DATA[w];
+    // Set Chance       
+    wVals[w] = data[2];    
+    // Set Result
+    wResult[w] = w;
+}
+//draw from hat
+wRNG = random(1.0)
+//scale probability
+wRNG *= array_sum_1d(wVals) 
+for( var w = 0; wRNG > wVals[w]; w++) wRNG -= wVals[w];
+
+// Select Next Song Index
+NEXT_SONG_INDEX = wResult[w];//irandom(array_length_1d(MUSIC_DATA)-1);
+
+// If Song File Does Not Exist
+if !scr_music_file_exists(NEXT_SONG_INDEX) {
+    var _md, dlc_url, dlc_fname;
+    // Get Music Data
+    _md = MUSIC_DATA[NEXT_SONG_INDEX];
+    
+    // Download Song
+    dlc_url = "http://starificgame.com/music/"+_md[0];
+    dlc_fname = "Music/track"+string(NEXT_SONG_INDEX)+".ogg";
+    MUSIC_DLC = http_get_file(dlc_url, dlc_fname);
+    
+    show_debug_message("selected music index: "+string(NEXT_SONG_INDEX));
+}
+
+
+return NEXT_SONG_INDEX;
 
 #define scr_sounds_dealloc
 ///scr_sounds_dealloc()

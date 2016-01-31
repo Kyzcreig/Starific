@@ -50,27 +50,7 @@ event_inherited();
             <kind>1</kind>
             <string>///Init
 
-rect_x = 0
-rect_y = 0;
-rect_h = 0;
-rect_w = 0;
-
-prize_wheel_active = false;
-
-enable_exit = true;
-
-
-
-
-
-
-// Default Data
-prizeData[0] = s_v_frown//sprite
-prizeData[1] = 2; //color
-prizeData[2] = "try again!" //top message
-prizeData[3] = "empty" //prize name
-prizeData[4] = 0; //prize noise type
-prizeData[5] = 0;  //extra data
+scr_subprompt_prize_init()
 </string>
           </argument>
         </arguments>
@@ -111,117 +91,7 @@ prizeData[5] = 0;  //extra data
             <kind>1</kind>
             <string>///Process Prompt
 
-
-// Prompt Head
-scr_prompt_step_head_blank();
-
-//Prompt Body
-if dataLoaded {
-    // Draw Prize Symbol
-    prize_x = GAME_MID_X;
-    prize_y = GAME_MID_Y;
-    prize_scale = subEase[3] //*2;
-    prize_alpha = 1 //subEase[3]
-    prize_col = COLORS[prizeData[1]]
-    // Draw Flat Back Color
-    draw_sprite_ext(s_v_solid_circle_x2, 0, prize_x, prize_y, 
-    prize_scale, prize_scale, 0, COLORS[6], prize_alpha);
-    // Draw Prize Symbol
-    draw_sprite_ext(prizeData[0], 0, prize_x, prize_y, 
-    prize_scale, prize_scale, 0, prize_col, prize_alpha);
-    
-    
-    // Draw Winner or Try Again Text
-    draw_set_valign(fa_middle)
-    draw_set_halign(fa_center)
-    draw_set_font(fnt_menu_bn_60_bold)
-    top_text = prizeData[2]
-    top_text_x = prize_x;
-    top_text_y = prize_y - GAME_H * .25;
-    top_text_scale = subEase[3];
-    top_text_col = prize_col //COLORS[0];
-    draw_text_outline_ext_transformed_color(top_text_x, top_text_y, top_text, -1, -1,
-    top_text_scale, top_text_scale, 0, top_text_col,top_text_col,top_text_col,
-    top_text_col,prize_alpha, 4, COLORS[6], 4);
-    
-    
-    // Draw Prize Description
-    if string_length(prizeData[3]) &gt; 6 {
-        draw_set_font(fnt_menu_bn_40_bold)
-    }
-    bottom_text = prizeData[3];
-    bottom_text_x = prize_x;
-    bottom_text_y = prize_y + GAME_H * .25;
-    bottom_text_scale = subEase[3];
-    bottom_text_col = prize_col //COLORS[0];
-    draw_text_outline_ext_transformed_color(bottom_text_x, bottom_text_y,bottom_text, -1, -1,
-    bottom_text_scale, bottom_text_scale, 0, bottom_text_col,bottom_text_col,bottom_text_col,
-    bottom_text_col,prize_alpha, 4, COLORS[6], 4);
-    
-    // Mobile Share for New Feature or Big Cash Prize
-    if TOUCH_ENABLED and prizeData[9] == true and
-        //  Prompt is for Feature or Theme and "New" Noise
-        (((prizeData[5] == 2 or prizeData[5] == 3) and prizeData[4] == 2) or 
-        //  Prompt is for Cash and &gt;= 200 reward value
-        (prizeData[5] == 1 and prizeData[6] &gt;= 200 ))
-    {
-        
-        // Set ShareButton Params
-        draw_set_font(fnt_menu_bn_26_black);
-        sb_text = "share";
-        sb_text_scale = subEase[3];
-        sb_text_w = string_width(sb_text)/2 * sb_text_scale;
-        sb_text_h = string_height(sb_text)/2 * sb_text_scale;
-        sb_text_x = GAME_X + GAME_W - 20 - sb_text_w;
-        sb_text_y = GAME_Y + GAME_H - 20 - sb_text_h;
-        sb_text_col = prize_col; //COLORS[0];
-        
-        // Reset Enable Exit
-        enable_exit = true;
-        
-        // Detect ShareButton Hovered
-        sb_text_hover = point_in_rectangle(mouse_x, mouse_y, 
-            sb_text_x - sb_text_w, sb_text_y - sb_text_h, 
-            sb_text_x + sb_text_w, sb_text_y + sb_text_h)
-        if sb_text_hover {
-            // Disable Exit While Hovering //NB: If no backspace (for android)  
-                
-            if !TweenExists(mainTween) {
-                
-                // Upscale on Hover
-                sb_text_scale *= 1.2; 
-                // If Pressed   
-                if mouse_check_button_pressed(mb_left) {
-                    // Share Unlock
-                    if (prizeData[5] == 2) or (prizeData[5] == 3) {
-                        share_msg = "Just unlocked "+bottom_text+"!";
-                    }
-                    // Share Big Money 
-                    else if prizeData[5] == 1 {
-                        share_msg = "Jackpot "+bottom_text+"!";
-                    }
-                    
-                    // Prevent Exit on Share
-                    enable_exit = false;//keyboard_check(vk_backspace);  
-                    
-                    
-                    // Schedule Share
-                    ScheduleScript(obj_control_main, false, 1, scr_share_mobile, true, false, share_msg);
-                }
-            }
-        }
-        
-        // Draw ShareButton
-        draw_text_outline_ext_transformed_color(sb_text_x, sb_text_y,sb_text, -1, -1,
-        sb_text_scale, sb_text_scale, 0, sb_text_col,sb_text_col,sb_text_col,
-        sb_text_col, prize_alpha, 4, COLORS[6], 4);
-    }
-}
-
-
-// Prompt Foot
-scr_prompt_step_foot(enable_exit);
-
+scr_subprompt_prize_draw()
 </string>
           </argument>
         </arguments>

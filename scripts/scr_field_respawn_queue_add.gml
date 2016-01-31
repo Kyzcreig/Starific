@@ -70,7 +70,7 @@ if POWER_density_doubler[0] > 0 {
 // Clamp to 1
 _FillPercentMax = min(1,_FillPercentMax); 
 var _FillMax = BOARD_TOTAL * _FillPercentMax; 
-var _FillCurrent = instance_number(obj_reflector_parent) 
+var _FillCurrent = instance_number(obj_reflector_parent);
 //var _FillPercent = (_FillCurrent+SPAWN_COUNTER*.5) / _FillMax;  
 //var _FillPercent = _FillCurrent / _FillMax;
     //NB: I like not counting spawners as alive because it gives the game a wave-y vibe.
@@ -95,7 +95,7 @@ var _RespawnWeight = SPAWN_COUNTER * _RespawnScalar;
         Because it allows you to keep the two stats distinct.
     */
 // Set Possible Spawn Count
-var _PossibleSpawns = max(0,(_FillMax - _FillCurrent - _RespawnWeight )); //*.75 
+var _PossibleSpawns = max(0,(_FillMax - (_FillCurrent + _RespawnWeight) )); //*.75 
 // Calculate Max Possible
 var _MaxPossibleSpawns = max(0,(BOARD_TOTAL - _FillCurrent)); //*.75 
 // Clamp to the Unoccupied Cells Available

@@ -1,7 +1,7 @@
 #define scr_field_respawn_add
 ///scr_field_respawn_add(gridX, gridY, duration)
 
-var resXY = scr_create_array(argument[0],argument[1],argument[2]);
+var resXY = Array(argument[0],argument[1],argument[2]);
 
 // Update Empty List
 scr_field_empty_remove(resXY[0],resXY[1]) 
@@ -19,32 +19,6 @@ ds_list_add(global.FIELD_RESPAWNS,resXY);
 ///scr_field_respawn_clear()
 
 ds_list_clear(global.FIELD_RESPAWNS); //empty the respawn list
-
-#define scr_field_respawn_update
-///scr_field_respawn_update()
-
-var resXY;
-var listSize = ds_list_size(global.FIELD_RESPAWNS);
-
-
-// Iterate Over Respawn List
-for (var i = listSize - 1; i >= 0 ; i--){
-    // Get Respawn Data
-    resXY = global.FIELD_RESPAWNS[| i];
-    // Decrement Respawn Timer
-    resXY[@ 2]--;
-    // Respawn Deflector
-    if resXY[2] <= 0 and (!RESOURCE_POOLING or ds_queue_size(global.FIELD_POOL) > 0){
-       scr_field_respawn_remove(i);
-       // Double Check there's enough power deflectors every other step
-       var spawnFlag =  ALTERNATE_STEP_INTERVAL and scr_spawner_set_power_flag();
-                        //NB: Short circuit does work here.  Nice.
-       scr_spawner(resXY[0],resXY[1],1,spawnFlag);
-
-    }
-}
-
-
 
 #define scr_field_respawn_remove
 ///scr_field_respawn_remove(pos)

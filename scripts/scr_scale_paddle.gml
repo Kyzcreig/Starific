@@ -1,16 +1,21 @@
 ///scr_scale_paddle()
 with(paddle_id){
-    var oldxscale = pad_xscale[0]
-    var netscale = (POWER_grow[@ 0]-POWER_shrink[@ 0])
-    
     if TweenExists(scaleTweener){
         TweenDestroy(scaleTweener)
     }
-    var powerbase = 1+(.20/PADDLE_SCALE)*sign(netscale);  // /(POWER_addgrow[@ 7]*POWER_subshrink[@ 7]))*sign(netscale);
-    //we added /PADDLE_SCALE to the exponent base so that it would be less crazy when you got a grow or shrink early on
-    var rawxscale = power(powerbase,abs(netscale))*PADDLE_SCALE*(POWER_addgrow[@ 7]*POWER_subshrink[@ 7]);
     
-    var newxscale = clamp(rawxscale,.25,15);
-    scaleTweener = TweenFire(id,pad_xscale,EaseInOutElastic,
-                     TWEEN_MODE_ONCE,1,0,.5,pad_xscale[0],newxscale)
+    var netscale = (POWER_grow[@ 0]-POWER_shrink[@ 0])
+    var powerbase = 1 + (.20/PADDLE_SCALE) * sign(netscale); 
+        //NB: We added  division by PADDLE_SCALE to the exponent base so that
+         //  it would be less crazy when you got a grow or shrink early on
+    var rawXScale = PADDLE_SCALE * power(powerbase,abs(netscale)) * (POWER_addgrow[7]*POWER_subshrink[7]);
+    
+    //show_debug_message("rawXScale="+string(rawXScale))
+    
+    var maxScale = RAIL_LENGTH/PADDLE_W;
+    var newXScale = clamp(rawXScale,.025 * maxScale, 1.5 * maxScale);
+    //show_debug_message("newXScale="+string(newXScale))
+    scaleTweener = TweenFire(id,pad_xscale,EaseLinear, //EaseInOutElastic
+                     TWEEN_MODE_ONCE,1,0,.5,pad_xscale[0],newXScale)
+    //show_debug_message("pad_xscale[0]="+string(pad_xscale[0]))
 }

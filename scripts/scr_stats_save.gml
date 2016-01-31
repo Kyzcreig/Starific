@@ -41,7 +41,6 @@ ini_open("scores.ini")
     
     
     //Playtime
-    lastPlaytime *= RMSPD_DELTA;
     if longestPlaytime < lastPlaytime {
         longestPlaytime = lastPlaytime;
        // Mark New Best
@@ -258,7 +257,14 @@ ini_open("scores.ini")
     ini_write_real(currentSection, "highestStarsSaved", highestStarsSaved);
     ini_write_real(currentSection, "lastStarsSaved", lastStarsSaved);
     ini_write_real(currentSection, "averageStarsSaved", averageStarsSaved);
-    
+   
+    // If Arcade or Time Mode
+    if MODE != MODES.MOVES {
+        // Save Last Few Playtimes
+        for (var i = 0; i < 10; i++){
+            ini_write_real("USER_PERFORMANCE", "lastFewPlaytimes["+string(i)+"]", lastFewPlaytimes[i]);
+        }
+    }
    
    
     //Save StarCash
@@ -277,6 +283,9 @@ ini_open("scores.ini")
     
     //Check for unlocks    
     scr_check_and_save_unlocks(!GAME_PAUSE,false);
+    
+    // Save Gamemods
+    scr_gamemod_save("0,1,2","0", true)
   
 
 
@@ -309,7 +318,7 @@ with (obj_control_gameover) {
     // Add Share and Get Buttons
     sh_greatGame = scr_great_game_check();
     // Delay For New Players
-    sh_veteran = scr_veteran_playtime_status(lastPlaytime); // (gamesPlayedTotal > 4) 
+    sh_veteran = scr_veteran_playtime_status(); // (gamesPlayedTotal > 4) 
     // Share Stat
     sh_doShare = (sh_veteran and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
     // If Non-Mobile Version
@@ -354,12 +363,12 @@ with (obj_control_gameover) {
             }
             */
         }
-        
+        /*
         //Add Deluxe/No-Ads Button
-        if PREMIUM == 0 { //DISABLED because I'm no longer doing premium version
-            //Get Deluxe
+        if ADS_FORCED != 0 { //DISABLED because I'm no longer doing premium version
+            //Remove Ads Button
             scr_gameover_add_button(7);
-        }
+        }*/
         
         // Add Everyplay Button
         if everyplay_is_recording() 
@@ -427,14 +436,14 @@ with (obj_control_gameover) {
          
          
          // Add Prize Wheel Button
-         if scr_prize_wheel_available()  { 
+         if scr_prize_wheel_spin_available()  { 
              // Add Prize Wheel Button to Gameover
              if scr_go_is_button(15)  == -1{ // if button not in list
-                 scr_gameover_add_button(  15);
+                 scr_gameover_add_button(15);
              }
          }
          // Else add dialogue "$#/100 to go for prize" text
-         else if random(1) > .5 or ds_list_size(go_dialogue_txt) < 2{
+         else if random(1) > .5 or ds_list_size(go_dialogue_txt) < 3{
             // Add To Go Prize Text on Gameover
              scr_gameover_add_dialogue( 3);
          }
@@ -445,7 +454,6 @@ with (obj_control_gameover) {
          scr_gameover_buttons_add_adverts(true);
          
          
-         
          //If New Deflector Discovered
          if DEFLECTOR_DISCOVERED { //DEFLECTOR_DISCOVERED_COUNT > 20{
                         //NB: We delay showing the codex thing until they're farther along.
@@ -454,6 +462,10 @@ with (obj_control_gameover) {
              scr_gameover_add_dialogue( 9);
          }
      }
+     
+     
+     // Add Forced Interstitial + No-Ads Button
+     scr_gameover_buttons_add_forced_ads();
      
      
      

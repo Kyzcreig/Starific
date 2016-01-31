@@ -163,9 +163,6 @@ android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" /&gt;
         <Config name="AndroidAmazon">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
       </ConfigOptions>
       <ProxyFiles/>
       <functions>

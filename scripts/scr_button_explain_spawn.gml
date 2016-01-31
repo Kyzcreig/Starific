@@ -23,7 +23,7 @@ var type, index, str;
 type = argument0;
 index = argument1;
 str = scr_unlock_get_name_long(type, index) +" selected";
-str += scr_button_explain_get_text_long(type,index);
+str += ": "+ scr_button_explain_get_text_long(type,index);
 
 return str;
 
@@ -39,16 +39,37 @@ str = "";
 
 switch (type)
 {
+    // Grids
     case 0: 
-        str += ": "+convert_index_to_val_string(type,index)+" "+scr_settings_get_explain(type)
+        str += convert_index_to_val_string(type,index)+" "+scr_settings_get_explain(type)
     break;
     
+    // Modes
     case 1: 
+        switch index {
+            // Arcade
+            case 0:
+                str += "classic gameplay"
+            break;
+            // Moves
+            case 1:
+                str += "strategic gameplay"
+            break;
+            // Time
+            case 2:
+                str += "hectic gameplay"
+            break;
+            // Sandbox
+            case 3:
+                str += "experimental gameplay"
+            break;
+        }
     
+    // Rigors
     break;
     
     case 2: 
-        str += ": "+convert_index_to_val_string(type,index)+" "+scr_settings_get_explain(type)
+        str += convert_index_to_val_string(type,index)+" "+scr_settings_get_explain(type)
     
     break;
     

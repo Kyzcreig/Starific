@@ -1,9 +1,9 @@
 ///Destroy_Mirror_Lists(target)
 
 with(argument0){
-   ds_list_destroy(spritestartx);
-   ds_list_destroy(spriteendx);
-   ds_list_destroy(dtocornerL);
-   ds_list_destroy(dtocornerR);
+   ds_list_destroy(paddle_start_x);
+   ds_list_destroy(paddle_end_x);
+   ds_list_destroy(distToCornerL);
+   ds_list_destroy(distToCornerR);
   
 }

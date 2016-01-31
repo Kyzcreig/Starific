@@ -32,7 +32,8 @@ scr_part_types_declare()
 
 
 //Part Type Settings
-scr_part_types_set()
+ScheduleScript(id, false, 1, scr_part_types_set); 
+        //NB: Scheduled later so Gamemod data has time to be initialized
 
 
 
@@ -105,6 +106,11 @@ for(var i=0;i<3;i++){ //for each sprite
 
 ///NB: It's best practice to use texture allocated sprites to avoid texture page switching
 ///Instead of any inbuilt shapes
+var base_speed = room_speed;
+if scr_gamemod_get_index("long_effects", 8) > 0 {
+    base_speed *= scr_gamemod_get_index("long_effects", 10);
+}
+
 var cur_par;
 
 cur_par = p_spr_star;
@@ -117,7 +123,7 @@ part_type_alpha2(cur_par,1,0.2);
 //part_type_direction(cur_par,0,359,0*RMSPD_DELTA,0*RMSPD_DELTA);
 //part_type_gravity(cur_par,0*RMSPD_DELTA,270);
 part_type_orientation(cur_par,0,0,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
-part_type_life(cur_par,room_speed*.4,room_speed*.4);
+part_type_life(cur_par,base_speed*.4,base_speed*.4);
 
 
 
@@ -134,7 +140,7 @@ part_type_alpha2(cur_par,1,0);
 part_type_speed(cur_par,0*RMSPD_DELTA,1.5*RMSPD_DELTA,0*RMSPD_DELTA,0*RMSPD_DELTA)//0.10);
 part_type_orientation(cur_par,0,0,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
 //part_type_blend(cur_par,1);
-part_type_life(cur_par,room_speed*.5,room_speed*.5);
+part_type_life(cur_par,base_speed*.5,base_speed*.5);
 
 
 cur_par = p_launch;
@@ -147,18 +153,18 @@ part_type_color1(cur_par,c_white);//16777215);
 part_type_speed(cur_par,0*RMSPD_DELTA,1.5*RMSPD_DELTA,0*RMSPD_DELTA,0*RMSPD_DELTA)//0.10);
 part_type_orientation(cur_par,0,0,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
 //part_type_blend(cur_par,1);
-part_type_life(cur_par,room_speed*.5,room_speed*.5);
+part_type_life(cur_par,base_speed*.5,base_speed*.5);
 
 
 
 /// Particles for Falling Special Deflectors
-/* NB: We need so many because we need 1 for each possible type and direction.
-        Which is 3x8.  Alternatively you could have one for each instance
-        But I Think this is cleaner.
-        
-        Also particles aren't super heavy on memory so it's no problem.
-
-*/
+    /* NB: We need so many because we need 1 for each possible type and direction.
+            Which is 3x8.  Alternatively you could have one for each instance
+            But I Think this is cleaner.
+            
+            Also particles aren't super heavy on memory so it's no problem.
+    
+    */
 var pFallingSprite, pFallingColor, pFallingScale;
 
 pFallingSprite[0] = object_get_sprite(obj_powerup_parent_ups)//s_v_deflector_powerdown
@@ -186,8 +192,8 @@ for(var i=0;i<3;i++){ //for each sprite
         //part_type_blend(cur_par,0);
         //part_type_orientation(cur_par,image_angle,image_angle,0*RMSPD_DELTA,0*RMSPD_DELTA,0);
         part_type_orientation(cur_par,j*45,j*45,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
-        //part_type_life(cur_par,room_speed*.4,room_speed*.4);
-        part_type_life(cur_par,room_speed*.3,room_speed*.3); //NB: EVALUATE
+        //part_type_life(cur_par,base_speed*.4,base_speed*.4);
+        part_type_life(cur_par,base_speed*.3,base_speed*.3); //NB: EVALUATE
     }
 }
 
@@ -210,7 +216,7 @@ part_type_alpha1(cur_par,1);//
 if VFX_LEVEL == 0 {
     part_type_alpha1(cur_par,.75); //EVALUATE ME
 }
-part_type_life(cur_par,room_speed*.5,room_speed*1);//multiply by roomspeed?
+part_type_life(cur_par,base_speed*.5,base_speed*1);//multiply by roomspeed?
 
 
 cur_par = p_catch_bad;
@@ -228,7 +234,7 @@ part_type_alpha1(cur_par,1);//
 if VFX_LEVEL == 0 {
     part_type_alpha1(cur_par,.75); //EVALUATE ME
 }
-part_type_life(cur_par,room_speed*.3,room_speed*.6);//multiply by roomspeed?
+part_type_life(cur_par,base_speed*.3,base_speed*.6);//multiply by roomspeed?
 
 
 cur_par = p_catch_neutral;
@@ -245,7 +251,7 @@ part_type_alpha1(cur_par,1);//
 if VFX_LEVEL == 0 {
     part_type_alpha1(cur_par,.75); //EVALUATE ME
 }
-part_type_life(cur_par,room_speed*.35,room_speed*.7);//multiply by roomspeed?
+part_type_life(cur_par,base_speed*.35,base_speed*.7);//multiply by roomspeed?
 
 
 cur_par = p_catch_good;
@@ -264,7 +270,7 @@ part_type_alpha1(cur_par,1);//
 if VFX_LEVEL == 0 {
     part_type_alpha1(cur_par,0.75); //EVALUATE ME
 }
-part_type_life(cur_par,room_speed*.5,room_speed*1);//1
+part_type_life(cur_par,base_speed*.5,base_speed*1);//1
 
 
 cur_par = p_spawn;
@@ -276,7 +282,7 @@ part_type_scale(cur_par,1.5,1.5);//.5);
 //NB: Color overwritten in obj_reflector_parent
 part_type_color1(cur_par,c_white);//c_white);  COLORS[5]
 part_type_alpha2(cur_par,1,0.50);
-part_type_life(cur_par,room_speed*.5,room_speed*.5);
+part_type_life(cur_par,base_speed*.5,base_speed*.5);
 
 
 
@@ -289,7 +295,7 @@ part_type_scale(cur_par,1.5,1.5);//.5);
 //Color overwritten in obj_reflector_parent
 part_type_color1(cur_par,c_white);//c_white);  COLORS[5]
 part_type_alpha2(cur_par,1,0.50);
-part_type_life(cur_par,room_speed*.5,room_speed*.5);
+part_type_life(cur_par,base_speed*.5,base_speed*.5);
 //So actually most of these do work by changing how it looks on creation
 
 //Grab Default Values for later manipulation
@@ -301,7 +307,7 @@ P_Destroy_Vals[++z] = 1;
 
 
 //Grab Default Values for later manipulation
-P_Destroy_Vals[++z] = room_speed*.5;
+P_Destroy_Vals[++z] = base_speed*.5;
 
 cur_par = p_destroy_sparkles;
 //part_type_shape(cur_par,pt_shape_star);
@@ -317,11 +323,11 @@ if VFX_LEVEL == 0 {
     part_type_alpha2(cur_par,.5,0.5); //EVALUATE ME
 }
 part_type_life(cur_par,P_Destroy_Vals[z],P_Destroy_Vals[z]);
-//part_type_life(cur_par,room_speed*.5,room_speed*.5);
+//part_type_life(cur_par,base_speed*.5,base_speed*.5);
 
 
 //Grab Default Values for later manipulation
-P_Destroy_Vals[++z] = room_speed*.45;
+P_Destroy_Vals[++z] = base_speed*.45;
 
 cur_par = p_destroy_ring;
 //part_type_shape(cur_par,pt_shape_circle);
@@ -330,16 +336,17 @@ part_type_size(cur_par,0.05,0.05,0.015*RMSPD_DELTA,0*RMSPD_DELTA);
 //part_type_size(cur_par,0.05,0.05,0.03*RMSPD_DELTA,0*RMSPD_DELTA);
 part_type_scale(cur_par,1,1);
 part_type_alpha1(cur_par,1);
+//part_type_alpha3(cur_par,1,1,.5);
 if VFX_LEVEL == 0 {
     part_type_alpha2(cur_par,.5,0.5); //EVALUATE ME
 }
 part_type_life(cur_par,P_Destroy_Vals[z],P_Destroy_Vals[z]);
-//part_type_life(cur_par,room_speed*.45,room_speed*.45);
+//part_type_life(cur_par,base_speed*.45,base_speed*.45);
 
 
 
 //Grab Default Values for later manipulation
-P_Destroy_Vals[++z] = room_speed*.7;
+P_Destroy_Vals[++z] = base_speed*.7;
 
 cur_par = p_destroy_sparkles_long;
 //part_type_shape(cur_par,pt_shape_star);
@@ -355,11 +362,11 @@ if VFX_LEVEL == 0 {
     part_type_alpha2(cur_par,.5,0.5); //EVALUATE ME
 }
 part_type_life(cur_par,P_Destroy_Vals[z],P_Destroy_Vals[z]);
-//part_type_life(cur_par,room_speed*.7,room_speed*.7);
+//part_type_life(cur_par,base_speed*.7,base_speed*.7);
 
 
 //Grab Default Values for later manipulation
-P_Destroy_Vals[++z] = room_speed*.63;
+P_Destroy_Vals[++z] = base_speed*.63;
 
 cur_par = p_destroy_ring_long;
 //part_type_sprite(cur_par,sp_particle_star_outline,0,0,0);
@@ -370,11 +377,12 @@ part_type_scale(cur_par,1,1);
 //part_type_blend(cur_par,1);
 part_type_orientation(cur_par,0,359,2*RMSPD_DELTA,0*RMSPD_DELTA,1); //rangerandom(-2,2);
 part_type_alpha1(cur_par,1);
+//part_type_alpha3(cur_par,1,1,.5);
 if VFX_LEVEL == 0 {
     part_type_alpha2(cur_par,.5,0.5); //EVALUATE ME
 }
 part_type_life(cur_par,P_Destroy_Vals[z],P_Destroy_Vals[z]);
-//part_type_life(cur_par,room_speed*.63,room_speed*.63);
+//part_type_life(cur_par,base_speed*.63,base_speed*.63);
 
 
 
@@ -402,7 +410,7 @@ part_type_scale(cur_par,1,1);
 part_type_speed(cur_par,0.4*RMSPD_DELTA,4*RMSPD_DELTA,-0.02*RMSPD_DELTA,0*RMSPD_DELTA);
 part_type_direction(cur_par,0,359,0*RMSPD_DELTA,0*RMSPD_DELTA);
 part_type_orientation(cur_par,0,359,10*RMSPD_DELTA,0*RMSPD_DELTA,1);
-part_type_life(cur_par,room_speed*.5,room_speed*.5);
+part_type_life(cur_par,base_speed*.5,base_speed*.5);
 
 
 
@@ -413,7 +421,7 @@ part_type_sprite(cur_par,sp_particle_circle_outline,0,0,0);
 part_type_size(cur_par,0.05,0.05,0.015*RMSPD_DELTA,0*RMSPD_DELTA);
 //part_type_size(cur_par,0.05,0.05,0.03*RMSPD_DELTA,0*RMSPD_DELTA);
 part_type_scale(cur_par,1,1);
-part_type_life(cur_par,room_speed*.45,room_speed*.45);
+part_type_life(cur_par,base_speed*.45,base_speed*.45);
 
 
 /*
@@ -430,13 +438,38 @@ for (i=0; i<1;i++)
     part_type_speed(cur_par,0.1*RMSPD_DELTA,.5*RMSPD_DELTA,0*RMSPD_DELTA,0*RMSPD_DELTA);
     part_type_direction(cur_par,0,359,0*RMSPD_DELTA,0*RMSPD_DELTA);
     part_type_orientation(cur_par,0,359,2*RMSPD_DELTA,0*RMSPD_DELTA,1);
-    //part_type_life(cur_par,room_speed*.5,room_speed*.5);
-    part_type_life(cur_par,room_speed,room_speed);
+    //part_type_life(cur_par,base_speed*.5,base_speed*.5);
+    part_type_life(cur_par,base_speed,base_speed);
 }*/
 
 
 
 
+#define scr_part_types_set_confetti
+///scr_part_types_set_confetti(particle_type)
+
+var cur_par = argument0;
+
+part_type_sprite(cur_par, sp_particle_square_full, false, false, false); 
+part_type_scale(cur_par, .5, 1);
+    // Instead of using subimages and creating 32 all at once, we could loop through
+    // to create 32 with a random (valid) theme color, via part create colour
+//part_type_orientation(cur_par, 0, 360, 0, 5, 0); 
+part_type_orientation(cur_par, 0, 360, 0*RMSPD_DELTA, 0*RMSPD_DELTA, 0); 
+//part_type_gravity(cur_par, 0.2*RMSPD_DELTA, 270);
+part_type_gravity(cur_par, 0.15*RMSPD_DELTA, 270);
+//part_type_direction(cur_par, 0, 360, 0*RMSPD_DELTA, 30*RMSPD_DELTA);
+part_type_direction(cur_par, 0, 360, 0*RMSPD_DELTA, 0*RMSPD_DELTA);
+//part_type_speed(cur_par, 3*RMSPD_DELTA, 6*RMSPD_DELTA, -0.15*RMSPD_DELTA, 0*RMSPD_DELTA);
+part_type_speed(cur_par, .5*RMSPD_DELTA, 8*RMSPD_DELTA, -.05*RMSPD_DELTA, 0*RMSPD_DELTA);
+part_type_alpha3(cur_par, 1, 1, .5);
+if VFX_LEVEL == 0 {
+    part_type_alpha3(cur_par, .75, .75, .5); //EVALUATE ME
+}
+part_type_size(cur_par, 0.2, 0.3, 0*RMSPD_DELTA, 0*RMSPD_DELTA);
+//part_type_life(cur_par, 30, 90);
+//part_type_life(cur_par, 60, 120);
+part_type_life(cur_par, 1*room_speed, 3*room_speed);
 #define scr_part_systems_set_depth
 ///scr_part_systems_set_depth()
 
@@ -491,28 +524,59 @@ part_type_scale(p_catch,powerPartScale,powerPartScale);
 //part_type_scale(p_destroy_ring_powerup,1.5*ringScale,1.5*ringScale);
 
 
-#define scr_part_types_set_confetti
-///scr_part_types_set_confetti(particle_type)
+#define scr_part_star_set
+///scr_part_star_set(p_star)
 
-var cur_par = argument0;
+var particleStarTrail = argument0;
 
-part_type_sprite(cur_par, sp_particle_square_full, false, false, false); 
-part_type_scale(cur_par, .5, 1);
-    // Instead of using subimages and creating 32 all at once, we could loop through
-    // to create 32 with a random (valid) theme color, via part create colour
-//part_type_orientation(cur_par, 0, 360, 0, 5, 0); 
-part_type_orientation(cur_par, 0, 360, 0*RMSPD_DELTA, 0*RMSPD_DELTA, 0); 
-//part_type_gravity(cur_par, 0.2*RMSPD_DELTA, 270);
-part_type_gravity(cur_par, 0.15*RMSPD_DELTA, 270);
-//part_type_direction(cur_par, 0, 360, 0*RMSPD_DELTA, 30*RMSPD_DELTA);
-part_type_direction(cur_par, 0, 360, 0*RMSPD_DELTA, 0*RMSPD_DELTA);
-//part_type_speed(cur_par, 3*RMSPD_DELTA, 6*RMSPD_DELTA, -0.15*RMSPD_DELTA, 0*RMSPD_DELTA);
-part_type_speed(cur_par, .5*RMSPD_DELTA, 8*RMSPD_DELTA, -.05*RMSPD_DELTA, 0*RMSPD_DELTA);
-part_type_alpha3(cur_par, 1, 1, .5);
-if VFX_LEVEL == 0 {
-    part_type_alpha3(cur_par, .75, .75, .5); //EVALUATE ME
+
+
+part_type_sprite(particleStarTrail,sprite_index,0,0,0);
+part_type_size(particleStarTrail,1,1,-0.01*RMSPD_DELTA,0*RMSPD_DELTA);
+part_type_scale(particleStarTrail,oScale,oScale);
+part_type_color1(particleStarTrail,COLORS[0]);
+//part_type_color2(particleStarTrail,COLORS[0],COLORS[6]);
+part_type_alpha2(particleStarTrail,pStarAlphaStart,pStarAlphaEnd);
+//part_type_speed(particleStarTrail,1*RMSPD_DELTA,1*RMSPD_DELTA,0*RMSPD_DELTA,0*RMSPD_DELTA);
+//part_type_direction(particleStarTrail,0,359,0*RMSPD_DELTA,0*RMSPD_DELTA);
+//part_type_gravity(particleStarTrail,0*RMSPD_DELTA,270);
+part_type_orientation(particleStarTrail,0,0,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
+var base_speed = room_speed;
+if scr_gamemod_get_index("long_effects", 8) > 0 {
+    base_speed *= scr_gamemod_get_index("long_effects", 10);
 }
-part_type_size(cur_par, 0.2, 0.3, 0*RMSPD_DELTA, 0*RMSPD_DELTA);
-//part_type_life(cur_par, 30, 90);
-//part_type_life(cur_par, 60, 120);
-part_type_life(cur_par, 1*room_speed, 3*room_speed);
+part_type_life(particleStarTrail,base_speed*.4,base_speed*.4);
+
+#define scr_part_type_set_twinkle
+///scr_part_type_set_twinkle()
+
+
+// Twinkle Stars
+with (obj_star) {
+    image_alpha = TWINKLE_ALPHA;
+    part_type_alpha2(particleStarTrail,pStarAlphaStart*TWINKLE_ALPHA,pStarAlphaEnd*TWINKLE_ALPHA);
+}
+// Twinkle Falling Powers
+with (obj_powerup_falling) {
+    image_alpha = TWINKLE_ALPHA;
+}
+var cur_par;
+for(var i=0;i<3;i++){ //for each sprite
+    for(var j=0;j<8;j++){ //for each direction
+        cur_par = pFallingParticle[i,j];
+        part_type_alpha2(cur_par,1*TWINKLE_ALPHA,0.2*TWINKLE_ALPHA);
+    }
+}
+#define scr_part_systems_clear_all
+///scr_part_systems_clear_all()
+
+///Clear Particles
+if part_system_exists(PSYS_SUBSTAR_LAYER) {
+    part_particles_clear(PSYS_SUBSTAR_LAYER)
+}
+if part_system_exists(PSYS_STAR_LAYER) {
+    part_particles_clear(PSYS_STAR_LAYER)
+}
+if part_system_exists(PSYS_FIELD_LAYER) {
+    part_particles_clear(PSYS_FIELD_LAYER)
+}

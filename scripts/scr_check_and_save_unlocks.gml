@@ -96,16 +96,16 @@ var is_gameover = argument1;
 var is_relock = argument2;
 
 // Skip Certain Unlocks
-if (data[1] >= 2 and !is_relock) or //skip unlocks if relock is off
-    data[3] < 0 { //skip negative criteria_types
+if (data[1] > 2) or  // if unlock is iap purchased or default unlocked
+   (data[1] == 2 and !is_relock) or // if it is unlocked already and !relock
+    data[3] < 0 { // if it has a non-valid criteria_type
    exit;
 }
 
 
 
 //Check Unlocked has met criteria for unlocking
-if compare_stats_to_criteria(data) or 
-    data[1] == 3 // or if purchased
+if compare_stats_to_criteria(data) 
 {
     // If Unlocked
     if data[1] < 2 {

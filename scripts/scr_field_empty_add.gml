@@ -4,7 +4,7 @@
 var emptyList, emptyXY;
 
 // Get Grid Coords
-emptyXY = argument0; //scr_create_array(argument0,argument1);
+emptyXY = argument0; //Array(argument0,argument1);
 
 // Set Game Grid to Empty
 scr_field_set(emptyXY[0],emptyXY[1], 0)
@@ -39,7 +39,7 @@ ds_list_insert(emptyList,0, emptyXY);
 
 var emptyXY;
 // Get Grid Coords
-emptyXY = scr_create_array(argument[0],argument[1]);
+emptyXY = Array(argument[0],argument[1]);
 
 // Get List Data (list and pos)
 var listData;
@@ -69,7 +69,7 @@ var emptyList;
 emptyList = scr_field_empty_get_list(argument0,argument1);
 pos = scr_field_list_find(argument0, argument1, emptyList);
 
-return scr_create_array(emptyList,pos);
+return Array(emptyList,pos);
 
 #define scr_field_empty_get_list
 ///scr_field_empty_get_list(gridX,gridY)

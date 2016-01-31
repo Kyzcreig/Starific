@@ -5,7 +5,7 @@
 
 
 // SubEasers
-scr_menu_draw_settings_set_easers();
+scr_menu_draw_set_easers_simple();
 
 
 // Page Header
@@ -42,11 +42,11 @@ for(i = 0; i < array_length_1d(menu); i++)
     
     // Set Button Frame Parameters 
     frame_spr = spr_button_shop;
-    frame_scale = sqr(subEase[i+2]); 
+    frame_scale = subEase[2];//sqr(subEase[i+2]); 
         //evaluate staggered scale ease, we could also try easing them in from the sides
     frame_w = sprite_get_width(frame_spr) * frame_scale;
     frame_h = sprite_get_height(frame_spr) * frame_scale
-    frame_x = GAME_MID_X + GAME_W * (1 - subEase[i+2]);
+    frame_x = GAME_MID_X; //+ GAME_W *.75 * (1 - subEase[i+2]);
     frame_y = row_y + frame_h/2;
     frame_alpha = 1;
     if item_available {
@@ -100,7 +100,7 @@ for(i = 0; i < array_length_1d(menu); i++)
         btn_scale = frame_scale;
         btn_w = sprite_get_width(btn_spr) * btn_scale;
         btn_alpha = 1;
-        btn_margin_x = 16;
+        btn_margin_x = 16 * btn_scale;
         btn_x = frame_x - frame_w/2 +btn_margin_x + btn_w/2;
         btn_y = frame_y;
         btn_col = COLORS[6];
@@ -126,7 +126,7 @@ for(i = 0; i < array_length_1d(menu); i++)
         price_text = scr_iap_get_price(item_data[0], item_data[4]);
         price_w = string_width(price_text) * frame_scale;
         price_h = string_height("H") * frame_scale;
-        price_x = btn_x + btn_w * .5 - cart_margin_x*1;
+        price_x = btn_x + btn_w * .5 - cart_margin_x;
         price_y = btn_y - price_h * .15;
         price_yscale = frame_scale;
         price_w_max = btn_w - cart_w - cart_margin_x*2;
@@ -198,7 +198,6 @@ draw_set_halign(fa_left);
 if coin_display != STAR_CASH {
     // Ease Coin Display Up
     coin_display += ceil((STAR_CASH - coin_display) * .1);
-        //TO DO//EVALUATE SPEED OF EASE 
 }
 count_text = CASH_STR+string(coin_display);
 count_h = string_height("S") 
@@ -209,7 +208,7 @@ draw_text_ext_transformed_colour(count_x, count_y, count_text,
 -1,-1,count_scale,count_scale,0,COLORS[0],COLORS[0],COLORS[0],COLORS[0],1)
 
 // Draw Asertisk *Any Purchase Removes Ads 
-if ADS_FORCED != 0 or true { // FIX ME
+if ADS_FORCED != 0 {
     draw_set_font(fnt_menu_bn_20_black); 
     draw_set_valign(fa_middle);
     draw_set_halign(fa_right);
@@ -241,19 +240,19 @@ title_txt = "shop";
 var i;
 i = -1; 
 // Create Shop Items
-menu[++i] = scr_create_array(0, scr_create_array(                             // button_type, data
+menu[++i] = Array(0, Array(                             // button_type, data
             "coins_0", spr_coins_stack, "stack of coins",                    // product_id, sprite, name_text, 
             "+"+string(IAP_COIN_AMOUNTS[0])+CASH_STR, "$0.99"))                                       //description_text, default price
-menu[++i] = scr_create_array(0, scr_create_array(                             
+menu[++i] = Array(0, Array(                             
             "coins_1", spr_coins_bag, "bag of coins",                    
-            "+"+string(IAP_COIN_AMOUNTS[1])+CASH_STR, "$2.99"))                                 
-menu[++i] = scr_create_array(0, scr_create_array(                             
+            "+"+string(IAP_COIN_AMOUNTS[1])+CASH_STR+" (+50%)", "$2.99"))                                 
+menu[++i] = Array(0, Array(                             
             "coins_2", spr_coins_vault, "vault of coins", 
-            "+"+string(IAP_COIN_AMOUNTS[2])+CASH_STR, "$9.99")) 
-menu[++i] = scr_create_array(0, scr_create_array(                          
+            "+"+string(IAP_COIN_AMOUNTS[2])+CASH_STR+" (+100%)", "$9.99")) 
+menu[++i] = Array(0, Array(                          
             "perk_0", spr_perk_coin_doubler, "earn x2 coins", 
-            "+"+string(IAP_COIN_AMOUNTS[0])+CASH_STR, "$4.99")) 
-menu[++i] = scr_create_array(1, scr_create_array(                             
+            "+"+string(IAP_COIN_AMOUNTS[0])+CASH_STR+" (+perk)", "$4.99")) 
+menu[++i] = Array(1, Array(                             
             "restore purchases", scr_iap_restore_all))                        
 
 

@@ -8,7 +8,7 @@ if os_type == os_ios {
     EVERYPLAY_ENABLED = true;
 } else if os_type == os_android {
     // Get OS Info
-    var os_map, version, major;
+    var os_map, version, major, minor;
     os_map = os_get_info()
     
     if os_map != -1
@@ -18,8 +18,10 @@ if os_type == os_ios {
         show_debug_message("os_map[?'RELEASE'] = "+version);
         //Compare Top Level
         major = real(string_char_at(version,1));
-        
-        if major >= 5 {
+        minor = real(string_char_at(version,3));
+        if major >= 5
+        //if major >= 4 and minor >= 3
+        { 
             // Enable for Newer Phones
             EVERYPLAY_ENABLED = true;
         

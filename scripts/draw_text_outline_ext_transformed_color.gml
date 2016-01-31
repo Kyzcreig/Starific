@@ -34,7 +34,7 @@ draw_set_alpha(alph);
 
 for(var dto_i=45; dto_i<405; dto_i+=360/outfidelity)
 {
-    draw_text_transformed(xx+lengthdir_x(outwidth,dto_i),yy+lengthdir_y(outwidth,dto_i),str, xscl, yscl, rot);
+    draw_text_ext_transformed(xx+lengthdir_x(outwidth,dto_i),yy+lengthdir_y(outwidth,dto_i),str, sep, w, xscl, yscl, rot);
 }
 
 draw_set_color(dto_dcol);

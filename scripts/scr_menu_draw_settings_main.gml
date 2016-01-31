@@ -119,4 +119,4 @@ scr_settings_page_footer();
 ///scr_schedule_exit_page()
 
 
-mainSchedule = ScheduleScript(id,1,.2, scr_exit_page, .60);
+mainSchedule = ScheduleScript(id, true, .2, scr_exit_page, .60);

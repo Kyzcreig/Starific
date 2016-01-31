@@ -229,14 +229,7 @@ if !unlocked {
                 analytics_button_counter("Options-ThemeBuyClick", "theme_index,"+string(theme_index));
                 
                 //Process IAP at STEP end, to prevent duplicate processing
-                //scr_iap_acquire( "theme_"+string(theme_index));
                 ScheduleScript(obj_control_IAP, false, 1, scr_iap_acquire, product_id) //, store_state)
-                //store_state = iap_status_processing;
-                show_debug_message("Theme Buy Button Tapped: "
-                                +str_debug("theme_index",theme_index)
-                                +str_debug("SWIPE_TAP",SWIPE_TAP)
-                                +str_debug("mouse_on_themes",mouse_on_themes)
-                                );
 
                 // Theme Not Equipped on Buy Button Click
                 SWIPE_TAP = false;
@@ -286,7 +279,7 @@ if !unlocked {
     else {
         //Set Sprite Parameters 
         btn_spr = s_v_padlock_100;
-        btn_scale = .88; //.9
+        btn_scale = .88 * def_scale; //.9
         btn_h = sprite_get_width(btn_spr) * btn_scale;//def_size * 2 + def_gap;
         btn_x = def_x + (def_size * 1.5 + def_gap);
         btn_y = def_y + (def_size * 1 + def_gap/2);

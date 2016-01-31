@@ -52,18 +52,29 @@ ds_map_add(DEFLECTOR_DATA, key, new_deflector);
 
 #define scr_deflector_make_key
 ///scr_deflector_make_key(type,subtype, index)
-return string(argument0)+"-"+string(argument1)+"-"+string(argument2);
+
+var type, subtype, index, key;
+var type = argument[0];
+var subtype = argument[1];
+var index = argument[2];
+key = string(type)+"-"+string(subtype)+"-"+string(index);
+return key;
 
 
 #define scr_deflector_get_key
 ///scr_deflector_get_key(obj_index)
 
-return DEFLECTOR_DATA_KEYS[? string(argument0)]
+return DEFLECTOR_DATA_KEYS[? string(argument[0])]
 
 #define scr_deflector_get_data
-///scr_deflector_get_data(obj_index)
+///scr_deflector_get_data(obj_index | type, subtype, index)
 
-return DEFLECTOR_DATA[? scr_deflector_get_key(argument0)]
+if argument_count == 1 {
+    return DEFLECTOR_DATA[? scr_deflector_get_key(argument[0])];
+} else if argument_count == 3 {
+    return DEFLECTOR_DATA[? scr_deflector_make_key(argument[0], argument[1], argument[2])];
+}
+
 
 #define scr_deflector_get_list
 ///scr_deflector_get_list(type_string,subtype_string,enabled_only)
@@ -72,7 +83,7 @@ var types = string_split_real(",",argument0);
 var sub_types = string_split_real(",",argument1);
 var enabled_only = argument2;
 var types_len, sub_types_len, index_len;
-var types_len, data;
+var data;
 
 var returnList = ds_list_create();
 types_len = array_length_1d(types);
@@ -84,9 +95,9 @@ for (var i = 0; i < types_len; i++){
         index_len = DEFLECTOR_DATA_SIZES[# types[i], sub_types[j]];
         // For Each Index
         for (var k = 0; k < index_len; k++ ){
-            data = scr_deflector_get_data_from_index(types[i], sub_types[j], k);
+            data = scr_deflector_get_data(types[i], sub_types[j], k);
             // If Enabled_Only Flagged but Deflector Not Enabled
-            if enabled_only and data[12] == 0{
+            if enabled_only and data[12] == false{
                 // Continue
                 continue
             }
@@ -103,10 +114,10 @@ for (var i = 0; i < types_len; i++){
 return returnList;
 
 #define scr_deflector_mark_as_seen
-///scr_deflector_mark_as_seen(type_string,subtype_string,enabled_only)
+///scr_deflector_mark_as_seen(types,sub_types,enabled_only)
 
-var types = string_split_real(",",argument0);
-var sub_types = string_split_real(",",argument1);
+var types = argument0;//string_split_real(",",argument0);
+var sub_types = argument1;//string_split_real(",",argument1);
 var enabled_only = argument2;
 var types_len, sub_types_len, index_len;
 var types_len, data, key;
@@ -119,8 +130,8 @@ for (var i = 0; i < types_len; i++){
     for (var j = 0; j < sub_types_len; j++ ){
         index_len = DEFLECTOR_DATA_SIZES[# types[i], sub_types[j]];
         // For Each Deflector
-        for (var k = 0; k < index_len; k++ ){
-            data = scr_deflector_get_data_from_index(types[i], sub_types[j], k);
+        for (var k = 0; k < index_len; k++ ) {
+            data = scr_deflector_get_data(types[i], sub_types[j], k);            
             // If Enabled_Only Flagged but Deflector Not Enabled
             if enabled_only and data[12] == 0{
                 // Continue
@@ -138,11 +149,3 @@ for (var i = 0; i < types_len; i++){
         } 
     }
 }
-
-
-
-
-#define scr_deflector_get_data_from_index
-///scr_deflector_get_data_from_index(type, sub_type, index)
-
-return DEFLECTOR_DATA[? scr_deflector_make_key(argument0, argument1, argument2)];

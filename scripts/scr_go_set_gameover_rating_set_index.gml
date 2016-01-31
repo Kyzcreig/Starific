@@ -78,10 +78,10 @@ go_display_index = 0
 //Stat Display Labels
 var i = -1;
                                         //label, value, best, bestVal, newBest
-go_display_score[++i] = scr_create_array("score: ", 0, "best: ", 0, 0);
-go_display_score[++i] = scr_create_array("level: ", 0, "best: ", 0, 0);
-go_display_score[++i] = scr_create_array("time: ", 0, "best: ", 0, 0);
-go_display_score[++i] = scr_create_array("earned: ", 0, "total: ", 0, 0);
+go_display_score[++i] = Array("score: ", 0, "best: ", 0, 0);
+go_display_score[++i] = Array("level: ", 0, "best: ", 0, 0);
+go_display_score[++i] = Array("time: ", 0, "best: ", 0, 0);
+go_display_score[++i] = Array("earned: ", 0, "total: ", 0, 0);
 
 
 
@@ -132,6 +132,6 @@ if GAMEOVER {
 } else {
     return (score_p1 / max(1,highScore ) > GOOD_SCORE_THRESHOLD) or //.70
            (level > highLevel ) or //flag for new best level
-           (lastPlaytime * RMSPD_DELTA > longestPlaytime ) or  //flag for new best time
+           (lastPlaytime > longestPlaytime ) or  //flag for new best time
            SHARE_ALWAYS_OVERRIDE;
 }

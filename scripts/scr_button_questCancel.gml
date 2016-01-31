@@ -29,3 +29,29 @@ return "QUEST_TYPE,"+string(QUEST_DATA[0])+
        "QUEST_CRITERIA,"+string(QUEST_DATA[1])+ 
        "QUEST_PROGRESS,"+string(QUEST_DATA[2])+ 
        "QUEST_DURATION,"+string(QUEST_DATA[3]);
+#define scr_quest_cancel
+///scr_quest_cancel()
+
+//if enough cash
+if STAR_CASH >= 25 {
+    //Cancel Quest
+    analytics_button_counter("questCancelConfirm", scr_get_quest_data_string());
+        //We Send data about quest cancel to help identify problem quests
+    
+    var questDelayMinutes = scr_button_questClear(false);
+                        
+    //Decrement Cash
+    STAR_CASH -= 25;
+    
+    // Play Buy Sound
+    scr_sound(sd_coin_bag);
+    
+}
+//IF not enough cash
+else {
+    //add jiggle to "NO" button 
+    prompt_jiggle[0,0] += 1*room_speed;
+    //play not enough cash sound
+    scr_sound(sd_not_enough_cash);
+}
+                

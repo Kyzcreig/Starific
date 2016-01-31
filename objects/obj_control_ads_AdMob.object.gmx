@@ -35,7 +35,7 @@ if (os_type == os_ios)
     GoogleMobileAds_Init("ca-app-pub-9117517771566987/9880392953"); //Your Interstitial ID from admob
     global.bannerId =  "ca-app-pub-9117517771566987/8403659758";  //Your Banner ID from admob
 }
-else //TO DO Update keys for android build
+else //NB: Update keys for android build
 { 
     GoogleMobileAds_Init("ca-app-pub-1470453329682008/2849642170");
     global.bannerId = "ca-app-pub-1470453329682008/2570440579";

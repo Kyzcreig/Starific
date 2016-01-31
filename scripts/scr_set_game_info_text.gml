@@ -36,7 +36,7 @@ if MUSIC_STATE == 1 {
 
 }
 
-np_x[0] = GAME_MID_X; // + 20 
+np_x[0] = GAME_X + GAME_W*.1; // + 20 
 np_x[1] = np_x[0] + np_w + GAME_W/2;
 np_y = GAME_Y + GAME_H - 20;
 
@@ -59,8 +59,8 @@ if QUEST_DATA[0] == -1 {
 
 
 
-for (var i = 0, n = array_length_1d(sp_buttons); i < n; i++){
-    var data = sp_buttons[i];
+for (var i = 0, n = array_length_1d(btn_items); i < n; i++){
+    var data = btn_items[i];
     
     //check if ID matches criteria
     if data[1] == argument0 {
@@ -78,10 +78,11 @@ return -1;
 var button_index = scr_pause_button_find_index(argument0);
 
 // get button data
-var button_data = sp_buttons[button_index];
+var button_data = btn_items[button_index];
 
 // update Status
 button_data[@ 3] = argument1;
+
 #define scr_pause_resume_countdown
 ///scr_pause_resume_countdown(set_countdown)
 

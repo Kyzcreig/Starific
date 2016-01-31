@@ -15,11 +15,11 @@ var misc_val = argument[++z];
 var array_index = argument[++z];
 
 z = 0; //start at sub 1
-new_power[@ ++z] = timer_list;
-new_power[@ ++z] = timer_dur;
-new_power[@ ++z] = power_type;
-new_power[@ ++z] = icon_symbol;
-new_power[@ ++z] = icon_txt;
+new_power[@ ++z] = timer_list; //1
+new_power[@ ++z] = timer_dur; //2
+new_power[@ ++z] = power_type; //3
+new_power[@ ++z] = icon_symbol; //4
+new_power[@ ++z] = icon_txt; //5
 new_power[@ ++z] = tapper_txt;
 new_power[@ ++z] = misc_val; //misc data
 new_power[@ ++z] = array_index; //position in POWER_ARRAY

@@ -31,8 +31,8 @@
 scr_move_set_active();
 
 
-
 //spe = 0; 
+image_alpha = 1;
 depth = -1000
 
 //show_message(string(real(string(ds_list_find_index(global.respawns,1)))))
@@ -113,7 +113,6 @@ c_current = c_trail
 
 alarm[0] = 0; //flashing
 alarm[1] = 2; //resetting reflect off paddle
-cookie = noone;
 //corner = obj_control_game.corner
 //direction at launch based on aimer objects; this might work better
 //if it was based on image index of launcher
@@ -127,7 +126,7 @@ image_yscale = oScale//objectScale*1.8
 
 
 
-
+particleDeath = true;
 
 
 //_collidedwith = noone
@@ -160,21 +159,16 @@ _bombedCount = 0;
             <kind>1</kind>
             <string>///Trail Particle Stuff
 
-p_star = part_type_create();
-part_type_sprite(p_star,sprite_index,0,0,0);
-part_type_size(p_star,1,1,-0.01*RMSPD_DELTA,0*RMSPD_DELTA);
-part_type_scale(p_star,oScale,oScale);
-part_type_color1(p_star,COLORS[0]);
-//part_type_color2(p_star,COLORS[0],COLORS[6]);
-part_type_alpha2(p_star,1,0.2);
-//part_type_speed(p_star,1*RMSPD_DELTA,1*RMSPD_DELTA,0*RMSPD_DELTA,0*RMSPD_DELTA);
-//part_type_direction(p_star,0,359,0*RMSPD_DELTA,0*RMSPD_DELTA);
-//part_type_gravity(p_star,0*RMSPD_DELTA,270);
-part_type_orientation(p_star,0,0,0*RMSPD_DELTA,0*RMSPD_DELTA,1);
-part_type_life(p_star,room_speed*.4,room_speed*.4);
-
 // Set Default Trail Delay
 trailDelay = scr_trail_delay_set(starModifiers[3]);
+
+// Create Particle
+particleStarTrail = part_type_create();
+pStarAlphaStart = 1;
+pStarAlphaEnd = .2;
+
+// Set Particle
+scr_part_star_set(particleStarTrail)
 </string>
           </argument>
         </arguments>
@@ -199,11 +193,10 @@ trailDelay = scr_trail_delay_set(starModifiers[3]);
             <kind>1</kind>
             <string>///particle death and garbage collect particle
 
-if part_type_exists(p_star)
+if part_type_exists(particleStarTrail)
 {
-   var gc_array = 0;
-   gc_array[0] = p_star;
-   gc_array[1] = 1*room_speed;
+   var gc_array = noone;
+   gc_array = Array(particleStarTrail, 1*room_speed);
    ds_list_add(global.GC_particles,gc_array);
 }
 
@@ -213,7 +206,9 @@ if part_type_exists(p_star)
 //I don't want it stealing attention.
 //Might even be worth coopting one of these effects for the paddle when it goes out of bounds.
    //part_type_gravity(p_catch,0.2*RMSPD_DELTA,direction);
-part_particles_create_colour(PSYS_SUBSTAR_LAYER, x, y, p_catch,image_blend,200)
+if particleDeath {
+    part_particles_create_colour(PSYS_SUBSTAR_LAYER, x, y, p_catch,image_blend,200);
+}
 </string>
           </argument>
         </arguments>
@@ -414,12 +409,13 @@ switch inFieldState {
 */
  
 
-//Activate POWER_hugestar[@ 0]
-if POWER_hugestar[@ 0] &gt; 0 {
+//Activate POWER_hugestar[@ 0] or Star Pulsar
+if POWER_hugestar[@ 0] &gt; 0 or starModifiers[6] &gt; 0 {
     starModifiers[2] = true
 }else{
     starModifiers[2] = false
 }
+
 //Activate POWER_halfangle[@ 0]
 if POWER_halfangle[@ 0] &gt; 0 {
     // Set Angle Scalar
@@ -440,8 +436,8 @@ else if POWER_noangle[@ 0] &gt; 0 {
     // Set Angle Scalar
     starModifiers[0] = 0;
 }
-//Activate POWER_randomangle[@ 0]
-else if POWER_randomangle[@ 0] &gt; 0 {
+//Activate POWER_randomangle[@ 0] or Fickle Stars
+else if POWER_randomangle[@ 0] &gt; 0 or starModifiers[7] &gt; 0 {
     starModifiers[4] = true; //flag random direction
     starModifiers[5] = false; //unflag diagonal turning
 }
@@ -451,7 +447,7 @@ else if POWER_diagturn[@ 0] &gt; 0 {
     starModifiers[5] = true; //flag diagonal turning
 }
 // Else Clear All
-else{
+else {
     // Set Angle Scalar
     starModifiers[0] = 1; 
     
@@ -459,19 +455,34 @@ else{
     starModifiers[5] = false;  //unflag diagonal turning
 }
 
+// Decrement Star Pulsar Timer
+if starModifiers[6] &gt; 0 {
+   starModifiers[6] -= RMSPD_DELTA; 
+}
+// Decrement Star Fickle Timer
+if starModifiers[7] &gt; 0 {
+   starModifiers[7] -= RMSPD_DELTA; 
+}
 
 //TURN MOD COLORS MERGE
-if (starModifiers[0] != 1 or starModifiers[4] or starModifiers[5])and starModifiers[1] == false{//and image_blend != c_pierce{
+if (starModifiers[0] != 1 or 
+    starModifiers[4] or 
+    starModifiers[5]) //and 
+    //!starModifiers[1] //and image_blend != c_pierce{
+{
     starModifiers[1] = true
     c_trail = c_current
     c_trail = merge_color(c_trail,c_ballmod,1)
     image_blend = c_trail//c_norm//c_trail
 }
-else if starModifiers[0] == 1 and !starModifiers[4] 
-    and !starModifiers[5] and starModifiers[1] == true{
-    starModifiers[1] = false
-    c_trail = c_norm//c_current
-    image_blend = c_trail
+else if starModifiers[0] == 1 and 
+    !starModifiers[4] and 
+    !starModifiers[5] //and 
+    //starModifiers[1]
+{
+    starModifiers[1] = false;
+    c_trail = c_current;//c_current
+    image_blend = c_trail;
 }   
 
 
@@ -488,7 +499,9 @@ else if !flash and flashing{
      flashing = false;
      c_current = c_norm
      c_trail = c_current
-     if starModifiers[1]{c_trail = merge_color(c_trail,c_ballmod,1)}//c_ballmod}
+     if starModifiers[1]{
+        c_trail = merge_color(c_trail,c_ballmod,1)
+     }
      image_blend = c_trail
 }
 
@@ -555,15 +568,16 @@ if image_xscale != newScale {
    image_yscale += (newScale - image_yscale) * .25 * RMSPD_DELTA //1
    */
    //Scale particles
-   part_type_size(p_star,1,1,-0.01*image_xscale/oScale,0);
-   part_type_scale(p_star,image_xscale,image_xscale);
+   part_type_size(particleStarTrail,1,1,-0.01*image_xscale/oScale,0);
+   part_type_scale(particleStarTrail,image_xscale,image_xscale);
 }
+
 
 // Draw Star Particle Trail
 if ((STEP) mod trailDelay) == 0{
 //if (STEP mod trailDelay) == 0 {
 
-    part_particles_create_color(PSYS_STAR_LAYER,x,y,p_star,c_trail,1);
+    part_particles_create_color(PSYS_STAR_LAYER,x,y,particleStarTrail,c_trail,1);
 }
 
 
@@ -658,7 +672,7 @@ c_trail = c_norm//c_a qua
 c_current = c_trail
 
 //Set Particle trail color
-part_type_color1(p_star,COLORS[0]);
+part_type_color1(particleStarTrail,COLORS[0]);
 </string>
           </argument>
         </arguments>

@@ -18,8 +18,8 @@ var checkedList = ds_list_create(); //cells already checked
 
 //If spot/origin cell is valid, add to lists and decrement
 if gamecell_is_valid(spotX,spotY) and (!emptiesOnly or scr_isEmptyCell(spotX,spotY)) {
-    ds_list_add(foundList,scr_create_array(spotX, spotY));
-    ds_list_add(checkedList,scr_create_array(spotX, spotY));
+    ds_list_add(foundList,Array(spotX, spotY));
+    ds_list_add(checkedList,Array(spotX, spotY));
     findCount -= 1
 }
 //Add all cells adjacent to spot/origin to checklist

@@ -70,16 +70,13 @@ android:theme="@style/GCAlert"&gt;&lt;/activity&gt;
       <uncompress>0</uncompress>
       <ConfigOptions>
         <Config name="Default">
-          <CopyToMask>562949955518472</CopyToMask>
+          <CopyToMask>0</CopyToMask>
         </Config>
         <Config name="AndroidGoogleplay">
-          <CopyToMask>9223372036854775807</CopyToMask>
+          <CopyToMask>0</CopyToMask>
         </Config>
         <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
+          <CopyToMask>129955827650798</CopyToMask>
         </Config>
       </ConfigOptions>
       <ProxyFiles/>
@@ -90,7 +87,7 @@ android:theme="@style/GCAlert"&gt;&lt;/activity&gt;
           <kind>11</kind>
           <help>AmazonGameCircle_Login()</help>
           <returnType>2</returnType>
-          <argCount>-1</argCount>
+          <argCount>0</argCount>
           <args/>
         </function>
         <function>

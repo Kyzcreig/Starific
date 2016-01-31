@@ -57,7 +57,7 @@ new_unlock[++z] = type; //
 new_unlock[++z] = status; //1
 new_unlock[++z] = views; //
 new_unlock[++z] = criteria_type; //3
-new_unlock[++z] = criteria_quantity; //
+new_unlock[++z] = criteria_quantity; //4
 new_unlock[++z] = name; //5
 new_unlock[++z] = type_name; //6
 new_unlock[++z] = type_index; // 7
@@ -118,9 +118,8 @@ break;
 case 3: 
     type_name = "theme";
 break;
-//Misc
 case 4: 
-    type_name = "";
+    type_name = "misc";
 break;
 case 5: 
     type_name = "achievement"; //as in achievement unlocked like on xbox
@@ -134,41 +133,58 @@ return type_name;
 #define scr_unlock_get_key
 ///scr_unlock_get_key(type,index)
 
-return scr_unlock_type_to_prefix(argument0)+"-"+string(argument1);
+
+var type = argument0;
+var index = argument1;
+var key = scr_unlock_type_to_prefix(type)+"-"+string(index)
+return key;
 
 #define scr_unlock_get_data
 ///scr_unlock_get_data(type,index)
 
 
-var key = scr_unlock_get_key(argument0,argument1);
+var type = argument0;
+var index = argument1;
+var key = scr_unlock_get_key(type,index);
 return UNLOCKS_DATA[? key];
 
 #define scr_unlock_get_status
 ///scr_unlock_get_status(type,index)
 
 
-var data = scr_unlock_get_data(argument0,argument1);
+var type = argument0;
+var index = argument1;
+var data = scr_unlock_get_data(type,index);
 return data[1];
 
 #define scr_unlock_set_status
 ///scr_unlock_set_status(type,index,status,save)
 
+var type = argument0;
+var index = argument1;
+var val = argument2;
+var save = argument3;
+var data = scr_unlock_get_data(type,index);
+// Set Status
+data[@ 1] = val;
 
-var data = scr_unlock_get_data(argument0,argument1);
-data[@ 1] = argument2;
-
-if argument3 {
-    var key = scr_unlock_get_key(argument0, argument1);
+// Save Status
+if save {
+    var key = scr_unlock_get_key(type, index);
     ini_open("scores.ini");
        ini_write_real("UNLOCKS_DATA", key+"-status", data[@ 1]);
     ini_close();
 }
+
 #define scr_unlock_get_name
 ///scr_unlock_get_name(type,index)
 
-var data = scr_unlock_get_data(argument0, argument1);
+var type = argument0;
+var index = argument1;
+var data = scr_unlock_get_data(type,index);
 
 return data[5];
+
 #define scr_unlock_get_name_long
 ///scr_unlock_get_name_long(data | type,index)
 var data;

@@ -1,5 +1,5 @@
-#define scr_create_array
-///scr_create_array(arg0, arg1, ...);
+#define Array
+///Array(arg0, arg1, ...);
 
 var _ret, _maxIndex = argument_count-1;
 

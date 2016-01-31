@@ -31,19 +31,19 @@ if method == 1 {
 
 //Grids
 scr_new_unlock(0, 3, load_as_new, -1, 0,  "small") 
-scr_new_unlock(0, 0, load_as_new, 25, 1*2,  "medium")//1 
-scr_new_unlock(0, 0, load_as_new, 25, 3*2,  "large")  //3
-scr_new_unlock(0, 0, load_as_new, 25, 7*2,  "giant")  //7
+scr_new_unlock(0, 0, load_as_new, 24, 1,  "medium")//1 
+scr_new_unlock(0, 0, load_as_new, 24, 3,  "large")  //3
+scr_new_unlock(0, 0, load_as_new, 24, 7,  "giant")  //7
 //Modes
 scr_new_unlock(1, 3, load_as_new, -1, 0,  "arcade") 
-scr_new_unlock(1, 0, load_as_new, 25, 4*2,  "moves") //4 
-scr_new_unlock(1, 0, load_as_new, 25, 6*2,  "time")  //6
-scr_new_unlock(1, 0, load_as_new, 25, 9*2,  "sandbox") //9
+scr_new_unlock(1, 0, load_as_new, 24, 4,  "moves") //4 
+scr_new_unlock(1, 0, load_as_new, 24, 6,  "time")  //6
+scr_new_unlock(1, 0, load_as_new, 24, 9,  "sandbox") //9
 //Rigors 
 scr_new_unlock(2, 3, load_as_new, -1, 0,  "easy") //beginner
-scr_new_unlock(2, 0, load_as_new, 25, 2*2,  "normal")  //amateur //2
-scr_new_unlock(2, 0, load_as_new, 25, 5*2,  "hard")  //expert //5
-scr_new_unlock(2, 0, load_as_new, 25, 8*2,  "chaos")  //master //8
+scr_new_unlock(2, 0, load_as_new, 24, 2,  "normal")  //amateur //2
+scr_new_unlock(2, 0, load_as_new, 24, 5,  "hard")  //expert //5
+scr_new_unlock(2, 0, load_as_new, 24, 8,  "chaos")  //master //8
 // Misc (Perks)
 scr_new_unlock(4, 0, load_as_new, -2, 0,  "coin doubler") // Coin Doubler Perk
 
@@ -58,7 +58,8 @@ scr_new_unlock(3, 0, load_as_new, 14, 1,  mColors[SKIN_NAME_INDEX,++i]) // share
     //Iterate Rest of Skins in Pattern:
 var criteria_type, criteria_quantity; 
 var size_of_pattern = 5;
-var quest_criteria_interval = 3; //5; // criteria is multiple of this
+var alternate_critiera = 3; //Reach Level //24 // Quest
+var criteria_interval = 3; //5; // criteria is multiple of this
 var theme_index = 3; 
         /* NB: We use this var as an offset on the index
             to keep the order from shuffling if we add other skins before these.
@@ -66,11 +67,13 @@ var theme_index = 3;
         */
 var theme_prize_index = 0;
 while ( i < SKIN_COUNT-1 ) {
-    questTheme = (theme_index mod size_of_pattern) == 0;
-    // Repeat Pattern of Criteria Iteratively
-    if questTheme {
-        criteria_type = 24;
-        criteria_quantity = (theme_index div size_of_pattern) * quest_criteria_interval; 
+    altTheme = (theme_index mod size_of_pattern) == 0;
+        //NB: Every "size_of_pattern" do an alternate criteria theme
+    if altTheme { //DISABLED
+        criteria_type = alternate_critiera;
+        criteria_quantity = 12 + (theme_index div size_of_pattern) * criteria_interval; 
+            //NB: Start at criteria_quantity = 12, add "criteria_interval" each "size_of_pattern"
+            //NB: Since we start count at 1, this is 15 first.
     }
     // Else Draw From Prize Wheel 
     else {
@@ -105,30 +108,8 @@ if method == 2{
 }
 //Method 3: unlock everything
 else if method == 3{
-
     //Only Unlock Sizes/Modes/Rigors
     scr_unlocks_set_status_types("0,1,2");
-    
-    /*
-    var size, key;
-    size = ds_map_size(UNLOCKS_DATA)
-    key = ds_map_find_first(UNLOCKS_DATA)
-    //NB: Another way to do this might be by type.
-    //Iterate over each key
-    for (var i = 0; i < size ; i++){
-        //Pull Data
-        data = UNLOCKS_DATA[? key];
-        
-        //If Locked
-        if data[1] == 0 {
-            //Unlock it Temporarily
-            data[@ 1] = -2; //negative means ignore it on gameover for derivative unlocks e.g. achievements
-        }
-        
-        
-        //Iterate to next key.
-        key = ds_map_find_next(UNLOCKS_DATA, key); 
-    }*/
 }
 
 

@@ -15,7 +15,8 @@ var w =0, wVals, wResult, wRNG;
 // add weights
 wVals[w] = 1;    wResult[w++] = 0; // games played
 wVals[w] = 1;    wResult[w++] = 1; // reach score
-//wVals[w] = .1;    wResult[w++] = 2; // reach combo
+//wVals[w] = .1;    wResult[w++] = 2; // reach combo 
+    //NB: I found combo quest too hard to balance across settings/skill levels
 wVals[w] = 1;    wResult[w++] = 3; // reach level
 wVals[w] = 1;    wResult[w++] = 4; // deflectors destroyed
 wVals[w] = 1;    wResult[w++] = 5; // bombs detonated
@@ -160,7 +161,7 @@ switch argument0 {
     break;
     
     
-    //Reach Combo [unused]
+    //Reach Combo 
     case 2:
         //Set Weights of Types
         var w =0, wVals, wResult, wRNG;

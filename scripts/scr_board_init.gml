@@ -46,7 +46,7 @@ for(i = 0; i < fieldW; i ++) {
              // Empty Cell
              else if global.FIELD_OBJECTS[# i,j] == noone{
                 // Set Value and Add to Spawn Queue
-                scr_field_empty_add(scr_create_array(i, j));  
+                scr_field_empty_add(Array(i, j));  
              }
          }
          // Set Invalid Cells to Null Value
@@ -83,8 +83,8 @@ moves_board_start = count;//instance_number(obj_reflector_parent);
 ///scr_board_reset()
 
   
-
-if object_exists(obj_control_powerups){
+// If There is a power controller
+if object_exists(obj_control_powers){
     //powerups
     scr_clear_powers();
     
@@ -128,7 +128,7 @@ with(obj_reflector_parent){
     scr_deflector_cell_outro(id, true,false);
 }
 // Clear Powers
-if instance_exists(obj_control_powerups){
+if instance_exists(obj_control_powers){
     //powers
     scr_clear_powers();
 }
@@ -146,24 +146,22 @@ alarm[0] = room_speed*1.2 //NB: outro tween takes .5 seconds, plus intro spawn t
 ///scr_sum_powers()
 
 
+//show_debug_message("GETTING POWER COUNT");
 var pTotal = 0;
-var i = -1; var p;
+var i = -1; 
+var p, val;
 //Sum the number of active powers
 repeat(array_length_1d(POWER_ARRAY)){
     ++i;
     p = POWER_ARRAY[i];
+    //val = p[0];
+    //show_debug_message("name,val="+string(p[5])+","+string(val));
     pTotal += sign(p[0]);
+    
 }          
 
 return pTotal;
 
-/*
-
-for (var z = 0, n = array_length_1d(POWER_ARRAY); z < n; z++){
-    var p = noone;
-    p = POWER_ARRAY[@ z];
-    pTotal += sign(p[@ 0]);
-}  
 
 #define scr_clear_powers
 ///scr_clear_powers()

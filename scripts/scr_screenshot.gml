@@ -46,7 +46,7 @@ if drawInDepthOrder {
     with (obj_star){draw_self()}
     // Text Is Highest
     with (obj_text_generic){event_perform(ev_draw, 0);}
-    with (obj_control_powerups){event_perform(ev_draw, 0)}
+    with (obj_control_powers){event_perform(ev_draw, 0)}
     
     //NB: If you change how things are drawn or add things you'll need to update this...
 }
@@ -55,7 +55,8 @@ else {
     // Draw Everything to Surface
     with (all)
     {
-        if (id != other.id or argument1) and visible // except self
+        if (id != other.id or argument1) and // except self
+            visible and !object_is_ancestor(object_index,obj_shader_parent)
         {   
             // Call Draw Event
             event_perform(ev_draw, 0);
@@ -75,12 +76,6 @@ else {
 
 
 // Preclear
-/*
-draw_set_colour( c_black );
-draw_set_blend_mode( bm_add );
-draw_rectangle( 0, 0, VIEW_W - 1, VIEW_H - 1, false );
-draw_set_blend_mode( bm_normal );
-*/
 // Set Alpha of All Pixels to 1 (so it's not transparent/blurry)
 draw_set_blend_mode( bm_add );
 draw_sprite_stretched_ext(s_v_background_solid,0, 0,0,VIEW_W,VIEW_H, c_black, 1);
@@ -177,11 +172,11 @@ deactivated_object_list = ds_list_create()
 
 //Deactivate everything
 with (all){ //with (obj_persistent_parent) //could work
-    if id == other.id or
+    if id == other.id or persistent or 
        object_index == obj_SharedTweener or
-       object_index == obj_SharedScheduler or
-       object_index == obj_frame_skip_custom or//TMC_FrameSkip_obj or
-       object_is_ancestor(object_index,obj_persistent_parent)
+       object_index == obj_frame_skip_custom //or//TMC_FrameSkip_obj or
+       //object_index == obj_SharedScheduler or
+       //object_is_ancestor(object_index,obj_persistent_parent)
     {
        continue 
     }
@@ -241,8 +236,7 @@ part_system_automatic_draw(PSYS_FIELD_LAYER, false);
 part_system_automatic_update(PSYS_STAR_LAYER, false);
 part_system_automatic_draw(PSYS_STAR_LAYER, false);
 
-audio_pause_all();
-MUSIC_ACTIVE = false;
+scr_pause_audio();
 
 shaking = false
 if SHAKE_TIME > -2{
@@ -253,6 +247,7 @@ if SHAKE_TIME > -2{
 
 #define scr_resume_effects
 ///scr_resume_effects()
+
 
 // RESUME SFX
 if !sfx_sound[1] {
@@ -265,12 +260,9 @@ if !sfx_sound[1] {
        audio_sound_gain(sfx_list[| i],sfx_sound[0],0);
    }
 }
+
 // RESUME MUSIC
-if audio_exists(CURRENT_SONG) {
-   audio_resume_sound(CURRENT_SONG)
-   audio_sound_gain(CURRENT_SONG,music_sound[0]*music_sound[1],0);
-                                // NB: Volume * Mute
-}
+scr_MusicResume();
 /*
 if !music_sound[1] {
    for (i=0;i<ds_list_size(music_list);i++){
@@ -316,3 +308,10 @@ for (var i = 0, n = ds_list_size(deactivated_object_list); i < n; i++){
     instance_activate_object(deactivated_object_list[| i]);
 }
 ds_list_destroy(deactivated_object_list)
+#define scr_pause_audio
+///scr_pause_audio()
+
+
+audio_pause_all();
+music_active_cache = MUSIC_ACTIVE;
+MUSIC_ACTIVE = false;

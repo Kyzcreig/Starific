@@ -58,7 +58,7 @@ ini_open("scores.ini")
 
     
     //Read in unlocks
-    var unlock_method = 2;
+    var unlock_method = 2 
     scr_unlocks_init(unlock_method)
     /* methods require file stream open
      * 0 = load unlocks as last saved

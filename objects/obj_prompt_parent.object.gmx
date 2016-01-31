@@ -27,12 +27,15 @@
             <kind>1</kind>
             <string>///init
 
-//List to hold deactivated objects
-deactivated_object_list = noone;
+// Clear Inputs To Prevent Problems With scr_screenshot
+mouse_clear(mb_left);
+SWIPE_TAP = false;
 
 //Take Screenshot
 spr_temp = scr_screenshot(0, 0, 0);
 
+//List to hold deactivated objects
+deactivated_object_list = noone;
 // Deactivate Everything Else
 scr_deactivate_everything_else();
 //ScheduleScript(id,0,1,scr_deactivate_everything_else);
@@ -65,7 +68,7 @@ rect_w = GAME_W;
 // Set Title
 title_font = fnt_menu_title_95; 
 title_txt = "Not Implemented"
-prompt_button = noone;
+prompt_buttons = noone;
 
 showBackButton = false;
 

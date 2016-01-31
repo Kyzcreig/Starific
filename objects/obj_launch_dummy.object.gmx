@@ -179,7 +179,6 @@ if scene_alpha == 1{
         part_particles_create_color(PSYS_SUBSTAR_LAYER, proj_start_x, proj_start_y,p_launch,proj_spr_color, 50);//100);//
         */
         
-        //scr_sound(sd_turn_begin,1,false)
         
     }
     

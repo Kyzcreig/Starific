@@ -3,7 +3,7 @@
 
 frameCount = 0;
 if MODE == MODES.ARCADE{
-   frameCount = 7;
+   frameCount = 8;
 }
 else if MODE == MODES.MOVES{
    frameCount = 5;

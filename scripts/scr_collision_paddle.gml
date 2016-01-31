@@ -103,7 +103,7 @@ scr_increment_combo(0)
 
 //Add points for successful hit
 var added = 5;
-score += added
+scr_raw_score_add(added);
 // Update Stats
 added = scr_calculate_points(added);
 score_p1 += added;

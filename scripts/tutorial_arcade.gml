@@ -35,7 +35,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_block_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_block_dummy);
            
            //pass these in for scene top and bottom
            scene_top = text_y + text_h/2 + sprite_gap;
@@ -70,7 +70,7 @@ switch argument0{
             if !TOUCH_ENABLED {frame_text = "Move the cursor around#to rotate the paddle.";}
         } else {
             //frame_text = "Touch anywhere and drag in#a circle to move the paddle.";
-            frame_text = "Change control style at#Pause->Options-Game.";
+            frame_text = "Learn how to adjust controls#at the Options->Game.";
             
             if !TOUCH_ENABLED {frame_text = "Move the cursor around#to rotate the paddle.";}
         
@@ -108,7 +108,7 @@ switch argument0{
         //Create hand pointer dummy
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_touch_pointer);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_touch_pointer);
            
            //Calculate circle radius
            sprite_y_offset = sprite_get_yoffset(s_v_pointer);
@@ -206,7 +206,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_turn_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_turn_dummy);
            
            //pass these in for scene top and bottom
            scene_top = text_y + text_h/2 + sprite_gap*3;
@@ -275,7 +275,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_projectile_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_projectile_dummy);
            
            //pass these in for scene top and bottom
            scene_top = sprite_y + sprite_w/2 //+sprite_gap;
@@ -327,7 +327,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_bomb_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_bomb_dummy);
            
            //pass these in for scene top and bottom
            scene_top = text_y + text_h/2 + sprite_gap;
@@ -444,7 +444,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_prizewheel_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_prizewheel_dummy);
            
            //pass these in for scene top and bottom
            scene_top = text_y + text_h/2;//+ sprite_gap;
@@ -463,7 +463,53 @@ switch argument0{
     
         break;
         
+        
     case 6:
+        draw_set_valign(fa_middle);
+        draw_set_halign(fa_left);
+        //Draw first line text
+        frame_text = "Complete quests to unlock#new modes and options."
+        text_w = string_width(frame_text);
+        text_h = string_height(frame_text);
+        sprite_w = 40//50;
+        sprite_gap = 8//10;
+        text_x = title_x - text_w/2 + (sprite_w*1+sprite_gap)/2;  //60 = sprite width; 10=padding
+        text_y = text_start_y+ text_h/2 + text_line_gap;//50 = distance from title
+        draw_text_colour(text_x,text_y,frame_text,text_color,text_color,text_color,text_color,tutorialTextTween[0]);
+        
+        //Draw Cash sprite
+        sprite_x = text_x - (sprite_w*.5+sprite_gap*1);
+        sprite_y = text_y;
+        sprite_spr =  s_v_options_game;
+        sprite_scale = sprite_w/sprite_get_width(sprite_spr);
+        sprite_col = power_type_colors(-1,0);
+        draw_sprite_ext(sprite_spr,0,sprite_x,sprite_y,sprite_scale,sprite_scale,0,sprite_col,tutorialTextTween[0]);
+   
+        
+        
+        //Create dummy scene
+        if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
+        {
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_newOptions_dummy);
+           
+           //pass these in for scene top and bottom
+           scene_top = text_y + text_h/2;//+ sprite_gap;
+           scene_bottom = (dots_y-dot_height)//GAME_Y+GAME_H;
+           
+           //Set params for scene
+           with (tutorial_dummy){
+                scene_top = other.scene_top ;//+ proj_spr_h;
+                scene_bottom = other.scene_bottom;
+                
+                center_y = (scene_top+scene_bottom)/2
+           }
+                              
+        }
+    
+    
+        break;
+        
+    case 7:
     
             
         draw_set_valign(fa_middle);
@@ -493,7 +539,7 @@ switch argument0{
         //Create dummy scene
         if !instance_exists(tutorial_dummy) and TUTORIAL_STARTED[0] and !TutorialEnding
         {
-           tutorial_dummy = instance_create(padcenterx,padcentery,obj_launch_dummy);
+           tutorial_dummy = instance_create(GAME_MID_X,GAME_MID_Y,obj_launch_dummy);
            
            //pass these in for scene top and bottom
            scene_top = text_y + text_h + sprite_gap;

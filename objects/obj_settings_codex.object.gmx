@@ -40,49 +40,7 @@
           <argument>
             <kind>1</kind>
             <string>///Codex Page
-
-title_txt = "codex";
-title_font = fnt_game_title_95; 
-counts_font = fnt_game_bn_40_bold;
-
-
-codex_categories = noone;
-codex_sub_simple = noone;
-codex_sub_uppers = noone;
-codex_sub_downers = noone;
-//codex_sub_rounders = noone;
-
-
-
-// Set Up Data to Draw  //label, list of deflectors, wrap_width, font
-codex_sub_simple[0] = scr_create_array("basic",scr_deflector_get_list("0","0", 1),4,fnt_game_bn_26_black);
-codex_sub_simple[1] = scr_create_array("bombs",scr_deflector_get_list("4","0", 1),4,fnt_game_bn_26_black);
-codex_categories[0] =  scr_create_array("simple",codex_sub_simple,5,fnt_game_bn_40_bold);
-
-
-codex_sub_uppers[0] = scr_create_array("duration",scr_deflector_get_list("1","1", 1),5,fnt_game_bn_26_black);
-codex_sub_uppers[1] = scr_create_array("tappers",scr_deflector_get_list("1","3", 1),3,fnt_game_bn_26_black);
-codex_sub_uppers[2] = scr_create_array("instant",scr_deflector_get_list("1","0", 1),4,fnt_game_bn_26_black);
-codex_categories[1] =  scr_create_array("uppers",codex_sub_uppers,5,fnt_game_bn_40_bold);
-
-
-codex_sub_downers[0] = scr_create_array("duration",scr_deflector_get_list("2","1", 1),5,fnt_game_bn_26_black);
-codex_sub_downers[1] = scr_create_array("turn modifiers",scr_deflector_get_list("2","2", 1),3,fnt_game_bn_26_black);
-codex_sub_downers[2] = scr_create_array("tappers",scr_deflector_get_list("2","3", 1),3,fnt_game_bn_26_black);
-codex_sub_downers[3] = scr_create_array("instant",scr_deflector_get_list("2","0", 1),5,fnt_game_bn_26_black);
-codex_categories[2] =  scr_create_array("downers",codex_sub_downers,5,fnt_game_bn_40_bold);
-
-codex_categories[3] =  scr_create_array("rounders",scr_deflector_get_list("3","0,1,2,3,4", 1),4,fnt_game_bn_40_bold);
-
-
-// Set if Deflector is Locked or Not
-ini_open("scores.ini")
-    unlockCounts[0] = 0; // total
-    unlockCounts[1] = 0; //discovered
-    unlockCounts[2] = 0; //new 
-    unlockCounts = scr_codex_get_counts(codex_categories, unlockCounts);
-    // [0] = total; [1] = unlocked;
-ini_close();
+scr_codex_init()
 
 
 
@@ -154,7 +112,9 @@ scr_codex_clean(codex_categories)
 
 // Mark New Codex as Seen
 ini_open("scores.ini");
-    scr_deflector_mark_as_seen("0,1,2,3,4","0,1,2,3,4,5", true);
+    //scr_deflector_mark_as_seen("0,1,2,3,4","0,1,2,3,4,5", true);
+    scr_deflector_mark_as_seen(Array(0,1,2,3,4),Array(0,1,2,3,4,5), true);
+    scr_gamemod_mark_as_seen(Array(0,1),Array(0), true);
 ini_close();
 
 //show_message(string(ds_exists(codex_categories[3], ds_type_list)));

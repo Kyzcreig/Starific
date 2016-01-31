@@ -49,7 +49,7 @@ event_inherited();
           <argument>
             <kind>1</kind>
             <string>///Init
-scr_prompt_confirm_init()
+scr_prompt_confirm_exit_init()
 </string>
           </argument>
         </arguments>

@@ -36,7 +36,7 @@ if !POWER_multimalus[@ 0]{
         }*/
         
         //Starts at .5 goes up to .75 for each increment over 25 up to 200
-        var beatAlpha = min(1, .5 + max(0,(global.pComboCount - 25)/175 * .25))
+        var beatAlpha = clamp(.5 + max(0,(global.pComboCount - 25)/175 * .25), 0, 1)
         
         if (global.pComboCount+9) mod 5 == 0{
             scr_beat_effect('A',beatAlpha);

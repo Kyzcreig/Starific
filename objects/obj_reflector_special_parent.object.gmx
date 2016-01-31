@@ -59,15 +59,11 @@
             <kind>1</kind>
             <string>///Draw as squares and symbols
 
-draw_self()
-/*
-if object_is_ancestor(object_index,obj_powerup_parent_ups)
-or object_is_ancestor(object_index,obj_powerup_parent_downs)
-{sprite_index = s_v_deflector_basic}*/
+draw_self();
 
-if symDraw {draw_sprite_ext(symSprite,0,x+symOffsetX,y+symOffsetY,symScale,symScale,0,symColor,1)}
-//it might be more efficient to create custom sprites at the start
-// and memoize them so i only do it once per theme and once per object type/symbol.
+if symDraw {
+    draw_sprite_ext(symSprite,0,x+symOffsetX,y+symOffsetY,symScale,symScale,0,symColor,1)
+}
 </string>
           </argument>
         </arguments>

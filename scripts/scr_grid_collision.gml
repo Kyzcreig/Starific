@@ -26,6 +26,38 @@ if gamecell_is_valid(gX,gY,rangeBuffer)
             //Set New Shooter Motion
             motion_set(direction + _collidedwith.rdir*(starModifiers[0]),speed);
             _hasTurned = true;
+            
+            //Random Chance for Star Divide
+            if scr_gamemod_get_index("star_division", 8) > 0 {
+                if random(1) < scr_gamemod_get_index("star_division", 10) {
+                    // Create Another Star
+                    var copyFieldXY = convertGridtoXY(intGridXY[0], intGridXY[1]);
+                    spawn_star(direction +180,copyFieldXY[0],copyFieldXY[1]);
+                    scr_popup_text_field_moving(x,y,'star division!',power_type_colors(1, 0));
+                }
+            }
+            
+            //Random Chance for Star Pulse
+            if scr_gamemod_get_index("pulsar_stars", 8) > 0 {
+                if random(1) < scr_gamemod_get_index("pulsar_stars", 10) {
+                    // Activate Star Pulse Timer
+                    if starModifiers[6] <= 0 {
+                        starModifiers[6] = 5*60; //60FPS, we decrement RMSPD_DELTA 
+                        scr_popup_text_field_moving(x,y,'pulsar!',power_type_colors(1, 0));
+                    }
+                }
+            }
+            
+            //Random Chance for Star Fickle
+            if scr_gamemod_get_index("fickle_stars", 8) > 0 {
+                if random(1) < scr_gamemod_get_index("fickle_stars", 10) {
+                    // Activate Star Pulse Timer
+                    if starModifiers[7] <= 0 {
+                        starModifiers[7] = 5*60; //60FPS, we decrement RMSPD_DELTA 
+                        scr_popup_text_field_moving(x,y,'fickle star!',power_type_colors(2, 0));
+                    }
+                }
+            }
         }
     
         // Set Last Touch
@@ -33,7 +65,7 @@ if gamecell_is_valid(gX,gY,rangeBuffer)
         
         //Destroy collided object
         with (_collidedwith){
-             destroyer = other.id
+             destroyer = other.id;
              event_perform(ev_other, ev_user0);
              //instance_destroy();
         }

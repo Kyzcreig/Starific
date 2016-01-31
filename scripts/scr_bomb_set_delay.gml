@@ -12,23 +12,23 @@ dataXY[0] = argument[0] //gridX
 // Check if Cell is Valid
 if gamecell_is_valid(dataXY[0],dataXY[1])
 {
+    // Check Death Grid for Data
+    var deathDataXY = global.DEATH_TIMERS_GRID[#dataXY[0],dataXY[1]];
     
     // If No Detonation Exists for This Cell
-    if !is_array(global.DEATH_TIMERS_GRID[#dataXY[0],dataXY[1]]) {
+    if !is_array(deathDataXY) {
         // Add it to data structures
         global.DEATH_TIMERS_GRID[#dataXY[0],dataXY[1]] = dataXY;
         ds_list_add(global.DEATH_TIMERS_LIST,dataXY);
     }
     // Else if Another Detonation Exists
     else {
-        // Extract Existing Data
-        var oldDataXY = global.DEATH_TIMERS_GRID[#dataXY[0],dataXY[1]]; 
         // Compare Durations
-        if oldDataXY[2] > dataXY[2] {
+        if deathDataXY[2] > dataXY[2] {
             // Use Sooner Duration 
-            oldDataXY[@ 2] = dataXY[2];
+            deathDataXY[@ 2] = dataXY[2];
             // Overwrite Particle Effect Status too 
-            oldDataXY[@ 3] = dataXY[3]; 
+            deathDataXY[@ 3] = dataXY[3]; 
         }
         // Else Exit
         else {
@@ -52,7 +52,6 @@ if gamecell_is_valid(dataXY[0],dataXY[1])
         // Additional Processing for Bomb Direction Adjustments
         with (obj){
             scr_set_reflector_vars_from_shooter(false,false);
-
         }
     }
 }

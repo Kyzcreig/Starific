@@ -102,8 +102,9 @@ if nextPage == noone {
     //scr_room_goto(LAST_ROOM);
 
 }
-// Go to Other Settings Page 
+// If WE're not already on this page
 else if !instance_exists(nextPage) {
+    // Go to Other Settings Page 
     analytics_button_counter("settings"+nextPageAnalytic);
     ScheduleScript(obj_control_main, 0, 2, CreateInstanceIfNone, x, y, nextPage)
 }

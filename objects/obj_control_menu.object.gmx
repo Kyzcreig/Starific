@@ -59,21 +59,17 @@ popup_page[0] = 0 ;
 
 
 //Text Arrays
-menu[0] = 'starific'
-menu[1] = 'arcade'
-menu[2] = 'moves'
-menu[3] = 'time'
-menu[4] = "sandbox"
+menu = Array("starific", "arcade", "moves", "time", "sandbox");
 
 title_font = fnt_menu_title_95; 
-title_txt = menu[0]
+title_txt = menu[0];
 
 text_locked = false;
 
 // Get Number of Unlocks for Options Indicator
 var optionsCount;
 ini_open("scores.ini");
-    optionsCount = scr_unlock_is_new_count("0,2,3,4")
+    optionsCount = scr_unlock_is_new_count("0,2,3,4");
 ini_close();
 
 
@@ -89,23 +85,22 @@ menu_button[i,(++j)mod k] = 7; //button user_event index
 menu_button[i,(++j)mod k] = 0; //button indicator value
 
 if touchPad != 0{
-    
-    if PREMIUM == 0 { //DISABLED
-        if ADS_FORCED == 1 menu_button[++i,(++j)mod k]  = s_v_noads //button sprite
-        else  menu_button[++i,(++j)mod k] = s_v_deluxe  //button sprite
+    /*
+    if ADS_FORCED != 0 { //DISABLED
+        menu_button[++i,(++j)mod k]  = s_v_noads //button sprite
         menu_button[i,(++j)mod k] = 8; //button user_event index
         menu_button[i,(++j)mod k] = 0; //button indicator value
-    }
+    }*/
 }
 else{
-    menu_button[++i,(++j)mod k] = s_v_app//s_v_get; //button sprite
+    menu_button[++i,(++j)mod k] = s_v_app;//s_v_get; //button sprite
     menu_button[i,(++j)mod k] = 10; //button user_event index
     menu_button[i,(++j)mod k] = 0; //button indicator value
 
 }
 
 if LEADERBOARDS == 1{
-    menu_button[++i,(++j)mod k] = s_v_leaderboards  //button sprite
+    menu_button[++i,(++j)mod k] = s_v_leaderboards;  //button sprite
     menu_button[i,(++j)mod k] = 9; //button user_event index
     menu_button[i,(++j)mod k] = 0; //button indicator value
 }
@@ -126,7 +121,7 @@ if 0 {
 }
 
 
-menu_jiggletime = 1.0*room_speed
+menu_jiggletime = 1.0*room_speed;
 for ( i = 0; i &lt; 15; i++ ){
     for (j=0;j&lt;3;j++){
         menu_jiggle[i,j] = 0;
@@ -141,29 +136,6 @@ u_txt_y = 0;
 
 
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Clear Particles from Rm Game
-if part_system_exists(PSYS_SUBSTAR_LAYER) {part_particles_clear(PSYS_SUBSTAR_LAYER)}
-if part_system_exists(PSYS_FIELD_LAYER) {part_particles_clear(PSYS_FIELD_LAYER)}
 </string>
           </argument>
         </arguments>
@@ -412,35 +384,6 @@ switch selected[0]
             //Clear Selection
             selected[0] = noone;
             
-            /*
-            //Open Feedback Prompt
-            instance_create(x,y,obj_prompt_feedback_unlock);
-
-            
-            //Unlock Time Mode
-            scr_unlock_set_status(1,2,2,true);
-            //Play Unlock Sound
-            //ScheduleScript(id, 0, 2, scr_sound,sd_gameover_unlock);
-            //Schedule Prize Prompt
-            var data = scr_unlock_get_data(1,2);
-            var prize_name = data[5]+" "+data[6];
-            prizeData = scr_prompt_prize_create_data(s_v_options_x2,0,
-                            "unlocked!", prize_name, 2, 2, data, 0, "");
-            ScheduleScript(id,0,5,scr_prompt_prize_spawn,prizeData);
-            //NB: This is delayed 5 steps so it doesn't interupt the obj_control_main triggering the prompt
-            
-        
-   
-            //Warning sound
-            //scr_sound(sd_menu_wrongclick,1,false) 
-                //Disabled because not appropriate IMO for a rating request
-            scr_button_locked_mode(3)
-            
-            
-            //Clear Selection
-            selected[0] = noone;
-            */
-
          }
          break;
          
@@ -556,10 +499,20 @@ switch selected[0]
     //(and maybe other platforms later e.g. windows phone)
     case 12:
         // If Android
-        if os_type == os_android {
-            // Create Exit Prompt 
-            instance_create(x,y,obj_prompt_confirm_exit);
-            
+        if os_type == os_android  { 
+                         
+            // Create Dilemma Buttons
+            var promptButtons = noone;
+            promptButtons[0] = Array(spr_button_basic, "no", 0, 
+                                power_type_color_index(2, 0), power_type_color_index(2, 1),
+                                noone, noone, noone, noone) 
+            promptButtons[1] = Array(spr_button_basic, "yes", 1, 
+                                power_type_color_index(1, 0), power_type_color_index(1, 1),
+                                noone, noone,Game_End,noone) 
+            // Create Dilemma Prompt       
+            var promptText = "Would you like to exit Starific?";
+            var prompt = scr_prompt_dilemma_create("confirm", "exit game", promptText, promptButtons);
+ 
         }
         selected[0] = noone;
     break;

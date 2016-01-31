@@ -1,12 +1,21 @@
 #define ads_show_reward_video
-///ads_show_reward_video(reward);
+///ads_show_reward_video(reward)
 
 
 ads_provider = "HeyZap";
 if string_pos(ads_provider, ADS_REWARD_VIDEOS) != 0 {
 
     with ( asset_get_index("obj_control_ads_"+ads_provider) ) {
+    
+        // Stop Recording Everyplay to Avoid Crashes
+        if everyplay_is_recording() and false {  //DISABLED
+            scr_everyplay_stop_recording();
+        }
+    
         
+        // Create Freeze Page Prompt
+        instance_create(x,y,obj_prompt_blank);    
+    
         // Show Video Ad
         if HeyZap_RewardStatus() {
             HeyZap_ShowReward();
@@ -24,10 +33,9 @@ if string_pos(ads_provider, ADS_REWARD_VIDEOS) != 0 {
         
         // If Reward
         if argument0{
-            // Calculate Reward, Set Cash and Execute Confetti
-            with (obj_control_gameover){
-                scr_button_reward_helper(16, 1.5, true)
-            }
+            ads_reward_video_state = 0;
+        } else {
+            ads_reward_video_state = -1;
         }
     }
 }
@@ -49,6 +57,15 @@ ads_provider = "HeyZap";
 if string_pos(ads_provider, ADS_INTERSTITIALS) != 0 {
 
     with ( asset_get_index("obj_control_ads_"+ads_provider) ) {
+    
+        // Stop Recording Everyplay to Avoid Crashes
+        if everyplay_is_recording() and false {  //DISABLED
+            scr_everyplay_stop_recording();
+        }
+        
+        
+        // Create Freeze Page Prompt
+        instance_create(x,y,obj_prompt_blank);    
         
         // Show Video Ad
         if HeyZap_InterstitialStatus() //ADS_INTERSTITIAL_CACHED//
@@ -62,10 +79,9 @@ if string_pos(ads_provider, ADS_INTERSTITIALS) != 0 {
         
         // If Reward
         if argument0{
-            // Calculate Reward, Set Cash and Execute Confetti
-            with (obj_control_gameover){
-                scr_button_reward_helper(19, 1, true)//.75
-            }
+            ads_interstitial_state = 0;
+        } else {
+            ads_interstitial_state = -1;
         }
         
     }

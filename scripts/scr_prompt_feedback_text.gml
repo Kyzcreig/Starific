@@ -3,7 +3,7 @@
 promptTextType = argument0;
 
 // Intro
-var promptText = "Hi there, this game was made by a single indie developer, Alex.##";
+var promptText = "#Hi there, this game was made by a single indie developer, Alex.##";
 // Mention Locked Modes
 if promptTextType == 1 {
     promptText += "Extra modes were going to be paid but I've made them free for you.#";
@@ -17,10 +17,10 @@ if touchPad != 0 {
 }
 // Text for Music
 if promptTextType == 0 {
-    promptText += "If you love the soundtrack you can download it directly!##";
+    promptText += "If you love the soundtrack you can download it here!##";
 }
 //promptText += "If you have any problems or suggestions, you can send me a message directly.";
 //promptText += "If you have any questions or suggestions, you can send me a message directly.";
-promptText += "If you have any questions or suggestions, send Alex a message directly.";
+promptText += "If you have any problems, questions or suggestions, send Alex a message directly.";
 
 return promptText;

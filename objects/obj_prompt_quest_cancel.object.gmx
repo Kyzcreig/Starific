@@ -50,7 +50,7 @@ event_inherited();
             <kind>1</kind>
             <string>///Init
 
-scr_prompt_confirm_init()
+scr_prompt_quest_cancel_init()
 </string>
           </argument>
         </arguments>

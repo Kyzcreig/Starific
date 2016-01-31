@@ -9,6 +9,7 @@ if CONFIG == CONFIG_TYPE.IOS{
     achievement_login();
     
 } else if CONFIG == CONFIG_TYPE.AMAZON {
+
     // AmazonServices
     AmazonGameCircle_InitFeatures(AmazonGameCircle_Achievements| 
                                   AmazonGameCircle_Leaderboards| 
@@ -17,6 +18,7 @@ if CONFIG == CONFIG_TYPE.IOS{
                                   AmazonGameCircle_IAP);
     AmazonGameCircle_SetAppKey("b51db49a7364426ca82130bdbcc2f8de"); //NB: This is the app key on your amazon app page.  http://i.imgur.com/5fMsypU.png
     AmazonGameCircle_Login();
+    
 
 } else if CONFIG == CONFIG_TYPE.HTML{ 
     //If browser add gamejolt networking (later add our own networking)
@@ -34,7 +36,7 @@ if CONFIG == CONFIG_TYPE.IOS{
     rtn = achievement_available();
 
 }else if CONFIG == CONFIG_TYPE.AMAZON {
-    rtn = AmazonGameCircle_IsSignedIn();
+    rtn = AmazonGameCircle_IsSignedIn(); 
 }
 //HTML 
 //TO DO: MAYBE
@@ -58,7 +60,7 @@ if CONFIG == CONFIG_TYPE.IOS{
     rtn = true;
 
 }else if CONFIG == CONFIG_TYPE.AMAZON {
-    AmazonGameCircle_ShowLeaderboards();
+    AmazonGameCircle_ShowLeaderboards(); 
     rtn = true;
 }
 //HTML 
@@ -80,9 +82,10 @@ if CONFIG == CONFIG_TYPE.IOS{
         lastScore);
 
 }else if CONFIG == CONFIG_TYPE.AMAZON {
+ 
     AmazonGameCircle_PostLeaderboardScore(
         get_leaderboard_id(MODE,GRID),
-        lastScore);
+        lastScore); 
 }else if CONFIG == CONFIG_TYPE.HTML {
 
     // booksmaster added this
@@ -97,7 +100,7 @@ if CONFIG == CONFIG_TYPE.IOS{
     }
 
 } else {
-//TO DO custom leaderboard stuff here
+//TO DO: MAYBE custom leaderboard stuff here
 
 
 }

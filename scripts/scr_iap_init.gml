@@ -94,7 +94,7 @@ if ds_map_exists(IAP_PURCHASE_MAP, product_id) {
             // Unlock Theme
             var theme_index = real(string_digits(product_id));
             var theme_data = scr_unlock_set_status(3, theme_index, 4, false);
-                //NB: Set Unlock Status to == 4, which is a premium unlock.
+                            //NB: Set Unlock Status to == 4, which is a premium unlock.
         }
         // If Perk
         else if string_pos("perk_",product_id) != 0 {
@@ -159,24 +159,24 @@ case iap_ev_product:
     
     // Get Product Data
     var product_id = product_map[? "id"];
-    show_debug_message("iap_ev_product: product_id="+string(product_id));
+    //show_debug_message("iap_ev_product: product_id="+string(product_id));
     var price = product_map[? "price"];
-    show_debug_message("iap_ev_product: price="+string(price));
+    //show_debug_message("iap_ev_product: price="+string(price));
     
     // Format Price
-    price = string_keep_chars(price, "123456789,.");
+    price = string_keep_chars(price, "0123456789,.");
     /* 
         iOS Format is 
             [Currency Symbol][Currency Value]
-        Google Format is ????
-            // TO DO
+        Google Format is 
+            [Currency Symbol][Currency Value]
         Amazon Format is ????
             // TO DO
     */
     
     // Set Regional Price, Formatted
     IAP_PRICE_MAP[? product_id] = price;
-    show_debug_message("iap_ev_product: price_formatted="+string(price));
+    //show_debug_message("iap_ev_product: price_formatted="+string(price));
     
     // Consume Coin Products
     if IAP_PURCHASE_MAP[? product_id] == 1 and 
@@ -230,7 +230,11 @@ case iap_ev_purchase:
             }
         }
     } else if status == iap_failed {
-        show_message_async("Store is not available."); 
+        if CONFIG != CONFIG_TYPE.ANDROID { //Googleplay handles this already 
+            show_message_async("Store is not available."); 
+            //TO DO, maybe use a text prompt object instead of this message async thing?
+            // Might look better.
+        }
     }
     
     
@@ -266,13 +270,8 @@ case iap_ev_consume:
             ini_close();
             
             // Set Prize Prompt
-            var prizeData, prizeText, prizeName, prizeNoise, prizeValue;
-            prizeText = "great choice!"; //kudos! //winner!
-            prizeName = "+"+CASH_STR+string(0);
-            prizeNoise = 1; //unlock noise
-            prizeValue = quantity;
-            prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,3,
-                        prizeText, prizeName, prizeNoise, 3, prizeValue, 0, "", false);
+            var prizeData;
+            prizeData = scr_prize_cash_create(quantity, "great choice!", 0, false);
             // Spawn Prize Prompt (allow .25 seconds for loading icons to die);
             ScheduleScript(id, true, .3, scr_iap_unlock_prompt, noone, noone, obj_control_main, prizeData);
             //ScheduleScript(id, false, 1, scr_prompt_prize_spawn, prizeData);
@@ -327,7 +326,7 @@ if string_pos("theme_",string(product_id)) != 0 {
         prizeName = scr_unlock_get_name_long(theme_data);
         prizeNoise = 2; //unlock noise
         prizeData = scr_prompt_prize_create_data(s_v_themeswitcher_x2,4,
-                    prizeText, prizeName, prizeNoise, 3, theme_data, 0, "", false);
+                    prizeText, prizeName, prizeNoise, 3, theme_data, 0, "", noone);
         //(allow .25 seconds for loading icons to die);
         ScheduleScript(id, true, .3, scr_iap_unlock_prompt, theme_index, theme_data, obj_settings_themes, prizeData);
     }
@@ -359,8 +358,8 @@ else if string_pos("perk_",string(product_id)) != 0 {
         prizeText = "great choice!"; //kudos! //winner!
         prizeName = scr_unlock_get_name_long(perk_data);
         prizeNoise = 2; //unlock noise
-        prizeData = scr_prompt_prize_create_data(s_v_options_x2,4, //TO DO: replace with the buff icon x2 size
-                    prizeText, prizeName, prizeNoise, 2, perk_data, 0, "", false);
+        prizeData = scr_prompt_prize_create_data(s_v_options_x2,1,
+                    prizeText, prizeName, prizeNoise, 2, perk_data, 0, "", noone);
         //(allow .25 seconds for loading icons to die);
         ScheduleScript(id, true, .3, scr_iap_unlock_prompt, perk_index, perk_data, obj_settings_shop, prizeData);
     }
@@ -459,7 +458,8 @@ if store_status == iap_status_available {
         CreateInstanceIfNone(x,y,obj_prompt_loading);
     }
     return true;
-} else if store_status == iap_status_unavailable{
+} else if store_status == iap_status_unavailable {
+    // Show Failure Dialogue
     show_message_async("Store is not available."); 
     return false;  
 } 
@@ -489,9 +489,7 @@ var page_controller = argument2;
 var prizeData = argument3;
 
 if instance_exists(page_controller) { 
-        //TO DO, we'll need some condition so this doesn't fire during a purchase restore. 
-            //NB: Probably use a variable like IAP_RESTORE and set it to true when iap restore is pressed and false once you leave the shop page or another button is pressed.
-                
+
     // Spawn Prize Prompt 
     scr_prompt_prize_spawn(prizeData);
     //ScheduleScript(id, false, 1, scr_prompt_prize_spawn, prizeData);
@@ -505,9 +503,7 @@ if instance_exists(page_controller) {
         }
         // If Perk
         else if unlock_data[0] == 4 {
-            //TO DO
-            // Activate the perk's buff (in case of an ongoing game, so they don't need to wait for new game)
-            //FIX ME (add the code here after we code the buff system)
+            //pass (for now), since we use the purchase map for this stuff already
         }
     }
 }
@@ -617,7 +613,7 @@ if ds_map_exists(IAP_PRICE_MAP, product_id) {
 
 
 IAP_COIN_AMOUNTS[2] = 20000;
-IAP_COIN_AMOUNTS[1] = 5000;
+IAP_COIN_AMOUNTS[1] = 4500;
 IAP_COIN_AMOUNTS[0] = 1000;
 
 return IAP_COIN_AMOUNTS;

@@ -4,7 +4,7 @@
 
 // Check if enough cash for prize 
 if scr_veteran_playtime_status(0) {
-    if scr_prize_wheel_available() {
+    if scr_prize_wheel_spin_available() {
         var buttonIndex = scr_go_is_button(15);  
         // Add Prize button
         if  buttonIndex == -1{
@@ -46,16 +46,23 @@ if scr_veteran_playtime_status(0) {
 ///scr_validate_prize_wheel_button()
 
 // Check if enough cash for prize 
-if !scr_prize_wheel_available()  {    
+if !scr_prize_wheel_spin_available()  {    
     // Update Button to indicate Used
     var buttonIndex = scr_go_is_button(15);
     var buttonData = go_sp_buttons[| buttonIndex]; 
+    //Change Button Text
     buttonData[@ 1] = "out of#spins"; 
-    buttonData[@ 3] = -3;//-2; //Remove Button after use 
-        //NB:comment out for unlimited rewards 
-    buttonData[@ 6] = 0; ///reset indicator
     
-    // Adaptive: Give Adverts if Not Enough for Prize
+    // Disable or Remove Button
+    if IAP_ENABLED { //NB: Comment out these buttonData[3] lines for unlimited use
+        buttonData[@ 3] = -1; //Leaves button up after use, but it takes you to shop page
+    } else {
+        buttonData[@ 3] = -3;//Removes Button after use 
+    }
+    // Reset Indicator
+    buttonData[@ 6] = 0;
+    
+    // Adaptive: We Give Adverts if Not Enough for Prize
     scr_gameover_buttons_add_adverts(false);
 
 }
@@ -71,12 +78,12 @@ if prizeTextIndex != -1{
     }
 }
 
-#define scr_prize_wheel_available
-///scr_prize_wheel_available()
+#define scr_prize_wheel_spin_available
+///scr_prize_wheel_spin_available()
 
 return STAR_CASH >= PRIZE_WHEEL_COST;
 
 #define scr_veteran_playtime_status
-///scr_veteran_playtime_status(lastPlaytime)
+///scr_veteran_playtime_status()
 
-return careerPlaytimeTotal > 60*60*2.5 - argument0;
+return careerPlaytimeTotal > 60 * 60 * 1.5 and gamesPlayedTotal > 3//2.5;

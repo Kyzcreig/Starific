@@ -80,6 +80,9 @@ fDensities[1] = .425;
 fDensities[2] = .40;
 fDensities[3] = .375;
 fieldDensity = (fDensities[GRID])+ .05*(MODE == MODES.MOVES)// //.075
+if scr_gamemod_get_index("extra_density", 8) &gt; 0 {
+    fieldDensity *= scr_gamemod_get_index("extra_density", 10);
+}
 //fieldDensityThreshold = fieldDensity * 1.2;
 fieldSat = 1;
 fieldSet = true;
@@ -176,14 +179,14 @@ if GAME_ACTIVE == false and NEW_GAME == true{
     
     
     // Set Wait on Additional Spawning of 2 Seconds
-    spawnDelay = room_speed*2;
+    spawnDelay = RMSPD_DELTA * room_speed * 2;
     
     
     BOMB_DELAY_SCALAR = room_speed *.5 / gridSize;
     
     
     // Set Spawn Chances for Deflectors
-    scr_spawner_chance_init();
+    scr_spawner_chance_init("");
     
 }
 </string>
@@ -210,6 +213,7 @@ if GAME_ACTIVE == false and NEW_GAME == true{
    
 //Game stuff
 globalvar
+RAW_SCORE,
 score_p1,
 score_p2,
 score_p3,
@@ -248,6 +252,9 @@ levelDiffAdj = logn(2,gridSize) / logn(2,25)//gridSize / 25;
 
 //ARCADE
 lives = 1;
+if scr_gamemod_get_index("extra_life", 8) &gt; 0 {
+    lives += 1;
+}
 level = 1;
 levelUp = false
 lastLevelScore = 0.0
@@ -268,16 +275,23 @@ tstep = 0
 time_elapsed = 0
 time_left = room_speed//30*room_speed
 time_decrement = time_left / (30*room_speed)//(1 + .1*level) + .1 * time_left/1/room_speed
+if scr_gamemod_get_index("extra_life", 8) &gt; 0 {
+    time_decrement_max = room_speed*17.5;
+    time_cap = 35;
+} else {   
+    time_decrement_max = room_speed*15;
+    time_cap = 30;
+}
 //time_left = time_decrement * room_speed;//room_speed * 30
 time_penalty = 0
-time_max = time_left
+time_full = time_left
 time_left_past_size = round(75 / RMSPD_DELTA)//60;
     //NB: Affects the inertia in recovering from a lull in action: higher makes it harder
 //moving average array
 for (var i = time_left_past_size; i&gt;= 0; i--){
-    time_left_past[i] = time_max;
+    time_left_past[i] = time_full;
 }
-time_left_ma = time_max;
+time_left_ma = time_full;
 time_string = string_format(max(0.00,time_left/time_decrement/room_speed),2,2);
 //levelTime = room_speed * 20 * time_decrement 
 //lastLevelTime = 0
@@ -285,6 +299,9 @@ time_string = string_format(max(0.00,time_left/time_decrement/room_speed),2,2);
 
 //MOVES
 MOVES_REMAINING = 10
+if scr_gamemod_get_index("extra_life", 8) &gt; 0 {
+    MOVES_REMAINING += 2;
+}
 moves_clear_messages = MOVES_REMAINING;
 moves_time_max = scr_get_moves_maxtime(RIGOR);
 moves_time_left = moves_time_max;
@@ -315,12 +332,12 @@ starCashNext = 250.0
 cashTimer = 0;
 
 //SCORE NUMBERS/COUNTERS
-score = 0
+RAW_SCORE = 0
 score_p1 = 0
 score_display = 0
 
 //Multiplayer Scores, though we use p1 for single player
-if score = 0{score_p1 = 0;score_p2 = 0;score_p3 = 0;score_p4 = 0;}
+if RAW_SCORE = 0{score_p1 = 0;score_p2 = 0;score_p3 = 0;score_p4 = 0;}
 
 
 //SCORE DISPLAY COORDINATES, INITIALIZED
@@ -394,7 +411,7 @@ spr_temp = -1
 globalvar mouseangle, NewMAFromCenter, paddle_id, RAIL_ANGLES;
 globalvar pradius, pradiusx, pradiusy, PADDLE_H; //paddle is a global var referring to obj_launcher
 globalvar vertx, verty, tvertx, tverty, innerVertx, innerVerty, vertangles;
-globalvar padcenterx, padcentery,pad_radius, touchPad, fieldEndY;
+globalvar touchPad, fieldEndY;
 globalvar 
 PADDLE_W, 
 PADDLE_SCALE, 
@@ -402,7 +419,8 @@ PADDLE_SCALE_START,
 RAIL_LENGTH, 
 PADDLE_MOTION,
 railCoverage,
-railOverload;
+railOverload,
+EXPECTED_MINIMUM_PLAYTIME;
 
 
  // Joystick Stuff
@@ -418,7 +436,7 @@ prevAImouseangle = NewMAFromCenter;
 //paddle = 0
 
 
-
+// Init Field Vars
 pradius = scr_field_calc_radius(gridSize, cellSize, railset, corner);
 pradiusx = pradius
 pradiusy = pradius
@@ -429,60 +447,34 @@ startangle = RAIL_ANGLES[0]/2////22.5
 RAIL_LENGTH = scr_field_calc_rail_len(pradius, RAIL_ANGLES)
 
 
-//PADDLE_W = ((2)*gridSize+80)*2//1.5//*.75
-//PADDLE_W = ((10)*gridSize)
-var pad_w;
-var padRigScale = scr_rigor_paddle_adjustment(); //+0;//+30;// + 10;//-10, -20, -40, -80
-/*
-//var padRigAdj = 0;
-pad_w[0] = (180+padRigAdj) *padRigScale//-20//+20;
-pad_w[1] = (225+padRigAdj) *padRigScale//-20//+20;
-pad_w[2] = (250+padRigAdj) *padRigScale//-20//+20;
-pad_w[3] = (250+padRigAdj) *padRigScale//-20//+20; // if we make this bigger then padsize must be smaller
-*/
-pad_w[0] = (.10 * RAIL_LENGTH) *padRigScale//-20//+20;
-pad_w[1] = (.13 * RAIL_LENGTH) *padRigScale//-20//+20;
-pad_w[2] = (.14 * RAIL_LENGTH) *padRigScale//-20//+20;
-pad_w[3] = (.14 * RAIL_LENGTH) *padRigScale//-20//+20; // if we make this bigger then padsize must be smaller
-//Alex we've tried paddle size every which way, it's better if it's easier for people.
-//And 200+ minimum paddle size is necessary for that.
+var pad_w, padRigScale;
+paddleRigorScalar = scr_rigor_paddle_adjustment(); 
+pad_w[0] = (.10 * RAIL_LENGTH) *paddleRigorScalar//-20//+20;
+pad_w[1] = (.13 * RAIL_LENGTH) *paddleRigorScalar//-20//+20;
+pad_w[2] = (.14 * RAIL_LENGTH) *paddleRigorScalar//-20//+20;
+pad_w[3] = (.14 * RAIL_LENGTH) *paddleRigorScalar//-20//+20; // if we make this bigger then padsize must be smaller
+            //Alex we've tried paddle size every which way, it's better if it's easier for people.
+            //And 200+ minimum paddle size is necessary for that.
+// Set Paddle Dimensions
 PADDLE_W = pad_w[GRID];
-PADDLE_H = scr_paddle_calc_height(cellSize) 
-//PADDLE_SCALE = (3 * TOUCH_ENABLED + 2.5 * !TOUCH_ENABLED)//3//2.75;
-//PADDLE_SCALE = 3.5;//2.75;
-var padCoverage = .42 - RIGOR * .04;
-var careerMinutes = careerPlaytimeTotal/(60*60); // gamesPlayedTotal &gt; 2
-//if gamesPlayedTotal &lt; 5 //or true
-if careerMinutes &lt; 5
-{ 
-    padCoverage += .10 * (1 - careerMinutes/5);
-    //NB: We make it a lot easier for new players.
-}
-//padCoverage = .65;
+PADDLE_H = scr_paddle_calc_height(cellSize) ;
+// Set Paddle Coverage
+var padCoverage, performance_metric;
+padCoverage = .42 - RIGOR * .04;
+performance_metric = scr_calculate_performance_metric();
+padCoverage += .10 * (1 - performance_metric);
+
 PADDLE_SCALE = padCoverage * RAIL_LENGTH / PADDLE_W;//2.75;
             //NB: We could also increase the pace speed is added on !touch builds...
 PADDLE_SCALE_START = PADDLE_SCALE
 
-//PADDLE_MOTION = 1;
-
+// Declare Rail Vars
 railCoverage = 0;
 railOverload = false;
-
-
-//we're just taking 4*2 times the sin of each halfangle scaled by pradius which we also know ckever
-
 fieldEndY = (centerfieldy + dsin((startangle+RAIL_ANGLES[1]))*(pradiusy+PADDLE_H+5))//+62))
 fieldEndYP = (centerfieldy + dsin((startangle+RAIL_ANGLES[1]))*(pradiusy+PADDLE_H/2))//+62))
 
-//NB: We still use touchpad center for tutorial coordinates and stuff.
-padcenterx = centerfieldx
-padcentery = (GAME_Y+GAME_H - fieldEndY)/2 + fieldEndY +75/2 +20 +5//why 75/2? Because i use 75 as the height of the cooldown icons
-pad_radius = min(.28125*GAME_W /*180*/,((GAME_Y + GAME_H)-padcentery-5)) //* display_get_dpi_x() /326;
-
-//show_message(string(display_get_dpi_x())+' '+string(pad_radius/96))
-//show_message(string(pad_radius))
-
-
+// Declare Rail Vertices
 startangle = RAIL_ANGLES[0]/2////22.5
 angle = startangle
 for (i=0;i&lt;8;i++){
@@ -527,11 +519,10 @@ tutorialPaddleMovePercent = -1;
 
 
 
-
-
-objPControl= instance_create(0,0,obj_control_powerups)
-objDebug = instance_create(0,0,obj_control_debugger)
-objRail = instance_create(centerfieldx,centerfieldx,obj_control_rail_lines) 
+// Create Game Control Helpers
+objPControl= instance_create(0,0,obj_control_powers) 
+objDebug = instance_create(0,0,obj_control_debugger);
+objRail = instance_create(centerfieldx,centerfieldx,obj_control_rail_lines);
     //NB: instance_created last for texture batch reasons, because it generates a sprite
    
 
@@ -656,6 +647,12 @@ if EVERYPLAY_AUTO {
     everyplay_start_recording();
 }
 
+// Detecct Extra Long Effects
+if scr_gamemod_get_index( "long_effects", 8) &gt; 0 {
+    // Set Long Effects
+    scr_part_types_set();
+}
+
 
 // Set Particle Stuff
 scr_part_systems_set_depth();                    
@@ -699,6 +696,11 @@ for (var i = 0, s = 0; i &lt; SKIN_COUNT; i++){
 
 // Clear Gameplay Screenshot from Prev Game
 scr_share_screen_reset();
+
+//Twinkle Mod Stuff
+globalvar TWINKLE_ALPHA, TWINKLE_PARAMS;
+TWINKLE_ALPHA = 1;
+TWINKLE_PARAMS = scr_gamemod_get_index("twinkle_effects", 10);
 
 //Beat Stuff
 var_beat_time = 500000//in microseconds
@@ -1022,8 +1024,6 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
     
         //Reset Round State
         scr_reset_round_state()
-        //Increment Round Count
-        MOVE_COUNT += 1;
         
 
         //If Arcade mode subtract life
@@ -1055,12 +1055,12 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
            
            
            //Dock Time for Penalty
-           var time_subtracted = max(time_left * .5, time_max * 5/30) 
+           var time_subtracted = max(time_left * .5, time_full * 5/30) 
                                 //half time or 5 seconds, whichever's bigger
-           time_left = max(time_left - time_subtracted, min(time_left, time_max * .001 / 30))  //NB: Min 0:00 time
+           time_left = max(time_left - time_subtracted, min(time_left, time_full * .001 / 30))  //NB: Min 0:00 time
                                 // keep above time_left or .1 seconds, whichever's bigger
            //Update Time String
-           time_string = string_format(max(0.00,(time_left/time_max)*30),2,2);///time_decrement
+           time_string = string_format(max(0.00,(time_left/time_full)*time_cap),2,2);///time_decrement
            
            //Dialogue text on use
            txt_font = fnt_game_bn_40_bold;//; 
@@ -1109,7 +1109,7 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
     }
    
     // LEVELUP STUFF
-    if score &gt; levelScore and levelUp = false{
+    if RAW_SCORE &gt; levelScore and levelUp = false{
     
         //Level Up Update Stats
         level++
@@ -1180,8 +1180,8 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
     
     //TIME KEEPER VARS
     if MOVE_ACTIVE{
-        roundPlaytime += 1
-        lastPlaytime += 1
+        roundPlaytime += RMSPD_DELTA;
+        lastPlaytime += RMSPD_DELTA;
         
         //Time Mode decrement
         if MODE == MODES.TIME{
@@ -1189,16 +1189,16 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
             //This makes it much cleaner to balance.
             
             //Use Time_Max to represent full bar 30:00
-            time_max = max(time_max,time_left);
+            time_full = max(time_full,time_left);
             //Set Moving Average each .5 seconds
             if HALF_SECOND_INTERVAL{
                 //Add current time remaining to moving average array
                 time_left_past[0] = time_left;
-                var time_max_weight = .35//.3//.25;//.5 //timemax weighting
+                var time_full_weight = .35//.3//.25;//.5 //timemax weighting
                     //NB: Describes how diffcult a spike in points can make the rest of the game.
                             //NB: This is offset by the level multiplier partially.
                 //Sum by weight
-                time_left_ma = array_avg_1d(time_left_past) * (1-time_max_weight) + time_max_weight*time_max;
+                time_left_ma = array_avg_1d(time_left_past) * (1-time_full_weight) + time_full_weight * time_full;
                 //Move back index of each time value
                 for(var i=1; i &lt; time_left_past_size; i++){
                     time_left_past[i] = time_left_past[i-1];
@@ -1216,7 +1216,7 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
                 // Get lowest time
                 time_min = min(time_min, time_left)
                 //We use this var to progressively increase the out of time speed penalty
-                time_over_speed = min( abs(time_min) / time_max + .25, 3); //performance based, scales star speed.
+                time_over_speed = min( abs(time_min) / time_full + .25, 3); //performance based, scales star speed.
                                     //NB: This is added to 1.  So it's a min of 1.25 and max of 3.
  
             }
@@ -1226,13 +1226,13 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
             
             //Set time decrement based on moving average
             //time_decrement = time_max_avg /(room_speed*30) //time_max
-            time_decrement = time_left_ma /(room_speed*15) //time_max
+            time_decrement = time_left_ma / time_decrement_max //time_max
                 //NB: Describes how fast you can go from full to empty.  Smaller denominator means it can happen fast (which makes things hard).
             
             //Set time string
             //time_string = string_format(max(0.00,(time_left/time_max)*30),2,2);///time_decrement
             //time_string = string_format(max(-5.00,(time_left/time_max)*30),2,2);///time_decrement
-            time_string = string_format((time_left/time_max)*30,2,2);///time_decrement
+            time_string = string_format((time_left/time_full)*time_cap,2,2);///time_decrement
             // If Plenty of Time
             if real(time_string) &gt; 7.5{ 
                 mode_bar_color = COLORS[0]
@@ -1248,8 +1248,8 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
         }
     }
     else if !MOVE_ACTIVE and MOVE_READY and moves_time_active{
-       roundPlaytime += 1 //in Moves mode the between activity time counts as playtime, because it is.
-       lastPlaytime += 1
+       roundPlaytime += RMSPD_DELTA //in Moves mode the between activity time counts as playtime, because it is.
+       lastPlaytime += RMSPD_DELTA
        
        //Move Time decrement
        if MODE == MODES.MOVES{
@@ -1422,7 +1422,7 @@ for (var i = 0; i &lt; size ; i++){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Controls Detection
+            <string>///TouchPad Detection
 
 // Detect The Touch for TouchPad    
 scr_set_touch_pad_touch();
@@ -1717,16 +1717,15 @@ if instance_exists(obj_launcher) and !GAME_PAUSE and GAME_ACTIVE
        angleSign = 1;
     }
     
-    
-
-    
-    
     // Set Maximum Angle to Add
     maxaddToAngle = angle_difference(CurrentMAFromCenter,currentAngle)*angleSign;//.5
     //Slow Paddle Controls Powerdown
     slowPenalty = 1-padSpeedPowerSlow*(POWER_slowpaddle[@ 0] &gt; 0); //.5
+    
     // Set Angle to Add
-    addToAngle = maxaddToAngle * max(0,padSpeed) * slowPenalty;
+    addToAngle = maxaddToAngle * clamp(padSpeed * 
+                                       slowPenalty * 
+                                       DELTA_TIME_SCALAR, 0, 1);
     //NB: Might also put a clamp on angle difference when power_slow is on, so as to keep you from being able to move fast at all
     
     
@@ -1864,7 +1863,7 @@ if instance_exists(obj_launcher) and !GAME_PAUSE and GAME_ACTIVE
     
     
     // Update Mouseangle
-    mouseangle += addToAngle * DELTA_TIME_SCALAR; 
+    mouseangle += addToAngle; 
     while (mouseangle &lt; 0) {
         mouseangle += 360;
     }
@@ -1902,14 +1901,10 @@ if instance_exists(obj_launcher) and !GAME_PAUSE and GAME_ACTIVE
 if !GAME_PAUSE{
 
     // Ease Score Display Number Up to Real Score
-    var toadd = sign(score_p1 - score_display);
-    for(var i=0;i&lt;level;i++){
-        for(var j=0;j&lt;string_length(string(score_p1));j++){
-            toadd*=power(10,j)
-            if abs(score_p1 - score_display) &gt;= toadd{//-.1{
-                score_display += toadd
-            }
-        }
+    if score_display != score_p1 {
+        var score_diff = (score_p1 - score_display) * .05;
+        var score_sign = sign(score_diff);
+        score_display += score_sign*(ceil(abs(score_diff)));
     }
     
     
@@ -1937,7 +1932,8 @@ if !GAME_PAUSE{
         
            // End Shake Sound
            if audio_is_playing(sd_screenshake) {
-                audio_sound_gain(sd_screenshake,0,room_speed)
+                // Fadeout shake sound
+                audio_sound_gain(sd_screenshake,0,room_speed);
            }
            // Set Shake State to Inactive
            SHAKE_TIME = -2;
@@ -2059,6 +2055,20 @@ if !GAME_PAUSE{
 
 
 
+// Twinkle Mod
+if MOVE_ACTIVE and scr_gamemod_get_index("twinkle_effects", 8) &gt; 0  {
+    TWINKLE_ALPHA = lerp(TWINKLE_PARAMS[0], TWINKLE_PARAMS[1], FULL_SECOND_SINE); //FULL_SECOND_LERP
+    // Twinkle Stars, Powers
+    scr_part_type_set_twinkle();
+} else if TWINKLE_ALPHA != 1{
+    TWINKLE_ALPHA = 1; 
+    // Twinkle Stars, Powers
+    scr_part_type_set_twinkle();
+}
+  
+
+
+
 //GARBAGE COLLECTION FOR PARTICLES e.g. obj_star trail
 var gc_size = ds_list_size(global.GC_particles)
     // NB: this block takes a list of arrays of timers and 
@@ -2069,8 +2079,7 @@ for (var i = gc_size-1; i&gt;=0; i-=1)
     var gc_array = global.GC_particles[| i];
     // Decrement Timer
     gc_array[@ 1] -= 1;
-    if gc_array[1] &lt; 0
-    {
+    if gc_array[1] &lt; 0 {
        part_type_destroy(gc_array[0]);
        ds_list_delete(global.GC_particles,i);
     }
@@ -2462,7 +2471,7 @@ if !GAMEOVER {
         /*draw_rectangle_colour(mode_bar_x - halfbarwidth, mode_bar_y-barheight,mode_bar_x - halfbarwidth + prog_bar, 
                                mode_bar_y, COLORS[0], COLORS[0], COLORS[0], COLORS[0],0)*/
                                
-        var prog_bar = min(1,(score-lastLevelScore)/(levelScore-lastLevelScore));
+        var prog_bar = min(1,(RAW_SCORE-lastLevelScore)/(levelScore-lastLevelScore));
         var fill_barscale = out_barscale * prog_bar
         draw_sprite_ext(spr_bar_in,0,mode_bar_x - halfbarwidth,mode_bar_y,fill_barscale, 1,0,mode_bar_color,1);
                                
@@ -2527,7 +2536,7 @@ if !GAMEOVER {
         //DRAW FILLED BAR
         /*draw_rectangle_colour(mode_bar_x - halfbarwidth, mode_bar_y-barheight,mode_bar_x - halfbarwidth + prog_bar, 
                                mode_bar_y, COLORS[0], COLORS[0], COLORS[0], COLORS[0],0)*/
-        var prog_bar = max(0,min(1,(time_left)/(time_max)));
+        var prog_bar = max(0,min(1,(time_left)/(time_full)));
         var fill_barscale = out_barscale * prog_bar
         draw_sprite_ext(spr_bar_in,0,mode_bar_x - halfbarwidth,mode_bar_y,fill_barscale, 1,0,mode_bar_color,1);
         
@@ -2561,7 +2570,7 @@ if !GAMEOVER {
         //DRAW FILLED BAR
         /*draw_rectangle_colour(mode_bar_x - halfbarwidth, mode_bar_y-barheight,mode_bar_x - halfbarwidth + prog_bar, 
                                mode_bar_y, COLORS[0], COLORS[0], COLORS[0], COLORS[0],0)*/
-        var prog_bar = min(1,(score-lastLevelScore)/(levelScore-lastLevelScore));
+        var prog_bar = min(1,(RAW_SCORE-lastLevelScore)/(levelScore-lastLevelScore));
         var fill_barscale = out_barscale * prog_bar
         draw_sprite_ext(spr_bar_in,0,mode_bar_x - halfbarwidth,mode_bar_y,fill_barscale, 1,0,mode_bar_color,1);
                                

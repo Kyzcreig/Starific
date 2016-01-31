@@ -316,7 +316,7 @@ typedef enum {
  *  @since 4.2.2
  *
  *  This method should be used in case of #setBackgroundSessionEnabled: set to YES. It can be
- *  called when application finished all background tasks (such as playing music) to PAUSE session.
+ *  called when application finished all background tasks (such as playing music) to pause session.
  *
  * @see #setBackgroundSessionEnabled: for details on setting a custom behaviour on resigning activity.
  *
@@ -862,7 +862,7 @@ typedef enum {
  * 
  *  Use this method report session data when the app is paused. The default value is @c YES.
  *
- *  @param setSessionReportsOnPauseEnabled YES to send on PAUSE, NO to omit reporting on PAUSE.
+ *  @param setSessionReportsOnPauseEnabled YES to send on pause, NO to omit reporting on pause.
  *
  */
 + (void)setSessionReportsOnPauseEnabled:(BOOL)setSessionReportsOnPauseEnabled;
@@ -874,7 +874,7 @@ typedef enum {
  *  Use this method to enable reporting of errors and events when application is 
  *  running in backgorund (such applications have  UIBackgroundModes in Info.plist).
  *  You should call #pauseBackgroundSession when appropriate in background mode to 
- *  PAUSE the session (for example when played song completed in background)
+ *  pause the session (for example when played song completed in background)
  *
  *  Default value is @c NO
  *

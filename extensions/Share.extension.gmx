@@ -60,9 +60,6 @@
         <Config name="AndroidAmazon">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
       </ConfigOptions>
       <ProxyFiles/>
       <functions>
@@ -421,9 +418,6 @@
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
         <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>

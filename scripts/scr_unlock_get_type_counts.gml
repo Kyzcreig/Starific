@@ -2,7 +2,8 @@
 ///scr_unlock_get_type_counts(types)
 
 var data;
-var types = string_split_real(",",argument0);
+var types_string = argument0;
+var types = string_split_real(",",types_string);
 var counts;
 counts[0] = 0; //total
 counts[1] = 0; //unlocked

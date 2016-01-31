@@ -81,7 +81,7 @@ for (var i=0,n=ds_list_size(foundList);i<n;i++){
         
         //Repawn effect
         ScheduleScript(id,1,.5,ParticlesCreateColor,PSYS_FIELD_LAYER,
-        toFieldXY[0],toFieldXY[1],p_spawn,currentCell.c_part,1);
+        toFieldXY[0],toFieldXY[1],p_spawn,currentCell.image_blend,1);
         //ScheduleScript(id,false,.5*room_speed,TweenFire,currentCell,
         //reflectorScale__,false,EaseLinear,0,1,room_speed*.5); //not sure what color to use here
         

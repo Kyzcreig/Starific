@@ -14,10 +14,10 @@ else if promptTextType == 1 {
 }
 
 // Set Size of Prompt Window
-rect_h = round(.675 * GAME_H);//.55
+rect_h = round(.75 * GAME_H);//.55
 
 //rect_h = round(.55 * GAME_H);//.55
-//NB: This should be refactored to use ths scr_create_array, it's a lot cleaner than 2d arrays
+//NB: This should be refactored to use ths Array, it's a lot cleaner than 2d arrays
 
 
 enum buttonType{
@@ -33,26 +33,26 @@ i = -1;
         
 // Play Time Mode Button
 if promptTextType == 1 {
-    prompt_button[++i] = scr_create_array(spr_button_basic, "play", cash_reward, buttonType.play, 3, power_type_color_index(3,1));
+    prompt_buttons[++i] = Array(spr_button_basic, "play", cash_reward, buttonType.play, 3, power_type_color_index(3,1));
 } 
 // Download Music Button
 else if promptTextType == 0 {
-    prompt_button[++i] = scr_create_array(spr_button_basic, "music", cash_reward, buttonType.donate, 3, power_type_color_index(3,1));
+    prompt_buttons[++i] = Array(spr_button_basic, "music", cash_reward, buttonType.donate, 3, power_type_color_index(3,1));
 }
 // Contact Button
                            //button sprite //button text  //button cash reward //button id //button color //button text color 
-prompt_button[++i] = scr_create_array(spr_button_basic, "message", cash_reward, buttonType.message, 2, power_type_color_index(2,1));
+prompt_buttons[++i] = Array(spr_button_basic, "message", cash_reward, buttonType.message, 2, power_type_color_index(2,1));
 // Rate or Get App Mobile Button
 if touchPad != 0 {
-    prompt_button[++i] = scr_create_array(spr_button_basic, "rate", cash_reward, buttonType.rate, 1, power_type_color_index(1,1));
+    prompt_buttons[++i] = Array(spr_button_basic, "review", cash_reward, buttonType.rate, 1, power_type_color_index(1,1));
 }
 else {
-    prompt_button[++i] = scr_create_array(spr_button_basic, "get app", cash_reward, buttonType.rate,1, power_type_color_index(1,1));
+    prompt_buttons[++i] = Array(spr_button_basic, "get app", cash_reward, buttonType.rate,1, power_type_color_index(1,1));
 }
 
 
 prompt_jiggletime = 1.0*room_speed
-for ( i = 0; i < array_length_1d(prompt_button); i++ ){
+for ( i = 0; i < array_length_1d(prompt_buttons); i++ ){
     for (j=0;j<3;j++){
         prompt_jiggle[i,j] = 0;
     }
@@ -92,7 +92,7 @@ draw_text_ext_colour(promptTextX, promptTextY,promptText,
 
 
 //Draw Sprite Buttons
-var n = array_length_1d(prompt_button);
+var n = array_length_1d(prompt_buttons);
 var sp_scale_start = 3 / (n+1) 
 /*
 if n == 2 {
@@ -115,7 +115,7 @@ var sp_gap = sp_gap_whole / ( max(1,n-1) );
 for(var i = 0; i < n; i++)
 {
     // Get Button Data
-    var data = prompt_button[i];
+    var data = prompt_buttons[i];
     //Sprite Coordinates
     sp_x = GAME_MID_X + sp_gap * (i - (n-1)/2) 
     sp_y = promptTextY +promptTextH/2 + sp_height/sp_scale_start * 1.5//1;
@@ -179,7 +179,7 @@ for(var i = 0; i < n; i++)
                 }
                 
                 // Create Cash Reward Prompt
-                ScheduleScript(id, 0, 2, scr_reward_set,.2, true); //NB: delayed so cash markings on the buttons disappear
+                ScheduleScript(id, 0, 2, scr_cash_reward_create,.2, true); //NB: delayed so cash markings on the buttons disappear
             }
         }
        
@@ -295,22 +295,6 @@ scr_draw_title(rect_y, subEase[2]);
 scr_draw_title_underline(start_y + title_from_top * 2, subEase[2], 0);
 
 
-/*
-draw_set_valign(fa_middle);
-draw_set_halign(fa_center);
-draw_set_font(title_font);
-title_from_top = 75;
-title_y = rect_y + title_from_top - 400*(1-subEase[2]);
-draw_text_color(GAME_MID_X, title_y, title_txt, COLORS[0], COLORS[0],COLORS[0],COLORS[0], 1);
-
-// Draw Title Underline
-line_w = GAME_W*(14/32) * subEase[2] 
-line_y = rect_y + title_from_top * 2 
-line_c = merge_color(COLORS[6],COLORS[0],.5)
-draw_line_width_color(GAME_MID_X - line_w, line_y, GAME_MID_X + line_w, line_y, 6, line_c, line_c);
-draw_line_width_color(GAME_MID_X - line_w, line_y, GAME_MID_X + line_w, line_y, 3, COLORS[0], COLORS[0]);
-*/
-
 
 
 //Draw Back Button
@@ -381,9 +365,9 @@ surface_reset_target();
 #define scr_prompt_add_cash_to_buttons
 ///scr_prompt_add_cash_to_buttons(val)
 
-if is_array(prompt_button) {
-    for (var i = 0; i < array_height_2d(prompt_button); i++){
-        prompt_button[i, 2] = argument0; // set cash to val
+if is_array(prompt_buttons) {
+    for (var i = 0; i < array_height_2d(prompt_buttons); i++){
+        prompt_buttons[i, 2] = argument0; // set cash to val
     }
 }
 
@@ -456,13 +440,13 @@ draw_sprite_ext(spr_temp, 0, VIEW_X, VIEW_Y, 1, 1, 0, c_white, argument0);
 // Draw Mask Over Screen
 draw_sprite_stretched_ext(scr_return_solid_sprite(argument1),0,VIEW_X,VIEW_Y,VIEW_W,VIEW_H,COLORS[7],argument0)
 #define scr_prompt_exit
-///scr_prompt_exit(duration)
+///scr_prompt_exit(duration_in_seconds)
 
-var dur;
+var dur; //in seconds
 if argument_count > 0 {
     dur = argument[0];
 } else {
-    dur = .75;
+    dur = .75; 
 }
 
 // Exit Tween

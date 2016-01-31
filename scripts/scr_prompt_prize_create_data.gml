@@ -1,28 +1,87 @@
 #define scr_prompt_prize_create_data
-///scr_prompt_prize_create_data(sprite, color, top_text, bottom_text, noise, type, value, extra, description, share_enabled) 
+///scr_prompt_prize_create_data(sprite, color, top_text, bottom_text, fanfare_type, prize_type, prize_value, extra, description, share_enabled) 
 
-var prizeData = noone;
+var data = noone;
 
-prizeData[0] = argument0//sprite
-prizeData[1] = argument1; //color
-prizeData[2] = argument2 //top message
-prizeData[3] = argument3 //prize description
-prizeData[4] = argument4; //prize noise type (1 = cash, 2 = new unlock, 0 = try again) scr_check_and_save_unlocks_type
-prizeData[5] = argument5;  //prize type
-prizeData[6] = argument6;  //prize value
-prizeData[7] = argument7;  //extra data
-prizeData[8] = argument8;  //long description
-prizeData[9] = argument9;  //sharing enabled
+data[0] = argument0 //sprite
+data[1] = argument1; //color
+data[2] = argument2 //top message
+data[3] = argument3 //prize name
+data[4] = argument4; // noise type (1 = cash, 2 = new unlock, 0 = try again) scr_check_and_save_unlocks_type
+data[5] = argument5;  //prize type
+data[6] = argument6;  //reward data/value
+data[7] = argument7;  //extra data
+data[8] = argument8;  //long description
+data[9] = argument9;  //button array
 
 
-return prizeData;
+return data;
 
 
 /*
-var prizeData = noone;
+var data = noone;
 for (var i = 0, n = argument_count; i < n; i++) {
-    prizeData[i] = argument[i];
+    data[i] = argument[i];
 }
+
+#define scr_slice_data_create
+///scr_slice_data_create(slice_type)
+
+var sliceData = noone;
+    
+switch argument[0] {
+
+// Empty Slice
+case 0: 
+    sliceData[0] = s_v_frown//sprite
+    sliceData[1] = 2//color
+break;
+
+// Cash
+case 1: 
+    sliceData[0] = s_v_cash_circle//sprite
+    sliceData[1] = 3//color
+break;
+
+// Features
+case 2: 
+    sliceData[0] = s_v_options//sprite
+    sliceData[1] = 1//color
+break;
+
+// Themes
+case 3: 
+    sliceData[0] = s_v_themeswitcher//sprite
+    sliceData[1] = 4//color
+break;
+
+// Buff Slice
+case 4: 
+    sliceData[0] = s_v_smile//sprite
+    sliceData[1] = 1//color
+break;
+
+// DeBuff Slice
+case 5: 
+    sliceData[0] = s_v_frown//sprite
+    sliceData[1] = 2//color
+break;
+
+}
+
+// Other Slice Data
+sliceData[2] = argument[0]//slice type
+// Knob Slice Data
+if instance_exists(obj_prize_flapper){
+    sliceData[3] = instance_create(x,y,obj_prize_knob)//slice knob
+    with (sliceData[3]) {
+        prizeWheel = other.id;
+        flapper = other.flapper;
+    }
+}
+
+
+return sliceData;
 
 #define scr_prize_type_process
 ///scr_prize_type_process(slice_type)
@@ -35,18 +94,22 @@ switch argument0 {
 
 // Empty Slice
 case 0: 
+    var prize_buttons = noone;
+    if ADS_REWARD_VIDEO_CACHED {
+        // Create Button Data
+        prize_buttons = scr_prize_button_make(1);
+    }
+    //Make Prize Data
     prizeData = scr_prompt_prize_create_data(s_v_frown_x2,2,
-                    "try again!", "nothing", 0, argument0, 0, 0, "", true);
+                    "try again!", "nothing", 0, argument0, 0, 0, "", prize_buttons);
 
 break;
 
 // Cash
 case 1:
     // Calculate Cash Reward
-    rewardValue = scr_reward_set(1, false);
-    
-    prizeData = scr_prompt_prize_create_data(s_v_cash_circle_x2,3,
-                    "winner!", "+"+CASH_STR+string(0), 1, argument0, rewardValue, 0, "", true);
+    rewardValue = scr_cash_reward_create(1, false);
+    prizeData = scr_prize_cash_create(rewardValue, "winner!", 3);
 
     
 break;
@@ -54,59 +117,147 @@ break;
 
 // Features
 case 2:
-    var prizesRemaining = scr_check_if_prizes_remaining("0,1,2,4");
+    var prizesRemaining = scr_check_if_unlocks_remaining("0,1,2,4", 25);
     var prize_tuple;
     // If Not, Only Draw from Features
     if prizesRemaining {
-        //prize_tuple = scr_prize_select_unlock_range("0,1,2,4", true); 
-            //NB: We can remove the themes when we add perks.
-        prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true); 
-            //EVALUATE ME: It seems people don't like that this gives themes, oh well
-            // We can add the perks here to fill it out I think. 
+        prize_tuple = scr_prize_select_unlock_range("0,1,2,4", true, false); 
+        //prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true, true); 
     }
     //Else Include Skins in Drawing
     else {
-        prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true)//false)
+        prize_tuple = scr_prize_select_unlock_range("0,1,2,3,4", true, false);
     }
     
     
-    var data = prize_tuple[0];
-    var prize_noise = prize_tuple[1] * 2;
-    var prize_name = scr_unlock_get_name_long(data)
-    var prize_text;
-    if prize_tuple[1] {
+    var unlock_data = prize_tuple[0];
+    var prize_is_winner = prize_tuple[1];
+    var prize_name = scr_unlock_get_name_long(unlock_data)
+    var prize_desc = scr_button_explain_get_text_long(unlock_data[0], unlock_data[7])
+    var prize_text, prize_noise, prize_buttons, prize_desc;
+    prize_buttons = noone;
+    
+    
+    // If Winner
+    if prize_is_winner {
         prize_text = "winner!";
-    }else{
+        prize_noise = 2;
+        
+        if TOUCH_ENABLED {
+            // Create Button Data
+            prize_buttons = scr_prize_button_make(0);
+        }
+    }
+    // If Duplicate
+    else{
         prize_text = "try again!";
+        prize_noise = 0;
+        
+        if ADS_REWARD_VIDEO_CACHED {
+            // Create Button Data
+            prize_buttons = scr_prize_button_make(1);
+        }
     }
     
-    //TO DO maybe prize_description = ""
     
+    //Make Prize Data
     prizeData = scr_prompt_prize_create_data(s_v_options_x2,1,
-                    prize_text, prize_name, prize_noise, argument0, data, 0, "", true);
+                    prize_text, prize_name, prize_noise, argument0, unlock_data, 0, prize_desc, prize_buttons);
 break;
 
 // Themes
 case 3: 
 
-    var prize_tuple = scr_prize_select_unlock_range("3", false);
+    var prize_tuple = scr_prize_select_unlock_range("3", false, false);
     
-    var data = prize_tuple[0];
-    var prize_noise = prize_tuple[1] * 2;
-    var prize_name = scr_unlock_get_name_long(data)
-    var prize_text;
-    if prize_tuple[1] {
+    var unlock_data = prize_tuple[0];
+    var prize_is_winner = prize_tuple[1];
+    var prize_name = scr_unlock_get_name_long(unlock_data);
+    var prize_desc = scr_button_explain_get_text_long(unlock_data[0], unlock_data[7])
+    var prize_text, prize_noise, prize_buttons;
+    prize_buttons = noone;
+    // If Winner
+    if prize_is_winner {
         prize_text = "winner!";
-    }else{
-        prize_text = "try again!";
+        prize_noise = 2;
+        
+        if TOUCH_ENABLED {
+            // Create Button Data
+            prize_buttons = scr_prize_button_make(0);
+        }
     }
+    // If Duplicate
+    else{
+        prize_text = "try again!";
+        prize_noise = 0;
+        
+        if ADS_REWARD_VIDEO_CACHED {
+            // Create Button Data
+            prize_buttons = scr_prize_button_make(1);
+        }
+    }
+    
+    
 
+    //Make Prize Data
     prizeData = scr_prompt_prize_create_data(s_v_themeswitcher_x2,4,
-                    prize_text, prize_name, prize_noise, argument0, data, 0, "", true);
+                    prize_text, prize_name, prize_noise, argument0, unlock_data, 0, prize_desc, prize_buttons);
 
     
 break;
 
+// Buffs
+case 4: 
+    
+    // Select Buff (Chance Weighted Function)
+    var mod_data = scr_prize_mod_select(0);
+    var prize_name = string_replace_all(mod_data[6],"#", " ") +" buff";
+    var prize_desc = scr_gamemod_make_prompt_description(mod_data);
+    var prize_text, prize_noise, prize_buttons;
+    prize_buttons = noone;
+    prize_text = "winner!";
+    prize_noise = 2;
+    
+    // If Ads Enabled
+    if ADS_REWARD_VIDEO_CACHED or 1 { //FIX ME
+        // Create Button Data
+        prize_buttons = scr_prize_button_make(2);
+    }
+    
+    //Make Prize Data
+    prizeData = scr_prompt_prize_create_data(s_v_smile_x2,1,prize_text, prize_name, prize_noise, 
+                argument0, mod_data, 0, prize_desc, prize_buttons);
+    
+    
+break;
+
+// Debuffs 
+case 5:
+
+    // Select Buff (Chance Weighted Function)
+    var mod_data = scr_prize_mod_select(1);
+    var prize_name = string_replace_all(mod_data[6],"#", " ") +" debuff";
+    var prize_desc = scr_gamemod_make_prompt_description(mod_data);
+    var prize_text, prize_noise, prize_buttons;
+    prize_buttons = noone;
+    prize_text = "oh no!";
+    prize_noise = 0;
+    
+    // If Ads Enabled
+    if ADS_REWARD_VIDEO_CACHED or 1 { //FIX ME
+        // Create Button Data
+        prize_buttons = scr_prize_button_make(3);
+    }
+    
+    //Make Prize Data
+    prizeData = scr_prompt_prize_create_data(s_v_frown_x2,2,prize_text, prize_name, prize_noise, 
+                argument0, mod_data, 0, prize_desc, prize_buttons);
+
+break;
+
+// Success Prompt Type (used for buff doublers and the like)
+case 6:
+    break;
 
 }
 
@@ -117,32 +268,105 @@ scr_prompt_prize_spawn(prizeData);
 
 
 
+#define scr_prize_mod_select
+///scr_prize_mod_select(type)
+
+var mod_type = argument0;
+var type_len = GAMEMOD_DATA_SIZES[# mod_type, 0];
+
+//Set Weights of Types
+var w = 0, wVals, wResult, wRNG, data;
+for (var w = 0; w < type_len; w++) {
+    // Get Mod Data
+    data = scr_gamemod_get_data_from_index(mod_type, 0, w);
+    // Set Chance       // Set Result
+    wVals[w] = data[4];    wResult[w] = data;
+}
+//draw from hat
+wRNG = random(1.0)
+//scale probability
+wRNG *= array_sum_1d(wVals) 
+for( var w = 0; wRNG > wVals[w]; w++) wRNG -= wVals[w];
+
+//Process Result
+var mod_data = wResult[w];
+// Set Count
+mod_data[@ 8] += 1;
+// Set Time
+if mod_data[@ 9] <= 0 {
+    mod_data[@ 9] = mod_data[3]; 
+}
+// Set Discovered
+if mod_data[11] == 0{
+    mod_data[@ 11] += 1;
+}
+
+// Get Key
+var mod_key = scr_gamemod_get_key(mod_data[0]);
+// Save Mod Data
+ini_open("scores.ini");
+    ini_write_real("GAMEMOD_DATA", mod_key+"-count", mod_data[8]);
+    ini_write_real("GAMEMOD_DATA", mod_key+"-timer", mod_data[9]);
+    ini_write_real("GAMEMOD_DATA", mod_key+"-discovered", mod_data[11]);
+ini_close();
+
+// Return Result
+return mod_data;
+
+#define scr_create_prize_button
+///scr_create_prize_button(button_label, button_sprite, function_id, [sub_type, prompt_text])
+
+
+var _ret, _maxIndex = argument_count-1;
+
+// Set the high argument first, for optimisation
+_ret[_maxIndex] = argument[_maxIndex];
+
+// Add remaining arguments to array
+var i = -1;
+repeat(_maxIndex)
+{
+    ++i;
+    _ret[i] = argument[i];
+}
+
+// Return extended data array
+return _ret;
+
 #define scr_prompt_prize_spawn
 ///scr_prompt_prize_spawn(prizeData)
 
-prizeData = argument0;
+newPrizeData = argument0;
 
 promptID = instance_create(GAME_MID_X,GAME_MID_Y,obj_subprompt_prize)
 with (promptID) {
-    prizeData = other.prizeData;
+    prizeData = other.newPrizeData;
     dataLoaded = true;
     prize_wheel_active = false;
     
+    prizeFanfare = newPrizeData[4];
     
     // Play Try Again Sound
-    if prizeData[4] == 0 {
+    if prizeFanfare == 0 {
         TweenAddCallback(mainTween,TWEEN_EV_FINISH,id, scr_sound,sd_bad_prize, 1, false)
     }
     // Play Cash Prize Sound
-    else if prizeData[4] == 1{
+    else if prizeFanfare == 1{
         //TweenOnFinishAdd(mainTween,id, scr_sound,sd_cash_register, 1, false) //sd_catch_cash
         
         // Cash Prize Confetti
-        scr_calculate_confetti(prizeData[6], id, 0);
+        scr_calculate_confetti(newPrizeData[6], id, 0);
     } 
     // Play New Unlock Sound
-    else if prizeData[4] == 2 {
+    else if prizeFanfare == 2 {
         TweenAddCallback(mainTween,TWEEN_EV_FINISH,id, scr_sound,sd_gameover_unlock, 1, false)
+        
+        // New Unlock Confetti
+        scr_confetti_new_unlock(0);
+    }
+    // Play Great Success Sound 
+    else if prizeFanfare == 3 {
+        TweenAddCallback(mainTween,TWEEN_EV_FINISH,id, scr_sound,sd_great_success, 1, false);
         
         // New Unlock Confetti
         scr_confetti_new_unlock(0);
@@ -154,11 +378,12 @@ return promptID;
      
 
 #define scr_prize_select_unlock_range
-///scr_prize_select_unlock_range(string_of_types, use_queue)
+///scr_prize_select_unlock_range(string_of_types, use_queue, use_duplicates)
 
 
 var types = string_split_real(",",argument0);
 var use_queue = argument1;
+var use_duplicates = argument2;
 
 
 
@@ -218,7 +443,9 @@ var newPrizeChance = max(.10, new_prize_count / total_prize_count)
 
 
 // Select a New Prize
-if new_prize_count > 0 and random(1) < newPrizeChance {
+if new_prize_count > 0 and 
+(!use_duplicates or random(1) < newPrizeChance) 
+{
 
     if use_queue {
         // Select New Prize from PQueue
@@ -316,10 +543,11 @@ for (var i = 0; i < types_len; i++){
 
 return total;
 
-#define scr_check_if_prizes_remaining
-///scr_check_if_prizes_remaining(string_of_types)
+#define scr_check_if_unlocks_remaining
+///scr_check_if_unlocks_remaining(string_of_types, criteria_type)
 
 var types = string_split_real(",",argument0);
+var criteria_type = argument1;
 var stillPrizes = false;
 
 
@@ -331,7 +559,7 @@ for (var i = 0; i < types_len; i++){
     for (var j = 0; j < UNLOCKS_DATA_SIZES[types[i]]; j++ ){
         data = scr_unlock_get_data(types[i],j);
         // If Criteria is Prize Wheel
-        if data[3] == 25 {
+        if data[3] == criteria_type {
             // If Unlocked
             if data[1] <= 0 {
                 stillPrizes = true;
@@ -344,55 +572,6 @@ for (var i = 0; i < types_len; i++){
 
 
 return stillPrizes;
-
-#define scr_slice_data_create
-///scr_slice_data_create(slice_type)
-
-var sliceData = noone;
-    
-switch argument[0] {
-
-// Empty Slice
-case 0: 
-    sliceData[0] = s_v_frown//sprite
-    sliceData[1] = 2//color
-break;
-
-// Cash
-case 1: 
-    sliceData[0] = s_v_cash_circle//sprite
-    sliceData[1] = 3//color
-break;
-
-
-// Features
-case 2: 
-    sliceData[0] = s_v_options//sprite
-    sliceData[1] = 1//color
-break;
-
-// Themes
-case 3: 
-    sliceData[0] = s_v_themeswitcher//sprite
-    sliceData[1] = 4//color
-break;
-
-
-}
-
-// Other Slice Data
-sliceData[2] = argument[0]//slice type
-// Knob Slice Data
-if instance_exists(obj_prize_flapper){
-    sliceData[3] = instance_create(x,y,obj_prize_knob)//slice knob
-    with (sliceData[3]) {
-        prizeWheel = other.id;
-        flapper = other.flapper;
-    }
-}
-
-
-return sliceData;
 
 #define scr_confetti_new_unlock
 ///scr_confetti_new_unlock(tex_page)

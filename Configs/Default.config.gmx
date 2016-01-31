@@ -15,14 +15,14 @@
     <option_android_amazon_gc_whispersync>0</option_android_amazon_gc_whispersync>
     <option_android_amazon_iap>0</option_android_amazon_iap>
     <option_android_apk_expansion>0</option_android_apk_expansion>
-    <option_android_arch_armv5>True</option_android_arch_armv5>
+    <option_android_arch_armv5>False</option_android_arch_armv5>
     <option_android_arch_armv7>True</option_android_arch_armv7>
-    <option_android_arch_mips>True</option_android_arch_mips>
+    <option_android_arch_mips>False</option_android_arch_mips>
     <option_android_arch_mipsr2>false</option_android_arch_mipsr2>
     <option_android_arch_mipsr2sf>false</option_android_arch_mipsr2sf>
-    <option_android_arch_x86>True</option_android_arch_x86>
-    <option_android_build_tools_version>23.0.1</option_android_build_tools_version>
-    <option_android_build_version>98</option_android_build_version>
+    <option_android_arch_x86>False</option_android_arch_x86>
+    <option_android_build_tools_version>23.0.2</option_android_build_tools_version>
+    <option_android_build_version>109</option_android_build_version>
     <option_android_color_depth>0</option_android_color_depth>
     <option_android_compile_sdk_version>23</option_android_compile_sdk_version>
     <option_android_display_name>Starific</option_android_display_name>
@@ -52,7 +52,7 @@
     <option_android_licensing_enable>0</option_android_licensing_enable>
     <option_android_licensing_key>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhd2fRnwlMzsIqhjAbcf/4DWu/1UqfJnXQ4z0dpNaQ1eWHf6RUtO/sauKXdxkw5Hox9pKZPrnbk9P4Mpq+i5s73IzFEZEnxv0rtnwYz3v+rDho6GXYKjYGhHcK6YhgnMNv6VbDgfN+TnmD3ALNJf7KgsxTpV4No0jDL1r+Y8VWJaQ/OuALBCO805sjdejPUHPd/xlb6aO81QjJL/XdMZUjfqOcdSnT2Z3odsuSssYXNYavWqZ7PgO1e9UjKTekANRbxabjo8ckxRoh6vpTTRFmXbw4NLZBv9Asj/mBIRAF4UmWV3IN3wvI0j7Gcyn5sLBwIy7asEwZpE5iRDO+ag1sQIDAQAB</option_android_licensing_key>
     <option_android_major_version>1</option_android_major_version>
-    <option_android_min_sdk_version>11</option_android_min_sdk_version>
+    <option_android_min_sdk_version>14</option_android_min_sdk_version>
     <option_android_minor_version>0</option_android_minor_version>
     <option_android_mmedia_ads>0</option_android_mmedia_ads>
     <option_android_moga>0</option_android_moga>
@@ -77,6 +77,7 @@
     <option_android_set_device_id>044eed631d29c5b7ee8b549493fe3076</option_android_set_device_id>
     <option_android_splash_png>Configs\Default\android\splash.png</option_android_splash_png>
     <option_android_splash_time>0</option_android_splash_time>
+    <option_android_support_lib_version>23.1.1</option_android_support_lib_version>
     <option_android_target_sdk_version>23</option_android_target_sdk_version>
     <option_android_texture_page>2048</option_android_texture_page>
     <option_android_use_test_ads>0</option_android_use_test_ads>
@@ -144,6 +145,7 @@
     <option_androidfire_small_icon_png>Configs\Default\amazonfire\icons\small_icon.png</option_androidfire_small_icon_png>
     <option_androidfire_splash_png>Configs\Default\amazonfire\splash.png</option_androidfire_splash_png>
     <option_androidfire_splash_time>0</option_androidfire_splash_time>
+    <option_androidfire_support_lib_version>23.1.1</option_androidfire_support_lib_version>
     <option_androidfire_target_sdk_version>23</option_androidfire_target_sdk_version>
     <option_androidfire_texture_page>1024</option_androidfire_texture_page>
     <option_androidfire_use_test_ads>false</option_androidfire_use_test_ads>
@@ -204,6 +206,7 @@
     <option_androidtv_set_device_id></option_androidtv_set_device_id>
     <option_androidtv_small_icon_png>Configs\Default\androidtv\icons\small_icon.png</option_androidtv_small_icon_png>
     <option_androidtv_splash_png>Configs\Default\androidtv\splash.png</option_androidtv_splash_png>
+    <option_androidtv_support_lib_version>23.1.1</option_androidtv_support_lib_version>
     <option_androidtv_texture_page>1024</option_androidtv_texture_page>
     <option_androidtv_use_test_ads>false</option_androidtv_use_test_ads>
     <option_argumenterrors>True</option_argumenterrors>
@@ -280,7 +283,7 @@ document.getElementById('gm4html5_div_id').style.textAlign="center";</option_htm
     <option_ios_advertising_key>ca-app-pub-9117517771566987/8403659758|0|ca-app-pub-9117517771566987/9880392953|5|</option_ios_advertising_key>
     <option_ios_advertising_type>Admob</option_ios_advertising_type>
     <option_ios_app_id>com.alexgierczyk.starific</option_ios_app_id>
-    <option_ios_build_version>135</option_ios_build_version>
+    <option_ios_build_version>169</option_ios_build_version>
     <option_ios_certificate>iPhone Developer: Alex Gierczyk (YCN959T5MB)</option_ios_certificate>
     <option_ios_device_type>3</option_ios_device_type>
     <option_ios_display_name>Starific</option_ios_display_name>
@@ -371,6 +374,7 @@ document.getElementById('gm4html5_div_id').style.textAlign="center";</option_htm
     <option_mac_scale>-1</option_mac_scale>
     <option_mac_screenkey>-1</option_mac_screenkey>
     <option_mac_showcursor>0</option_mac_showcursor>
+    <option_mac_signing_identity>Developer ID Application:</option_mac_signing_identity>
     <option_mac_sizeable>0</option_mac_sizeable>
     <option_mac_splash_png>Configs\Default\mac\splash.png</option_mac_splash_png>
     <option_mac_steam_app_id>0</option_mac_steam_app_id>

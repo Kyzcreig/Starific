@@ -6,7 +6,7 @@
 
 
 //Create Gameover Object
-objGameOver = instance_create(x,y, obj_control_gameover)
+objGameOver = instance_create(x,y, obj_control_gameover);
 
 levelUp = false;
 MOVE_ACTIVE = false

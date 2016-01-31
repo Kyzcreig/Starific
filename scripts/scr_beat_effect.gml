@@ -6,41 +6,42 @@ var beatAlpha = argument1;
 
 switch beatType{
     case 'A':
-        with obj_reflector_basic{
+        with obj_reflector_basic {
             scr_create_beater(beatAlpha,obj_beat_FX_thump);
         }
     break;
     case 'B':
-        with obj_reflector_cwise{
+        with obj_reflector_cwise {
             scr_create_beater(beatAlpha,obj_beat_FX_thump);
         }
     break;
     case 'C':
-        with obj_reflector_ccwise{
+        with obj_reflector_ccwise {
             scr_create_beater(beatAlpha,obj_beat_FX_thump);
         }
     break;
     case 'D':
-        with obj_reflector_special_parent{
+        with obj_reflector_special_parent {
             scr_create_beater(beatAlpha,obj_beat_FX_thump);
         }
     break;
     
     case 'E':
-        with obj_reflector_parent_basic{
+        with obj_reflector_parent_basic {
             scr_create_beater(beatAlpha,obj_beat_FX_spin);
         }
-        with obj_reflector_special_parent{
+        with obj_reflector_special_parent {
             scr_create_beater(beatAlpha,obj_beat_FX_spin);
         }
     break;
     case 'Z':
         var_beat_list = "Z";
-        with obj_reflector_basic
-            {var Beat = instance_create(x,y,obj_beat_FX_thump);
-                Beat.sprite_index = sprite_index
-                Beat.image_alpha = 0.5
-                Beat.image_blend = image_blend}
+        with obj_reflector_basic {
+            var Beat = instance_create(x,y,obj_beat_FX_thump);
+            Beat.sprite_index = sprite_index
+            Beat.image_alpha = 0.5
+            Beat.image_blend = image_blend
+        }
     break;
 }
  
@@ -70,11 +71,11 @@ else {
 // Set Params
 with (beat) {
     sprite_index = other.sprite_index;
-    image_alpha = other.argument0;//0.5 //set base alpha
+    image_alpha = argument0;//0.5 //set base alpha
     image_blend = other.image_blend;
     objType = other.objType;
-    image_xscale = other.image_xscale;
-    image_yscale = other.image_yscale;
+    image_xscale = other.oScale;
+    image_yscale = other.oScale;
 
 }
 

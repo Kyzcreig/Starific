@@ -13,26 +13,20 @@ ADS_REWARD_VIDEOS,
 ADS_REWARD_VIDEO_CACHED,
 ADS_INTERSTITIAL_CACHED,
 IAP_ENABLED,
-PREMIUM, 
+//PREMIUM, 
 VC_ENABLED,
 CASH_STR;
 
 
 // Declare Vars
-PREMIUM = -1; //Controls the No-Ads/Deluxe buttons showing up
-    /* value meanings
-            -1: premium not relevant
-             0: premium locked, show offers for deluxe
-             1: premium unlocked
-    
-    */
+PREMIUM = false; //NB: No longer really used
 VC_ENABLED = 1; //Enable Virtual Currency
 CASH_STR = "¢";//"$" //NB: Maybe refactor to VC_SYMBOL
-IAP_ENABLED = 1 //FIX ME //0;
+IAP_ENABLED = 0;
 ADS_FORCED = 0;
 AD_PROVIDERS = ""; 
 ADS_INTERSTITIALS = ""
-ADS_REWARD_VIDEOS = ""; 
+ADS_REWARD_VIDEOS = "";  
 ADS_MORE_APPS = "";
 ADS_BANNERS = ""; 
 ADS_REWARD_VIDEO_CACHED = false;
@@ -49,13 +43,8 @@ if (os_type == os_ios || os_type == os_android)
     }
     
     // Set Ad Parameters
-    if PREMIUM != 1 {
+    if !PREMIUM {
         ADS_FORCED = true;
-        //0 disables ads AND shows "deluxe" button; 
-        //1 shows "no-ads" button; 
-        //2 shows "deluxe" button;
-            //The first weeks of release we'll set this to 0.  
-            //If we get a decent amount of downloads then we'll turn it up.
     } else {
         ADS_FORCED = false;
     }
@@ -65,8 +54,8 @@ if (os_type == os_ios || os_type == os_android)
        e.g. "Admob", "ChartBoost", "HeyZap"
     
     */
-    ADS_INTERSTITIALS = "HeyZap"; //"ChartBoost"; 
-    ADS_REWARD_VIDEOS = "HeyZap"; //"ChartBoost"; 
+    ADS_INTERSTITIALS = "HeyZap"; //"ChartBoost"; //maybe refactor to ADS_STATIC
+    ADS_REWARD_VIDEOS = "HeyZap"; //"ChartBoost"; //maybe refactor to ADS_VIDEO
     ADS_MORE_APPS = "";
     ADS_BANNERS = ""; //supposedly people hate banner ads, true they ruin ambience
     
@@ -74,10 +63,10 @@ if (os_type == os_ios || os_type == os_android)
 
 if IAP_ENABLED != 0 {
     // Create IAPs Controller
-    ScheduleScript(id,true,.2,CreateInstanceIfNone,x,y,obj_control_IAP)
+    ScheduleScript(id, true, .2, CreateInstanceIfNone, x, y,obj_control_IAP);
 }
 
 if AD_PROVIDERS != "" {
     // Create Ads Objects
-    ScheduleScript(id,false,1,ads_init)
+    ScheduleScript(id, false, 1, ads_init);
 }

@@ -110,9 +110,6 @@
         <Config name="AndroidAmazon">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
       </ConfigOptions>
       <ProxyFiles/>
       <functions>
@@ -248,84 +245,6 @@
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
         <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <ProxyFiles/>
-      <functions/>
-      <constants/>
-    </file>
-    <file>
-      <filename>Demo_Project.gmz</filename>
-      <origname>extensions\Demo_Project.gmz</origname>
-      <init></init>
-      <final></final>
-      <kind>4</kind>
-      <uncompress>0</uncompress>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>0</CopyToMask>
-        </Config>
-        <Config name="AndroidGoogleplay">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <ProxyFiles/>
-      <functions/>
-      <constants/>
-    </file>
-    <file>
-      <filename>AlienOdds_Game_Project.gmz</filename>
-      <origname>extensions\AlienOdds_Game_Project.gmz</origname>
-      <init></init>
-      <final></final>
-      <kind>4</kind>
-      <uncompress>0</uncompress>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>0</CopyToMask>
-        </Config>
-        <Config name="AndroidGoogleplay">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <ProxyFiles/>
-      <functions/>
-      <constants/>
-    </file>
-    <file>
-      <filename>TweenGMS_v0_9_65.gmez</filename>
-      <origname>extensions\TweenGMS_Previous_Version.gmez</origname>
-      <init></init>
-      <final></final>
-      <kind>4</kind>
-      <uncompress>0</uncompress>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>0</CopyToMask>
-        </Config>
-        <Config name="AndroidGoogleplay">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="AndroidAmazon">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-        <Config name="iOSTest">
           <CopyToMask>9223372036854775807</CopyToMask>
         </Config>
       </ConfigOptions>

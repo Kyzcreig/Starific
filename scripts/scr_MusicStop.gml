@@ -3,12 +3,15 @@
 // Set Volume to 0
 MusicSoundGain(0);
 // Stop Song
-audio_stop_sound(CURRENT_SONG);
+if audio_exists(CURRENT_SONG) {
+    audio_stop_sound(CURRENT_SONG);
+}
 // Clear Timer
 //CURRENT_SONG_TIME = -1;
 // Clear Song
 CURRENT_SONG = noone;
 //musicPlaying = 0;
+
 
 #define scr_MusicPause
 ///scr_MusicPause(soundid)
@@ -24,6 +27,7 @@ if MUSIC_STATE == 1{
     //Resume Music
     if audio_exists(CURRENT_SONG){
         audio_resume_sound(CURRENT_SONG);
+        //audio_sound_gain(CURRENT_SONG,music_sound[0]*music_sound[1],0);
     }
     MUSIC_ACTIVE = true;
 }

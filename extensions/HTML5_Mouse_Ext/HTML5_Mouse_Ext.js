@@ -117,7 +117,7 @@ function HTML5_mouse_xy_init() {
     document.onmousemove = HTML5_mouse_get_xy;
     window.tempX = 0;
     window.tempY = 0;
-
+    // Grab Mouse XY
     HTML5_mouse_get_xy();
 }
 
@@ -133,6 +133,7 @@ function HTML5_canvas_get_xy(canvas_element) {
             top += canvas_element.offsetTop;
         } while (canvas_element = canvas_element.offsetParent);
     }
+
     return {
         x: left,
         y: top
@@ -179,6 +180,7 @@ function HTML5_mouse_y(relative) {
  * Update Mouse Position
  */
 function HTML5_mouse_get_xy(event_ding) {
+
     if (IE__) {
         tempX = event.clientX + document.body.scrollLeft;
         tempY = event.clientY + document.body.scrollTop;

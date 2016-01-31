@@ -4,7 +4,9 @@ var Length,Dir,Min,Width;
 //Preparing variables
 Length = argument0; //How many previous coordinates will use the trail
 Width = ds_grid_width(GridTrail);
-if !ds_exists(GridTrail,ds_type_grid) GridTrail = ds_grid_create(1,3);
+if !ds_exists(GridTrail,ds_type_grid){
+    GridTrail = ds_grid_create(1,3);
+}
 //Replacing previous coordinates positions within the array
 Min = min(Width,Length);
 if (Min == Width) ds_grid_resize(GridTrail,Width+1,3);

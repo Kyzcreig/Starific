@@ -29,7 +29,7 @@ break;
 
 default:
 
-//TO DO custom leaderboard stuff here
+//TO DO: MAYBE custom leaderboard stuff here
 
 break;
 

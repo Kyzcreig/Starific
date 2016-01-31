@@ -130,73 +130,77 @@ if keyboard_check_released(vk_backspace){
 
 
 //I probably want to draw the info button here too
-var sp_x, sp_y, sp_scale, sp_width, sp_height, sp_hover;
-var n = array_length_1d(sp_buttons);
-var sp_size = 60 //sprite_get_height([0,0]);
-var sp_gap_whole = (GAME_W*11/32)*2  - sp_size;//NB: I don't use line_w so position is fixed and not easing
-var sp_gap = sp_gap_whole / ( max(1,n-1) );
-//var sp_gap = max(sp_size * 1.1, min(sp_gap_whole / (n) * (n-1), sp_gap_whole / (max(1,n-1))))
-//sp_start_x = centerfieldx - (GAME_W*11/32) + sp_size/2;
+var btn_x, btn_y, btn_scale, btn_width, btn_height, btn_hover;
+var n = array_length_1d(btn_items);
+var btn_size = 60 //sprite_get_height([0,0]);
+var btn_gap_whole = (GAME_W*11/32)*2  - btn_size;//NB: I don't use line_w so position is fixed and not easing
+var btn_gap = btn_gap_whole / ( max(1,n-1) );
+//var btn_gap = max(btn_size * 1.1, min(btn_gap_whole / (n) * (n-1), btn_gap_whole / (max(1,n-1))))
+//btn_start_x = centerfieldx - (GAME_W*11/32) + btn_size/2;
 for(var i = 0; i < n;i++)
 {
     //Get Data
-    sp_data = sp_buttons[i];
-    sp_spr = sp_data[0];
+    btn_data = btn_items[i];
+    btn_txt = btn_data[0];
+    btn_spr = btn_data[1];
     
     //Check if Sprite is Volume Array
-    if is_array(sp_spr) {
+    if is_array(btn_spr) {
         //Set Sprite based on Sound Muta Data
-        sound_data = sp_data[2];
-        sp_spr = sp_spr[sound_data[1]];
+        sound_data = btn_data[3];
+        btn_spr = btn_spr[sound_data[1]];
     }
-    //sp_x = sp_start_x + sp_gap * i;
-    sp_x = GAME_MID_X + sp_gap * (i - (n-1)/2) 
-    sp_y = GAME_Y+ .85 * GAME_H;
+    //btn_x = btn_start_x + btn_gap * i;
+    btn_x = GAME_MID_X + btn_gap * (i - (n-1)/2) 
+    btn_y = GAME_Y+ .85 * GAME_H;
     
     // Set Alpha
-    if sp_data[3] == 0 {
+    if btn_data[4] == 0 {
         // Normal
-        sp_alpha = 1; 
+        btn_alpha = 1; 
     } 
-    else if sp_data[3] == 1{
+    else if btn_data[4] == 1{
         // Flashing
-        sp_alpha = lerp(.2,.8, FULL_SECOND_SINE);//FULL_SECOND_LERP); //EVALUATE ME
+        btn_alpha = lerp(.2,.8, FULL_SECOND_SINE);//FULL_SECOND_LERP); //EVALUATE ME
     }
-    else if sp_data[3] < 0 {
+    else if btn_data[3] < 0 {
         // Inactive
-        sp_alpha = .6;
+        btn_alpha = .6;
     }
     // Ease Up Alpha
-    sp_alpha *= p_SlideTween3[0]; 
+    btn_alpha *= p_SlideTween3[0]; 
+    // Set Color
+    btn_col = COLORS[8];
     
 
     
     
-    sp_width = sprite_get_width(sp_spr);
-    sp_height = sprite_get_height(sp_spr);
-    sp_scale = sp_size / sp_height
+    btn_width = sprite_get_width(btn_spr);
+    btn_height = sprite_get_height(btn_spr);
+    btn_scale = btn_size / btn_height;
+    btn_scalar = 1;
     
-    sp_hover = point_in_rectangle(mouse_x,mouse_y,
-                sp_x-sp_width/2*1.25,sp_y-sp_height/2*1.25,
-                sp_x+sp_height/2*1.25,sp_y+sp_height/2*1.25) 
+    btn_hover = point_in_rectangle(mouse_x,mouse_y,
+                btn_x-btn_width/2*1.25,btn_y-btn_height/2*1.25,
+                btn_x+btn_height/2*1.25,btn_y+btn_height/2*1.25) 
     
     //Check if mouse over icon
-    if sp_hover and p_selected[0] == noone 
+    if btn_hover and p_selected[0] == noone 
     and (!touchPad or mouse_check_button(mb_left)) 
     and !TweenExists(p_TweenSlide3)
     {
         //Disable increase scale when hovered/clicked
-        sp_scale *= 1.25;
+        btn_scalar *= 1.25;
         
         
     
         //On Icon Press
         //if mouse_check_button_ released(mb_left)
-        if mouse_check_button_pressed(mb_left) and p_selected[1] == true and sp_data[3] >= 0
+        if mouse_check_button_pressed(mb_left) and p_selected[1] == true and btn_data[4] >= 0
         {
             //Call Switch Code for this menu choice
             p_selected[1] = false
-            ScheduleScript(id,1,.25,scr_delayed_selection,p_selected,sp_data[1])
+            ScheduleScript(id,1,.25,scr_delayed_selection,p_selected,btn_data[2])
             scr_sound(sd_menu_click,1,false);
             //p_selected = i+4;
             //event_user(0);
@@ -205,7 +209,18 @@ for(var i = 0; i < n;i++)
     }
     
     //Draw Sound Icons from Sprite Array
-    draw_sprite_ext(sp_spr, 0,sp_x,sp_y,sp_scale,sp_scale,0,COLORS[8],sp_alpha)                                          
+    draw_sprite_ext(btn_spr, 0,btn_x,btn_y,btn_scale*btn_scalar,
+                    btn_scale*btn_scalar,0,btn_col,btn_alpha);
+    // Draw Button Label
+    draw_set_font(fnt_menu_bn_15_black);
+    draw_set_valign(fa_top);
+    draw_set_halign(fa_center);
+    btn_txt_scale = btn_scalar;
+    btn_txt_x = btn_x;
+    btn_txt_y = btn_y + btn_size / 2 * btn_scalar + 10;
+    draw_text_ext_transformed_colour(btn_txt_x, btn_txt_y, btn_txt, -1, -1, 
+    btn_txt_scale, btn_txt_scale, 0, btn_col, btn_col, btn_col, btn_col, btn_alpha);
+                                             
 }
 
 
@@ -264,7 +279,9 @@ if MUSIC_STATE == 1 {
 ///Create Background Sprite
 
 // Adjust Colors if changed
-if mColorsChanger > 0 scr_change_theme()
+if mColorsChanger > 0 {
+    scr_reset_aesthetics();
+}
 mColorsChanger = 0;
 
 //Delete any old Screenshots

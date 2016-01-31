@@ -9,7 +9,7 @@ var object_type = argument[0];
 
 
 //left side
-for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
+for (cc=ds_list_size(paddle_start_x);cc>0;cc--){ //left bends
     rotAngle = rotML[0]  - 45*(cc)
     
     collision_line_list_combined(xL[cc],yL[cc],xL[cc-1], yL[cc-1], object_type);
@@ -26,7 +26,7 @@ for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
 
     
 //right side
-for (cc=0; cc<ds_list_size(spriteendx);cc++){ //right bends
+for (cc=0; cc<ds_list_size(paddle_end_x);cc++){ //right bends
     rotAngle = rotMR[0] + 45*(cc+1)
     
     collision_line_list_combined(xR[cc],yR[cc],xR[cc+1], yR[cc+1], object_type);
@@ -72,7 +72,7 @@ col_array[obj_count] = noone;
 col_cursor = 0;
 
 // left side
-for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
+for (cc=ds_list_size(paddle_start_x);cc>0;cc--){ //left bends
     rotAngle = rotML[0]  - 45*(cc)
     
     collision_line_array_combined(xL[cc],yL[cc],xL[cc-1], yL[cc-1], object_type);
@@ -89,7 +89,7 @@ for (cc=ds_list_size(spritestartx);cc>0;cc--){ //left bends
 
     
 // right side
-for (cc=0; cc<ds_list_size(spriteendx);cc++){ //right bends
+for (cc=0; cc<ds_list_size(paddle_end_x);cc++){ //right bends
     rotAngle = rotMR[0] + 45*(cc+1)
     
     collision_line_array_combined(xR[cc],yR[cc],xR[cc+1], yR[cc+1], object_type);
@@ -124,7 +124,7 @@ found = collision_line(argument[0], argument[1], argument[2], argument[3],
 while (instance_exists(found)) {
 
     // Set Data Array          (id, rot, line_id) 
-    var vals = scr_create_array(found, argument[8], argument[9]);
+    var vals = Array(found, argument[8], argument[9]);
                                   
     // Add To Collision List
     ds_list_add(argument[7], vals);
@@ -191,7 +191,7 @@ with (argument[4]) {
         //NB: We use 1/4 to display a little more penetration. Especially for the pointy star
         
         // Add Data to Array
-        other.col_array[@ other.col_cursor++] = scr_create_array(id, argument[7], argument[8]);
+        other.col_array[@ other.col_cursor++] = Array(id, argument[7], argument[8]);
         
         // Flag As Not in Play Anymore
         inFieldState = 0;

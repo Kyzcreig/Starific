@@ -117,20 +117,18 @@ image_xscale = oScale;//objectScale
 image_yscale = oScale;//objectScale
 
 
-               
-//Set Symbol
-symSprite = objData[4];
-symDraw = sprite_exists(symSprite);
 
-//Set Symbol Scale Offsets
+//Set Symbol and Colors (and GameMods if active)
+event_perform(ev_other,ev_user1)
+               
+
+//Set Symbol and Scale Offsets
 symScale = cellW/60 //*1.25;
 symScaleStart = 0; // used for easing deflector scale
 symScaleStart = symScale;
 symOffsetX = 0;
 symOffsetY = 0;
 
-//Set colors
-event_perform(ev_other,ev_user1)
 
 /*
 // Set Offsets for Certain Symbols (To make them look better)
@@ -193,7 +191,7 @@ if DENSITY &gt; 0 {
        tweenSpawn = TweenFire(id,reflectorScale__,EaseLinear,
                         TWEEN_MODE_ONCE,1,0,.5, 0,1)
        //TweenDestroyWhenDone(tweenSpawn,true);
-       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_spawn,c_part,1);
+       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_spawn,image_blend,1);
     }
 }
 
@@ -278,23 +276,23 @@ if (MOVE_ACTIVE == true){
 
 if particleDeath{ 
     // How many particles
-    var pDensity = scr_particle_explosion_count(boardClear);
+    var particleCount = scr_particle_explosion_count(boardClear);
     
     //if not basic or bomb, do special effect
     if objType != 0 and 
        objType != 4 and 
        GAME_ACTIVE  //EVALUATE ME (makes effects all the same size)  
     {
-       pDensity = pDensity * 2;//round()
+       particleCount *= 2;//round()
        //part_type_orientation(p_destroy_ring_long,0,359,random_range(-2.5,2.5),0,1); //rangerandom(-2,2);
        part_type_orientation(p_destroy_ring_long,0,359,0,0,1); //rangerandom(-2,2);
-       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_sparkles_long, c_part, pDensity);//1
-       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_ring_long, c_part,1);
+       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_sparkles_long, image_blend, particleCount);//1
+       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_ring_long, image_blend,1);
     }
     //else regular effect
     else{
-       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_sparkles, c_part, pDensity);//1
-       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_ring, c_part,1);
+       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_sparkles, image_blend, particleCount);//1
+       part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_ring, image_blend,1);
     }
     
     //part_particles_create_color(PSYS_FIELD_LAYER, x, y, p_destroy_sparkles, c_part, pDensity);//1
@@ -329,15 +327,9 @@ if  RESOURCE_POOLING {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set colors
+            <string>///Set Aesthetics
 
-//sprite color
-image_blend = power_type_colors(objType, 0);
-//particle color
-c_part = image_blend;
-//symScale = cellW/60 //*1.25;
-symColor = power_type_colors(objType, 1); //11-15 are symbol colors
-
+scr_deflector_set_aesthetics();
 </string>
           </argument>
         </arguments>
@@ -360,7 +352,7 @@ symColor = power_type_colors(objType, 1); //11-15 are symbol colors
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///do this on death for all reflectors
+            <string>///On Star Collision
 //maybe i need to have a variable such that this is only called once
 if (MOVE_ACTIVE){//THIS IS TRUE AS SOON AS A SHOOTER EXISTS
    
@@ -374,7 +366,11 @@ if (MOVE_ACTIVE){//THIS IS TRUE AS SOON AS A SHOOTER EXISTS
     
     //Add points
     var added = 1;//pts
-    if !boardClear {score += added;}
+    if !boardClear {scr_raw_score_add(added);}
+    if scr_gamemod_get_index("ultra_points", 8) &gt; 0 {
+        added *= scr_gamemod_get_index("ultra_points", 10);
+    }
+    // Calculate Points
     added = scr_calculate_points(added);   
     score_p1 += added;
     lastPPD += added;

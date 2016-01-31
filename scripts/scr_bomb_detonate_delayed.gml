@@ -30,30 +30,36 @@ if !MOVE_ACTIVE or gamecell_is_valid(dataXY[0],dataXY[1],0)
 #define scr_particle_explosion_count
 ///scr_particle_explosion_count(type)
 
+var particleCount = 0; //clamp(12 - scr_particle_explosion_queue(true,true),6,12)
+
 switch argument0{
 
 // Board Clear = false
 case 0:
-    return 10;
+    particleCount =  10;
 break;
 
 // Board Clear = true
 case 1:
-    return 6;
+    particleCount =  6;
 break; 
 
 // Extra
 case 2:
-    return 15;
+    particleCount =  15;
 break;
 
 default:
-    return 10;
+    particleCount =  10;
 break;
 }
 
+if scr_gamemod_get_index("long_effects", 8) > 0 {
+    particleCount *= scr_gamemod_get_index("long_effects", 10);
+}
 
-//return clamp(12 - scr_particle_explosion_queue(true,true),6,12)
+return particleCount;
+
 
 #define scr_particle_explosion_number
 ///scr_particle_explosion_number()
@@ -69,7 +75,7 @@ return (scr_particle_explosion_number() /(1+(gridSize-1)*argument0) + scr_death_
 #define scr_bomb_particle_effect
 ///scr_bomb_particle_effect(x,y, boardClear);
 
-var pdensity = scr_particle_explosion_count(argument2)
-part_particles_create_color(PSYS_FIELD_LAYER, argument0, argument1, p_destroy_sparkles, COLORS[4], pdensity);//10
+var particleCount = scr_particle_explosion_count(argument2);
+part_particles_create_color(PSYS_FIELD_LAYER, argument0, argument1, p_destroy_sparkles, COLORS[4], particleCount);//10
 part_particles_create_color(PSYS_FIELD_LAYER, argument0, argument1, p_destroy_ring,  COLORS[4], 1);
         //instance_create(aax*cellW+ox+cellW/2, aay*cellW+oy+cellH/2, obj_explosion_bomb);

@@ -232,7 +232,7 @@ tp_on_button[2] = .5 * room_speed;; //max timer
 
 
 if TOUCH_ENABLED and ((TP_SENSE[1] == 1) or (TP_SENSE[1] == 2)) and 
-   room == rm_game and MODE != MODES.MOVES 
+   room == rm_game and MODE != MODES.MOVES and !GAMEOVER
 {
     // If Not Swiping
     if SWIPE and !SWIPE_BRK {
@@ -240,72 +240,21 @@ if TOUCH_ENABLED and ((TP_SENSE[1] == 1) or (TP_SENSE[1] == 2)) and
         TOUCH_FIXED_PRESSED++;
         
         // If Held Long Enough
-        if (TOUCH_FIXED_PRESSED > 1.5 * room_speed) 
+        if (TOUCH_FIXED_PRESSED > 1.75 * room_speed) 
         {
             // Reset Counter
             TOUCH_FIXED_PRESSED = 0;
-            
-            var AdjustedFixedX = mouse_x + dcos(mouseangle-180) * 10;
-            var AdjustedFixedY = mouse_y + dsin(mouseangle-180) * 10;
-            
-            // Cache the mouse_x/y in Home Global Location
-            TOUCH_FIXED_X = AdjustedFixedX//mouse_x;
-            TOUCH_FIXED_Y = AdjustedFixedY//mouse_y;
-            
-            
-            // Save
-            ini_open("scores.ini");
-                ini_write_real("settings", "TOUCH_FIXED_X", TOUCH_FIXED_X);
-                ini_write_real("settings", "TOUCH_FIXED_Y", TOUCH_FIXED_Y);
-            ini_close();
-    
-            // Break Swipe
-            SWIPE_BRK = true; 
-                //NB: Prevents further star launch and prevents redundant saving.
-            //SWIPE = false;
-            if !GAME_PAUSE {
-                scr_tp_set_fixed_ease()
-                    // NB: Reset Swipe too so TP doesn't run away after being set
-            } else {
-                with(obj_control_pause){
-                    resumeFixedTP = true;
-                }
-            }
-            
-                
-            // Spawn Dialogue Confirmation
-            if !GAME_PAUSE {
-                //txt_font = fnt_game_bn_40_bold;
-                txt_font = fnt_game_bn_26_black;
-            } else {
-                //txt_font = fnt_menu_bn_40_bold;
-                txt_font = fnt_menu_bn_26_black;
-            } 
-            draw_set_font(txt_font)
-            //txt_text = "pad placed!";
-            txt_text = "recenter control pad by#tapping and holding!";
-            if !GAME_PAUSE {
-                txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
-                txt_y = centerfieldy+txt_height;
-            } else {
-                txt_y = GAME_Y + GAME_H*.75 //string_height("H")*1.6 + string_height(txt_text) / 2;
-            } 
-            scr_popup_text_field_static(GAME_MID_X,txt_y ,
-            txt_text,COLORS[0],txt_font, false, 4*room_speed)
-            
-            // Play Placement Sound
-            scr_sound(sd_tp_place);
-            
-            /*  Maybe use an obj_paddle_marker to mark the paddle placement when there's no touchpad indicator
-                e.g. on sandbox mode or pause screen.
-                you can see our notepad notes for more details
-                
-                
-                    //It could just be the touchpad top sprite
-                    //then when paddle exists it can ease out. and self destruct.
-            
-            
-            */
+            // Create Dilemma Buttons
+            var promptButtons = noone;
+            promptButtons[0] = Array(spr_button_basic, "no", 0, 
+                                power_type_color_index(2, 0), power_type_color_index(2, 1),
+                                noone, noone, noone, noone) 
+            promptButtons[1] = Array(spr_button_basic, "yes", 1, 
+                                power_type_color_index(1, 0), power_type_color_index(1, 1),
+                                noone, noone,scr_tp_controls_set,Array(id, mouse_x,mouse_y)) 
+            // Create Dilemma Prompt       
+            var promptText = "Would you like to reposition the control pad? (Reposition at any time by pressing down and holding for 2 seconds.)";
+            ScheduleScript(id, false, 2, scr_prompt_dilemma_create, "confirm", "move controls?",promptText, promptButtons);
         }
     } 
     else {
@@ -313,6 +262,84 @@ if TOUCH_ENABLED and ((TP_SENSE[1] == 1) or (TP_SENSE[1] == 2)) and
         TOUCH_FIXED_PRESSED = 0;
     }
 }
+
+#define scr_tp_controls_set
+///scr_tp_controls_set(params)
+
+var params = argument0;
+var target = params[0];
+
+with (target) {
+    var params = argument0;
+    var new_tp_x = params[1];
+    var new_tp_y = params[2];
+
+    var AdjustedFixedX = new_tp_x + dcos(mouseangle-180) * 10;
+    var AdjustedFixedY = new_tp_y + dsin(mouseangle-180) * 10;
+    
+    // Cache the mouse_x/y in Home Global Location
+    TOUCH_FIXED_X = AdjustedFixedX//mouse_x;
+    TOUCH_FIXED_Y = AdjustedFixedY//mouse_y;
+    
+    
+    // Save
+    ini_open("scores.ini");
+        ini_write_real("settings", "TOUCH_FIXED_X", TOUCH_FIXED_X);
+        ini_write_real("settings", "TOUCH_FIXED_Y", TOUCH_FIXED_Y);
+    ini_close();
+    
+    // Break Swipe
+    SWIPE_BRK = true; 
+        //NB: Prevents further star launch and prevents redundant saving.
+    //SWIPE = false;
+    if !GAME_PAUSE {
+        scr_tp_set_fixed_ease()
+            // NB: Reset Swipe too so TP doesn't run away after being set
+    } else {
+        with(obj_control_pause){
+            resumeFixedTP = true;
+        }
+    }
+    // Play Placement Sound
+    scr_sound(sd_tp_place);
+    
+    /*    
+    // Spawn Dialogue Confirmation
+    if !GAME_PAUSE {
+        //txt_font = fnt_game_bn_40_bold;
+        txt_font = fnt_game_bn_26_black;
+    } else {
+        //txt_font = fnt_menu_bn_40_bold;
+        txt_font = fnt_menu_bn_26_black;
+    } 
+    draw_set_font(txt_font)
+    //txt_text = "pad placed!";
+    txt_text = "recenter control pad by#tapping and holding!";
+    if !GAME_PAUSE {
+        txt_height = string_height("H")*.6 + string_height(txt_text) / 2;
+        txt_y = centerfieldy+txt_height;
+    } else {
+        txt_y = GAME_Y + GAME_H*.75 //string_height("H")*1.6 + string_height(txt_text) / 2;
+    } 
+    scr_popup_text_field_static(GAME_MID_X,txt_y ,
+    txt_text,COLORS[0],txt_font, false, 4*room_speed)
+    */
+    
+    /*  Maybe use an obj_paddle_marker to mark the paddle placement when there's no touchpad indicator
+        e.g. on sandbox mode or pause screen.
+        you can see our notepad notes for more details
+        
+        
+            //It could just be the touchpad top sprite
+            //then when paddle exists it can ease out. and self destruct.
+    
+    
+    */
+}    
+    
+    
+    
+    
 
 #define scr_tp_set_rad
 ///scr_tp_set_rad()
