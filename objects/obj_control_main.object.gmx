@@ -545,6 +545,10 @@ break;
 scr_field_data_dealloc();
 
 
+// Clear Gamemods
+scr_gamemods_dealloc();
+
+
 // Clear Music Stuff`   
 scr_sounds_dealloc();
 </string>
@@ -601,7 +605,8 @@ scr_draw_smoothing(1);
 game_filming = 0; //0
 //Enable Debug
 show_debug_overlay(CONFIG == CONFIG_TYPE.DESKTOP &amp;&amp; !game_filming);
-show_debug_overlay(1); //Override //FIX ME
+//Override Debug
+//show_debug_overlay(1); 
 
      
 globalvar PADDING, STRETCHING;

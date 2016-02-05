@@ -314,7 +314,7 @@ if (argument1)
     }
 }
 
-return (instance_number(argument0));
+return (instance_exists(argument0));
 
 #define TGMS_ClearRoom
 /// TGMS_ClearRoom(room)

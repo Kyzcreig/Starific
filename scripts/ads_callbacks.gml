@@ -41,23 +41,30 @@ switch type {
 // Caching Ads
 case "heyzap_ad_loaded":
     if value {
+        ADS_INTERSTITIAL_CACHED = true;
+        /*
         if HeyZap_InterstitialStatus() {
             ADS_INTERSTITIAL_CACHED = true;
         }
+        */
     } 
     break;
 case "heyzap_video_loaded":
     if value {
+        ADS_REWARD_VIDEO_CACHED = true;
+        /*
         if HeyZap_VideoStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
-        }
+        }*/
     }
     break;
 case "heyzap_reward_loaded":
     if value {
+        ADS_REWARD_VIDEO_CACHED = true;
+        /*
         if HeyZap_RewardStatus() {
             ADS_REWARD_VIDEO_CACHED = true;
-        }
+        }*/
     }
     break;
 case "heyzap_banner_loaded": 
@@ -79,6 +86,14 @@ case "heyzap_ad_clicked":
     break;
 
 case "heyzap_ad_hidden":
+    // Clear Freeze Prompt    
+    with(obj_prompt_blank){
+        instance_destroy();
+        show_debug_message("YOYO: Blank prompt destroyed");
+        //scr_prompt_exit(0.001);
+    }
+    
+    // Give Ad Reward
     if value and ads_interstitial_state > 0 {
         // Set Reward Weight
         switch ads_interstitial_state {
@@ -100,13 +115,6 @@ case "heyzap_ad_hidden":
                     
         show_debug_message("YOYO: Interstitial Reward Scalar: "+string(ads_reward_scalar));
     }
-    
-    // Clear Freeze Prompt    
-    with(obj_prompt_blank){
-        instance_destroy();
-        show_debug_message("YOYO: Blank prompt destroyed");
-        //scr_prompt_exit(0.001);
-    }
     break;
     
     
@@ -126,6 +134,14 @@ case "heyzap_reward_clicked":
     break;
 case "heyzap_video_hidden":
 case "heyzap_reward_hidden":
+    // Clear Freeze Prompt    
+    with(obj_prompt_blank){
+        instance_destroy();
+        show_debug_message("YOYO: Blank prompt destroyed");
+        //scr_prompt_exit(0.001);
+    }
+    
+    // Give Ad Reward
     if value and ads_reward_video_state > 0 {
         // Set Reward Weight
         switch ads_reward_video_state {
@@ -144,13 +160,6 @@ case "heyzap_reward_hidden":
                     16, other.ads_reward_scalar, true);
                         
         show_debug_message("YOYO: Video Reward Scalar: "+string(ads_reward_scalar));
-    }
-
-    // Clear Freeze Prompt    
-    with(obj_prompt_blank){
-        instance_destroy();
-        show_debug_message("YOYO: Blank prompt destroyed");
-        //scr_prompt_exit(0.001);
     }
     
     break;

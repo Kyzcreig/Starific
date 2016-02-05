@@ -210,8 +210,8 @@
     <option_androidtv_texture_page>1024</option_androidtv_texture_page>
     <option_androidtv_use_test_ads>false</option_androidtv_use_test_ads>
     <option_argumenterrors>True</option_argumenterrors>
-    <option_audioGroup1_targets>9223372036854775807</option_audioGroup1_targets>
-    <option_audioGroup2_targets>32</option_audioGroup2_targets>
+    <option_audioGroup1_targets>1048672</option_audioGroup1_targets>
+    <option_audioGroup2_targets>9223372036854775807</option_audioGroup2_targets>
     <option_audioGroupCount>3</option_audioGroupCount>
     <option_author></option_author>
     <option_backimage>nil</option_backimage>
@@ -283,7 +283,7 @@ document.getElementById('gm4html5_div_id').style.textAlign="center";</option_htm
     <option_ios_advertising_key>ca-app-pub-9117517771566987/8403659758|0|ca-app-pub-9117517771566987/9880392953|5|</option_ios_advertising_key>
     <option_ios_advertising_type>Admob</option_ios_advertising_type>
     <option_ios_app_id>com.alexgierczyk.starific</option_ios_app_id>
-    <option_ios_build_version>169</option_ios_build_version>
+    <option_ios_build_version>172</option_ios_build_version>
     <option_ios_certificate>iPhone Developer: Alex Gierczyk (YCN959T5MB)</option_ios_certificate>
     <option_ios_device_type>3</option_ios_device_type>
     <option_ios_display_name>Starific</option_ios_display_name>

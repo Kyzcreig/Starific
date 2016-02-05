@@ -43,7 +43,8 @@ ini_open("scores.ini")
     MODE = 0;
     GRID = 0; 
     RIGOR = 0;
-    STAR_CASH = ini_read_real("misc", "STAR_CASH", 100); //start users off with 100;
+    STAR_CASH = ini_read_real("misc", "STAR_CASH", 50); //100 
+                //NB: start users off with 50, their first gift makes it 100;
     TUTORIAL_ENABLED = 0;//ini_read_real("misc", "TUTORIAL_ENABLED", 0);
     QUICK_PAGE_CONTROLLER = noone; //used in quick settings room switcher
     

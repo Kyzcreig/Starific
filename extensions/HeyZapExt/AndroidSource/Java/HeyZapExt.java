@@ -44,6 +44,7 @@ import android.view.Gravity;
 
 import ${YYAndroidPackageName}.R;
 import com.yoyogames.runner.RunnerJNILib;
+//import android.support.multidex.MultiDexApplication;
 
 
 public class HeyZapExt extends Activity {

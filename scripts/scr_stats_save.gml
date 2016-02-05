@@ -318,7 +318,7 @@ with (obj_control_gameover) {
     // Add Share and Get Buttons
     sh_greatGame = scr_great_game_check();
     // Delay For New Players
-    sh_veteran = scr_veteran_playtime_status(); // (gamesPlayedTotal > 4) 
+    sh_veteran = scr_veteran_playtime_status(lastPlaytime); // (gamesPlayedTotal > 4) 
     // Share Stat
     sh_doShare = (sh_veteran and sh_greatGame) or SHARE_ALWAYS_OVERRIDE;
     // If Non-Mobile Version
@@ -445,7 +445,7 @@ with (obj_control_gameover) {
          // Else add dialogue "$#/100 to go for prize" text
          else if random(1) > .5 or ds_list_size(go_dialogue_txt) < 3{
             // Add To Go Prize Text on Gameover
-             scr_gameover_add_dialogue( 3);
+             scr_gameover_add_dialogue(3);
          }
          
          

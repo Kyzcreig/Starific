@@ -59,7 +59,6 @@ MANAGED_SOUND_CAPS = ds_map_create();
 //Init sfx list and add each of the above sound effects.
 //*new sound effects must be added here also.
 audio_group_load(AG_SFX);
-
 sfx_list = ds_list_create()
 
 scr_add_sound_management_and_sfx_list(sd_collide_basic,5*capfactor) 
@@ -102,10 +101,7 @@ scr_add_sound_management_and_sfx_list(sd_coin_bag,1*capfactor)
 scr_add_sound_management_and_sfx_list(sd_great_success,1*capfactor)
 
                          
-//Initialize music list
-//these need not be added to the above lists.
-//Looping and shuffling is handled automatically
-//music_list = ds_list_create() 
+//Initialize music data
 MUSIC_STATE = 0;
 MUSIC_SCHEDULE = noone
 MUSIC_TWEEN = noone;
@@ -124,7 +120,7 @@ CURRENT_SONG_STREAM = noone;
 
 if CONFIG == CONFIG_TYPE.HTML {
     // Load Music Data
-    audio_group_load(AG_MusicHTML);
+    audio_group_load(AG_Music_HTML);
     scr_music_data_init(true); 
              
     // Add Available Music to Music Index List
@@ -179,7 +175,7 @@ else if MUSIC_STATE == 1
         
         // Case HTML
         if (CONFIG == CONFIG_TYPE.HTML and 
-            audio_group_is_loaded(AG_MusicHTML))
+            audio_group_is_loaded(AG_Music_HTML))
         {
             
             // Get Next Song Data
@@ -194,7 +190,7 @@ else if MUSIC_STATE == 1
         
         }
         // Case Other
-        else {
+        else if CONFIG != CONFIG_TYPE.HTML {
             // Check if Next Song is Available
             if !scr_music_file_exists(NEXT_SONG_INDEX) {
                 // If Not, Select Next Song From Available Indexes

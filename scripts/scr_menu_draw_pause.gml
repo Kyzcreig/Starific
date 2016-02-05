@@ -9,7 +9,6 @@ scr_draw_background_screenshot(p_FadeBackTween[0]);
 scr_draw_background_mask(p_FadeTween[0], 0)
 
 
-
 // Draw Resume Countdown Timer
 if resumeCD[0] > 0 {
     draw_set_font(fnt_menu_bn_60_bold);
@@ -163,7 +162,7 @@ for(var i = 0; i < n;i++)
         // Flashing
         btn_alpha = lerp(.2,.8, FULL_SECOND_SINE);//FULL_SECOND_LERP); //EVALUATE ME
     }
-    else if btn_data[3] < 0 {
+    else if btn_data[4] < 0 {
         // Inactive
         btn_alpha = .6;
     }

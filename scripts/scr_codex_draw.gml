@@ -98,7 +98,7 @@ for (var i = 0, n = array_length_1d(mainArray); i < n; i++){
                 item_txt = item_data[6];
             }
             //Get Lock Status
-            item_discovered = item_data[11]; 
+            item_discovered = item_data[11];  
                     //NB: 0 == locked, 1 == new, 2 == seen
             
             // If Never Discovered

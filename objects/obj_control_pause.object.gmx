@@ -103,35 +103,35 @@ sfx_spr[1] = s_v_volume_on;
 
 var i = -1;
 //Music First Button
-btn_items[++i] = Array("music#mute", music_spr, 4, music_sound, 0) //button sprite, userevent, extra data
+btn_items[++i] = Array("music#mute", music_spr, 4, music_sound, 0) //label, button sprite, userevent, status
 
 if touchPad 
 { 
 
     /*
     if ADS_FORCED != 0 { //DISABLED
-        btn_items[++i] = Array(s_v_noads, 6, 0, 0) //button sprite, userevent, extra data
+        btn_items[++i] = Array(s_v_noads, 6, 0, 0) //label, button sprite, userevent, status
     }
     */
 }
 // If Non-Mobile Version
 if touchPad == 0{
     // show "get app" button
-    btn_items[++i] = Array("mobile#app", s_v_app, 7, 0, 0) //button sprite, userevent, extra data
+    btn_items[++i] = Array("mobile#app", s_v_app, 7, 0, 0) //label, button sprite, userevent, status
 }
 
 // Add Quest Cancel Button
 if QUEST_DATA[0] != -1{
-    btn_items[++i] = Array("quest#cancel", s_v_cancel, 9, 0, 0) //button sprite, userevent, extra data
+    btn_items[++i] = Array("quest#cancel", s_v_cancel, 9, 0, 0) //label, button sprite, userevent, status
 }
 //Everyplay Button 
 if EVERYPLAY_ENABLED {
     var is_flashing = everyplay_is_recording();
-    btn_items[++i] = Array("video#record", spr_ep_prompt, 10, 0, is_flashing); //button sprite, userevent, extra data
+    btn_items[++i] = Array("video#record", spr_ep_prompt, 10, 0, is_flashing); //label, button sprite, userevent, status
 }
 
 //SFX Last Button
-btn_items[++i] = Array("sfx#mute",sfx_spr, 5, sfx_sound, 0) //button sprite, userevent
+btn_items[++i] = Array("sfx#mute",sfx_spr, 5, sfx_sound, 0) //label, button sprite, userevent, status
 
    
 

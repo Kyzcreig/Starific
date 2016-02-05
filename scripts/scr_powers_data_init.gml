@@ -126,7 +126,11 @@ scr_new_power(POWER_multidensity,ds_list_create(), 0, obj_powerup_multidensity, 
 #define scr_powers_controller_init
 ///scr_powers_controller_init()
 
+// Set Decrement
+powerDecrement = scr_powers_set_decrement();
+     
 
+// Set Base Duration
 defaultPowerDuration =  (15 + 3 * GRID) * 60//25*room_speed
     //NB: Powers last longer on bigger grid sizes, I find this works better.
 var mAdj = 1;
@@ -169,16 +173,14 @@ POWER_multidensity[@ 2] = defaultPowerDuration * .6; //we probably don't want th
 //30 total
 
 
-// Unit to Decrement Time
-powerDecrement = RMSPD_DELTA;
+// Misc Stuff
 railCoverageWithOutTappers = 0;
-
 paddleScale = false;
 
 modifyDur = 0;
 
 powers_len = array_length_1d(POWER_ARRAY);
-gamemods_len = scr_gamemod_count(false);
+gamemods_len = ds_list_size(GAMEMOD_ACTIVE_LIST);
 
 
 
@@ -199,7 +201,7 @@ mainEase[0] = 0;
 mainTween = noone;
 
 
-
+/// Tapper Stuff
 touchPadTap = false;
 touchPadTapEase[0] = 1;
 touchPadTapTween = noone;
@@ -212,18 +214,7 @@ touchPadTapTween = noone;
     by default it can be = to RMSPD_DELTA, since we're now using a 60fps timer
 
 
-*/
-// Reset Power Duration Step Decrement
-powerDecrement = RMSPD_DELTA;
-if scr_gamemod_get_index("half_duration", 8) > 0 {
-    // Scale Duration Decrement By Game Mod
-    powerDecrement /= scr_gamemod_get_index("half_duration", 10);
-}
-if scr_gamemod_get_index("double_duration", 8) > 0 {
-    // Scale Duration Decrement By Game Mod
-    powerDecrement /= scr_gamemod_get_index("double_duration", 10);
-}
-        
+*/   
 
 
 //Detect Overloaded Rail Coverage
@@ -243,7 +234,7 @@ else {
    railOverload = false;
 }
 // Paddle Coverage Achievement
-if railCoverage >= 1 and MOVE_ACTIVE {
+if railCoverage >= 1 and MOVE_ACTIVE and FULL_SECOND_INTERVAL{
      // Set Achievement
      scr_unlock_set_status(5,0,2,false); //NB: Avoid I/O in steps
 }
@@ -1714,7 +1705,7 @@ for (var i = ds_list_size(powerTimer) - 1; i >= 0;i--){
     if mouse_check_button_pressed(mb_left){
         // Decrement Random Amount 
         //var decrementSize = irandom_range(5,20); 
-        powerTimer[| i] = powerTimer[| i] - powerMaxDur * random_range(.05,.15);//decrementSize;
+        powerTimer[| i] = powerTimer[| i] - powerMaxDur * random_range(.02,.10);//decrementSize;
         touchPadTap = true; 
         
         // Spawn Extra Deflectors
@@ -1774,7 +1765,7 @@ if !GAMEOVER and mainEase[0] != 0//MOVE_ACTIVE
     icon_height = 60;
     icon_row_h = 100;
     powers_count = scr_sum_powers();
-    mods_count = scr_gamemod_count(true);
+    mods_count = scr_gamemod_count();
     timers_count =  powers_count + mods_count;
     timers_row_size = min(7, timers_count);
     timers_alpha = mainEase[0];
@@ -1805,7 +1796,7 @@ if !GAMEOVER and mainEase[0] != 0//MOVE_ACTIVE
         draw_set_valign(fa_middle)
         draw_set_halign(fa_center)
         
-        /// Draw Powers
+        // Draw Powers
         for (var i = 0; i < powers_len; i++)
         {
     
@@ -1859,61 +1850,46 @@ if !GAMEOVER and mainEase[0] != 0//MOVE_ACTIVE
         }
         
         /// Draw Gamemods
-        var types = Array(0,1,2)
-        var sub_types = Array(0);
-        var types_len, sub_types_len, index_len;
-        var mod_data, mod_key;
-        
-        types_len = array_length_1d(types);
-        sub_types_len = array_length_1d(sub_types);
-        // For Each Type
-        for (var i = 0; i < types_len; i++){
-            // For Each SubType
-            for (var j = 0; j < sub_types_len; j++ ){
-                index_len = GAMEMOD_DATA_SIZES[# types[i], sub_types[j]];
-                // For Each Index
-                for (var k = 0; k < index_len; k++ ){
-                    CurrentMod = scr_gamemod_get_data(types[i], sub_types[j], k);
-                    CurrentModCount = CurrentMod[8];
-                    // Active Count
-                    if CurrentModCount > 0 {
-                    
-                        //Get MetaData
-                        CurrentModTimer = CurrentMod[9];
-                        CurrentModTimerMaxDur = CurrentMod[3];
-                        CurrentModType = CurrentMod[1]; // shift right by 1
-                        CurrentModSprite = CurrentMod[5];
-                        CurrentModText = CurrentMod[6];
-                        
-                        //Set Val
-                        timer_fill = clamp(CurrentModTimer/CurrentModTimerMaxDur,0,1);
-                        //Set Coordinates
-                        iconx1 = timers_start_adj_x + (index mod timers_row_size) * icon_width //+ cd_jiggle[i,1];
-                        icony1 = timers_start_adj_y + (index div timers_row_size) * icon_row_h //+ cd_jiggle[i,2];
-                        iconx2 = iconx1 + icon_width;
-                        icony2 = icony1 + icon_height;
-                        
-                        //Set Colors
-                        //icon_col = power_type_colors(-1,CurrentModType+9);  //power_type_colors(CurrentModType,0);
-                        //sym_color = power_type_colors(-1, 6)//power_type_colors(CurrentModType,1);
-                        
-                        icon_col = power_type_colors(CurrentModType+1, 0);  //power_type_colors(CurrentModType,0);
-                        sym_color = power_type_colors(CurrentModType+1, 1)//power_type_colors(CurrentModType,1);
-                        
-                        //Draw Power Icon (Octagon)
-                        draw_rectangle_cd_barfill_icon_sprite(iconx1, icony1, iconx2, icony2, timer_fill,
-                        CurrentModCount,CurrentModSprite, icon_col, sym_color, timers_alpha, s_v_deflector_rounder_60)// s_v_game_mod_60)
+        for (var i = 0; i < gamemods_len; i++){
+            CurrentMod = GAMEMOD_ACTIVE_LIST[| i];
+            CurrentModCount = CurrentMod[8];
+            // Active Count
+            if CurrentModCount > 0 {
+            
+                //Get MetaData
+                CurrentModTimer = CurrentMod[9];
+                CurrentModTimerMaxDur = CurrentMod[3];
+                CurrentModType = CurrentMod[1]; // shift right by 1
+                CurrentModSprite = CurrentMod[5];
+                CurrentModText = CurrentMod[6];
                 
-                        //Draw Description Text
-                        draw_set_font(fnt_game_bn_12_bold)
-                        draw_text_colour((iconx1+iconx2)/2,icony2+16,CurrentModText,
-                        COLORS[0],COLORS[0],COLORS[0],COLORS[0],timers_alpha)
-                     
-                        // Increment Index
-                        index++
-                    
-                    }
-                } 
+                //Set Val
+                timer_fill = clamp(CurrentModTimer/CurrentModTimerMaxDur,0,1);
+                //Set Coordinates
+                iconx1 = timers_start_adj_x + (index mod timers_row_size) * icon_width //+ cd_jiggle[i,1];
+                icony1 = timers_start_adj_y + (index div timers_row_size) * icon_row_h //+ cd_jiggle[i,2];
+                iconx2 = iconx1 + icon_width;
+                icony2 = icony1 + icon_height;
+                
+                //Set Colors
+                //icon_col = power_type_colors(-1,CurrentModType+9);  //power_type_colors(CurrentModType,0);
+                //sym_color = power_type_colors(-1, 6)//power_type_colors(CurrentModType,1);
+                
+                icon_col = power_type_colors(CurrentModType+1, 0);  //power_type_colors(CurrentModType,0);
+                sym_color = power_type_colors(CurrentModType+1, 1)//power_type_colors(CurrentModType,1);
+                
+                //Draw Power Icon (Octagon)
+                draw_rectangle_cd_barfill_icon_sprite(iconx1, icony1, iconx2, icony2, timer_fill,
+                CurrentModCount,CurrentModSprite, icon_col, sym_color, timers_alpha, s_v_deflector_rounder_60)// s_v_game_mod_60)
+        
+                //Draw Description Text
+                draw_set_font(fnt_game_bn_12_bold)
+                draw_text_colour((iconx1+iconx2)/2,icony2+16,CurrentModText,
+                COLORS[0],COLORS[0],COLORS[0],COLORS[0],timers_alpha)
+             
+                // Increment Index
+                index++
+            
             }
         }
         
@@ -1986,3 +1962,20 @@ if !GAMEOVER and mainEase[0] != 0//MOVE_ACTIVE
         }
     }
 }
+
+#define scr_powers_set_decrement
+///scr_powers_set_decrement()
+
+
+// Set Decrement
+powerDecrement = RMSPD_DELTA;
+if scr_gamemod_get_index("half_duration", 8) > 0 {
+    // Scale Duration Decrement By Game Mod
+    powerDecrement /= scr_gamemod_get_index("half_duration", 10);
+}
+if scr_gamemod_get_index("double_duration", 8) > 0 {
+    // Scale Duration Decrement By Game Mod
+    powerDecrement /= scr_gamemod_get_index("double_duration", 10);
+}
+
+return powerDecrement;

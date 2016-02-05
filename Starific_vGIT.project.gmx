@@ -766,6 +766,7 @@
         </scripts>
         <script>scripts\scr_modular_delta.gml</script>
         <script>scripts\scr_text_get_mask.gml</script>
+        <script>scripts\scr_gui_intro_quest_text.gml</script>
       </scripts>
       <scripts name="Stats">
         <script>scripts\scr_stats_save.gml</script>
@@ -1340,8 +1341,8 @@
   </help>
   <audiogroups name="audiogroups">
     <audiogroup name="audiogroup_default"/>
+    <audiogroup name="AG_Music_HTML"/>
     <audiogroup name="AG_SFX"/>
-    <audiogroup name="AG_MusicHTML"/>
   </audiogroups>
   <TutorialState>
     <IsTutorial>0</IsTutorial>

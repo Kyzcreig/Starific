@@ -986,19 +986,6 @@ instance_destroy();
             <string>///Draw Falling Powerup Symbol
 
 
-/*
-// Mysery Power Mod
-if scr_gamemod_get_index("mystery_powers", 8) &gt; 0 {
-    // Auto Update Colors, so theme switching looks good midgame
-    image_blend = COLORS[3];
-    symColor =  power_type_colors(3,1);
-} else {
-    // Auto Update Colors, so theme switching looks good midgame
-    image_blend = COLORS[objType];
-    symColor =  power_type_colors(objType,1);
-} 
-*/
-
 // Draw Self
 if sprite_exists(sprite_index) {
     //draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, 1);

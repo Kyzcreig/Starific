@@ -2,7 +2,7 @@
 ///scr_gameover_buttons_add_adverts(use_rng)
 
 var useRNG = argument0;
-var advertRNG = !useRNG or random(1) < .80; 
+var advertRNG = !useRNG or random(1) < .75; 
                         
 // Add Video Reward
 var pageNotCrowded = (ds_list_size(go_sp_buttons) < 4);
@@ -19,7 +19,7 @@ if ADS_REWARD_VIDEOS != "" and //if videos enabled
    //but I can a/b test this via analytics events
 { // Add Video Reward Button to Gameover
     //show_message("ADS_REWARD_VIDEO_CACHED="+string(ADS_REWARD_VIDEO_CACHED));
-    if ADS_REWARD_VIDEO_CACHED // or 1
+    if ads_video_is_cached() // or 1
     { 
         if scr_go_is_button(16) == -1{ // if button not in list
             scr_gameover_add_button(16);
@@ -49,9 +49,9 @@ var pageNotCrowded = (ds_list_size(go_sp_buttons) < 5);
     !rate_prompt[0]
 {
     var alternateGames = gamesPlayed mod 2 == 0; // every other game
-    var minimumPlaytime = lastPlayTime > 60 * 60 * .5; // 30 seconds of play
-    var forcedRNG = random(1) < .5; 
-    if (alternateGames and (minimumPlaytime or forcedRNG))
+    var minPlaytimeForAd = lastPlaytime >= 60 * 60 * .5; // 30 seconds of play
+    var forcedRNG = random(1) < .5;  //( 1 - clamp(lastPlaytime / minPlaytimeForAd, 0, 1)); 
+    if (alternateGames and (forcedRNG or minPlaytimeForAd))
     {
                     //NB: Evaluate our much more aggressive advertising on android first
         // Flag To Show Interstitial Ad

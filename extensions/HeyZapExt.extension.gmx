@@ -18,7 +18,9 @@
   <macsourcedir></macsourcedir>
   <maclinkerflags>-ObjC</maclinkerflags>
   <maccompilerflags></maccompilerflags>
-  <androidinject>&lt;!-- AdColony --&gt;
+  <androidinject>
+
+&lt;!-- AdColony --&gt;
 &lt;activity android:name="com.jirbo.adcolony.AdColonyOverlay"
 android:configChanges="keyboardHidden|orientation|screenSize"
 android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" /&gt;

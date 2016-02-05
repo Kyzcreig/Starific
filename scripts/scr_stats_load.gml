@@ -142,6 +142,8 @@ ini_open("scores.ini")
     //show_message(string(date_current_datetime()))
     //show_message(string(date_create_datetime(1991, 3, 20, 7, 40, 2)))
         //It seems datetimes are stored as reals.
+    // Initialize Quest Text 
+    quest_text_cache = "";
     
     // Grab datetimes of next quest and gift
     var questNextTime = ini_read_real("misc", "QUEST_NEXT_TIME", 0);

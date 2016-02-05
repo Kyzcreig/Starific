@@ -99,7 +99,8 @@ else{
 
 }
 
-if LEADERBOARDS == 1{
+if LEADERBOARDS == 1 and CONFIG != CONFIG_TYPE.HTML { 
+            //NB: SOMEDAY MAYBE hmtml leaderboards will work
     menu_button[++i,(++j)mod k] = s_v_leaderboards;  //button sprite
     menu_button[i,(++j)mod k] = 9; //button user_event index
     menu_button[i,(++j)mod k] = 0; //button indicator value

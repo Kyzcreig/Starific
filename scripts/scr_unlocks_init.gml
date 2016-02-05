@@ -69,7 +69,7 @@ var theme_prize_index = 0;
 while ( i < SKIN_COUNT-1 ) {
     altTheme = (theme_index mod size_of_pattern) == 0;
         //NB: Every "size_of_pattern" do an alternate criteria theme
-    if altTheme { //DISABLED
+    if altTheme and false{ //DISABLED (because it's too easy to level up with the x2 levels gamemod
         criteria_type = alternate_critiera;
         criteria_quantity = 12 + (theme_index div size_of_pattern) * criteria_interval; 
             //NB: Start at criteria_quantity = 12, add "criteria_interval" each "size_of_pattern"

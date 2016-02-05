@@ -5,11 +5,13 @@
 globalvar 
 GAMEMOD_DATA, 
 GAMEMOD_DATA_SIZES, 
-GAMEMOD_DATA_KEYS;
+GAMEMOD_DATA_KEYS,
+GAMEMOD_ACTIVE_LIST;
 
 GAMEMOD_DATA = ds_map_create();
 GAMEMOD_DATA_KEYS = ds_map_create(); //layer of abstraction in case we ever refactor mod names
 GAMEMOD_DATA_SIZES = ds_grid_create(3,2); //counts for each type, subtype
+GAMEMOD_ACTIVE_LIST = ds_list_create(); //holds all the active enabled gamemods for iteration
 ds_grid_clear(GAMEMOD_DATA_SIZES,0);
 /* Types:
         0 = upper
@@ -107,105 +109,49 @@ ini_open("scores.ini");
 
 ini_close();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #define scr_gamemod_step_decrement
 ///scr_gamemod_step_decrement()
 
-var types = Array(0,1,2)
-var sub_types = Array(0);
-var enabled_only = true;
-var types_len, sub_types_len, index_len;
+var mod_list_size = ds_list_size(GAMEMOD_ACTIVE_LIST);
 var mod_data, mod_key;
 
-types_len = array_length_1d(types);
-sub_types_len = array_length_1d(sub_types);
-// For Each Type
-for (var i = 0; i < types_len; i++){
-    // For Each SubType
-    for (var j = 0; j < sub_types_len; j++ ){
-        index_len = GAMEMOD_DATA_SIZES[# types[i], sub_types[j]];
-        // For Each Index
-        for (var k = 0; k < index_len; k++ ){
-            mod_data = scr_gamemod_get_data(types[i], sub_types[j], k);
-            // If Enabled_Only Flagged but Not Enabled
-            if enabled_only and mod_data[12] == false{
-                // Continue
-                continue
+// For Each Mod
+for (var i = 0; i < mod_list_size; i++){
+    mod_data = GAMEMOD_ACTIVE_LIST[| i];
+    // If Active Count
+    if mod_data[8] > 0 {
+        // Decrement Duration
+        mod_data[@ 9] -= 1*RMSPD_DELTA 
+        
+        // If Time Expires
+        if mod_data[9] <= 0 {
+            // Decrement Count
+            mod_data[@ 8] -= 1;
+            // If Count Remaining
+            if mod_data[8] > 0 {
+                // Reset Timer to Max Dur
+                mod_data[@ 9] = mod_data[3];
+            } 
+            // Else Count Expires
+            else {  
+                // Process Mod Expiration
+                scr_gamemod_expire(mod_data[0]);
             }
-            // If Active Count
-            else if mod_data[8] > 0 {
-                // Decrement
-                mod_data[@ 9] -= 1*RMSPD_DELTA 
-                
-                // If time runs out
-                if mod_data[9] <= 0 {
-                    // Decrement Count
-                    mod_data[@ 8] -= 1;
-                    // If Count Remaining
-                    if mod_data[8] > 0 {
-                        // Reset Timer to Max Dur
-                        mod_data[@ 9] = mod_data[3];
-                    } 
-                    // Else Process Deactivation of Gamemod 
-                    else {
-                        // Look Up Mod Name
-                        switch mod_data[0] {
-                            case "extra_coins": 
-                                // Reset Coin Spawn Percentage
-                                scr_spawner_chance_init("deflector_types");                                
-                                break;
-                        
-                            case "extra_bombs": 
-                                // Reset Bomb Spawn Percentage
-                                scr_spawner_chance_init("deflector_types"); 
-                                scr_spawner_chance_init("special_types");   
-                                                             
-                                break;
-                            case "extra_powers": 
-                                // Reset Power Spawn Percentage
-                                scr_spawner_chance_init("deflector_types");
-                                scr_spawner_chance_init("special_types");                                
-                                break;
-                            case "downer_exile": 
-                                scr_spawner_chance_init("special_types"); 
-                                scr_spawner_chance_init("duration");                                 
-                                break;
-                            case "upper_exile": 
-                                scr_spawner_chance_init("special_types");  
-                                scr_spawner_chance_init("duration");                                
-                                break;
-                        
-                            case "extra_density":
-                                // Rescale Field Density
-                                fieldDensity /= scr_gamemod_get_index("extra_density", 10);
-                                break;
-                                
-                            case "long_effects":
-                                // Reset Long Effects
-                                with (obj_control_game){
-                                    scr_part_types_set();
-                                    scr_part_systems_set_depth();                    
-                                    scr_part_types_adjust_for_game();
-                                }
-                                with (obj_star) {
-                                    scr_part_star_set(particleStarTrail);
-                                }
-                                break;
-                                
-                            case "mystery_powers":
-                                // Reset Aesthetics
-                                scr_reset_aesthetics();
-                                break;
-                                
-                            case "hidden_icons":
-                                // Reset Aesthetics
-                                scr_reset_aesthetics();
-                                break;
-                        }
-                    
-                    }
-                }
-            }
-        } 
+        }
     }
 }
 
@@ -213,8 +159,90 @@ for (var i = 0; i < types_len; i++){
 
 
 
+#define scr_gamemod_expire
+///scr_gamemod_expire(mod_name)
 
 
+var mod_name = argument0;
 
+// Look Up Mod Name
+switch  mod_name {
+    case "extra_coins": 
+        // Reset Coin Spawn Percentage
+        scr_spawner_chance_init("deflector_types");                                
+        break;
 
+    case "extra_bombs": 
+        // Reset Bomb Spawn Percentage
+        scr_spawner_chance_init("deflector_types"); 
+        scr_spawner_chance_init("special_types");   
+                                     
+        break;
+    case "extra_powers": 
+        // Reset Power Spawn Percentage
+        scr_spawner_chance_init("deflector_types");
+        scr_spawner_chance_init("special_types");                                
+        break;
+    case "downer_exile": 
+        scr_spawner_chance_init("special_types"); 
+        scr_spawner_chance_init("duration");                                 
+        break;
+    case "upper_exile": 
+        scr_spawner_chance_init("special_types");  
+        scr_spawner_chance_init("duration");                                
+        break;
+
+    case "extra_density":
+        // Rescale Field Density
+        fieldDensity /= scr_gamemod_get_index("extra_density", 10);
+        break;
+        
+        
+    case "twinkle_effects":
+        // Reset Twinkle Stuff
+        TWINKLE_ENABLED = false;
+        TWINKLE_ALPHA = 1;
+        scr_part_type_set_twinkle();
+        break;
+        
+    case "long_effects":
+        // Reset Long Effects
+        with (obj_control_game){
+            scr_part_types_set();
+            scr_part_systems_set_depth();                    
+            scr_part_types_adjust_for_game();
+        }
+        with (obj_star) {
+            scr_part_star_set(particleStarTrail);
+        }
+        break;
+        
+    case "mystery_powers":
+        // Reset Aesthetics
+        scr_reset_aesthetics();
+        break;
+        
+    case "hidden_icons":
+        // Reset Aesthetics
+        scr_reset_aesthetics();
+        break;
+        
+    case "half_duration":
+        // Rescale Power Decrement
+        scr_powers_set_decrement();
+        break;
+        
+    case "double_duration":
+        // Rescale Power Decrement
+        scr_powers_set_decrement();
+        break;
+}
+
+#define scr_gamemods_dealloc
+///scr_gamemods_dealloc()
+
+ds_map_destroy(GAMEMOD_DATA);
+ds_map_destroy(GAMEMOD_DATA_KEYS);
+ds_grid_destroy(GAMEMOD_DATA_SIZES);
+ds_list_destroy(GAMEMOD_ACTIVE_LIST);
 

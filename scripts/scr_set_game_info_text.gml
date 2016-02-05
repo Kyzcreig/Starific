@@ -27,11 +27,15 @@ np_text = "";
 np_vel = 1 * RMSPD_DELTA;
 np_w = 0;
 
-if MUSIC_STATE == 1 {
+if MUSIC_STATE == 1 and audio_exists(CURRENT_SONG){
     draw_set_font(fnt_menu_calibri_24_bold);
     // Get Music Data
     var _md = MUSIC_DATA[CURRENT_SONG_INDEX];
     np_text = "Now Playing:    "+_md[1];
+    if CONFIG == CONFIG_TYPE.HTML {
+    } else {
+        np_text = "Now Playing:    "+_md[1];
+    }
     np_w = string_width(np_text);
 
 }
@@ -63,7 +67,7 @@ for (var i = 0, n = array_length_1d(btn_items); i < n; i++){
     var data = btn_items[i];
     
     //check if ID matches criteria
-    if data[1] == argument0 {
+    if data[2] == argument0 {
         return i;
     }
 
@@ -81,18 +85,18 @@ var button_index = scr_pause_button_find_index(argument0);
 var button_data = btn_items[button_index];
 
 // update Status
-button_data[@ 3] = argument1;
+button_data[@ 4] = argument1;
 
 #define scr_pause_resume_countdown
 ///scr_pause_resume_countdown(set_countdown)
 
 // Set Resume Countdown Timer
 if argument_count > 0 {
-    resumeCD[0] = argument[0]+1;  //+1 because we decrement anyway
+    resumeCD[@ 0] = argument[0] + 1;  //+1 because we decrement anyway
 }
 
 // Decrement Resume Countdown
-resumeCD[0]--;
+resumeCD[@ 0] -= 1;
 // Set Text Scale
 resumeCD_scale[0] = 1;
 
@@ -114,6 +118,7 @@ else {
     //Play Special Final Beep
     scr_sound(sd_resume_final_beep);
 }    
+
 #define scr_set_everyplay_button_status
 ///scr_set_everyplay_button_status()
 

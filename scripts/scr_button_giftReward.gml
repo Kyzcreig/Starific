@@ -63,6 +63,24 @@ var vals, z;
 
 // Set Viable Times
 z = -1;
+vals[++z] = 2.5;
+vals[++z] = 5;
+vals[++z] = 7.5;
+vals[++z] = 10;
+vals[++z] = 12.5;
+vals[++z] = 15;
+vals[++z] = 17.5;
+vals[++z] = 20;
+vals[++z] = 25;
+vals[++z] = 30;
+vals[++z] = 35;
+vals[++z] = 40;
+vals[++z] = 45;
+vals[++z] = 50;
+vals[++z] = 55;
+vals[++z] = 60;
+/*
+
 vals[++z] = 1;
 vals[++z] = 2;
 vals[++z] = 3;
@@ -89,7 +107,6 @@ vals[++z] = 90;
 vals[++z] = 100;
 vals[++z] = 110;
 vals[++z] = 120;
-/*
 vals[++z] = 150;
 vals[++z] = 180;
 vals[++z] = 210;
@@ -103,13 +120,13 @@ if giftCount <= z {
     minutesUntilNextGift = vals[giftCount-1]
 }
 else  {
-    minutesUntilNextGift = 2*60; //default 2 hours //6
+    minutesUntilNextGift = 60;//2*60 //default time
 
 }
 
 //return minutesUntilNextGift
 
-return minutesUntilNextGift*2 //scale up to 4 hours between gifts.
+return minutesUntilNextGift //scale up to 4 hours between gifts.
 /*
 minutesUntilNextGift = 360; 
 */

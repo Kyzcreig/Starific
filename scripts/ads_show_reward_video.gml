@@ -196,3 +196,9 @@ if string_pos(ads_provider, AD_PROVIDERS) != 0 {
     }
 }
 */
+#define ads_video_is_cached
+///ads_video_is_cached()
+
+return ADS_REWARD_VIDEO_CACHED or 
+       HeyZap_RewardStatus() or 
+       HeyZap_VideoStatus();

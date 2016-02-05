@@ -46,6 +46,11 @@ new_gamemod[++z] = mod_enabled; //  in codex/enabled //12
 //Add to Deflector Map
 ds_map_add(GAMEMOD_DATA, key, new_gamemod);
 
+// Add to Active Mod List
+if mod_enabled {
+    ds_list_add(GAMEMOD_ACTIVE_LIST, new_gamemod);
+}
+
 
 #define scr_gamemod_make_key
 ///scr_gamemod_make_key(type, subtype, index)
@@ -125,37 +130,19 @@ for (var i = 0; i < types_len; i++){
 
 
 #define scr_gamemod_count
-///scr_gamemod_count(active_only)
+///scr_gamemod_count()
 
 
-var types = Array(0,1,2)
-var sub_types = Array(0);
-var enabled_only = true;
-var active_only = argument0;
-var types_len, sub_types_len, index_len;
-var mod_data, mod_key;
+var mod_list_size = ds_list_size(GAMEMOD_ACTIVE_LIST);
 var total_count = 0;
+var mod_data, mod_key;
 
-types_len = array_length_1d(types);
-sub_types_len = array_length_1d(sub_types);
-// For Each Type
-for (var i = 0; i < types_len; i++){
-    // For Each SubType
-    for (var j = 0; j < sub_types_len; j++ ){
-        index_len = GAMEMOD_DATA_SIZES[# types[i], sub_types[j]];
-        // For Each Index
-        for (var k = 0; k < index_len; k++ ){
-            mod_data = scr_gamemod_get_data(types[i], sub_types[j], k);
-            // If Enabled_Only Flagged but Not Enabled
-            if enabled_only and mod_data[12] == false{
-                // Continue
-                continue
-            }
-            // If Active Count
-            else if !active_only or  mod_data[8] > 0 {
-                total_count++;
-            }
-        } 
+// For Each Mod
+for (var i = 0; i < mod_list_size; i++){
+    mod_data = GAMEMOD_ACTIVE_LIST[| i];
+    // If Active Count +1
+    if  mod_data[8] > 0 {
+        total_count++;
     }
 }
 

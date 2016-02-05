@@ -84,6 +84,6 @@ if prizeTextIndex != -1{
 return STAR_CASH >= PRIZE_WHEEL_COST;
 
 #define scr_veteran_playtime_status
-///scr_veteran_playtime_status()
+///scr_veteran_playtime_status(lastPlaytime)
 
-return careerPlaytimeTotal > 60 * 60 * 1.5 and gamesPlayedTotal > 3//2.5;
+return careerPlaytimeTotal+argument0 > 60 * 60 * 1.0 //and gamesPlayedTotal > 3//2.5;

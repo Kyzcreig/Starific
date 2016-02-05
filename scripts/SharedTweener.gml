@@ -184,7 +184,7 @@ if (isEnabled)
                 var _t = _delayedTweens[| ++_tIndex]; // Get next tween from delayed tweens list
     
                 // IF tween instance exists AND delay is NOT destroyed
-                if (_t[TWEEN.STATE] == TWEEN_STATE.DELAYED && instance_number(_t[TWEEN.TARGET]))
+                if (_t[TWEEN.STATE] == TWEEN_STATE.DELAYED && instance_exists(_t[TWEEN.TARGET]))
                 { 
                     // Decrement delay timer
                     _t[@ TWEEN.DELAY] -= abs(_t[TWEEN.TIME_SCALE]) * _systemTimeScales[_t[TWEEN.DELTA]];
@@ -218,7 +218,7 @@ if (isEnabled)
                 var _t = _tweens[| ++_tIndex]; // Get tween and increment index
                 
                 // Process tween if target/state exists/active
-                if (instance_number(_t[TWEEN.STATE]))
+                if (instance_exists(_t[TWEEN.STATE]))
                 {
                     // Get updated tween time -- DELTA boolean selects between step/delta time scales
                     var _time = _t[TWEEN.TIME] + _t[TWEEN.TIME_SCALE] * _systemTimeScales[_t[TWEEN.DELTA]];

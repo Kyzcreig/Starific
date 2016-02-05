@@ -49,14 +49,21 @@ switch beatType{
 #define scr_create_beater
 ///scr_create_beater(alpha, object_index)
 
-var beat;
+// Destroy Previous Beater
+if instance_exists(instance_beater) {
+    with (instance_beater) {
+        scr_beater_destroy()
+    }
+}
 
-// Spawn Beater
+//var beat;
+
+// Create New Beater
 if RESOURCE_POOLING {
     // Pool Spawn
     if ds_queue_size(global.BEATER_POOL) > 0 {
-        beat = ds_queue_dequeue(global.BEATER_POOL);
-        with (beat) {
+        instance_beater = ds_queue_dequeue(global.BEATER_POOL);
+        with (instance_beater) {
             x = other.x;
             y = other.y;
             instance_change(argument1,true);
@@ -65,11 +72,11 @@ if RESOURCE_POOLING {
 }
 else {
     // Normal Spawn 
-    beat = instance_create(x,y,argument1);
+    instance_beater = instance_create(x,y,argument1);
 }
 
-// Set Params
-with (beat) {
+// Set Beater Params
+with (instance_beater) {
     sprite_index = other.sprite_index;
     image_alpha = argument0;//0.5 //set base alpha
     image_blend = other.image_blend;
@@ -79,7 +86,7 @@ with (beat) {
 
 }
 
-return beat;
+return instance_beater;
 
 #define scr_beater_destroy
 ///scr_beater_destroy()

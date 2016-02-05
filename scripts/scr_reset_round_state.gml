@@ -35,13 +35,16 @@ with (obj_powerup_falling){instance_destroy()}
 EXPECTED_MINIMUM_PLAYTIME = 60 * 60 * 1.00; //EVALUATE ME
     ///NB: We can always make this bigger.
 
-var performance_metric, lastPlaytime_metric, careerPlaytime_metric;
+var performance_metric, lastPlaytime_metric, careerPlaytime_metric, gamesPlayedTotal_metric;
 
-// Get Perfomance Metrics
-lastPlaytime_metric = averageLastFewPlaytimes / EXPECTED_MINIMUM_PLAYTIME;
-careerPlaytime_metric = clamp(careerPlaytimeTotal / (60 * 60 * 5), 0, 1) 
-                            //NB: Cut off after career playtime >= 5 minutes
+// Get User Perfomance Metrics
+lastPlaytime_metric = clamp(averageLastFewPlaytimes / EXPECTED_MINIMUM_PLAYTIME, 0, 1);
+    //NB: Recent Performance 
+careerPlaytime_metric = clamp(careerPlaytimeTotal / (60 * 60 * 5), 0, 1);
+    //NB: Career Playtime //NB: Cut off after career playtime >= 5 minutes
+gamesPlayedTotal_metric = clamp( gamesPlayedTotal / 25, 0, 1);
+    //NB: Number of games played
 // Average Metrics
-performance_metric = mean(lastPlaytime_metric, careerPlaytime_metric);
+performance_metric = mean(lastPlaytime_metric, careerPlaytime_metric, gamesPlayedTotal_metric);
 
 return performance_metric;

@@ -252,7 +252,7 @@ case 0:
 
 case 1:
     // If Ads Enabled
-    if ADS_REWARD_VIDEO_CACHED { 
+    if ads_video_is_cached() { 
         prize_buttons[++i] = Array("redo spin#for free", spr_button_basic_double, 1, 0, "redo this spin?");
     }
     if IAP_ENABLED or STAR_CASH >= 50 {
@@ -263,7 +263,7 @@ case 1:
 case 2:
     
     // If Ads Enabled
-    if ADS_REWARD_VIDEO_CACHED { 
+    if ads_video_is_cached() { 
         prize_buttons[++i] = Array("double it#for free", spr_button_basic_double, 1, 1, "double this buff?");
     }
     if IAP_ENABLED or STAR_CASH >= 50 {
@@ -274,7 +274,7 @@ case 2:
 case 3:
     
     // If Ads Enabled
-    if ADS_REWARD_VIDEO_CACHED { 
+    if ads_video_is_cached() { 
         prize_buttons[++i] = Array("remove#for free", spr_button_basic_double, 1, 2, "remove this debuff?");
     }
     if IAP_ENABLED or STAR_CASH >= 50 {

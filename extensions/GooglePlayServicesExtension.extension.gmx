@@ -21,7 +21,9 @@
   <androidinject>&lt;meta-data android:name="com.google.android.gms.version"  android:value="7571000"  tools:replace="android:value" /&gt;
 
 
-&lt;activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /&gt;</androidinject>
+&lt;activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+android:theme="@android:style/Theme.Translucent" /&gt;
+</androidinject>
   <gradleinject></gradleinject>
   <iosSystemFrameworks>
     <Framework weak="0">AdSupport.framework</Framework>

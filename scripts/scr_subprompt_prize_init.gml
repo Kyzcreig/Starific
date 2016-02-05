@@ -296,7 +296,7 @@ with (params[0]) {
     var watch_video = params[3];
 
     // Show Reward Video
-    if ADS_REWARD_VIDEO_CACHED and watch_video {
+    if ads_video_is_cached() and watch_video {
         ads_show_reward_video(false);
     }
     

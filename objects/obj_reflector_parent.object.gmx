@@ -62,6 +62,8 @@ bomb_odir = odir;
 scr_reflector_init_star_modifiers();
 
 
+// Beater Instance
+instance_beater = noone;
 
 //Board Clear 
 boardClear = false;

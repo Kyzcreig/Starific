@@ -462,7 +462,7 @@ PADDLE_H = scr_paddle_calc_height(cellSize) ;
 var padCoverage, performance_metric;
 padCoverage = .42 - RIGOR * .04;
 performance_metric = scr_calculate_performance_metric();
-padCoverage += .10 * (1 - performance_metric);
+padCoverage += .075 * (1 - performance_metric);//.10
 
 PADDLE_SCALE = padCoverage * RAIL_LENGTH / PADDLE_W;//2.75;
             //NB: We could also increase the pace speed is added on !touch builds...
@@ -642,7 +642,7 @@ scr_tp_controls_init();
 */
 
 // Enable Auto Everyplay Record
-if EVERYPLAY_AUTO {
+if EVERYPLAY_ENABLED and EVERYPLAY_AUTO {
     //scr_everyplay_stop_recording();
     everyplay_start_recording();
 }
@@ -698,8 +698,9 @@ for (var i = 0, s = 0; i &lt; SKIN_COUNT; i++){
 scr_share_screen_reset();
 
 //Twinkle Mod Stuff
-globalvar TWINKLE_ALPHA, TWINKLE_PARAMS;
+globalvar TWINKLE_ALPHA, TWINKLE_PARAMS, TWINKLE_ENABLED;
 TWINKLE_ALPHA = 1;
+TWINKLE_ENABLED = scr_gamemod_get_index("twinkle_effects", 8) &gt; 0;
 TWINKLE_PARAMS = scr_gamemod_get_index("twinkle_effects", 10);
 
 //Beat Stuff
@@ -1247,8 +1248,9 @@ if GAME_ACTIVE  and !TUTORIAL_ENABLED {
             }
         }
     }
-    else if !MOVE_ACTIVE and MOVE_READY and moves_time_active{
-       roundPlaytime += RMSPD_DELTA //in Moves mode the between activity time counts as playtime, because it is.
+    else if !MOVE_ACTIVE and MOVE_READY and moves_time_active {
+       //NB: in Moves mode the between activity time counts as playtime, because it is.
+       roundPlaytime += RMSPD_DELTA 
        lastPlaytime += RMSPD_DELTA
        
        //Move Time decrement
@@ -2056,12 +2058,8 @@ if !GAME_PAUSE{
 
 
 // Twinkle Mod
-if MOVE_ACTIVE and scr_gamemod_get_index("twinkle_effects", 8) &gt; 0  {
+if MOVE_ACTIVE and TWINKLE_ENABLED  {
     TWINKLE_ALPHA = lerp(TWINKLE_PARAMS[0], TWINKLE_PARAMS[1], FULL_SECOND_SINE); //FULL_SECOND_LERP
-    // Twinkle Stars, Powers
-    scr_part_type_set_twinkle();
-} else if TWINKLE_ALPHA != 1{
-    TWINKLE_ALPHA = 1; 
     // Twinkle Stars, Powers
     scr_part_type_set_twinkle();
 }
@@ -2150,15 +2148,20 @@ if !GAMEOVER{
            or keyboard_check_released(vk_backspace)
            or (touchPad == 1 and os_is_paused()) 
         {
+              // Pause Game Toggle
               GAME_PAUSE = true
+              // Clear IO
               SWIPE = false; // disable other clicks
               mouse_clear(mb_left);
               keyboard_clear(ord('P'));
               keyboard_clear(vk_backspace);
+              // Create Pause Object
               objPause = instance_create(0, 0, obj_control_pause);
               with(objPause){
                 scr_sound(sd_menu_click,1,false);
               }
+              // Schedule Quest Text Reset
+              ScheduleScript(id, false, 5, scr_gui_intro_quest_text);
         }
         pause_color = merge_color(COLORS[0],COLORS[6],.5);
         pause_scale = 1.2;
@@ -2724,24 +2727,8 @@ if !GAMEOVER {
             // Ease In Intro Text
             TweenFire(id, introTextEase, EaseLinear, 
                 TWEEN_MODE_ONCE, true, 0, .25, introTextEase[0], 1);
-                
-            // Set Quest Text    
-            if QUEST_DATA[3] &gt; 0 and QUEST_DATA[2] &lt; QUEST_DATA[1] {
-                quest_text_cache = "Quest: " + scr_quest_text(0, scr_quest_progress());
-                //New Quest?
-                if QUEST_DATA[3] == 1 
-                {
-                    quest_text_cache = "New " + quest_text_cache;
-                    // If First Quest and First Display
-                    if QUEST_DATA[4] &lt; 1 and QUEST_DATA[3] == 1
-                    {
-                        //Mention that they can be cancelled
-                        quest_text_cache += "##" + "Quests can be cancelled from the pause menu.";
-                    }
-                }
-            } else {
-                quest_text_cache = "";
-            }
+            // Set Quest Text
+            scr_gui_intro_quest_text();    
         }
         else if (MOVE_ACTIVE or TUTORIAL_STARTED[0]) and 
             introTextEase[0] &gt; 0 and !TweenExists(introTextTween) {
